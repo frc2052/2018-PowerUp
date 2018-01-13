@@ -1,8 +1,13 @@
 package frc.team2052.powerup;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
+
+    Boolean Hi = true;
+    Double Name = 9.0;
+
     @Override
     public void robotInit() { }
 
@@ -13,7 +18,9 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() { }
 
     @Override
-    public void teleopInit() { }
+    public void teleopInit() {
+
+    }
 
     @Override
     public void testInit() { }
@@ -26,7 +33,12 @@ public class Robot extends IterativeRobot {
     public void autonomousPeriodic() { }
 
     @Override
-    public void teleopPeriodic() { }
+    public void teleopPeriodic() {
+        SmartDashboard.putBoolean("Hi",Hi);
+        SmartDashboard.putNumber("Name",Name);
+        SmartDashboard.
+
+    }
 
     @Override
     public void testPeriodic() { }
