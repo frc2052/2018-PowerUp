@@ -1,8 +1,11 @@
 plugins {
     id "java"
-    id "eclipse"
     id "idea"
     id "jaci.openrio.gradle.GradleRIO" version "2018.01.11"
+}
+
+repositories {
+    maven { url 'https://jitpack.io' }
 }
 
 def TEAM = 2052
@@ -30,6 +33,7 @@ dependencies {
     compile ctre()
     compile navx()
     compile openrio.powerup.matchData()
+    compile 'com.team2052:KnightLib:1.0.0'
 }
 
 // Setting up my Jar File. In this case, adding all libraries into the main jar ('fat jar')

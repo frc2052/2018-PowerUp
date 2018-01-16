@@ -30,13 +30,14 @@ public class Robot extends IterativeRobot {
     public void disabledPeriodic() { }
     
     @Override
-    public void autonomousPeriodic() { }
+    public void autonomousPeriodic() {
+
+    }
 
     @Override
     public void teleopPeriodic() {
         SmartDashboard.putBoolean("Hi",Hi);
         SmartDashboard.putNumber("Name",Name);
-        SmartDashboard.
 
     }
 
