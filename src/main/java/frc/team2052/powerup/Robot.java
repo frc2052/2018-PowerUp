@@ -1,7 +1,6 @@
 package frc.team2052.powerup;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
 
@@ -35,11 +34,7 @@ public class Robot extends IterativeRobot {
     }
 
     @Override
-    public void teleopPeriodic() {
-        SmartDashboard.putBoolean("Hi",Hi);
-        SmartDashboard.putNumber("Name",Name);
-
-    }
+    public void teleopPeriodic() {}
 
     @Override
     public void testPeriodic() { }
