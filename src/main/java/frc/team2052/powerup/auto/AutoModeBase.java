@@ -1,6 +1,5 @@
 package frc.team2052.powerup.auto;
 
-import com.first.team2052.steamworks.auto.actions.Action;
 import edu.wpi.first.wpilibj.Timer;
 import frc.team2052.powerup.auto.actions.SeriesAction;
 
