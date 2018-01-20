@@ -21,9 +21,11 @@ public class Autoline extends AutoMode{
         List<Path.Waypoint> forwardPath = new ArrayList();
         forwardPath.add(new Path.Waypoint(new Translation2d(0, 0), 80));
         forwardPath.add(new Path.Waypoint(new Translation2d(120, 0), 80));
+        //drive past autoline either in left or right start position
 
         runAction(new SeriesAction(Arrays.asList(
                 new FollowPathAction(new Path(forwardPath), false))
+                //pathing past autoline
         ));
     }
 }

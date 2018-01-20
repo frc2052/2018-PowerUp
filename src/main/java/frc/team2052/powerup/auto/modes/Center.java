@@ -11,25 +11,24 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class RStartOnlyScale extends AutoMode {
+/**
+ * Created by Lancelot on 1/19/2018.
+ */
+public class Center extends AutoMode {
     @Override
     protected void init() throws AutoModeEndedException {
 
-
-
-
-
         //todo: add radomness checker
-        if() { //if right scale is ours
+        if() { //if left switch is ours
             runAction(new SeriesAction(Arrays.asList(
-                    new FollowPathAction(new Path(AutoPaths.RRScale), false))
-                    //pathing to right scale
+                    new FollowPathAction(new Path(AutoPaths.CLSwitch), false))
+            //pathing to left switch
             ));
         }
-        else {
+        else { //if right switch is ours
             runAction(new SeriesAction(Arrays.asList(
-                    new FollowPathAction(new Path(AutoPaths.RLScale), false))
-                    //pathing to left scale
+                    new FollowPathAction(new Path(AutoPaths.CRSwitch), false))
+            //pathing to right switch
             ));
         }
     }
