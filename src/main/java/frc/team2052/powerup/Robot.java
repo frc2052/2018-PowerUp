@@ -5,7 +5,7 @@ import frc.team2052.powerup.subsystems.Controls;
 import frc.team2052.powerup.subsystems.Intake;
 
 public class Robot extends IterativeRobot {
-    Intake in = Intake.getInstance();
+    Intake intake = Intake.getInstance();
     Controls ctrl = Controls.getInstance();
 
     @Override
