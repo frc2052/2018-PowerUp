@@ -1,11 +1,12 @@
 package frc.team2052.powerup;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import frc.team2052.powerup.subsystems.Controls;
+import frc.team2052.powerup.subsystems.Intake;
 
 public class Robot extends IterativeRobot {
-
-    Boolean Hi = true;
-    Double Name = 9.0;
+    Intake in = Intake.getInstance();
+    Controls ctrl = Controls.getInstance();
 
     @Override
     public void robotInit() { }
