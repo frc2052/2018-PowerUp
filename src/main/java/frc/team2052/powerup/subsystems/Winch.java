@@ -7,31 +7,22 @@ import frc.team2052.powerup.Constants;
 public class Winch {
 
     private static Winch instance = new Winch();
-    private TalonSRX climbing_motor = new TalonSRX(Constants.climbingMotorId);
+    private TalonSRX climbing_motor = new TalonSRX(Constants.climbingMotorId);//Recognizing the motor and calling it climbing motor
 
     public static Winch getInstance() {
         return instance;
-    }
+    } //When another class has winch.getinstance it returns an instance of this class.
 
-    /*
-     * climb method. sets motor output to climbSpeed (set in Constants).
-     */
     public void climb() {
-        climbing_motor.set(ControlMode.PercentOutput, Constants.climbSpeed);
+        climbing_motor.set(ControlMode.PercentOutput, Constants.climbSpeed); //sets percent output to climbSpeed
     }
 
-    /*
-     * stop method. sets motor output to 0.
-     */
     public void stop() {
-        climbing_motor.set(ControlMode.PercentOutput, 0);
+        climbing_motor.set(ControlMode.PercentOutput, 0); //sets percent output to 0, stopping the robot.
     }
 
-    /*
-     * checks if motor is spinning.
-     */
     public boolean isClimbing() {
-        return (climbing_motor.getMotorOutputPercent() != 0);
+        return (climbing_motor.getMotorOutputPercent() != 0); //Is motor spinning? T/F
     }
 
 }
