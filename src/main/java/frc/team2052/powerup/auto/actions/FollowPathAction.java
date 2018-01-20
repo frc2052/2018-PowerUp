@@ -1,8 +1,8 @@
 package frc.team2052.powerup.auto.actions;
 
 import com.first.team2052.lib.path.Path;
-import com.first.team2052.steamworks.subsystems.drive.DriveSignal;
-import com.first.team2052.steamworks.subsystems.drive.DriveTrain;
+import frc.team2052.powerup.subsystems.drive.DriveSignal;
+import frc.team2052.powerup.subsystems.drive.DriveTrain;
 
 /**
  * Created by Adam on 3/15/2017.
