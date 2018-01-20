@@ -13,29 +13,30 @@ public class Elevator {
 
 
   */
-    private TalonSRX elevatorTalon = new TalonSRX();//todo: add constant
+/*
+    private TalonSRX elevatorTalon = new TalonSRX(1);//todo: add constant
     public static final int ELEVATOR_SPEED = 1;
-    public double height = (/*todo: get gear diameter*Math.PI*/ / /*todo: get gear ratio*/ );
+    public double height = (1 //todo: get gear diameter*Math.PI / 1 todo: get gear ratio );
 
 
     //SINGLETON
     private static Elevator instance = new Elevator();
-    //Constructor
+    Constructor
     private Elevator() {//todo: FIGURE OUT HOW TO CREATE NEW TALONS}
 
     //todo:SINGTON
     public int getHeightInches(); {
         return height;
-//        return elevatormotr.encoder position *
+       // return elevatormotr.encoder position *
     }
     }
 
-    public void setHeight(int heightInches){
+    public int setHeight(int heightInches){
         elevatorTalon.set(ControlMode.PercentOutput,ELEVATOR_SPEED);
         //height = encoder / gear ratio
         //todo: math for elevator height
     }
 
-
+*/
 
 }
