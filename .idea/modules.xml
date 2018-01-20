@@ -5,8 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/2018-PowerUp.iml" filepath="$PROJECT_DIR$/.idea/modules/2018-PowerUp.iml" />
       <module fileurl="file://$PROJECT_DIR$/2018-PowerUp.iml" filepath="$PROJECT_DIR$/2018-PowerUp.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/2018-PowerUp_main.iml" filepath="$PROJECT_DIR$/.idea/modules/2018-PowerUp_main.iml" group="2018-PowerUp" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/2018-PowerUp_main.iml" filepath="$PROJECT_DIR$/.idea/modules/2018-PowerUp_main.iml" group="2018-PowerUp" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/2018-PowerUp_test.iml" filepath="$PROJECT_DIR$/.idea/modules/2018-PowerUp_test.iml" group="2018-PowerUp" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/2018-PowerUp_test.iml" filepath="$PROJECT_DIR$/.idea/modules/2018-PowerUp_test.iml" group="2018-PowerUp" />
     </modules>
   </component>

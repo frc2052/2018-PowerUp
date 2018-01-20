@@ -1,4 +1,4 @@
-package frc.team2052.powerup.auto.modes;
+package frc.team2052.powerup.auto;
 
 import com.first.team2052.lib.path.Path;
 import com.first.team2052.lib.vec.Translation2d;
