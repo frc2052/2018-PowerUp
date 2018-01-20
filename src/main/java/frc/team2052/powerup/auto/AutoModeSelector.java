@@ -8,6 +8,7 @@ public class AutoModeSelector {
     private static SendableChooser<AutoModeDefinition> sendableChooserAutoMode;
     private static SendableChooser<WaitTimeDefinition> sendableChooserWaitTime;
 
+    public static double SelectedWaitTime;
     public static void putToSmartDashboard() {
         sendableChooserAutoMode = new SendableChooser<AutoModeDefinition>();
         for (int i = 0; i < AutoModeDefinition.values().length; i++) {
@@ -69,23 +70,28 @@ public class AutoModeSelector {
     }
 
     public enum WaitTimeDefinition {
-        ZERO("Wait 0 seconds", 0),
-        ONE("Wait 1 seconds", 1),
-        TWO("Wait 2 seconds", 2),
-        THREE("Wait 3 seconds", 3),
-        FOUR("Wait 4 seconds", 4),
-        FIVE("Wait 5 seconds", 5),
-        SIX("Wait 6 seconds", 6),
-        SEVEN("Wait 7 seconds", 7),
-        EIGHT("Wait 8 seconds", 8),
-        NINE("Wait 9 seconds", 9),
-        TEN("Wait 10 seconds", 10);
-        private final int WaitTime;
+        ZERO("Wait 0 seconds", 0.0),
+        ONE("Wait 1 seconds", 1.0),
+        TWO("Wait 2 seconds", 2.0),
+        THREE("Wait 3 seconds", 3.0),
+        FOUR("Wait 4 seconds", 4.0),
+        FIVE("Wait 5 seconds", 5.0),
+        SIX("Wait 6 seconds", 6.0),
+        SEVEN("Wait 7 seconds", 7.0),
+        EIGHT("Wait 8 seconds", 8.0),
+        NINE("Wait 9 seconds", 9.0),
+        TEN("Wait 10 seconds", 10.0);
+        private final double WaitTime;
         private final String name;
 
-        WaitTimeDefinition(int waitTime,String Name) {
+        WaitTimeDefinition(double waitTime,String Name) {
             WaitTime = waitTime;
             name = Name;
+        }
+
+        public double getWaitTime(){
+            SelectedWaitTime = WaitTime;
+            return SelectedWaitTime;
         }
     }
 }
