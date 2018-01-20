@@ -1,8 +1,6 @@
 package frc.team2052.powerup.constants;
 
-/**
- * Created by KnightKrawler on 1/19/2018.
- */
+//todo: decide which constats are good
 public class DriveConstants {
     public final static double kTrackScrubFactor = 0.65;
     public final static double kTrackEffectiveDiameter = (27.25 * 27.25 + 13 * 13) / 27.25;

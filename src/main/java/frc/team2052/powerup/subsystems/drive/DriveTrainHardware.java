@@ -1,11 +1,13 @@
 package frc.team2052.powerup.subsystems.drive;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import edu.wpi.first.wpilibj.Solenoid;
+import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.SerialPort;
 import frc.team2052.powerup.constants.CANConstants;
 import frc.team2052.powerup.constants.DriveConstants;
-import com.ctre.phoenix.motorcontrol.ControlMode;
 
 /**
  * Created by KnightKrawler on 1/19/2018.
@@ -17,8 +19,8 @@ class DriveTrainHardware {
     final TalonSRX leftMaster;
     private final TalonSRX rightSlave;
     private final TalonSRX leftSlave;
-    ADIS16448_IMU gyro; //todo:decide what gyro we have
-    Solenoid shifterIn, shifterOut;
+    AHRS navXGyro; //todo: add a gyro class????????
+    //https://github.com/kauailabs/navxmxp/blob/master/roborio/java/navXMXP_Java_DataMonitor/src/org/usfirst/frc/team2465/robot/Robot.java
     private boolean isBrakeMode = true;
 
 
@@ -49,32 +51,46 @@ class DriveTrainHardware {
         leftSlave.set(ControlMode.Follower, leftMaster.getDeviceID());
 
         // Load velocity control gains //todo: decide timeout seconds for
-        leftMaster.config_kP(1, DriveConstants.kDriveVelocityKp, 1);//todo: what is slotldx
-        leftMaster.config_kI(1, DriveConstants.kDriveVelocityKi, 1);
-        leftMaster.config_kD(1, DriveConstants.kDriveVelocityKd, 1);
-        leftMaster.config_kF(1, DriveConstants.kDriveVelocityKf, 1);
-        leftMaster.config_IntegralZone(1, DriveConstants.kDriveVelocityIZone, 1);
+        leftMaster.config_kP(kVelocityControlSlot, DriveConstants.kDriveVelocityKp, 10);//todo: what is slotldx
+        leftMaster.config_kI(kVelocityControlSlot, DriveConstants.kDriveVelocityKi, 10);
+        leftMaster.config_kD(kVelocityControlSlot, DriveConstants.kDriveVelocityKd, 10);
+        leftMaster.config_kF(kVelocityControlSlot, DriveConstants.kDriveVelocityKf, 10);
+        leftMaster.config_IntegralZone(kVelocityControlSlot, DriveConstants.kDriveVelocityIZone, 10);
         /*leftMaster.setPID( DriveConstants.kDriveVelocityKi, DriveConstants.kDriveVelocityKd,
                 DriveConstants.kDriveVelocityKf, DriveConstants.kDriveVelocityIZone, DriveConstants.kDriveVelocityRampRate,
                 kVelocityControlSlot);*/
         //todo: is DriveConstants.kDriveVelocityRampRate and kVelocityControlSlot needed
-        leftMaster.config_kP(1, DriveConstants.kDriveVelocityKp, 1);//todo: what is slotldx
-        leftMaster.config_kI(1, DriveConstants.kDriveVelocityKi, 1);
-        leftMaster.config_kD(1, DriveConstants.kDriveVelocityKd, 1);
-        leftMaster.config_kF(1, DriveConstants.kDriveVelocityKf, 1);
-        leftMaster.config_IntegralZone(1, DriveConstants.kDriveVelocityIZone, 1);
+        rightMaster.config_kP(kVelocityControlSlot, DriveConstants.kDriveVelocityKp, 10);//todo: what is slotldx
+        rightMaster.config_kI(kVelocityControlSlot, DriveConstants.kDriveVelocityKi, 10);
+        rightMaster.config_kD(kVelocityControlSlot, DriveConstants.kDriveVelocityKd, 10);
+        rightMaster.config_kF(kVelocityControlSlot, DriveConstants.kDriveVelocityKf, 10);
+        rightMaster.config_IntegralZone(kVelocityControlSlot, DriveConstants.kDriveVelocityIZone, 10);
         /*rightMaster.setPID(DriveConstants.kDriveVelocityKp, DriveConstants.kDriveVelocityKi, DriveConstants.kDriveVelocityKd,
                 DriveConstants.kDriveVelocityKf, DriveConstants.kDriveVelocityIZone, DriveConstants.kDriveVelocityRampRate,
                 kVelocityControlSlot); */
         //todo: is DriveConstants.kDriveVelocityRampRate and kVelocityControlSlot needed
 
-        leftMaster.configMotionCruiseVelocity(430, 1);//todo: decide timeout seconds
-        rightMaster.configMotionCruiseVelocity(300,1);
+        leftMaster.configMotionCruiseVelocity(430, 10);//todo: decide timeout seconds
+        rightMaster.configMotionCruiseVelocity(300,10);
 
-        shifterIn = new Solenoid(DriveConstants.kDriveInSolenoidId);
-        shifterOut = new Solenoid(DriveConstants.kDriveOutSolenoidId);
-
-        gyro = new ADIS16448_IMU();
+        try { //todo: update imported navX code
+            /***********************************************************************
+             * navX-MXP:
+             * - Communication via RoboRIO MXP (SPI, I2C, TTL UART) and USB.
+             * - See http://navx-mxp.kauailabs.com/guidance/selecting-an-interface.
+             *
+             * navX-Micro:
+             * - Communication via I2C (RoboRIO MXP or Onboard) and USB.
+             * - See http://navx-micro.kauailabs.com/guidance/selecting-an-interface.
+             *
+             * Multiple navX-model devices on a single robot are supported.
+             ************************************************************************/
+            navXGyro = new AHRS(SerialPort.Port.kUSB1);//todo: decide navX comunications
+            //ahrs = new AHRS(SerialPort.Port.kMXP, SerialDataType.kProcessedData, (byte)50);
+            navXGyro.enableLogging(true);
+        } catch (RuntimeException ex ) {
+            DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
+        }
 
         setBrakeMode(false);
     }
