@@ -13,7 +13,8 @@ public class Kinematics {
     /**
      * Forward kinematics using only encoders, rotation is implicit (less
      * accurate than below, but useful for predicting motion)
-     * Forward kinematics computers raw motor configuration, reverse kinematics used to achieve desired configuration (error correction)
+     * Forward kinematics computers raw motor configuration 
+     * Reverse kinematics used to achieve desired configuration (error correction)
      */
     public static RigidTransform2d.Delta forwardKinematics(double left_wheel_delta, double right_wheel_delta) {
         double linear_velocity = (left_wheel_delta + right_wheel_delta) / 2; //Average additive change in distance at a given time
