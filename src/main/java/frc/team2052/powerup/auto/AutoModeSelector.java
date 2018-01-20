@@ -84,7 +84,7 @@ public class AutoModeSelector {
         private final double WaitTime;
         private final String name;
 
-        WaitTimeDefinition(double waitTime,String Name) {
+        WaitTimeDefinition(String Name,double waitTime) {
             WaitTime = waitTime;
             name = Name;
         }
