@@ -4,7 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.first.team2052.lib.Loopable;
 import edu.wpi.first.wpilibj.Solenoid;
-import frc.team2052.powerup.Constants;
+import frc.team2052.powerup.constants.IntakeConstants;
 
 /**
  * Created by Kay on 1/19/2018.
@@ -19,12 +19,12 @@ public class Intake implements Loopable {//implements Loopable
 
 
     private Intake() {
-        solenoid1In = new Solenoid(Constants.intakeSolenoidIn1);
-        solenoid1Out = new Solenoid(Constants.intakeSolenoidOut1);
-        solenoid2In = new Solenoid(Constants.intakeSolenoidIn2);
-        solenoid2Out = new Solenoid(Constants.intakeSolenoidOut2);
-        leftMotor = new TalonSRX(Constants.intakeLeftMotorId);
-        rightMotor = new TalonSRX(Constants.intakeRightMotorId);
+        solenoid1In = new Solenoid(IntakeConstants.intakeSolenoidIn1);
+        solenoid1Out = new Solenoid(IntakeConstants.intakeSolenoidOut1);
+        solenoid2In = new Solenoid(IntakeConstants.intakeSolenoidIn2);
+        solenoid2Out = new Solenoid(IntakeConstants.intakeSolenoidOut2);
+        leftMotor = new TalonSRX(IntakeConstants.intakeLeftMotorId);
+        rightMotor = new TalonSRX(IntakeConstants.intakeRightMotorId);
     }
 
 
