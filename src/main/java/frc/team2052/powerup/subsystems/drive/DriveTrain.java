@@ -195,8 +195,7 @@ public class DriveTrain extends DriveTrainHardware {
      * Updates the velocity heading value for turning, this is used to drive a set angle at a desired speed. We use a PID loop to do the turning
      */
     private void updateVelocityHeadingSetpoint() {
-        //Rotation2d actualGyroAngle = getGyroAngle();
-        //todo: gyro
+        Rotation2d actualGyroAngle = getGyroAngle();
 
        // mLastHeadingErrorDegrees = velocityHeadingSetpoint.getHeading().rotateBy(actualGyroAngle.inverse())
                // .getDegrees();
@@ -285,36 +284,34 @@ public class DriveTrain extends DriveTrainHardware {
     /**
      * Reset's the gyro home point
      */
-  /*  public void zeroGyro() {
-        gyro.reset();
-    } *///todo: gyro fix
+    public void zeroGyro() {
+        navXGyro.reset();
+    } //todo: gyro fix
 
     /**
      * @return gyro angle in degrees
      */
-    /*
     public double getGyroAngleDegrees() {
-        // It just so happens that the gyro outputs 4x the amount that it actually turned
-        return -gyro.getAngleZ() / 4.0;
+        // It just so happens that the gyro outputs 4x the amount that it actually turned //todo: test what values the gyro returns
+        return -navXGyro.getAngle(); /*/ 4.0*/
     }
-*/
     /**
      * @return gyro angle for multiple uses cartesian, radians, degrees, translation, rotation, interpolation, etc
      */
-    /*
+
     public synchronized Rotation2d getGyroAngle() {
         return Rotation2d.fromDegrees(getGyroAngleDegrees());
     }
-    */
+
 
     /**
      * @return The gyro rate in degrees per second or angular velocity
      */
-    /*
+
     public double getGyroRateDegrees() {
-        return gyro.getRateZ() / 4.0;
+        return navXGyro.getRate() / 4.0;
     }
-    */
+
 
     public double getLeftDistanceInches() {
         return rotationsToInches(leftMaster.getSelectedSensorPosition(kVelocityControlSlot));
