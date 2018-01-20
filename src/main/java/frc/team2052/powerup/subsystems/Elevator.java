@@ -2,10 +2,11 @@ package frc.team2052.powerup.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.first.team2052.lib.Loopable;
 import frc.team2052.powerup.constants.DriveConstants;
 import frc.team2052.powerup.constants.ElevatorConstants;
 
-public class Elevator {
+public class Elevator implements Loopable{
 /*    set.Height(height)
         motor = encoder value;
 
@@ -27,6 +28,10 @@ public class Elevator {
 
     //Constructor
     private Elevator() { //todo: FIGURE OUT HOW TO CREATE NEW TALONS
+
+    }
+    public static Elevator getInstance(){
+        return instance;
 
     }
 
@@ -76,5 +81,34 @@ public class Elevator {
 
 
     }
+    @Override
+    public void update(){
 
+    }
+    @Override
+    public void onStart(){
+
+    }
+    @Override
+    public void onStop(){
+
+    }
+    public int getHeightInchesForPos(ElevatorPosEnum posEnum){
+        switch (posEnum){
+            case PICKUP:
+                return 0;
+            case SWITCH_ONE:
+                return 0;
+        }
+        return 0;
+    }
+    public enum ElevatorPosEnum {
+        PICKUP,
+        SWITCH_ONE,
+        SWITCH_TWO,
+        SCALE_ONE,
+        SCALE_TWO,
+        SCALE_THREE,
+        SCALE_FOUR
+    }
 }
