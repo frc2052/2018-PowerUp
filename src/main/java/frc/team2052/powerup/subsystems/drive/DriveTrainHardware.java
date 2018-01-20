@@ -1,11 +1,10 @@
 package frc.team2052.powerup.subsystems.drive;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import edu.wpi.first.wpilibj.Solenoid;
 import frc.team2052.powerup.constants.CANConstants;
 import frc.team2052.powerup.constants.DriveConstants;
-import com.ctre.phoenix.motorcontrol.ControlMode;
 
 /**
  * Created by KnightKrawler on 1/19/2018.
@@ -17,8 +16,7 @@ class DriveTrainHardware {
     final TalonSRX leftMaster;
     private final TalonSRX rightSlave;
     private final TalonSRX leftSlave;
-    ADIS16448_IMU gyro; //todo:decide what gyro we have
-    Solenoid shifterIn, shifterOut;
+    //ADIS16448_IMU gyro; //todo:decide what gyro we have
     private boolean isBrakeMode = true;
 
 
@@ -49,32 +47,29 @@ class DriveTrainHardware {
         leftSlave.set(ControlMode.Follower, leftMaster.getDeviceID());
 
         // Load velocity control gains //todo: decide timeout seconds for
-        leftMaster.config_kP(1, DriveConstants.kDriveVelocityKp, 1);//todo: what is slotldx
-        leftMaster.config_kI(1, DriveConstants.kDriveVelocityKi, 1);
-        leftMaster.config_kD(1, DriveConstants.kDriveVelocityKd, 1);
-        leftMaster.config_kF(1, DriveConstants.kDriveVelocityKf, 1);
-        leftMaster.config_IntegralZone(1, DriveConstants.kDriveVelocityIZone, 1);
+        leftMaster.config_kP(kVelocityControlSlot, DriveConstants.kDriveVelocityKp, 10);//todo: what is slotldx
+        leftMaster.config_kI(kVelocityControlSlot, DriveConstants.kDriveVelocityKi, 10);
+        leftMaster.config_kD(kVelocityControlSlot, DriveConstants.kDriveVelocityKd, 10);
+        leftMaster.config_kF(kVelocityControlSlot, DriveConstants.kDriveVelocityKf, 10);
+        leftMaster.config_IntegralZone(kVelocityControlSlot, DriveConstants.kDriveVelocityIZone, 10);
         /*leftMaster.setPID( DriveConstants.kDriveVelocityKi, DriveConstants.kDriveVelocityKd,
                 DriveConstants.kDriveVelocityKf, DriveConstants.kDriveVelocityIZone, DriveConstants.kDriveVelocityRampRate,
                 kVelocityControlSlot);*/
         //todo: is DriveConstants.kDriveVelocityRampRate and kVelocityControlSlot needed
-        leftMaster.config_kP(1, DriveConstants.kDriveVelocityKp, 1);//todo: what is slotldx
-        leftMaster.config_kI(1, DriveConstants.kDriveVelocityKi, 1);
-        leftMaster.config_kD(1, DriveConstants.kDriveVelocityKd, 1);
-        leftMaster.config_kF(1, DriveConstants.kDriveVelocityKf, 1);
-        leftMaster.config_IntegralZone(1, DriveConstants.kDriveVelocityIZone, 1);
+        rightMaster.config_kP(kVelocityControlSlot, DriveConstants.kDriveVelocityKp, 10);//todo: what is slotldx
+        rightMaster.config_kI(kVelocityControlSlot, DriveConstants.kDriveVelocityKi, 10);
+        rightMaster.config_kD(kVelocityControlSlot, DriveConstants.kDriveVelocityKd, 10);
+        rightMaster.config_kF(kVelocityControlSlot, DriveConstants.kDriveVelocityKf, 10);
+        rightMaster.config_IntegralZone(kVelocityControlSlot, DriveConstants.kDriveVelocityIZone, 10);
         /*rightMaster.setPID(DriveConstants.kDriveVelocityKp, DriveConstants.kDriveVelocityKi, DriveConstants.kDriveVelocityKd,
                 DriveConstants.kDriveVelocityKf, DriveConstants.kDriveVelocityIZone, DriveConstants.kDriveVelocityRampRate,
                 kVelocityControlSlot); */
         //todo: is DriveConstants.kDriveVelocityRampRate and kVelocityControlSlot needed
 
-        leftMaster.configMotionCruiseVelocity(430, 1);//todo: decide timeout seconds
-        rightMaster.configMotionCruiseVelocity(300,1);
+        leftMaster.configMotionCruiseVelocity(430, 10);//todo: decide timeout seconds
+        rightMaster.configMotionCruiseVelocity(300,10);
 
-        shifterIn = new Solenoid(DriveConstants.kDriveInSolenoidId);
-        shifterOut = new Solenoid(DriveConstants.kDriveOutSolenoidId);
-
-        gyro = new ADIS16448_IMU();
+       // gyro = new ADIS16448_IMU();
 
         setBrakeMode(false);
     }
