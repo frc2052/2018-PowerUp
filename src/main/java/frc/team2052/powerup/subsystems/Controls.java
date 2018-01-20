@@ -1,7 +1,7 @@
 package frc.team2052.powerup.subsystems;
 
 import edu.wpi.first.wpilibj.Joystick;
-import frc.team2052.powerup.Constants;
+import frc.team2052.powerup.constants.ControllerConstants;
 
 /**
  * Created by KnightKrawler on 1/15/2018.
@@ -39,43 +39,43 @@ public class Controls {
 
 
     public boolean getDropLeftRamp() {
-        return secondaryStick.getRawButton(Constants.kJoystickDropLeftPin);
+        return secondaryStick.getRawButton(ControllerConstants.kJoystickDropLeftPin);
     }
     public boolean getDropRightRamp() {
-        return secondaryStick.getRawButton(Constants.kJoystickDropRightPin);
+        return secondaryStick.getRawButton(ControllerConstants.kJoystickDropRightPin);
     }
     public boolean getRaiseRightRamp() {
-        return secondaryStick.getRawButton(Constants.kJoystickRaiseRightRamp);
+        return secondaryStick.getRawButton(ControllerConstants.kJoystickRaiseRightRamp);
     }
     public boolean getRaiseLeftRamp() {
-        return secondaryStick.getRawButton(Constants.kJoystickRaiseLeftRamp);
+        return secondaryStick.getRawButton(ControllerConstants.kJoystickRaiseLeftRamp);
     }
     public boolean getLowerRightRamp() {
-        return secondaryStick.getRawButton(Constants.kJoystickLowerRightRamp);
+        return secondaryStick.getRawButton(ControllerConstants.kJoystickLowerRightRamp);
     }
     public boolean getLowerLeftRamp() {
-        return secondaryStick.getRawButton(Constants.kJoystickLowerLeftRamp);
+        return secondaryStick.getRawButton(ControllerConstants.kJoystickLowerLeftRamp);
     }
     public boolean getPullWinch() {
-        return secondaryStick.getRawButton(Constants.kJoystickPullWinch);
+        return secondaryStick.getRawButton(ControllerConstants.kJoystickPullWinch);
     }
     public boolean getOpenOff() {
-        return secondaryStick.getRawButton(Constants.kJoystickOpenOff);
+        return joystick1.getRawButton(ControllerConstants.kJoystickOpenOff);
     }
     public boolean getOpenIntake() {
-        return secondaryStick.getRawButton(Constants.kJoystickOpenIntake);
+        return joystick1.getRawButton(ControllerConstants.kJoystickOpenIntake);
     }
     public boolean getOpenOuttake() {
-        return secondaryStick.getRawButton(Constants.kJoystickOpenOuttake);
+        return joystick1.getRawButton(ControllerConstants.kJoystickOpenOuttake);
     }
     public boolean getClosed() {
-        return secondaryStick.getRawButton(Constants.kJoystickClosed);
+        return joystick1.getRawButton(ControllerConstants.kJoystickClosed);
     }
     public boolean getCloseClamp() {
-        return secondaryStick.getRawButton(Constants.kJoystickCloseClamp);
+        return secondaryStick.getRawButton(ControllerConstants.kJoystickCloseClamp);
     }
     public boolean getOpenClamp() {
-        return secondaryStick.getRawButton(Constants.kJoystickOpenClamp);
+        return secondaryStick.getRawButton(ControllerConstants.kJoystickOpenClamp);
     }
 
 

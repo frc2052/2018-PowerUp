@@ -1,7 +1,7 @@
 package frc.team2052.powerup.subsystems;
 
 import edu.wpi.first.wpilibj.Solenoid;
-import frc.team2052.powerup.Constants;
+import frc.team2052.powerup.constants.RampConstants;
 
 public class Ramp {
 
@@ -20,14 +20,14 @@ public class Ramp {
     private Solenoid leftRampOut;
 
     private Ramp() {
-        rampPinLeftIn  = new Solenoid(Constants.kRampPinLeftInId);
-        rampPinLeftOut = new Solenoid(Constants.kRampPinLeftOutId);
-        rampPinRightIn = new Solenoid(Constants.kRampPinRightInId);
-        rampPinRightOut = new Solenoid(Constants.kRampPinRightOutId);
-        rightRampIn = new Solenoid(Constants.kRightRampInId);
-        rightRampOut = new Solenoid(Constants.kRightRampOutId);
-        leftRampIn = new Solenoid(Constants.kLeftRampInId);
-        leftRampOut = new Solenoid(Constants.kLeftRampOutId);
+        rampPinLeftIn  = new Solenoid(RampConstants.kRampPinLeftInId);
+        rampPinLeftOut = new Solenoid(RampConstants.kRampPinLeftOutId);
+        rampPinRightIn = new Solenoid(RampConstants.kRampPinRightInId);
+        rampPinRightOut = new Solenoid(RampConstants.kRampPinRightOutId);
+        rightRampIn = new Solenoid(RampConstants.kRightRampInId);
+        rightRampOut = new Solenoid(RampConstants.kRightRampOutId);
+        leftRampIn = new Solenoid(RampConstants.kLeftRampInId);
+        leftRampOut = new Solenoid(RampConstants.kLeftRampOutId);
     }
     public void openRampPinLeft(boolean rampPinLeftPressed) {
         rampPinLeftIn.set(rampPinLeftPressed);
