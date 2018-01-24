@@ -128,36 +128,52 @@ public class Intake implements Loopable {//implements Loopable
         OPEN_OUTAKE,
         CLOSED
     }
-
+//todo revisit flags as ther is no reason to ask for a boolean and set the other flags to false
     private boolean wantOpenIntake=false;
+    private boolean wantOpenOutake=false;
+    private boolean wantOpenOff=false;
+    private boolean wantClosed=false;
+
     public boolean getWantOpenIntake() {
         return wantOpenIntake;
     }
-    public void setWantOpenIntake(boolean flag) {
-        wantOpenIntake = flag;
+    public void setWantOpenIntake() {
+        boolean wantOpenIntake=true;
+        boolean wantOpenOutake=false;
+        boolean wantOpenOff=false;
+        boolean wantClosed=false;
     }
 
-    private boolean wantOpenOutake=false;
+
     public boolean getWantOpenOutake() {
         return wantOpenOutake;
     }
-    public void setWantOpenOutake(boolean flag) {
-        wantOpenOutake = flag;
+    public void setWantOpenOutake() {
+        boolean wantOpenIntake=false;
+        boolean wantOpenOutake=true;
+        boolean wantOpenOff=false;
+        boolean wantClosed=false;
     }
 
-    private boolean wantOpenOff=false;
+
     public boolean getWantOpenOff() {
         return wantOpenOff;
     }
-    public void setWantOpenOff(boolean flag) {
-        wantOpenOff = flag;
+    public void setWantOpenOff() {
+        boolean wantOpenIntake=false;
+        boolean wantOpenOutake=false;
+        boolean wantOpenOff=true;
+        boolean wantClosed=false;
     }
 
-    private boolean wantClosed=false;
+
     public boolean getWantClosed() {
         return wantClosed;
     }
-    public void setWantClosed(boolean flag) {
-        wantClosed = flag;
+    public void setWantClosed(){
+        boolean wantOpenIntake=false;
+        boolean wantOpenOutake=false;
+        boolean wantOpenOff=false;
+        boolean wantClosed=true;
     }
 }
