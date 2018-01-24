@@ -52,7 +52,7 @@ public class DriveTrain extends DriveTrainHardware {
                 case VELOCITY_HEADING_CONTROL:
                     updateVelocityHeadingSetpoint();
                     return;
-                //case VISION_FOLLOW: //todo:vision fix
+                //case VISION_FOLLOW: // todo:vision fix
                   //  updateVisionFollow();
                     //break;
             }
@@ -286,7 +286,7 @@ public class DriveTrain extends DriveTrainHardware {
      */
     public void zeroGyro() {
         navXGyro.reset();
-    } //todo: gyro fix
+    }
 
     /**
      * @return gyro angle in degrees

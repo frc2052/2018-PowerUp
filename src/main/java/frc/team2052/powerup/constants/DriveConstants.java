@@ -2,6 +2,14 @@ package frc.team2052.powerup.constants;
 
 //todo: decide which constats are good
 public class DriveConstants {
+
+    public final static int kCANBusConfigTimeoutMS = 10;
+
+    public static int kDriveRightMasterId = 1;
+    public static int kDriveRightSlaveId = 2;
+    public static int kDriveLeftMasterId = 3;
+    public static int kDriveLeftSlaveId = 4;
+
     public final static double kTrackScrubFactor = 0.65;
     public final static double kTrackEffectiveDiameter = (27.25 * 27.25 + 13 * 13) / 27.25;
     private static final int kDriveTicksPerRot = 256; //grayhill 63R encoders have 256 pulses per rotation (PPR)
