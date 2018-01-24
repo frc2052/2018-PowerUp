@@ -13,7 +13,7 @@ import java.util.Arrays;
  */
 public class DontMove extends AutoMode{
     @Override
-    protected void init() throws AutoModeEndedException {
+    protected void init() throws AutoModeEndedException { //Robot does not move
         runAction(new SeriesAction(Arrays.asList(new WaitAction(AutoModeSelector.SelectedWaitTime))));
     }
 }
