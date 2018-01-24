@@ -34,9 +34,9 @@ public class Controls {
         return joystick1.getX();
     }
 
-
-
-
+    public boolean getQuickTurn() {
+        return joystick1.getRawButton(3);
+    }
 
     public boolean getDropLeftRamp() {
         return secondaryStick.getRawButton(ControllerConstants.kJoystickDropLeftPin);
@@ -59,17 +59,14 @@ public class Controls {
     public boolean getPullWinch() {
         return secondaryStick.getRawButton(ControllerConstants.kJoystickPullWinch);
     }
-    public boolean getOpenOff() {
+    public boolean getIntakeOpenOff() {
         return joystick1.getRawButton(ControllerConstants.kJoystickOpenOff);
     }
-    public boolean getOpenIntake() {
+    public boolean getIntakeOpenIntake() {
         return joystick1.getRawButton(ControllerConstants.kJoystickOpenIntake);
     }
-    public boolean getOpenOuttake() {
+    public boolean getIntakeOpenOuttake() {
         return joystick1.getRawButton(ControllerConstants.kJoystickOpenOuttake);
-    }
-    public boolean getClosed() {
-        return joystick1.getRawButton(ControllerConstants.kJoystickClosed);
     }
     public boolean getCloseClamp() {
         return secondaryStick.getRawButton(ControllerConstants.kJoystickCloseClamp);
