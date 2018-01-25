@@ -1,88 +1,70 @@
 package frc.team2052.powerup.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.first.team2052.lib.Loopable;
-import frc.team2052.powerup.constants.DriveConstants;
 import frc.team2052.powerup.constants.ElevatorConstants;
 
 public class Elevator implements Loopable{
-/*    set.Height(height)
-        motor = encoder value;
 
-    get Height
-        return motor.encoder * Multiplier;
-
-
-
-  */
-
-    private TalonSRX elevatorTalon = new TalonSRX(1);//todo: add constant
-    public static final int ELEVATOR_SPEED_UP = 1;
-    public static final int ELEVATOR_SPEED_DWN = -1;
-    public static final int ELEVATOR_SPEED_STOP = 0;
-    public double carriageHeight = 1;//todo: get gear diameter*Math.PI *  gear ratio * encoder # );
+    private TalonSRX elevatorTalon;
 
     //SINGLETON
     private static Elevator instance = new Elevator();
 
     //Constructor
-    private Elevator() { //todo: FIGURE OUT HOW TO CREATE NEW TALONS
-
+    private Elevator() {
+        elevatorTalon = new TalonSRX(ElevatorConstants.kElevatorMotorID);
+        elevatorTalon.config_kP(0, ElevatorConstants.kElevatorVelocityKp, 10);//todo: what is slotldx
+        elevatorTalon.config_kI(0, ElevatorConstants.kElevatorVelocityKi, 10);
+        elevatorTalon.config_kD(0, ElevatorConstants.kElevatorVelocityKd, 10);
+        elevatorTalon.config_kF(0, ElevatorConstants.kElevatorVelocityKf, 10);
+        elevatorTalon.config_IntegralZone(0, ElevatorConstants.kElevatorVelocityIZone, 10);
+        elevatorTalon.configMotionCruiseVelocity(430, 10);//todo: decide timeout seconds
+        elevatorTalon.setNeutralMode(NeutralMode.Brake);
     }
     public static Elevator getInstance(){
         return instance;
-
     }
 
-    //todo:SINGTON
     public double getHeightInches() {
         int encoderPos = elevatorTalon.getSelectedSensorPosition(0);
-        double revolutions = encoderPos / (double)DriveConstants.kDriveEncoderTicksPerRot;
+        double revolutions = encoderPos / (double)ElevatorConstants.kElevatorTicksPerRot;
         double inches = revolutions * ElevatorConstants.kInchesPerRotation;
         return inches;
         // return elevatormotr.encoder position #
     }
 
-    public void setHeightInches(double tartetInches){
+    private void setHeightInches(double tartetInches){
         double rotation = tartetInches / ElevatorConstants.kInchesPerRotation;
-        int pulses = (int)(rotation * DriveConstants.kDriveEncoderTicksPerRot);
+        int pos = (int)(rotation * ElevatorConstants.kElevatorTicksPerRot);
         //Sets the Carriage at a set height, see https://github.com/CrossTheRoadElec/Phoenix-Documentation/blob/master/Talon%20SRX%20Victor%20SPX%20-%20Software%20Reference%20Manual.pdf
         // in 3.1.2.1, recommended timeout is zero while in robot loop
-        elevatorTalon.setSelectedSensorPosition(pulses,0, 0);//todo: check error code
+//        elevatorTalon.setSelectedSensorPosition(pulses,0, 0);//todo: check error code
+        elevatorTalon.set(ControlMode.Position, pos);
         return ;
     }
-    //Method for bringing carriage to Switch height
-    public void setHeightSwitch(double switchHeight) {
-
-        //if carriage height
-        if (switchHeight > carriageHeight) {
-            elevatorTalon.set(ControlMode.PercentOutput, ELEVATOR_SPEED_UP);
-        }
-         else if (switchHeight < carriageHeight) {
-             elevatorTalon.set(ControlMode.PercentOutput, ELEVATOR_SPEED_DWN);
-         }
-    }
-    //Method for bringing carriage to Scale height
-    public void setHeightScale(double scaleHeight) {
-
-        if (scaleHeight > carriageHeight) {
-            elevatorTalon.set(ControlMode.PercentOutput, ELEVATOR_SPEED_UP);
-        }
-        else if (scaleHeight < carriageHeight) {
-            elevatorTalon.set(ControlMode.PercentOutput, ELEVATOR_SPEED_DWN);
-        }
 
 
-
-         //todo: add cube manipulator code for elevator
-            //height = encoder / gear ratio
-            //todo: math for elevator height
-
+    private ElevatorPosEnum currentElevatorPos;
+    public void setCurrentPos(ElevatorPosEnum posEnum) {
+        currentElevatorPos = posEnum;
 
     }
+    public ElevatorPosEnum getCurrentPos (){
+        return currentElevatorPos;
+    }
+    public boolean getCarriageIsMoving (){
+         boolean accel = elevatorTalon.getSelectedSensorVelocity(0) != 0;
+         return accel;
+    }
+
+
     @Override
     public void update(){
+        int targetInches = getHeightInchesForPos(currentElevatorPos);
+        setHeightInches(targetInches);
 
     }
     @Override
@@ -98,7 +80,17 @@ public class Elevator implements Loopable{
             case PICKUP:
                 return 0;
             case SWITCH_ONE:
-                return 0;
+                return 19;
+            case SWITCH_TWO:
+                return 25;
+            case SCALE_ONE:
+                return 52;
+            case SCALE_TWO:
+                return 64;
+            case SCALE_THREE:
+                return 76;
+            case SCALE_FOUR:
+                return 88;
         }
         return 0;
     }
