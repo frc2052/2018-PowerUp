@@ -5,6 +5,7 @@ import frc.team2052.powerup.auto.*;
 import frc.team2052.powerup.auto.actions.FollowPathAction;
 import frc.team2052.powerup.auto.actions.SeriesAction;
 import frc.team2052.powerup.auto.actions.WaitAction;
+import frc.team2052.powerup.auto.actions.WantOpenOutakeAction;
 
 import java.util.Arrays;
 
@@ -12,22 +13,19 @@ public class RStartOnlyScale extends AutoMode {
     @Override
     protected void init() throws AutoModeEndedException {
 
-
-
-
-
         runAction(new SeriesAction(Arrays.asList(new WaitAction(AutoModeSelector.SelectedWaitTime))));
         if(FieldConfig.isMyScaleLeft() == false) { //if right scale is ours
             runAction(new SeriesAction(Arrays.asList(
-                    new FollowPathAction(new Path(AutoPaths.RRScale), false))
-                    //pathing to right scale
-            ));
+                    new FollowPathAction(new Path(AutoPaths.RRScale), false), //pathing to right scale
+                    new WantOpenOutakeAction() //pushes cube out
+                    )));
+
         }
         else {
             runAction(new SeriesAction(Arrays.asList(
-                    new FollowPathAction(new Path(AutoPaths.RLScale), false))
-                    //pathing to left scale
-            ));
+                    new FollowPathAction(new Path(AutoPaths.RLScale), false),//pathing to left scale
+                    new WantOpenOutakeAction()
+                    )));
         }
     }
 }
