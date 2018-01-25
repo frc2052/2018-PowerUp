@@ -15,23 +15,38 @@ public class Intake implements Loopable {//implements Loopable
     private static Intake instance = new Intake();
     public static Intake getInstance() { return instance; }
 
-    private intakeState currentState = intakeState.OPEN_OFF;
+    private intakeState currentState = intakeState.DOWN_OPEN_OFF;
     private Solenoid solenoid1In, solenoid1Out;
     private Solenoid solenoid2In, solenoid2Out;
+    private Solenoid solenoidLift1In, solenoidLift1Out;
+    private Solenoid solenoidLift2In, solenoidLift2Out;
     private TalonSRX leftMotor, rightMotor;
 
 
-    private Intake() {
+    private Intake() {//todo find better names
         solenoid1In = new Solenoid(IntakeConstants.intakeSolenoidIn1);
         solenoid1Out = new Solenoid(IntakeConstants.intakeSolenoidOut1);
         solenoid2In = new Solenoid(IntakeConstants.intakeSolenoidIn2);
         solenoid2Out = new Solenoid(IntakeConstants.intakeSolenoidOut2);
+
+        solenoidLift1In = new Solenoid(IntakeConstants.intakeSolenoidLift1In);
+        solenoidLift1Out = new Solenoid(IntakeConstants.intakeSolenoidLift1Out);
+        solenoidLift2In = new Solenoid(IntakeConstants.intakeSolenoidLift2In);
+        solenoidLift2Out = new Solenoid(IntakeConstants.intakeSolenoidLift2Out);
+
         leftMotor = new TalonSRX(IntakeConstants.intakeLeftMotorId);
         rightMotor = new TalonSRX(IntakeConstants.intakeRightMotorId);
     }
 
     private void setOpen(boolean open) {
         solenoid1In.set(open);
+        solenoid1Out.set(!open);
+        solenoid2In.set(open);
+        solenoid2Out.set(!open);
+        solenoid1In.set(open);
+        solenoid1Out.set(!open);
+        solenoid2In.set(open);
+        solenoid2Out.set(!open);solenoid1In.set(open);
         solenoid1Out.set(!open);
         solenoid2In.set(open);
         solenoid2Out.set(!open);
@@ -54,7 +69,7 @@ public class Intake implements Loopable {//implements Loopable
     public void update () {
         intakeState state = currentState;
         switch (state) {
-            case OPEN_OFF:
+            case DOWN_OPEN_OFF:
                 if (wantClosed) { //Goes from open to closed
                     setOpen(false);
                     setMotorSpeed(0);
@@ -122,73 +137,176 @@ public class Intake implements Loopable {//implements Loopable
     }
 
     public enum intakeState {
-        OPEN_OFF,
-        OPEN_INTAKE,
-        OPEN_OUTAKE,
-        CLOSED
+        DOWN_OPEN_OFF,
+        DOWN_OPEN_INTAKE,
+        DOWN_OPEN_OUTAKE,
+        DOWN_CLOSED,
+        UP_OPEN_OFF,
+        UP_OPEN_INTAKE,
+        UP_OPEN_OUTAKE,
+        UP_CLOSED,
+
+
+
+
     }
     //todo revisit flags as ther is no reason to ask for a boolean and set the other flags to false
-    private boolean wantOpenIntake=false;
-    private boolean wantOpenOutake=false;
-    private boolean wantOpenOff=false;
-    private boolean wantClosed=false;
+    private boolean wantDownOpenIntake=false;
+    private boolean wantDownOpenOutake=false;
+    private boolean wantDownOpenOff=false;
+    private boolean wantDownClosed=false;
+    private boolean wantUpOpenIntake=false;
+    private boolean wantUpOpenOutake=false;
+    private boolean wantUpOpenOff=false;
+    private boolean wantUpClosed=false;
 
-    public boolean getWantOpenIntake() {
-        if (currentState == intakeState.OPEN_INTAKE){
+    public boolean getWantDownOpenIntake() {
+        if (currentState == intakeState.DOWN_OPEN_INTAKE){
             return true;
         } else {
             return false;
         }
     }
-    public void setWantOpenIntake() {
-        wantOpenIntake=true;
-        wantOpenOutake=false;
-        wantOpenOff=false;
-        wantClosed=false;
+    public void setWantDownOpenIntake() {
+        wantDownOpenIntake=true;
+        wantDownOpenOutake=false;
+        wantDownOpenOff=false;
+        wantDownClosed=false;
+        wantUpOpenIntake=false;
+        wantUpOpenOutake=false;
+        wantUpOpenOff=false;
+        wantUpClosed=false;
     }
 
 
-    public boolean getWantOpenOutake() {
-        if (currentState == intakeState.OPEN_OUTAKE) {
+    public boolean getWantDownOpenOutake() {
+        if (currentState == intakeState.DOWN_OPEN_OUTAKE) {
             return true;
         } else {
             return false;
         }
     }
-    public void setWantOpenOutake() {
-        wantOpenIntake=false;
-        wantOpenOutake=true;
-        wantOpenOff=false;
-        wantClosed=false;
+    public void setWantDownOpenOutake() {
+        wantDownOpenIntake=false;
+        wantDownOpenOutake=true;
+        wantDownOpenOff=false;
+        wantDownClosed=false;
+        wantUpOpenIntake=false;
+        wantUpOpenOutake=false;
+        wantUpOpenOff=false;
+        wantUpClosed=false;
     }
 
 
-    public boolean getWantOpenOff() {
-        if (currentState == intakeState.OPEN_OFF) {
+    public boolean getWantDownOpenOff() {
+        if (currentState == intakeState.DOWN_OPEN_OFF) {
             return true;
         } else {
             return false;
         }
     }
-    public void setWantOpenOff() {
-        wantOpenIntake=false;
-        wantOpenOutake=false;
-        wantOpenOff=true;
-        wantClosed=false;
+    public void setWantDownOpenOff() {
+        wantDownOpenIntake=false;
+        wantDownOpenOutake=false;
+        wantDownOpenOff=true;
+        wantDownClosed=false;
+        wantUpOpenIntake=false;
+        wantUpOpenOutake=false;
+        wantUpOpenOff=false;
+        wantUpClosed=false;
     }
 
 
-    public boolean getWantClosed() {
-        if (currentState == intakeState.CLOSED) {
+    public boolean getWantDownClosed() {
+        if (currentState == intakeState.DOWN_CLOSED) {
             return true;
         } else {
             return false;
         }
     }
-    public void setWantClosed(){
-        wantOpenIntake=false;
-        wantOpenOutake=false;
-        wantOpenOff=false;
-        wantClosed=true;
+    public void setWantDownClosed(){
+        wantDownOpenIntake=false;
+        wantDownOpenOutake=false;
+        wantDownOpenOff=false;
+        wantDownClosed=true;
+        wantUpOpenIntake=false;
+        wantUpOpenOutake=false;
+        wantUpOpenOff=false;
+        wantUpClosed=false;
+    }
+    public boolean getWantUpOpenIntake() {
+        if (currentState == intakeState.UP_OPEN_INTAKE){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public void setWantUpOpenIntake() {
+        wantDownOpenIntake=false;
+        wantDownOpenOutake=false;
+        wantDownOpenOff=false;
+        wantDownClosed=false;
+        wantUpOpenIntake=true;
+        wantUpOpenOutake=false;
+        wantUpOpenOff=false;
+        wantUpClosed=false;
+    }
+
+
+    public boolean getWantUpOpenOutake() {
+        if (currentState == intakeState.UP_OPEN_OUTAKE) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public void setWantUpOpenOutake() {
+        wantDownOpenIntake=false;
+        wantDownOpenOutake=false;
+        wantDownOpenOff=false;
+        wantDownClosed=false;
+        wantUpOpenIntake=false;
+        wantUpOpenOutake=true;
+        wantUpOpenOff=false;
+        wantUpClosed=false;
+    }
+
+
+    public boolean getWantUpOpenOff() {
+        if (currentState == intakeState.UP_OPEN_OFF) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public void setWantUpOpenOff() {
+        wantDownOpenIntake=false;
+        wantDownOpenOutake=false;
+        wantDownOpenOff=false;
+        wantDownClosed=false;
+        wantUpOpenIntake=false;
+        wantUpOpenOutake=false;
+        wantUpOpenOff=true;
+        wantUpClosed=false;
+    }
+
+
+    public boolean getWantUpClosed() {
+        if (currentState == intakeState.UP_CLOSED) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public void setWantUpClosed(){
+        wantDownOpenIntake=false;
+        wantDownOpenOutake=false;
+        wantDownOpenOff=false;
+        wantDownClosed=false;
+        wantUpOpenIntake=false;
+        wantUpOpenOutake=false;
+        wantUpOpenOff=false;
+        wantUpClosed=true;
     }
 }
+

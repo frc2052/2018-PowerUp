@@ -11,4 +11,9 @@ public class IntakeConstants {
     public static int intakeRightMotorId =5;
     public static int intakeLeftMotorId =6;
 
+    public static int intakeSolenoidLift1In =7;
+    public static int intakeSolenoidLift1Out =8;
+    public static int intakeSolenoidLift2In =9;
+    public static int intakeSolenoidLift2Out =10;
+
 }
