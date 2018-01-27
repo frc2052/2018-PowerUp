@@ -52,7 +52,7 @@ public class DriveTrain extends DriveTrainHardware {
                 case VELOCITY_HEADING_CONTROL:
                     updateVelocityHeadingSetpoint();
                     return;
-                //case VISION_FOLLOW: //todo:vision fix
+                //case VISION_FOLLOW: // todo:vision fix
                   //  updateVisionFollow();
                     //break;
             }
@@ -101,7 +101,6 @@ public class DriveTrain extends DriveTrainHardware {
         }
         setLeftRightPower(signal.leftMotor, signal.rightMotor);
     }
-//todo:decide how openloop and set leftright power are changed
     /**
      * Set's the speeds of the motor without resetting a controller
      * This method is used by controllers directly
@@ -184,7 +183,7 @@ public class DriveTrain extends DriveTrainHardware {
                 || getDriveControlState() == DriveControlState.VISION_FOLLOW) {
             leftMaster.set(ControlMode.PercentOutput, inchesPerSecondToRpm(left_inches_per_sec));
             rightMaster.set(ControlMode.PercentOutput, inchesPerSecondToRpm(right_inches_per_sec));
-        } else { //todo: decide what to do about motors
+        } else {
             System.out.println("Hit a bad velocity control state");
             leftMaster.set(ControlMode.PercentOutput,0);
             rightMaster.set(ControlMode.PercentOutput,0);
@@ -257,13 +256,13 @@ public class DriveTrain extends DriveTrainHardware {
     protected void configureTalonsForSpeedControl() {
         if (driveControlState != DriveControlState.PATH_FOLLOWING_CONTROL
                 && driveControlState != DriveControlState.VELOCITY_HEADING_CONTROL
-                && driveControlState != DriveControlState.VISION_FOLLOW) {//todo: find replacements
-            //leftMaster.changeControlMode(CANTalon.TalonControlMode.Speed); //todo: not needed?
-            leftMaster.configAllowableClosedloopError(kVelocityControlSlot, DriveConstants.kDriveVelocityAllowableError, 10);
+                && driveControlState != DriveControlState.VISION_FOLLOW) {
+            //leftMaster.changeControlMode(CANTalon.TalonControlMode.Speed); //todo: test if the robot is ever in the wrong mode
+            leftMaster.configAllowableClosedloopError(kVelocityControlSlot, DriveConstants.kDriveVelocityAllowableError, DriveConstants.kCANBusConfigTimeoutMS);
             leftMaster.selectProfileSlot(kVelocityControlSlot,kVelocityControlSlot);
            // rightMaster.changeControlMode(CANTalon.TalonControlMode.Speed);
             rightMaster.selectProfileSlot(kVelocityControlSlot, kVelocityControlSlot);
-            rightMaster.configAllowableClosedloopError(kVelocityControlSlot, DriveConstants.kDriveVelocityAllowableError, 10);
+            rightMaster.configAllowableClosedloopError(kVelocityControlSlot, DriveConstants.kDriveVelocityAllowableError, DriveConstants.kCANBusConfigTimeoutMS);
             setBrakeMode(true);
         }
     }
@@ -273,12 +272,12 @@ public class DriveTrain extends DriveTrainHardware {
      */
     public void resetEncoders() {
         //Set the rotations to zero
-        rightMaster.setSelectedSensorPosition(0, kVelocityControlSlot, 0 );
-        leftMaster.setSelectedSensorPosition(0, kVelocityControlSlot, 0);
+        rightMaster.setSelectedSensorPosition(0, kVelocityControlSlot, DriveConstants.kCANBusConfigTimeoutMS);
+        leftMaster.setSelectedSensorPosition(0, kVelocityControlSlot, DriveConstants.kCANBusConfigTimeoutMS);
 
         //Set the encoder position to zero (ticks)
-        rightMaster.getSensorCollection().setQuadraturePosition(0, 10); //todo:check error code
-        leftMaster.getSensorCollection().setQuadraturePosition(0, 10);
+        rightMaster.getSensorCollection().setQuadraturePosition(0, DriveConstants.kCANBusConfigTimeoutMS);
+        leftMaster.getSensorCollection().setQuadraturePosition(0, DriveConstants.kCANBusConfigTimeoutMS);
     }
 
     /**
@@ -286,13 +285,13 @@ public class DriveTrain extends DriveTrainHardware {
      */
     public void zeroGyro() {
         navXGyro.reset();
-    } //todo: gyro fix
+    }
 
     /**
      * @return gyro angle in degrees
      */
     public double getGyroAngleDegrees() {
-        // It just so happens that the gyro outputs 4x the amount that it actually turned //todo: test what values the gyro returns
+        // It just so happens that the gyro outputs 4x the amount that it actually turned
         return -navXGyro.getAngle(); /*/ 4.0*/
     }
     /**

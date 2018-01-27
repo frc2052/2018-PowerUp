@@ -1,12 +1,12 @@
 package frc.team2052.powerup.subsystems.drive;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SerialPort;
-import frc.team2052.powerup.constants.CANConstants;
 import frc.team2052.powerup.constants.DriveConstants;
 
 /**
@@ -19,25 +19,30 @@ class DriveTrainHardware {
     final TalonSRX leftMaster;
     private final TalonSRX rightSlave;
     private final TalonSRX leftSlave;
-    AHRS navXGyro; //todo: add a gyro class????????
+
+    AHRS navXGyro;
     //https://github.com/kauailabs/navxmxp/blob/master/roborio/java/navXMXP_Java_DataMonitor/src/org/usfirst/frc/team2465/robot/Robot.java
     private boolean isBrakeMode = true;
 
 
     DriveTrainHardware() {
-        rightMaster = new TalonSRX(CANConstants.kDriveRightMasterId);
-        rightSlave = new TalonSRX(CANConstants.kDriveRightSlaveId);
+        rightMaster = new TalonSRX(DriveConstants.kDriveRightMasterId);
+        rightSlave = new TalonSRX(DriveConstants.kDriveRightSlaveId);
 
-        leftMaster = new TalonSRX(CANConstants.kDriveLeftMasterId);
-        leftSlave = new TalonSRX(CANConstants.kDriveLeftSlaveId);
+        leftMaster = new TalonSRX(DriveConstants.kDriveLeftMasterId);
+        leftSlave = new TalonSRX(DriveConstants.kDriveLeftSlaveId);
 
 
-        //Set how many encoder ticks per revolution of the wheels
-        //todo: check if setting the encoder is needed
-        /*
-        leftMaster.
-        rightMaster.configEncoderCodesPerRev(DriveConstants.kDriveEncoderTicksPerRot);
-         */
+        //todo: check if setting encoderticks is needed
+
+        leftMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, kVelocityControlSlot, DriveConstants.kCANBusConfigTimeoutMS);
+        rightMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, kVelocityControlSlot, DriveConstants.kCANBusConfigTimeoutMS);
+
+        leftMaster.configOpenloopRamp(DriveConstants.kOpenLoopRampRate, DriveConstants.kCANBusConfigTimeoutMS);
+        leftMaster.configClosedloopRamp(DriveConstants.kClosedLoopRampRate, DriveConstants.kCANBusConfigTimeoutMS);
+        rightMaster.configOpenloopRamp(DriveConstants.kOpenLoopRampRate, DriveConstants.kCANBusConfigTimeoutMS);
+        rightMaster.configClosedloopRamp(DriveConstants.kClosedLoopRampRate, DriveConstants.kCANBusConfigTimeoutMS);
+
         //Fix sensor polarity
         leftMaster.setInverted(false);
         rightMaster.setInverted(true);
@@ -47,33 +52,25 @@ class DriveTrainHardware {
 
         //Configure talons for follower mode
         rightSlave.set(ControlMode.Follower, rightMaster.getDeviceID());
-
         leftSlave.set(ControlMode.Follower, leftMaster.getDeviceID());
 
         // Load velocity control gains //todo: decide timeout seconds for
-        leftMaster.config_kP(kVelocityControlSlot, DriveConstants.kDriveVelocityKp, 10);//todo: what is slotldx
-        leftMaster.config_kI(kVelocityControlSlot, DriveConstants.kDriveVelocityKi, 10);
-        leftMaster.config_kD(kVelocityControlSlot, DriveConstants.kDriveVelocityKd, 10);
-        leftMaster.config_kF(kVelocityControlSlot, DriveConstants.kDriveVelocityKf, 10);
-        leftMaster.config_IntegralZone(kVelocityControlSlot, DriveConstants.kDriveVelocityIZone, 10);
-        /*leftMaster.setPID( DriveConstants.kDriveVelocityKi, DriveConstants.kDriveVelocityKd,
-                DriveConstants.kDriveVelocityKf, DriveConstants.kDriveVelocityIZone, DriveConstants.kDriveVelocityRampRate,
-                kVelocityControlSlot);*/
-        //todo: is DriveConstants.kDriveVelocityRampRate and kVelocityControlSlot needed
-        rightMaster.config_kP(kVelocityControlSlot, DriveConstants.kDriveVelocityKp, 10);//todo: what is slotldx
-        rightMaster.config_kI(kVelocityControlSlot, DriveConstants.kDriveVelocityKi, 10);
-        rightMaster.config_kD(kVelocityControlSlot, DriveConstants.kDriveVelocityKd, 10);
-        rightMaster.config_kF(kVelocityControlSlot, DriveConstants.kDriveVelocityKf, 10);
-        rightMaster.config_IntegralZone(kVelocityControlSlot, DriveConstants.kDriveVelocityIZone, 10);
-        /*rightMaster.setPID(DriveConstants.kDriveVelocityKp, DriveConstants.kDriveVelocityKi, DriveConstants.kDriveVelocityKd,
-                DriveConstants.kDriveVelocityKf, DriveConstants.kDriveVelocityIZone, DriveConstants.kDriveVelocityRampRate,
-                kVelocityControlSlot); */
-        //todo: is DriveConstants.kDriveVelocityRampRate and kVelocityControlSlot needed
+        leftMaster.config_kP(kVelocityControlSlot, DriveConstants.kDriveVelocityKp, DriveConstants.kCANBusConfigTimeoutMS);
+        leftMaster.config_kI(kVelocityControlSlot, DriveConstants.kDriveVelocityKi, DriveConstants.kCANBusConfigTimeoutMS);
+        leftMaster.config_kD(kVelocityControlSlot, DriveConstants.kDriveVelocityKd, DriveConstants.kCANBusConfigTimeoutMS);
+        leftMaster.config_kF(kVelocityControlSlot, DriveConstants.kDriveVelocityKf, DriveConstants.kCANBusConfigTimeoutMS);
+        leftMaster.config_IntegralZone(kVelocityControlSlot, DriveConstants.kDriveVelocityIZone, DriveConstants.kCANBusConfigTimeoutMS);
 
-        leftMaster.configMotionCruiseVelocity(430, 10);//todo: decide timeout seconds
-        rightMaster.configMotionCruiseVelocity(300,10);
+        rightMaster.config_kP(kVelocityControlSlot, DriveConstants.kDriveVelocityKp, DriveConstants.kCANBusConfigTimeoutMS);
+        rightMaster.config_kI(kVelocityControlSlot, DriveConstants.kDriveVelocityKi, DriveConstants.kCANBusConfigTimeoutMS);
+        rightMaster.config_kD(kVelocityControlSlot, DriveConstants.kDriveVelocityKd, DriveConstants.kCANBusConfigTimeoutMS);
+        rightMaster.config_kF(kVelocityControlSlot, DriveConstants.kDriveVelocityKf, DriveConstants.kCANBusConfigTimeoutMS);
+        rightMaster.config_IntegralZone(kVelocityControlSlot, DriveConstants.kDriveVelocityIZone, DriveConstants.kCANBusConfigTimeoutMS);
 
-        try { //todo: update imported navX code
+        leftMaster.configMotionCruiseVelocity(430, DriveConstants.kCANBusConfigTimeoutMS);//todo: decide timeout seconds
+        rightMaster.configMotionCruiseVelocity(300,DriveConstants.kCANBusConfigTimeoutMS);
+
+        try {
             /***********************************************************************
              * navX-MXP:
              * - Communication via RoboRIO MXP (SPI, I2C, TTL UART) and USB.
@@ -85,7 +82,7 @@ class DriveTrainHardware {
              *
              * Multiple navX-model devices on a single robot are supported.
              ************************************************************************/
-            navXGyro = new AHRS(SerialPort.Port.kUSB1);//todo: decide navX comunications
+            navXGyro = new AHRS(SerialPort.Port.kOnboard);//todo: test if the gyro uses onboard
             //ahrs = new AHRS(SerialPort.Port.kMXP, SerialDataType.kProcessedData, (byte)50);
             navXGyro.enableLogging(true);
         } catch (RuntimeException ex ) {
