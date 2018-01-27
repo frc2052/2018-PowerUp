@@ -37,8 +37,7 @@ public class Controls {
         return joystick1.getRawButton(3);
     }
 //Ramp classes
-    public boolean getDropLeftRamp() {
-        return secondaryStick.getRawButton(ControllerConstants.kJoystickDropLeftPin);
+    public boolean getDropLeftRamp() {return secondaryStick.getRawButton(ControllerConstants.kJoystickDropLeftPin);
     }
     public boolean getDropRightRamp() {
         return secondaryStick.getRawButton(ControllerConstants.kJoystickDropRightPin);
@@ -55,7 +54,8 @@ public class Controls {
     public boolean getLowerLeftRamp() {
         return secondaryStick.getRawButton(ControllerConstants.kJoystickLowerLeftRamp);
     }
-    //Intake classes 
+    //Intake classes
+    public boolean getIntakeUp() {return secondaryStick.getRawButton(ControllerConstants.kJoystickIntakeUp);}
     public boolean getPullWinch() {
         return secondaryStick.getRawButton(ControllerConstants.kJoystickPullWinch);
     }
