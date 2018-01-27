@@ -6,6 +6,12 @@ plugins {
 
 repositories {
     maven { url 'https://jitpack.io' }
+    mavenCentral()
+}
+
+compileJava {
+    targetCompatibility = 1.8
+    sourceCompatibility = 1.8
 }
 
 def TEAM = 2052
@@ -29,6 +35,7 @@ deploy {
 // Defining my dependencies. In this case, WPILib (+ friends), CTRE Toolsuite (Talon SRX)
 // and NavX.
 dependencies {
+    compile 'com.google.guava:guava:23.6-jre'
     compile wpilib()
     compile ctre()
     compile navx()
