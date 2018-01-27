@@ -5,15 +5,15 @@ import frc.team2052.powerup.auto.actions.SeriesAction;
 
 public abstract class AutoModeBase {
 
-    private boolean running = false;
-    private Timer timer = new Timer();
+    private boolean running = false; //tells if the robot is enabled
+    private Timer timer = new Timer(); //records how long the robot has been enabled (in auto)
 
-    public void delay(double seconds) throws AutoModeEndedException {
+    public void delay(double seconds) throws AutoModeEndedException { //delay in the timer
         isRunningWithThrow();
         Timer.delay(seconds);
     }
 
-    public void errorStop(String message) throws AutoModeEndedException {
+    public void errorStop(String message) throws AutoModeEndedException { //sends a messege to SD if they'res an error
         System.out.println(message);
         //stop();
         throw new AutoModeEndedException();
@@ -29,17 +29,17 @@ public abstract class AutoModeBase {
         return running;
     }
 
-    public boolean isRunningWithThrow() throws AutoModeEndedException {
+    public boolean isRunningWithThrow() throws AutoModeEndedException { //if the robot stops running it throws an exception
         if (!isRunning()) {
             throw new AutoModeEndedException();
         }
         return isRunning();
     }
 
-    protected void runAction(SeriesAction action) throws AutoModeEndedException {
-        isRunningWithThrow();
-        action.start();
-        while (!action.isFinished() && isRunningWithThrow()) {
+    protected void runAction(SeriesAction action) throws AutoModeEndedException { //
+        isRunningWithThrow(); //checks to see if running
+        action.start(); //begins something
+        while (!action.isFinished() && isRunningWithThrow()) { //update while action is not done, but still is running
             action.update();
             try {
                 Thread.sleep((long) ((1.0 / 50.0) * 1000.0));
@@ -50,7 +50,7 @@ public abstract class AutoModeBase {
         action.done();
     }
 
-    public void start() {
+    public void start() { //starting auto and checks to see if it ends early
         running = true;
         timer.reset();
         timer.start();
@@ -63,7 +63,7 @@ public abstract class AutoModeBase {
     }
 
 
-    public void stop() {
+    public void stop() { //stopping auto
         running = false;
         System.out.println("Stopping Auto");
         timer.stop();

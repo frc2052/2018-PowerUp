@@ -5,24 +5,24 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2052.powerup.auto.modes.*;
 
 public class AutoModeSelector {
-    private static SendableChooser<AutoModeDefinition> sendableChooserAutoMode;
-    private static SendableChooser<WaitTimeDefinition> sendableChooserWaitTime;
+    private static SendableChooser<AutoModeDefinition> sendableChooserAutoMode; //Makes drop down for Auto Mode Selection
+    private static SendableChooser<WaitTimeDefinition> sendableChooserWaitTime; //Makes drop down for Wait Time Selection
 
     public static double SelectedWaitTime;
-    public static void putToSmartDashboard() {
+    public static void putToSmartDashboard() { //puts the auto modes and delay options to the smartdashboard
         sendableChooserAutoMode = new SendableChooser<AutoModeDefinition>();
         for (int i = 0; i < AutoModeDefinition.values().length; i++) {
             AutoModeDefinition mode = AutoModeDefinition.values()[i];
             if (i == 0) {
-                sendableChooserAutoMode.addDefault(mode.name, mode);
+                sendableChooserAutoMode.addDefault(mode.name, mode); //a sendableChooser is a list
             } else {
                 sendableChooserAutoMode.addObject(mode.name, mode);
             }
         }
-        SmartDashboard.putData("auto_modes", sendableChooserAutoMode);
+        SmartDashboard.putData("auto_modes", sendableChooserAutoMode);  //allows driver to choose auto modes in Smart Dashboard
 
         sendableChooserWaitTime = new SendableChooser<WaitTimeDefinition>();
-        for (int i = 0; i < WaitTimeDefinition.values().length; i++) {
+        for (int i = 0; i < WaitTimeDefinition.values().length; i++) {  //compiles all wait time definitions into a sendableChooser
             WaitTimeDefinition wait = WaitTimeDefinition.values()[i];
             if (i == 0) {
                 sendableChooserWaitTime.addDefault(wait.name, wait);
@@ -37,7 +37,7 @@ public class AutoModeSelector {
         return sendableChooserAutoMode.getSelected().getInstance();
     } //returns selected enum method
 
-    public enum AutoModeDefinition {
+    public enum AutoModeDefinition { //Auto mode options for drive team to choose
         DONT_MOVE("Don't Move", DontMove.class),
         LSTARTONLYSCALE("Start left, go only to scale",LStartOnlyScale.class),
         LSTARTPERFERSCALE("Start left, prefer to go to scale",LStartPreferScale.class),
@@ -49,16 +49,15 @@ public class AutoModeSelector {
         AUTOLINE("Just pass Autoline", Autoline.class);
 
 
-        private final Class<? extends AutoMode> clazz;
+        private final Class<? extends AutoMode> clazz; //checks if the Class extends AutoMode, and then stores it in clazz
         private final String name;
 
-
-        AutoModeDefinition(String name, Class<? extends AutoMode> clazz) {
+        AutoModeDefinition(String name, Class<? extends AutoMode> clazz) { //requires a class that extends AutoMode and a String name of
             this.clazz = clazz;
             this.name = name;
         }
 
-        public AutoModeBase getInstance() {
+        public AutoModeBase getInstance() { //gets the instance of the AutoModeBase
             AutoModeBase instance;
             try {
                 instance = clazz.newInstance();
@@ -69,7 +68,7 @@ public class AutoModeSelector {
         }
     }
 
-    public enum WaitTimeDefinition {
+    public enum WaitTimeDefinition { //options of the WaitTime
         ZERO("Wait 0 seconds", 0.0),
         ONE("Wait 1 seconds", 1.0),
         TWO("Wait 2 seconds", 2.0),
@@ -84,12 +83,12 @@ public class AutoModeSelector {
         private final double WaitTime;
         private final String name;
 
-        WaitTimeDefinition(String Name,double waitTime) {
+        WaitTimeDefinition(String Name,double waitTime) { //takes selected wait time and puts into other variables
             WaitTime = waitTime;
             name = Name;
         }
 
-        public double getWaitTime(){
+        public double getWaitTime(){ //returns the wait time we want
             SelectedWaitTime = WaitTime;
             return SelectedWaitTime;
         }

@@ -19,7 +19,7 @@ public class Ramp {
     private Solenoid leftRampIn;
     private Solenoid leftRampOut;
 
-    private Ramp() {
+    private Ramp() {//todo rename to release pin for clearity
         rampPinLeftIn  = new Solenoid(RampConstants.kRampPinLeftInId);
         rampPinLeftOut = new Solenoid(RampConstants.kRampPinLeftOutId);
         rampPinRightIn = new Solenoid(RampConstants.kRampPinRightInId);
@@ -29,13 +29,15 @@ public class Ramp {
         leftRampIn = new Solenoid(RampConstants.kLeftRampInId);
         leftRampOut = new Solenoid(RampConstants.kLeftRampOutId);
     }
-    public void openRampPinLeft(boolean rampPinLeftPressed) {
-        rampPinLeftIn.set(rampPinLeftPressed);
-        rampPinLeftOut.set(!rampPinLeftPressed);
+    public void openRampPinLeft() {
+        //double time = DriverStation.getInstance().getMatchTime();
+        //todo: use above code to check gametime
+        rampPinLeftIn.set(true);
+        rampPinLeftOut.set(!false);
     }
-    public void openRampPinRight(boolean rampPinRightPressed) {
-        rampPinRightIn.set(rampPinRightPressed);
-        rampPinRightOut.set(!rampPinRightPressed);
+    public void openRampPinRight() {
+        rampPinRightIn.set(true);
+        rampPinRightOut.set(!false);
     }
     public void openRightRamp(boolean rightRampPressed) {
         rightRampIn.set(rightRampPressed);
