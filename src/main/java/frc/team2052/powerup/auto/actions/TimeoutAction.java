@@ -2,6 +2,7 @@ package frc.team2052.powerup.auto.actions;
 
 import edu.wpi.first.wpilibj.Timer;
 
+//Sets amount of time where robot will automatically exit auto mode
 public class TimeoutAction implements Action {
     Action action;
     private double mTimeToWait;
