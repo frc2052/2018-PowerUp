@@ -27,6 +27,7 @@ public class Intake implements Loopable {//implements Loopable
         solenoid2Out = new Solenoid(IntakeConstants.intakeSolenoidOut2);
         leftMotor = new TalonSRX(IntakeConstants.intakeLeftMotorId);
         rightMotor = new TalonSRX(IntakeConstants.intakeRightMotorId);
+        rightMotor.setInverted(true);
     }
 
     private void setOpen(boolean open) {
@@ -38,7 +39,7 @@ public class Intake implements Loopable {//implements Loopable
 
     private void setMotorSpeed(double speedPercent) {
         leftMotor.set(ControlMode.PercentOutput, speedPercent);
-        rightMotor.set(ControlMode.PercentOutput, -speedPercent); //TODO: figure out how to set the motor to be reversed in config
+        rightMotor.set(ControlMode.PercentOutput, speedPercent); //TODO: figure out how to set the motor to be reversed in config
     }
 
     @Override
