@@ -79,7 +79,6 @@ public class Elevator implements Loopable{
 
     public void getElevatorAdjustmentDown(boolean isPressed)
     {
-
         if((isPressed != lastCyclePressedState)&& (getHeightInches()<= goalElevatorInches)) //if switching between pressed and not pressed && going up
         {
             if(goalElevatorInches > 85) //if greater than elevator can extend
@@ -95,6 +94,17 @@ public class Elevator implements Loopable{
     }
         lastCyclePressedState = isPressed; //logs what the state is at the end of this cycle to compare against in the next cycle
 
+    }
+
+    public boolean raiseIntake()
+    {
+        if(goalElevatorInches == 85)
+        {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     //public void setHeightFromPreset()
@@ -123,7 +133,7 @@ public class Elevator implements Loopable{
             case SCALE_HIGH:
                 return 76;
             case SCALE_HIGH_STACKING:
-                return 88;
+                return 85;
         }
         return 0;
     }

@@ -183,6 +183,7 @@ public class Robot extends IterativeRobot {
         else if (controls.getElevatorScale3())
         {
             elevator.setTarget(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING);
+            intake.setIntakeup(elevator.raiseIntake());
         }
 
         if(controls.getElevatorAdjustmentUp() == true)

@@ -44,7 +44,7 @@ public class Intake implements Loopable {//implements Loopable
         solenoid2In.set(open);
         solenoid2Out.set(!open);
     }
-    public void setIntakeup(boolean up) {
+    public void setIntakeup(boolean up) { //true sets it up, false sets it down
         solenoidLift1In.set(up);
         solenoidLift1Out.set(!up);
         solenoidLift2In.set(up);
@@ -86,7 +86,6 @@ public class Intake implements Loopable {//implements Loopable
                     setMotorSpeed(IntakeConstants.intakeOutSpeed);
                     state = intakeState.OPEN_OUTAKE;
                 }
-                break;
                else if (wantOpenOutake) { //Stays open, motors start spinning to eject cube
                    setOpen(true);
                    setMotorSpeed(1);
