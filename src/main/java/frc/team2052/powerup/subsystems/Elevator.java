@@ -129,7 +129,7 @@ public class Elevator implements Loopable{
     }
 
     public enum ElevatorPresetEnum {
-        PICKUP,
+        PICKUP(),
         SWITCH, //on top of another cube on switch
         SCALE_BALANCED, //balanced on scale
         SCALE_HIGH,//high scale(when scale is tipped toward oponents side)
