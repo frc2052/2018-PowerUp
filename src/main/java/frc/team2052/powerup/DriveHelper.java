@@ -2,9 +2,6 @@ package frc.team2052.powerup;
 
 import frc.team2052.powerup.subsystems.drive.DriveSignal;
 
-/**
- * Created by KnightKrawler on 1/23/2018.
- */
 public class DriveHelper {
     double mQuickStopAccumulator;
     public static final double kThrottleDeadband = 0.1;
