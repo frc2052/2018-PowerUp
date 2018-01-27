@@ -10,6 +10,7 @@ import frc.team2052.powerup.subsystems.drive.DriveTrain;
  * Created by KnightKrawler on 1/23/2018.
  */
 public class RobotStateEstimator implements Loopable {
+    //Start collecting encoder position
     private static RobotStateEstimator instance = new RobotStateEstimator();
     DriveTrain driveTrain = DriveTrain.getInstance();
     RobotState robotState = RobotState.getInstance();
@@ -29,6 +30,7 @@ public class RobotStateEstimator implements Loopable {
     }
 
     @Override
+    //Update encoder readings at a set time and print values
     public void update() {
         double time = Timer.getFPGATimestamp();
         double left_distance = driveTrain.getLeftDistanceInches();
@@ -36,7 +38,8 @@ public class RobotStateEstimator implements Loopable {
         Rotation2d gyroAngle = driveTrain.getGyroAngle();
 
         //System.out.println("Left Encoder: " + left_distance + "   Right Encoder: " + right_distance);
-
+        
+        //Generates most previous distance and encoder values
         RigidTransform2d odometry = robotState.generateOdometryFromSensors(
                 left_distance - left_encoder_prev_distance,
                 right_distance - right_encoder_prev_distance,
