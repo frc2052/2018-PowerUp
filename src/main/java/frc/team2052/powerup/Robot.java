@@ -195,6 +195,12 @@ public class Robot extends IterativeRobot {
             elevator.getElevatorAdjustmentDown(controls.getElevatorAdjustmentUp());
         }
 
+        if (controls.getIntakeUp()){
+            intake.setIntakeup(true);
+        }else{
+            intake.setIntakeup(false);
+        }
+
 
         if(controls.getDropLeftRamp()){ramp.openRampPinLeft();}
 
