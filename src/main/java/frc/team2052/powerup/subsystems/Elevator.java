@@ -48,6 +48,7 @@ public class Elevator implements Loopable{
 
 
     private ElevatorPosEnum currentElevatorPos;
+
     public void setCurrentPos(ElevatorPosEnum posEnum) {
         currentElevatorPos = posEnum;
 

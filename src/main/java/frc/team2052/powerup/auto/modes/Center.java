@@ -2,6 +2,7 @@ package frc.team2052.powerup.auto.modes;
 
 import com.first.team2052.lib.path.Path;
 import frc.team2052.powerup.auto.*;
+import frc.team2052.powerup.auto.actions.ElevatorSwitchOneAction;
 import frc.team2052.powerup.auto.actions.FollowPathAction;
 import frc.team2052.powerup.auto.actions.SeriesAction;
 import frc.team2052.powerup.auto.actions.WaitAction;
