@@ -33,6 +33,7 @@ dependencies {
     compile ctre()
     compile navx()
     compile openrio.powerup.matchData()
+    nativeZip wpilibJni()
     compile 'com.team2052:KnightLib:1.0.0'
 }
 
