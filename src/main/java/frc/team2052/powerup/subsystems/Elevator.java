@@ -46,26 +46,20 @@ public class Elevator implements Loopable{
         return ;
     }
 
+    private int goalElevatorInches;
 
-    private ElevatorPosEnum currentElevatorPos;
+    public void setTarget(ElevatorPresetEnum posEnum) {
+        goalElevatorInches = getHeightInchesForPreset(posEnum);
 
-    public void setCurrentPos(ElevatorPosEnum posEnum) {
-        currentElevatorPos = posEnum;
-
-    }
-    public ElevatorPosEnum getCurrentPos (){
-        return currentElevatorPos;
     }
     public boolean getCarriageIsMoving (){
          boolean accel = elevatorTalon.getSelectedSensorVelocity(0) != 0;
          return accel;
     }
 
-
+    //public void setHeightFromPreset()
     @Override
     public void update(){
-        int targetInches = getHeightInchesForPos(currentElevatorPos);
-        setHeightInches(targetInches);
 
     }
     @Override
@@ -76,32 +70,39 @@ public class Elevator implements Loopable{
     public void onStop(){
 
     }
-    public int getHeightInchesForPos(ElevatorPosEnum posEnum){
+    public int getHeightInchesForPreset(ElevatorPresetEnum posEnum){
         switch (posEnum){
             case PICKUP:
                 return 0;
-            case SWITCH_ONE:
-                return 19;
-            case SWITCH_TWO:
+            case SWITCH:
                 return 25;
             case SCALE_ONE:
-                return 52;
-            case SCALE_TWO:
                 return 64;
-            case SCALE_THREE:
+            case SCALE_TWO:
                 return 76;
-            case SCALE_FOUR:
+            case SCALE_THREE:
                 return 88;
         }
         return 0;
     }
-    public enum ElevatorPosEnum {
+
+  /*  public int getHeightInchesJoystick(double joyValue)
+    {
+        if(joyValue > 0.65 )
+        {
+            joyValue = 0.65;
+        }
+        if(joyValue < -0.65)
+        {
+            joyValue = -0.65;
+        }
+        return joyValue;
+    }*/
+    public enum ElevatorPresetEnum {
         PICKUP,
-        SWITCH_ONE,
-        SWITCH_TWO,
-        SCALE_ONE,
-        SCALE_TWO,
-        SCALE_THREE,
-        SCALE_FOUR
+        SWITCH, //on top of another cube
+        SCALE_ONE, //balanced
+        SCALE_TWO,//high
+        SCALE_THREE,//high + cube
     }
 }

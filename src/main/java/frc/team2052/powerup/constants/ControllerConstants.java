@@ -14,4 +14,5 @@ public class ControllerConstants {
     public static int kJoystickClosed = 3;
     public static int kJoystickCloseClamp = 8;
     public static int kJoystickOpenClamp = 9;
+    public static int kJoystickIntakeUp = 10;
 }
