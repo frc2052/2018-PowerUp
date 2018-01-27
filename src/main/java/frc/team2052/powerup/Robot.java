@@ -11,6 +11,7 @@ import frc.team2052.powerup.auto.AutoModeRunner;
 import frc.team2052.powerup.auto.AutoModeSelector;
 import frc.team2052.powerup.constants.ControlLoopConstants;
 import frc.team2052.powerup.subsystems.Controls;
+import frc.team2052.powerup.subsystems.Elevator;
 import frc.team2052.powerup.subsystems.Intake;
 import frc.team2052.powerup.subsystems.Ramp;
 import frc.team2052.powerup.subsystems.drive.DriveSignal;
@@ -26,6 +27,7 @@ public class Robot extends IterativeRobot {
     private Intake intake;
     private Controls controls;
     private Ramp ramp;
+    private Elevator elevator;
 
     private AutoModeRunner autoModeRunner;
     private RobotState robotState;
@@ -47,6 +49,7 @@ public class Robot extends IterativeRobot {
         controls = Controls.getInstance();
         ramp = Ramp.getInstance();
         driveHelper = new DriveHelper();
+        elevator = Elevator.getInstance();
 
         pdp = new PowerDistributionPanel();
 
@@ -160,11 +163,44 @@ public class Robot extends IterativeRobot {
             intake.getWantClosed();
         }
 
+        //Passes values from the button to elevator class
+        if (controls.getElevatorPickup())
+        {
+            elevator.setTarget(Elevator.ElevatorPresetEnum.PICKUP);
+        }
+        else if (controls.getElevatorSwitch())
+        {
+            elevator.setTarget(Elevator.ElevatorPresetEnum.SWITCH);
+        }
+        else if (controls.getElevatorScale1())
+        {
+            elevator.setTarget(Elevator.ElevatorPresetEnum.SCALE_BALANCED);
+        }
+        else if (controls.getElevatorScale2())
+        {
+            elevator.setTarget(Elevator.ElevatorPresetEnum.SCALE_HIGH);
+        }
+        else if (controls.getElevatorScale3())
+        {
+            elevator.setTarget(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING);
+        }
+
+        if(controls.getElevatorAdjustmentUp() == true)
+        {
+            elevator.getElevatorAdjustmentUp(controls.getElevatorAdjustmentUp());
+        }
+
+        if(controls.getElevatorAdjustmentDown() == true)
+        {
+            elevator.getElevatorAdjustmentDown(controls.getElevatorAdjustmentUp());
+        }
+
         if (controls.getIntakeUp()){
             intake.setIntakeup(true);
         }else{
             intake.setIntakeup(false);
         }
+
 
         if(controls.getDropLeftRamp()){ramp.openRampPinLeft();}
 
