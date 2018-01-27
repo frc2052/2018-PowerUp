@@ -86,14 +86,12 @@ public class Intake implements Loopable {//implements Loopable
                     setMotorSpeed(IntakeConstants.intakeOutSpeed);
                     state = intakeState.OPEN_OUTAKE;
                 }
-                break;
                else if (wantOpenOutake) { //Stays open, motors start spinning to eject cube
                    setOpen(true);
                    setMotorSpeed(1);
                    state = intakeState.OPEN_OUTAKE;
                }
                break;
-
             case CLOSED:
                 if (wantOpenOff) { //Goes from closed to open, motors stay off
                     setOpen(true);
