@@ -3,9 +3,6 @@ package frc.team2052.powerup.subsystems;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.team2052.powerup.constants.ControllerConstants;
 
-/**
- * Created by KnightKrawler on 1/15/2018.
- */
 public class Controls {
     private static Controls instance = new Controls();
     public static Controls getInstance(){

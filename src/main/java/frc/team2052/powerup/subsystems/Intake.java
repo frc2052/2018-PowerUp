@@ -6,9 +6,6 @@ import com.first.team2052.lib.Loopable;
 import edu.wpi.first.wpilibj.Solenoid;
 import frc.team2052.powerup.constants.IntakeConstants;
 
-/**
- * Created by Kay on 1/19/2018.
- */
 public class Intake implements Loopable {//implements Loopable
 
     //SINGLETON
