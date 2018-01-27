@@ -60,13 +60,6 @@ public class Elevator implements Loopable{
     //public void setHeightFromPreset()
     @Override
     public void update(){
-        int targetInches = getHeightInchesForPos(currentElevatorPos);
-        setHeightInches(targetInches);
-
-        if(joyValue > .05 && actualInches == targetInches)
-        {
-            setHeightInches(targetInches +2);
-        }
 
     }
     @Override

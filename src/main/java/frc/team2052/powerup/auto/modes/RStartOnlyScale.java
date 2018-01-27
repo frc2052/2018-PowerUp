@@ -25,7 +25,7 @@ public class RStartOnlyScale extends AutoMode {
         else {
             runAction(new SeriesAction(Arrays.asList(
                     new FollowPathAction(new Path(AutoPaths.RLScale), false), //pathing to left scale
-                    new ElevatorScaleTwoAction() //Elevator raises to balanced scale
+                    new ElevatorScaleTwoAction(), //Elevator raises to balanced scale
                     new WantOpenOutakeAction() //pushes cube out
             )));
         }
