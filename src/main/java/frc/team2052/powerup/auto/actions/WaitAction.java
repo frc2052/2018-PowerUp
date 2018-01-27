@@ -2,6 +2,7 @@ package frc.team2052.powerup.auto.actions;
 
 import edu.wpi.first.wpilibj.Timer;
 
+//Sets amount of time delay before auto mode deploys. 
 public class WaitAction implements Action {
 
     private double mTimeToWait;
