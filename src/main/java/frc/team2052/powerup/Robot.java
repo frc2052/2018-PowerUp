@@ -160,6 +160,12 @@ public class Robot extends IterativeRobot {
             intake.getWantClosed();
         }
 
+        if (controls.getIntakeUp()){
+            intake.setIntakeup(true);
+        }else{
+            intake.setIntakeup(false);
+        }
+
         if(controls.getDropLeftRamp()){ramp.openRampPinLeft();}
 
         if(controls.getDropRightRamp()){ramp.openRampPinRight();}
