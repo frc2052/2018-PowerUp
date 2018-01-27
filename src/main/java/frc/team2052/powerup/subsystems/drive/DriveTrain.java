@@ -108,6 +108,7 @@ public class DriveTrain extends DriveTrainHardware {
      * This method is used by controllers directly
      */
     private void setLeftRightPower(double left_power, double right_power) {
+        System.out.println("LEFT: " + getLeftDistanceInches() + "   RIGHT: " + getRightDistanceInches());
         leftMaster.set(ControlMode.PercentOutput, left_power);
         rightMaster.set(ControlMode.PercentOutput, right_power);
     }
@@ -330,21 +331,34 @@ public class DriveTrain extends DriveTrainHardware {
         }
     }
 
+    private double convertTicksToRotations(int ticks)
+    {
+        double rotations = ticks / (double) DriveConstants.kDriveEncoderTicksPerRot;
+        return rotations;
+    }
 
     public double getLeftDistanceInches() {
-        return rotationsToInches(leftMaster.getSelectedSensorPosition(kVelocityControlSlot));
+        //encoder spins opposite
+        double wheelRotations = convertTicksToRotations(-leftMaster.getSelectedSensorPosition(kVelocityControlSlot));
+        return rotationsToInches(wheelRotations);
     }
 
     public double getRightDistanceInches() {
-        return rotationsToInches(rightMaster.getSelectedSensorPosition(kVelocityControlSlot));
+        //encoder spins opposite
+        double wheelRotations = convertTicksToRotations(-rightMaster.getSelectedSensorPosition(kVelocityControlSlot));
+        return rotationsToInches(wheelRotations);
     }
 
     public double getLeftVelocityInchesPerSec() {
-        return rpmToInchesPerSecond(leftMaster.getSelectedSensorPosition(kVelocityControlSlot));
+        //encoder spins opposite
+        double wheelRotations = convertTicksToRotations(-leftMaster.getSelectedSensorPosition(kVelocityControlSlot));
+        return rpmToInchesPerSecond(wheelRotations);
     }
 
     public double getRightVelocityInchesPerSec() {
-        return rpmToInchesPerSecond(rightMaster.getSelectedSensorPosition(kVelocityControlSlot));
+        //encoder spins opposite
+        double wheelRotations = convertTicksToRotations(-rightMaster.getSelectedSensorPosition(kVelocityControlSlot));
+        return rpmToInchesPerSecond(wheelRotations);
     }
 
     public Loopable getLoopable() {

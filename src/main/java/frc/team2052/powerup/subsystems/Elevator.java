@@ -11,8 +11,16 @@ public class Elevator implements Loopable{
     private TalonSRX elevatorTalon;
 
     //SINGLETON
-    private static Elevator instance = new Elevator();
-    public static Elevator getInstance(){
+    private static Elevator instance = null;
+    public static Elevator getInstance() {
+        if (instance == null) {
+            try {
+                instance = new Elevator();
+            } catch (Exception exc) {
+                System.out.println("DANGER: Failed to create Elevator: " + exc.getMessage());
+                exc.printStackTrace();
+            }
+        }
         return instance;
     }
 
