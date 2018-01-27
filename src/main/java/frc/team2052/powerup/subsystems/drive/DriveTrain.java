@@ -65,6 +65,7 @@ public class DriveTrain extends DriveTrainHardware {
         }
     };
 
+    //PID loop for drive speed 
     private DriveTrain() {
         setOpenLoop(DriveSignal.NEUTRAL);
 

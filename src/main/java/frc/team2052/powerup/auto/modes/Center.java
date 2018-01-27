@@ -5,6 +5,7 @@ import frc.team2052.powerup.auto.*;
 import frc.team2052.powerup.auto.actions.FollowPathAction;
 import frc.team2052.powerup.auto.actions.SeriesAction;
 import frc.team2052.powerup.auto.actions.WaitAction;
+import frc.team2052.powerup.auto.actions.WantOpenOutakeAction;
 
 import java.util.Arrays;
 
@@ -18,15 +19,16 @@ public class Center extends AutoMode {
         runAction(new SeriesAction(Arrays.asList(new WaitAction(AutoModeSelector.SelectedWaitTime))));
         if(FieldConfig.isMySwitchLeft()) { //if left switch is ours
             runAction(new SeriesAction(Arrays.asList(
-                    new FollowPathAction(new Path(AutoPaths.CLSwitch), false))
-            //pathing to left switch
-            ));
+                    new FollowPathAction(new Path(AutoPaths.CLSwitch), false), //pathing to left switch
+                    new WantOpenOutakeAction() //pushes cube out
+                    )));
+
         }
         else { //if right switch is ours
             runAction(new SeriesAction(Arrays.asList(
-                    new FollowPathAction(new Path(AutoPaths.CRSwitch), false))
-            //pathing to right switch
-            ));
+                    new FollowPathAction(new Path(AutoPaths.CRSwitch), false),//pathing to right switch
+                    new WantOpenOutakeAction()
+                    )));
         }
     }
 }
