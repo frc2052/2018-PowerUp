@@ -11,13 +11,23 @@ import java.util.List;
 /**
  * Created by KnightKrawler on 1/23/2018.
  */
+ 
 public class Util {
+    //Finds value for deadzone (area with controller will not send information to optimize sensitivity)
     public static double checkForDeadzone(double value, double deadZone) {
         if (Math.abs(value) < deadZone)
             return 0;
         return value;
     }
-
+     
+    /** Get the difference in angle between two angles. 
+   *From https://github.com/Team254/TrajectoryLib/blob/master/src/com/team254/lib/util/ChezyMath.java
+   *
+   * @param from The first angle
+   * @param to The second angle
+   * @return The change in angle from the first argument necessary to line up
+   * with the second. Always between -Pi and Pi
+   */
     public static double getDifferenceInAngleRadians(double from, double to) {
         return boundAngleNegPiToPiRadians(to - from);
     }
