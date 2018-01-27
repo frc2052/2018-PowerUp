@@ -20,14 +20,14 @@ public class Ramp {
     private Solenoid leftRampOut;
 
     private Ramp() {//todo rename to release pin for clearity
-        rampPinLeftIn  = new Solenoid(RampConstants.kRampPinLeftInId);
-        rampPinLeftOut = new Solenoid(RampConstants.kRampPinLeftOutId);
-        rampPinRightIn = new Solenoid(RampConstants.kRampPinRightInId);
-        rampPinRightOut = new Solenoid(RampConstants.kRampPinRightOutId);
-        rightRampIn = new Solenoid(RampConstants.kRightRampInId);
-        rightRampOut = new Solenoid(RampConstants.kRightRampOutId);
-        leftRampIn = new Solenoid(RampConstants.kLeftRampInId);
-        leftRampOut = new Solenoid(RampConstants.kLeftRampOutId);
+        rampPinLeftIn  = new Solenoid(1,RampConstants.kRampPinLeftInId);
+        rampPinLeftOut = new Solenoid(1,RampConstants.kRampPinLeftOutId);
+        rampPinRightIn = new Solenoid(1,RampConstants.kRampPinRightInId);
+        rampPinRightOut = new Solenoid(1,RampConstants.kRampPinRightOutId);
+        rightRampIn = new Solenoid(1,RampConstants.kRightRampInId);
+        rightRampOut = new Solenoid(1,RampConstants.kRightRampOutId);
+        leftRampIn = new Solenoid(1,RampConstants.kLeftRampInId);
+        leftRampOut = new Solenoid(1,RampConstants.kLeftRampOutId);
     }
     public void openRampPinLeft() {
         //double time = DriverStation.getInstance().getMatchTime();

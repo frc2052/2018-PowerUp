@@ -2,6 +2,7 @@ package frc.team2052.powerup.subsystems;
 
 import edu.wpi.first.wpilibj.Joystick;
 import frc.team2052.powerup.constants.ControllerConstants;
+import frc.team2052.powerup.constants.ElevatorConstants;
 
 public class Controls {
     private static Controls instance = new Controls();
@@ -29,6 +30,10 @@ public class Controls {
     public double getTurn() {
         return joystick1.getX();
     }
+
+    public boolean getElevatorAdjustmentUp(){return secondaryStick.getRawButton(6);}//press button 6 to raise elevator up 2 in
+
+    public boolean getElevatorAdjustmentDown(){return secondaryStick.getRawButton(7);}//press button 7 to lower elevator 2 in
 
     public boolean getQuickTurn() {
         return joystick1.getRawButton(3);
@@ -72,8 +77,12 @@ public class Controls {
         return secondaryStick.getRawButton(ControllerConstants.kJoystickOpenClamp);
     }
 
-
-
+//buttons for different stages of elevator
+    public boolean getElevatorPickup(){return secondaryStick.getTrigger();}
+    public boolean getElevatorSwitch(){return  secondaryStick.getRawButton(ElevatorConstants.kElevatorSwitchHeightButton); }
+    public boolean getElevatorScale1(){return  secondaryStick.getRawButton(ElevatorConstants.kElevatorScale_OneHeightButton); }
+    public boolean getElevatorScale2(){return  secondaryStick.getRawButton(ElevatorConstants.kElevatorScale_TwoHeightButton); }
+    public boolean getElevatorScale3(){return  secondaryStick.getRawButton(ElevatorConstants.kElevatorScale_ThreeHeightButton); }
    /* public Pickup.PickupState getIntakeState() {
         if (secondaryStick.getRawButton(2)) {
             return Pickup.PickupState.IN;
