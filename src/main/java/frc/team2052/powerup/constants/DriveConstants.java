@@ -13,9 +13,18 @@ public class DriveConstants {
     public static double kOpenLoopRampRate = .5; // this many seconds from 0 to full power
     public static double kClosedLoopRampRate = 0.0;
 
-    public final static double kTrackScrubFactor = 0.65;
-    public final static double kTrackEffectiveDiameter = (27.25 * 27.25 + 13 * 13) / 27.25;
+//    public final static double kTrackScrubFactor = 0.65;
+//    public final static double kTrackEffectiveDiameter = (27.25 * 27.25 + 13 * 13) / 27.25;  //33.45
+
+    //TODO: Need to update these values
+    public static double kTrackLengthInches = 8.265;
+    public static double kTrackWidthInches = 23.8;
+    public static double kTrackEffectiveDiameter = (kTrackWidthInches * kTrackWidthInches + kTrackLengthInches * kTrackLengthInches) / kTrackWidthInches;
+    public final static double kTrackScrubFactor = 0.5;
+
     private static final int kDriveTicksPerRot = 1024; //grayhill 63R encoders have 256 pulses per rotation (PPR) x4edges because quadrature output
+
+    //TODO: remove shifting solonoids
     //Solenoid Id's for shifting
     public static int kDriveOutSolenoidId = 1;
     public static int kDriveInSolenoidId = 0;
