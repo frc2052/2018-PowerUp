@@ -12,8 +12,20 @@ import frc.team2052.powerup.constants.IntakeConstants;
 public class Intake implements Loopable {//implements Loopable
 
     //SINGLETON
-    private static Intake instance = new Intake();
-    public static Intake getInstance() { return instance; }
+    private static Intake instance = null;
+    public static Intake getInstance()
+    {
+        if (instance == null)
+        {
+            try {
+                instance = new Intake();
+            } catch (Exception exc) {
+                System.out.println("DANGER: Failed to create Intake: " + exc.getMessage());
+                exc.printStackTrace();
+            }
+        }
+        return instance;
+    }
 
     private intakeState currentState = intakeState.OPEN_OFF;
     private Solenoid solenoid1In, solenoid1Out;
@@ -86,14 +98,12 @@ public class Intake implements Loopable {//implements Loopable
                     setMotorSpeed(IntakeConstants.intakeOutSpeed);
                     state = intakeState.OPEN_OUTAKE;
                 }
-                break;
                else if (wantOpenOutake) { //Stays open, motors start spinning to eject cube
                    setOpen(true);
                    setMotorSpeed(1);
                    state = intakeState.OPEN_OUTAKE;
                }
                break;
-
             case CLOSED:
                 if (wantOpenOff) { //Goes from closed to open, motors stay off
                     setOpen(true);
