@@ -24,7 +24,7 @@ public class Intake implements Loopable {//implements Loopable
         return instance;
     }
 
-    private intakeState currentState = intakeState.OPEN_OFF;
+    private IntakeState currentState = IntakeState.OPEN_OFF;
     private Solenoid solenoid1In, solenoid1Out;
     private Solenoid solenoid2In, solenoid2Out;
     private Solenoid solenoidLift1In, solenoidLift1Out;
@@ -66,7 +66,6 @@ public class Intake implements Loopable {//implements Loopable
 
     @Override
     public void onStart() {
-//        setWantOpen(false);
     }
 
     @Override
@@ -74,97 +73,84 @@ public class Intake implements Loopable {//implements Loopable
     }
 
     public void update () {
-        intakeState state = currentState;
+        IntakeState state = currentState;
         switch (state) {
             case OPEN_OFF:
                 if (wantClosed) { //Goes from open to closed
                     setOpen(false);
                     setMotorSpeed(IntakeConstants.intakeStopSpeed);
-                    state = intakeState.CLOSED;
+                    state = IntakeState.CLOSED;
                     break;
                 }
-
                 else if (wantOpenIntake) { //Stays open, motors start spinning to pick up cube
                     setOpen(true);
                     setMotorSpeed(IntakeConstants.intakeInSpeed);
-                    state = intakeState.OPEN_INTAKE;
+                    state = IntakeState.OPEN_INTAKE;
                 }
-
                 else if (wantOpenOutake) { //Stays open, motors start spinning to ejecct cube
                     setOpen(true);
                     setMotorSpeed(IntakeConstants.intakeOutSpeed);
-                    state = intakeState.OPEN_OUTAKE;
+                    state = IntakeState.OPEN_OUTAKE;
                 }
-               else if (wantOpenOutake) { //Stays open, motors start spinning to eject cube
-                   setOpen(true);
-                   setMotorSpeed(1);
-                   state = intakeState.OPEN_OUTAKE;
-               }
-               break;
+                break;
             case CLOSED:
                 if (wantOpenOff) { //Goes from closed to open, motors stay off
                     setOpen(true);
-                    setMotorSpeed(IntakeConstants.intakeOutSpeed);
-                    state = intakeState.OPEN_OFF;
+                    setMotorSpeed(IntakeConstants.intakeStopSpeed);
+                    state = IntakeState.OPEN_OFF;
                 }
                 else if (wantOpenIntake) { //Goes from closed to open, motors spin to pick up cube
                     setOpen(true);
                     setMotorSpeed(IntakeConstants.intakeInSpeed);
-                    state = intakeState.OPEN_INTAKE;
+                    state = IntakeState.OPEN_INTAKE;
                 }
                 else if (wantOpenOutake) { //Goes from closed to open, motors spin to eject cube
                     setOpen(true);
-                    setMotorSpeed(IntakeConstants.intakeOutSpeed); //TODO: Figure out speeds for intake and outtake
-                    state = intakeState.OPEN_OUTAKE;
+                    setMotorSpeed(IntakeConstants.intakeOutSpeed);
+                    state = IntakeState.OPEN_OUTAKE;
                 }
                 break;
-
             case OPEN_INTAKE: //Can't go straight from open intake to open outtake, would put too much stress on gearbox
                 if (wantOpenOff) { //Motors completely stop, stays open
                     setOpen(true);
                     setMotorSpeed(IntakeConstants.intakeStopSpeed);
-                    state = intakeState.OPEN_OFF;
+                    state = IntakeState.OPEN_OFF;
                 }
                 else if (wantClosed) { //Motor completely stops, goes from opened to closed
                     setOpen(false);
                     setMotorSpeed(IntakeConstants.intakeStopSpeed);
-                    state = intakeState.CLOSED;
+                    state = IntakeState.CLOSED;
                 }
                 break;
-
             case OPEN_OUTAKE:
                 if (wantOpenOff) { //Motor completely stops, stays open
                     setOpen(true);
                     setMotorSpeed(IntakeConstants.intakeStopSpeed);
+                    state = IntakeState.OPEN_OFF;
                 }
-
                 else if (wantClosed) { //Motor completely stops, goes from opened to closed
                     setOpen(false);
                     setMotorSpeed(IntakeConstants.intakeStopSpeed);
-                    state = intakeState.CLOSED;
+                    state = IntakeState.CLOSED;
                 }
         }
         currentState = state;
     }
 
-    public enum intakeState {
+    public enum IntakeState {
         OPEN_OFF,
         OPEN_INTAKE,
         OPEN_OUTAKE,
         CLOSED
     }
-    //todo revisit flags as ther is no reason to ask for a boolean and set the other flags to false
+
     private boolean wantOpenIntake=false;
     private boolean wantOpenOutake=false;
     private boolean wantOpenOff=false;
     private boolean wantClosed=false;
 
     public boolean getWantOpenIntake() {
-        if (currentState == intakeState.OPEN_INTAKE){
-            return true;
-        } else {
-            return false;
-        }
+        return (currentState == IntakeState.OPEN_INTAKE);
     }
     public void setWantOpenIntake() {
         wantOpenIntake=true;
@@ -175,11 +161,7 @@ public class Intake implements Loopable {//implements Loopable
 
 
     public boolean getWantOpenOutake() {
-        if (currentState == intakeState.OPEN_OUTAKE) {
-            return true;
-        } else {
-            return false;
-        }
+        return (currentState == IntakeState.OPEN_OUTAKE);
     }
     public void setWantOpenOutake() {
         wantOpenIntake=false;
@@ -190,11 +172,7 @@ public class Intake implements Loopable {//implements Loopable
 
 
     public boolean getWantOpenOff() {
-        if (currentState == intakeState.OPEN_OFF) {
-            return true;
-        } else {
-            return false;
-        }
+        return (currentState == IntakeState.OPEN_OFF);
     }
     public void setWantOpenOff() {
         wantOpenIntake=false;
@@ -203,13 +181,8 @@ public class Intake implements Loopable {//implements Loopable
         wantClosed=false;
     }
 
-
     public boolean getWantClosed() {
-        if (currentState == intakeState.CLOSED) {
-            return true;
-        } else {
-            return false;
-        }
+        return (currentState == IntakeState.CLOSED);
     }
     public void setWantClosed(){
         wantOpenIntake=false;
