@@ -16,7 +16,7 @@ public class RStartPreferSwitch extends AutoMode {
         if(FieldConfig.isMySwitchLeft() == false) { //if right switch is ours
             runAction(new SeriesAction(Arrays.asList(
                     new FollowPathAction(new Path(AutoPaths.RRSwitch), false), //pathing to the right switch
-                    new  ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_BALANCED), //Elevator raises to place on balanced scale
+                    new  ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH), //Elevator raises to place on balanced scale
                     new WantOpenOutakeAction() //pushes cube out
             )));
         }

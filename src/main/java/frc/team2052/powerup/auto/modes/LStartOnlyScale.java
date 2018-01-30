@@ -16,7 +16,7 @@ public class LStartOnlyScale extends AutoMode {
         if(FieldConfig.isMyScaleLeft()) { //if left scale is ours
             runAction(new SeriesAction(Arrays.asList(
                     new FollowPathAction(new Path(AutoPaths.LLScale), false), //pathing to left scale
-                    new ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH), //Elevator raises to place on switch
+                    new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_BALANCED), //Elevator raises to place on switch
                     new WantOpenOutakeAction() //pushes cube out
             )));
         }
