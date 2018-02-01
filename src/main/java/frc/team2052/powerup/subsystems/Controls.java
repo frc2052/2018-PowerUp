@@ -55,27 +55,17 @@ public class Controls {
     public boolean getLowerLeftRamp() {
         return secondaryStick.getRawButton(ControllerConstants.kJoystickLowerLeftRamp);
     }
-    //Intake classes 
-    public boolean getPullWinch() {
-        return secondaryStick.getRawButton(ControllerConstants.kJoystickPullWinch);
-    }
-    public boolean getIntakeOpenOff() {
+    //Intake classes
+    public boolean getPickupOpen() {
         return joystick1.getRawButton(ControllerConstants.kJoystickOpenOff);
     }
-    public boolean getIntakeOpenIntake() {
-        return joystick1.getRawButton(ControllerConstants.kJoystickOpenIntake);
-    }
-    public boolean getIntakeOpenOuttake() {
+    public boolean getPickupClosed() {
         return joystick1.getRawButton(ControllerConstants.kJoystickOpenOuttake);
     }
-    public boolean getCloseClamp() {
-        return secondaryStick.getRawButton(ControllerConstants.kJoystickCloseClamp);
+    public boolean getPickupIntakeMotor() {
+        return secondaryStick.getTrigger();
     }
-    public boolean getOpenClamp() {
-        return secondaryStick.getRawButton(ControllerConstants.kJoystickOpenClamp);
-    }
-
-
+    public boolean getPickupOuttakeMotor() { return joystick1.getTrigger();}
 
    /* public Pickup.PickupState getIntakeState() {
         if (secondaryStick.getRawButton(2)) {

@@ -99,7 +99,7 @@ public class Robot extends IterativeRobot {
         driveTrain.setOpenLoop(DriveSignal.NEUTRAL);
         driveTrain.setBrakeMode(false);
 
-        intake.getWantClosed();
+        intake.getWantClosedOff();
 
         robotState.reset(Timer.getFPGATimestamp(), new RigidTransform2d());
         logLooper.start();
@@ -149,17 +149,17 @@ public class Robot extends IterativeRobot {
         driveTrain.setOpenLoop(driveHelper.drive(controls.getTank(), controls.getTurn(), controls.getQuickTurn()));
           //  visionTurn = false;
         //}
-
-        if(controls.getIntakeOpenIntake()){
+/*
+        if(controls.getPickupOpen()){
             intake.setWantOpenIntake();
-        }else if(controls.getIntakeOpenOuttake()){
-            intake.getWantOpenOutake();
+        }else if(controls.getOu()){
+            intake.getWantOutake();
         }else if(controls.getIntakeOpenOff()){
             intake.getWantOpenOff();
         }else{
-            intake.getWantClosed();
+            intake.getWantClosedOff();
         }
-
+*/
         if(controls.getDropLeftRamp()){ramp.openRampPinLeft();}
 
         if(controls.getDropRightRamp()){ramp.openRampPinRight();}
