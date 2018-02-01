@@ -105,11 +105,11 @@ public class Robot extends IterativeRobot {
         zeroAllSensors();
         Timer.delay(.25);
 
-        driveTrain.setOpenLoop(DriveSignal.NEUTRAL);
-        driveTrain.setBrakeMode(false);
+        driveTrain.setOpenLoop(DriveSignal.NEUTRAL);  //put robot into don't move, no looper mode
+        driveTrain.setBrakeMode(false); //TODO: should we turn off break mode in Auto?
 
         if (intake != null) {
-            intake.getWantClosed();
+            intake.getWantClosed();  //keep the intake closed, because we should be holding a cube
         }
 
         robotState.reset(Timer.getFPGATimestamp(), new RigidTransform2d());

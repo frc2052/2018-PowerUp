@@ -7,7 +7,6 @@ import com.first.team2052.lib.path.AdaptivePurePursuitController;
 import com.first.team2052.lib.path.Path;
 import com.first.team2052.lib.vec.RigidTransform2d;
 import com.first.team2052.lib.vec.Rotation2d;
-import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.Timer;
 import frc.team2052.powerup.Kinematics;
 import frc.team2052.powerup.RobotState;
@@ -20,6 +19,7 @@ import java.util.Set;
  * Created by KnightKrawler on 1/19/2018.
  */
 public class DriveTrain extends DriveTrainHardware {
+
     private static DriveTrain instance = new DriveTrain();
     private DriveControlState driveControlState;
     private double mLastHeadingErrorDegrees;
@@ -39,6 +39,7 @@ public class DriveTrain extends DriveTrainHardware {
         public void update() {
 
             if (getDriveControlState() == DriveControlState.OPEN_LOOP) {
+                //ignore all looper requests while in teleop mode
                 return;
             }
             setBrakeMode(true);
@@ -94,23 +95,21 @@ public class DriveTrain extends DriveTrainHardware {
         return inchesToRotations(inches_per_second) * 60;
     }
 
+    private static double inchesPerSecondToTicksPer100Ms(double inches_per_second) {
+        return inchesToRotations(inches_per_second) * DriveConstants.kDriveEncoderTicksPerRot / 10 ;
+    }
+
+
+
     /**
      * Sets the motor speeds in percent mode and disables all controllers
      */
     public void setOpenLoop(DriveSignal signal) {
-        if (getDriveControlState() != DriveControlState.OPEN_LOOP) {
-            driveControlState = DriveControlState.OPEN_LOOP;
-        }
-        setLeftRightPower(signal.leftMotor, signal.rightMotor);
-    }
-    /**
-     * Set's the speeds of the motor without resetting a controller
-     * This method is used by controllers directly
-     */
-    private void setLeftRightPower(double left_power, double right_power) {
-        System.out.println("LEFT: " + getLeftDistanceInches() + "   RIGHT: " + getRightDistanceInches());
-        leftMaster.set(ControlMode.PercentOutput, left_power);
-        rightMaster.set(ControlMode.PercentOutput, right_power);
+        System.out.println("ENCODERS LEFT: " + getLeftDistanceInches() + "   RIGHT: " + getRightDistanceInches());
+
+        driveControlState = DriveControlState.OPEN_LOOP;
+        leftMaster.set(ControlMode.PercentOutput, signal.leftMotor);
+        rightMaster.set(ControlMode.PercentOutput, signal.rightMotor);
     }
 
     /**
@@ -184,8 +183,15 @@ public class DriveTrain extends DriveTrainHardware {
         if (getDriveControlState() == DriveControlState.PATH_FOLLOWING_CONTROL
                 || getDriveControlState() == DriveControlState.VELOCITY_HEADING_CONTROL
                 || getDriveControlState() == DriveControlState.VISION_FOLLOW) {
-            leftMaster.set(ControlMode.PercentOutput, inchesPerSecondToRpm(left_inches_per_sec));
-            rightMaster.set(ControlMode.PercentOutput, inchesPerSecondToRpm(right_inches_per_sec));
+            System.out.printf("Velocity\n\tLeft %s\n\tRight %s\n", leftMaster.getSelectedSensorVelocity(0), rightMaster.getSelectedSensorVelocity(0));
+            System.out.printf("Error\n\tLeft %s\n\tRight %s\n", leftMaster.getClosedLoopError(0), rightMaster.getClosedLoopError(0));
+            System.out.printf("setting velocity final\n\tleft %f\n\tright%f\n", inchesPerSecondToRpm(left_inches_per_sec), inchesPerSecondToRpm(right_inches_per_sec));
+            leftMaster.set(ControlMode.Velocity, inchesPerSecondToTicksPer100Ms(left_inches_per_sec));
+            rightMaster.set(ControlMode.Velocity, inchesPerSecondToTicksPer100Ms(right_inches_per_sec));
+            System.out.println("Left Ticks/100: " + inchesPerSecondToTicksPer100Ms(left_inches_per_sec));
+            System.out.println("Right Ticks/100: " + inchesPerSecondToTicksPer100Ms(right_inches_per_sec));
+            System.out.println("Left inches per sec: " + left_inches_per_sec);
+            System.out.println("Right inches per sec: " + right_inches_per_sec);
         } else {
             System.out.println("Hit a bad velocity control state");
             leftMaster.set(ControlMode.PercentOutput,0);
@@ -199,8 +205,7 @@ public class DriveTrain extends DriveTrainHardware {
     private void updateVelocityHeadingSetpoint() {
         Rotation2d actualGyroAngle = getGyroAngle();
 
-       // mLastHeadingErrorDegrees = velocityHeadingSetpoint.getHeading().rotateBy(actualGyroAngle.inverse())
-               // .getDegrees();
+        mLastHeadingErrorDegrees = velocityHeadingSetpoint.getHeading().rotateBy(actualGyroAngle.inverse()).getDegrees();
 
         double deltaSpeed = velocityHeadingPid.calculate(mLastHeadingErrorDegrees);
         updateVelocitySetpoint(velocityHeadingSetpoint.getLeftSpeed() + deltaSpeed / 2,
@@ -257,13 +262,13 @@ public class DriveTrain extends DriveTrainHardware {
      * This is used in auto and for other various control states that require velocity control
      */
     protected void configureTalonsForSpeedControl() {
+        //TODO: this method one needs to be called once during init, regardless of drive control state, now that talon mode is passed with speed/percent/position/etc values
+        //change this method to be an init method
         if (driveControlState != DriveControlState.PATH_FOLLOWING_CONTROL
                 && driveControlState != DriveControlState.VELOCITY_HEADING_CONTROL
                 && driveControlState != DriveControlState.VISION_FOLLOW) {
-            //leftMaster.changeControlMode(CANTalon.TalonControlMode.Speed); //todo: test if the robot is ever in the wrong mode
             leftMaster.configAllowableClosedloopError(kVelocityControlSlot, DriveConstants.kDriveVelocityAllowableError, DriveConstants.kCANBusConfigTimeoutMS);
             leftMaster.selectProfileSlot(kVelocityControlSlot,kVelocityControlSlot);
-           // rightMaster.changeControlMode(CANTalon.TalonControlMode.Speed);
             rightMaster.selectProfileSlot(kVelocityControlSlot, kVelocityControlSlot);
             rightMaster.configAllowableClosedloopError(kVelocityControlSlot, DriveConstants.kDriveVelocityAllowableError, DriveConstants.kCANBusConfigTimeoutMS);
             setBrakeMode(true);
@@ -289,7 +294,12 @@ public class DriveTrain extends DriveTrainHardware {
     public void zeroGyro() {
         if (navXGyro != null) {
             System.out.println("Reseting Gyro");
-            navXGyro.reset();
+            try {
+                navXGyro.reset();
+            } catch  (Exception exc) {
+                System.out.println("DANGER: Failed to reset Gyro" + exc.getMessage() + " ---- ");
+                exc.printStackTrace();
+            }
         } else {
             System.out.println("DANGER: NO GYRO!!!!");
         }
@@ -316,7 +326,6 @@ public class DriveTrain extends DriveTrainHardware {
         return Rotation2d.fromDegrees(getGyroAngleDegrees());
     }
 
-
     /**
      * @return The gyro rate in degrees per second or angular velocity
      */
@@ -324,7 +333,7 @@ public class DriveTrain extends DriveTrainHardware {
     public double getGyroRateDegrees() {
         if (navXGyro != null)
         {
-            return navXGyro.getRate() / 4.0;
+            return navXGyro.getRate();
         } else {
             System.out.println("DANGER: NO GYRO!!!!");
             return 0;
@@ -339,25 +348,25 @@ public class DriveTrain extends DriveTrainHardware {
 
     public double getLeftDistanceInches() {
         //encoder spins opposite
-        double wheelRotations = convertTicksToRotations(-leftMaster.getSelectedSensorPosition(kVelocityControlSlot));
+        double wheelRotations = convertTicksToRotations(leftMaster.getSelectedSensorPosition(kVelocityControlSlot));
         return rotationsToInches(wheelRotations);
     }
 
     public double getRightDistanceInches() {
         //encoder spins opposite
-        double wheelRotations = convertTicksToRotations(-rightMaster.getSelectedSensorPosition(kVelocityControlSlot));
+        double wheelRotations = convertTicksToRotations(rightMaster.getSelectedSensorPosition(kVelocityControlSlot));
         return rotationsToInches(wheelRotations);
     }
 
     public double getLeftVelocityInchesPerSec() {
         //encoder spins opposite
-        double wheelRotations = convertTicksToRotations(-leftMaster.getSelectedSensorPosition(kVelocityControlSlot));
+        double wheelRotations = convertTicksToRotations(leftMaster.getSelectedSensorPosition(kVelocityControlSlot));
         return rpmToInchesPerSecond(wheelRotations);
     }
 
     public double getRightVelocityInchesPerSec() {
         //encoder spins opposite
-        double wheelRotations = convertTicksToRotations(-rightMaster.getSelectedSensorPosition(kVelocityControlSlot));
+        double wheelRotations = convertTicksToRotations(rightMaster.getSelectedSensorPosition(kVelocityControlSlot));
         return rpmToInchesPerSecond(wheelRotations);
     }
 
