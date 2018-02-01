@@ -122,6 +122,12 @@ public class Robot extends IterativeRobot {
     @Override
 
     public void autonomousPeriodic() {
+        SmartDashboard.putNumber("gyro", driveTrain.getGyroAngleDegrees());
+        SmartDashboard.putNumber("gyroRate", driveTrain.getGyroRateDegrees());
+        SmartDashboard.putNumber("psi", revRoboticsPressureSensor.getAirPressurePsi());
+        SmartDashboard.putNumber("LeftVel", driveTrain.getLeftVelocityInchesPerSec());
+        SmartDashboard.putNumber("RightVel", driveTrain.getRightVelocityInchesPerSec());
+        robotState.outputToSmartDashboard();
 
     }
 

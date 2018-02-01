@@ -190,8 +190,8 @@ public class DriveTrain extends DriveTrainHardware {
             rightMaster.set(ControlMode.Velocity, inchesPerSecondToTicksPer100Ms(right_inches_per_sec));
             System.out.println("Left Ticks/100: " + inchesPerSecondToTicksPer100Ms(left_inches_per_sec));
             System.out.println("Right Ticks/100: " + inchesPerSecondToTicksPer100Ms(right_inches_per_sec));
-            System.out.println("Left inches per sec: " + left_inches_per_sec);
-            System.out.println("Right inches per sec: " + right_inches_per_sec);
+            //System.out.println("Left inches per sec: " + left_inches_per_sec);
+            //.out.println("Right inches per sec: " + right_inches_per_sec);
         } else {
             System.out.println("Hit a bad velocity control state");
             leftMaster.set(ControlMode.PercentOutput,0);

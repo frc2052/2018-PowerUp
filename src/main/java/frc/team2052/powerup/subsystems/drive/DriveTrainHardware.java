@@ -69,7 +69,7 @@ class DriveTrainHardware {
         rightMaster.config_IntegralZone(kVelocityControlSlot, DriveConstants.kDriveVelocityIZone, DriveConstants.kCANBusConfigTimeoutMS);
 
         leftMaster.configMotionCruiseVelocity(430, DriveConstants.kCANBusConfigTimeoutMS);//todo: decide timeout seconds
-        rightMaster.configMotionCruiseVelocity(300,DriveConstants.kCANBusConfigTimeoutMS);
+        rightMaster.configMotionCruiseVelocity(430,DriveConstants.kCANBusConfigTimeoutMS);
 
         try {
             /***********************************************************************
