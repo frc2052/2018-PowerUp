@@ -81,7 +81,7 @@ public class Controls {
     }
 
 //buttons for different stages of elevator
-    public boolean getElevatorPickup(){return secondaryStick.getTrigger();}
+    public boolean getElevatorPickup(){return secondaryStick.getRawButton(ElevatorConstants.kElevatorPickupHeightButton);}
     public boolean getElevatorSwitch(){return  secondaryStick.getRawButton(ElevatorConstants.kElevatorSwitchHeightButton); }
     public boolean getElevatorScale1(){return  secondaryStick.getRawButton(ElevatorConstants.kElevatorScale_OneHeightButton); }
     public boolean getElevatorScale2(){return  secondaryStick.getRawButton(ElevatorConstants.kElevatorScale_TwoHeightButton); }

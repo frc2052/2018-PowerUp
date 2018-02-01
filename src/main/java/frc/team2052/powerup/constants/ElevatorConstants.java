@@ -10,6 +10,8 @@ public class ElevatorConstants {
     public static int kElevatorVelocityIZone = 0;
     public static int kElevatorTicksPerRot = 1024;
 
+
+    public static int kElevatorPickupHeightButton = 8;
     public static int kElevatorSwitchHeightButton = 2;
     public static int kElevatorScale_OneHeightButton = 4;
     public static int kElevatorScale_TwoHeightButton = 3;
