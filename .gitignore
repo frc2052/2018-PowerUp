@@ -5,6 +5,7 @@
 /bin
 /dist
 /*/build
+/build
 
 # IntelliJ
 *.iml

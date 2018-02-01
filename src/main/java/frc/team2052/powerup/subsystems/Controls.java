@@ -4,9 +4,6 @@ import edu.wpi.first.wpilibj.Joystick;
 import frc.team2052.powerup.constants.ControllerConstants;
 import frc.team2052.powerup.constants.ElevatorConstants;
 
-/**
- * Created by KnightKrawler on 1/15/2018.
- */
 public class Controls {
     private static Controls instance = new Controls();
     public static Controls getInstance(){
