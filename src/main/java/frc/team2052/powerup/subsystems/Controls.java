@@ -38,24 +38,24 @@ public class Controls {
     public boolean getQuickTurn() {
         return joystick1.getRawButton(3);
     }
-//Ramp classes
-    public boolean getDropLeftRamp() {return secondaryStick.getRawButton(ControllerConstants.kJoystickDropLeftPin);
-    }
+
+
+
+    //Ramp classes
     public boolean getDropRightRamp() {
-        return secondaryStick.getRawButton(ControllerConstants.kJoystickDropRightPin);
+        return joystick1.getRawButton(ControllerConstants.kJoystickDropRightPin);
     }
     public boolean getRaiseRightRamp() {
-        return secondaryStick.getRawButton(ControllerConstants.kJoystickRaiseRightRamp);
-    }
-    public boolean getRaiseLeftRamp() {
-        return secondaryStick.getRawButton(ControllerConstants.kJoystickRaiseLeftRamp);
+        return joystick1.getRawButton(ControllerConstants.kJoystickRaiseRightRamp);
     }
     public boolean getLowerRightRamp() {
-        return secondaryStick.getRawButton(ControllerConstants.kJoystickLowerRightRamp);
+        return joystick1.getRawButton(ControllerConstants.kJoystickLowerRightRamp);
     }
-    public boolean getLowerLeftRamp() {
-        return secondaryStick.getRawButton(ControllerConstants.kJoystickLowerLeftRamp);
-    }
+    public boolean getLowerLeftRamp() {return joystick0.getRawButton(ControllerConstants.kJoystickLowerLeftRamp); }
+    public boolean getDropLeftRamp() {return secondaryStick.getRawButton(ControllerConstants.kJoystickDropLeftPin); }
+    public boolean getRaiseLeftRamp() {return joystick0.getRawButton(ControllerConstants.kJoystickRaiseLeftRamp); }
+
+
     //Intake classes
     public boolean getIntakeUp() {return secondaryStick.getRawButton(ControllerConstants.kJoystickIntakeUp);}
     public boolean getPullWinch() {
