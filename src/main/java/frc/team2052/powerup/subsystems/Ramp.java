@@ -22,30 +22,34 @@ public class Ramp {
 
     private Ramp() {//todo rename to release pin for clarity
         rampPinLeftIn  = new Solenoid(RampConstants.kRampPinLeftInId); //The pins are used to keep the ramps up while the robot is driving
-        rampPinLeftOut = new Solenoid(RampConstants.kRampPinLeftOutId);
         rampPinRightIn = new Solenoid(RampConstants.kRampPinRightInId);
-        rampPinRightOut = new Solenoid(RampConstants.kRampPinRightOutId);
         rightRampIn = new Solenoid(RampConstants.kRightRampInId);
         rightRampOut = new Solenoid(RampConstants.kRightRampOutId);
         leftRampIn = new Solenoid(RampConstants.kLeftRampInId);
         leftRampOut = new Solenoid(RampConstants.kLeftRampOutId);
     }
-    public void openRampPinLeft() {
+    public void dropRampPinLeft() {
         double time = DriverStation.getInstance().getMatchTime();
         rampPinLeftIn.set(true);
-        rampPinLeftOut.set(false);
     }
-    public void openRampPinRight() {
+    public void dropRampPinRight() {
         rampPinRightIn.set(true);
-        rampPinRightOut.set(false);
     }
-    public void openRightRamp(boolean rightRampPressed) {
-        rightRampIn.set(rightRampPressed);
-        rightRampOut.set(!rightRampPressed);
+    public void raiseRightRamp() {
+        rightRampIn.set(true);
+        rightRampOut.set(false);
     }
-    public void openLeftRamp(boolean leftRampPressed) {
-        leftRampIn.set(leftRampPressed);
-        leftRampOut.set(!leftRampPressed);
+    public void raiseLeftRamp() {
+        leftRampIn.set(true);
+        leftRampOut.set(false);
+    }
+    public void lowerLeftRamp() {
+        leftRampIn.set(false);
+        leftRampOut.set(true);
+    }
+    public void lowerRightRamp() {
+        rightRampIn.set(false);
+        rightRampOut.set(true);
     }
 
 
