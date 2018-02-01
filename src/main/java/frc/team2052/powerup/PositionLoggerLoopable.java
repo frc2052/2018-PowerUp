@@ -7,10 +7,6 @@ import frc.team2052.powerup.subsystems.drive.DriveTrain;
 
 import java.util.Map;
 
-/**
- * Created by KnightKrawler on 1/23/2018.
- */
-
 //Generates current velocity values from looper
 public class PositionLoggerLoopable implements Loopable {
 

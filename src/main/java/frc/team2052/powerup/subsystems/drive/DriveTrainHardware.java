@@ -9,9 +9,6 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
 import frc.team2052.powerup.constants.DriveConstants;
 
-/**
- * Created by KnightKrawler on 1/19/2018.
- */
 class DriveTrainHardware {
     protected static final int kVelocityControlSlot = 0;
 

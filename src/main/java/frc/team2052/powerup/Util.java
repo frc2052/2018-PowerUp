@@ -6,11 +6,6 @@ import com.first.team2052.lib.vec.Translation2d;
 
 import java.util.ArrayList;
 import java.util.List;
-
-
-/**
- * Created by KnightKrawler on 1/23/2018.
- */
  
 public class Util {
     //Finds value for deadzone (area with controller will not send information to optimize sensitivity)

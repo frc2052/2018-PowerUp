@@ -1,8 +1,5 @@
 package frc.team2052.powerup.subsystems.drive;
 
-/**
- * Created by KnightKrawler on 1/19/2018.
- */
 public class DriveSignal { //a drive signal is a motor speed for both motors. This allows us to send both variabes at once
     public double leftMotor;  //todo:change variable to include speed
     public double rightMotor;

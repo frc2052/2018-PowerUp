@@ -4,9 +4,6 @@ import com.first.team2052.lib.path.Path;
 import frc.team2052.powerup.subsystems.drive.DriveSignal;
 import frc.team2052.powerup.subsystems.drive.DriveTrain;
 
-/**
- * Created by Adam on 3/15/2017.
- */
 public class FollowPathAction implements Action {
     private DriveTrain mDrive = DriveTrain.getInstance();
 

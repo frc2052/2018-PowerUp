@@ -7,7 +7,6 @@ import com.first.team2052.lib.path.AdaptivePurePursuitController;
 import com.first.team2052.lib.path.Path;
 import com.first.team2052.lib.vec.RigidTransform2d;
 import com.first.team2052.lib.vec.Rotation2d;
-import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.Timer;
 import frc.team2052.powerup.Kinematics;
 import frc.team2052.powerup.RobotState;
@@ -16,9 +15,6 @@ import frc.team2052.powerup.constants.DriveConstants;
 
 import java.util.Set;
 
-/**
- * Created by KnightKrawler on 1/19/2018.
- */
 public class DriveTrain extends DriveTrainHardware {
     private static DriveTrain instance = new DriveTrain();
     private DriveControlState driveControlState;

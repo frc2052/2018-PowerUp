@@ -1,8 +1,5 @@
 package frc.team2052.powerup.constants;
 
-/**
- * Created by Kay on 1/20/2018.
- */
 public class IntakeConstants {
     public static int intakeSolenoidIn1 =1;
     public static int intakeSolenoidOut1 =2;

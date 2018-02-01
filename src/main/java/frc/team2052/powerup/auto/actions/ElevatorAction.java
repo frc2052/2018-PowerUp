@@ -2,9 +2,6 @@ package frc.team2052.powerup.auto.actions;
 
 import frc.team2052.powerup.subsystems.Elevator;
 
-/**
- * Created by KnightKrawler on 1/27/2018.
- */
 public class ElevatorAction implements Action{
     @Override
     public void done() {

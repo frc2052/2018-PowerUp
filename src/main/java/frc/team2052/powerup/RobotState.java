@@ -8,9 +8,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.Map;
 
-/**
- * Created by KnightKrawler on 1/19/2018.
- */
 public class RobotState {
     private static RobotState instance = new RobotState();
     protected InterpolatingTreeMap<InterpolatingDouble, RigidTransform2d> field_to_vehicle_map;

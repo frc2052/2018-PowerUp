@@ -6,10 +6,6 @@ import com.first.team2052.lib.vec.Translation2d;
 import java.util.ArrayList;
 import java.util.List;
 
-
-/**
- * Created by Lancelot on 1/19/2018.
- */
 public class AutoPaths {
 
     public static List<Path.Waypoint> LLSwitch = new ArrayList();

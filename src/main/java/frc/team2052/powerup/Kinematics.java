@@ -4,9 +4,6 @@ import com.first.team2052.lib.vec.RigidTransform2d;
 import com.first.team2052.lib.vec.Rotation2d;
 import frc.team2052.powerup.constants.DriveConstants;
 
-/**
- * Created by KnightKrawler on 1/19/2018.
- */
 public class Kinematics {
     private static final double kEpsilon = 1E-9;
 

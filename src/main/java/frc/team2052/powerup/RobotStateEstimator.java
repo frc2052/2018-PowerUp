@@ -6,9 +6,6 @@ import com.first.team2052.lib.vec.Rotation2d;
 import edu.wpi.first.wpilibj.Timer;
 import frc.team2052.powerup.subsystems.drive.DriveTrain;
 
-/**
- * Created by KnightKrawler on 1/23/2018.
- */
 public class RobotStateEstimator implements Loopable {
     //Start collecting encoder position
     private static RobotStateEstimator instance = new RobotStateEstimator();
