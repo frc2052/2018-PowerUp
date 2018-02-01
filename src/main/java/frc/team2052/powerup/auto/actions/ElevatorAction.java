@@ -10,7 +10,6 @@ public class ElevatorAction implements Action{
     public void done() {
 
     }
-
     public ElevatorAction(Elevator.ElevatorPresetEnum ElevatorState){
         this.ElevatorState = ElevatorState;
     }
@@ -20,7 +19,7 @@ public class ElevatorAction implements Action{
     @Override
     public boolean isFinished() {
         return Elevator.getInstance().getHeightInchesForPreset(ElevatorState)== Elevator.getInstance().getHeightInches();
-    }
+    } //Checks to see if the elevator is finished, and if so, gets height
 
     @Override
     public void start() {

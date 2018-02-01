@@ -7,7 +7,6 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.SerialPort;
 import frc.team2052.powerup.constants.DriveConstants;
 
 /**
@@ -50,7 +49,7 @@ class DriveTrainHardware {
 
         leftMaster.setInverted(true);
         leftSlave.setInverted(true);
-
+        //Left is in fact opposite of Right
         //Configure talons for follower mode
         rightSlave.set(ControlMode.Follower, rightMaster.getDeviceID());
         leftSlave.set(ControlMode.Follower, leftMaster.getDeviceID());

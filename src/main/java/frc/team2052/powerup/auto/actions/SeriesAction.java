@@ -25,13 +25,13 @@ public class SeriesAction implements Action {
     public boolean isFinished() {
         return mRemainingActions.isEmpty() && mCurAction == null;
     }
-
+//Is it finished? If not return how many actions are remaining.
     @Override
     public void start() {
     }
 
     @Override
-    public void update() {
+    public void update() { //Updates, if there are no actions left it returns nothing.
         if (mCurAction == null) {
             if (mRemainingActions.isEmpty()) {
                 return;
@@ -39,7 +39,7 @@ public class SeriesAction implements Action {
             mCurAction = mRemainingActions.remove(0);
             mCurAction.start();
         }
-        mCurAction.update();
+        mCurAction.update(); //If mCurAction is nothing, code says that action isFinished and done.
         if (mCurAction.isFinished()) {
             mCurAction.done();
             mCurAction = null;

@@ -1,12 +1,10 @@
 package frc.team2052.powerup;
 
+import frc.team2052.powerup.constants.DriveConstants;
 import frc.team2052.powerup.subsystems.drive.DriveSignal;
 
 public class DriveHelper {
     double mQuickStopAccumulator;
-    public static final double kThrottleDeadband = 0.1;
-    private static final double kWheelDeadband = 0.1;
-    private static final double kTurnSensitivity = 1.25;
     private DriveSignal mSignal = new DriveSignal(0, 0);
 
     /**
@@ -17,8 +15,8 @@ public class DriveHelper {
      * overrides constant-curvature turning for turn-in-place maneuvers.
      */
     public DriveSignal drive(double throttle, double wheel, boolean isQuickTurn) {
-        wheel = handleDeadband(wheel, kWheelDeadband);
-        throttle = handleDeadband(throttle, kThrottleDeadband);
+        wheel = handleDeadband(wheel, DriveConstants.kWheelDeadband);
+        throttle = handleDeadband(throttle, DriveConstants.kThrottleDeadband);
 
         double overPower;
 
@@ -33,7 +31,7 @@ public class DriveHelper {
             angularPower = wheel;
         } else {
             overPower = 0.0;
-            angularPower = Math.abs(throttle) * wheel * kTurnSensitivity - mQuickStopAccumulator;
+            angularPower = Math.abs(throttle) * wheel * DriveConstants.kTurnSensitivity - mQuickStopAccumulator;
             if (mQuickStopAccumulator > 1) {
                 mQuickStopAccumulator -= 1;
             } else if (mQuickStopAccumulator < -1) {

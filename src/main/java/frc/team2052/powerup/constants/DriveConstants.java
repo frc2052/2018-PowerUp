@@ -36,4 +36,8 @@ public class DriveConstants {
     public static double kDriveHeadingVelocityKp = 5.0;
     public static double kDriveHeadingVelocityKi = 0.1;
     public static double kDriveHeadingVelocityKd = 60.0;
+    public static double kGyroDeadzone = 1.5;
+    public static final double kThrottleDeadband = 0.1;
+    public static final double kWheelDeadband = 0.1;
+    public static final double kTurnSensitivity = 1.25;
 }
