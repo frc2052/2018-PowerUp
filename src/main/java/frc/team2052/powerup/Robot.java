@@ -19,23 +19,23 @@ import frc.team2052.powerup.subsystems.drive.DriveTrain;
 
 public class Robot extends IterativeRobot {
 
-    private ControlLoop controlLoop;
-    private ControlLoop logLooper;
-    private ControlLoop slowerLooper;
+    private ControlLoop controlLoop = null;
+    private ControlLoop logLooper = null;
+    private ControlLoop slowerLooper = null;
 
-    private static DriveTrain driveTrain;
-    private Intake intake;
-    private Controls controls;
-    private Ramp ramp;
-    private Elevator elevator;
+    private static DriveTrain driveTrain = null;
+    private Intake intake = null;
+    private Controls controls = null;
+    private Ramp ramp = null;
+    private Elevator elevator = null;
 
-    private AutoModeRunner autoModeRunner;
-    private RobotState robotState;
-    private DriveHelper driveHelper;
-    private RobotStateEstimator stateEstimator;
+    private AutoModeRunner autoModeRunner = null;
+    private RobotState robotState = null;
+    private DriveHelper driveHelper = null;
+    private RobotStateEstimator stateEstimator = null;
 
-    private PowerDistributionPanel pdp;
-    private RevRoboticsPressureSensor revRoboticsPressureSensor;
+    private PowerDistributionPanel pdp = null;
+    private RevRoboticsPressureSensor revRoboticsPressureSensor = null;
 
 
     @Override
@@ -45,11 +45,15 @@ public class Robot extends IterativeRobot {
 
         //Subsystems
         driveTrain = DriveTrain.getInstance();
-        intake = Intake.getInstance();
-        controls = Controls.getInstance();
-        ramp = Ramp.getInstance();
         driveHelper = new DriveHelper();
+        controls = Controls.getInstance();
+
+        //////THESE SUBSYSTEMS ARE FAULT TOLERANT/////
+        /////// they will return null if they fail to create themselves////////
+        intake = Intake.getInstance();
+        ramp = Ramp.getInstance();
         elevator = Elevator.getInstance();
+        //////////////////////////////////////////////
 
         pdp = new PowerDistributionPanel();
 
@@ -63,8 +67,10 @@ public class Robot extends IterativeRobot {
         controlLoop.addLoopable(driveTrain.getLoopable());
         controlLoop.addLoopable(stateEstimator);
 
-        //Slower loops because why update them 100 times a second
-        slowerLooper.addLoopable(intake);
+        if (intake != null) {
+            //Slower loops because why update them 100 times a second
+            slowerLooper.addLoopable(intake);
+        }
 
         //slowerLooper.addLoopable(VisionProcessor.getInstance());
 
@@ -99,10 +105,12 @@ public class Robot extends IterativeRobot {
         zeroAllSensors();
         Timer.delay(.25);
 
-        driveTrain.setOpenLoop(DriveSignal.NEUTRAL);
-        driveTrain.setBrakeMode(false);
+        driveTrain.setOpenLoop(DriveSignal.NEUTRAL);  //put robot into don't move, no looper mode
+        driveTrain.setBrakeMode(false); //TODO: should we turn off break mode in Auto?
 
-        intake.getWantClosed();
+        if (intake != null) {
+            intake.getWantClosed();  //keep the intake closed, because we should be holding a cube
+        }
 
         robotState.reset(Timer.getFPGATimestamp(), new RigidTransform2d());
         logLooper.start();
@@ -153,70 +161,73 @@ public class Robot extends IterativeRobot {
           //  visionTurn = false;
         //}
 
-        if(controls.getIntakeOpenIntake()){
-            intake.setWantOpenIntake();
-        }else if(controls.getIntakeOpenOuttake()){
-            intake.getWantOpenOutake();
-        }else if(controls.getIntakeOpenOff()){
-            intake.getWantOpenOff();
-        }else{
-            intake.getWantClosed();
+        if (intake != null) {
+            if (controls.getIntakeOpenIntake()) {
+                intake.setWantOpenIntake();
+            } else if (controls.getIntakeOpenOuttake()) {
+                intake.getWantOpenOutake();
+            } else if (controls.getIntakeOpenOff()) {
+                intake.getWantOpenOff();
+            } else {
+                intake.getWantClosed();
+            }
+
+            if (controls.getIntakeUp()){
+                intake.setIntakeup(true);
+            }else{
+                intake.setIntakeup(false);
+            }
         }
 
-        //Passes values from the button to elevator class
-        if (controls.getElevatorPickup())
+        if (elevator != null) {
+            //Passes values from the button to elevator class
+            if (controls.getElevatorPickup()) {
+                elevator.setTarget(Elevator.ElevatorPresetEnum.PICKUP);
+            } else if (controls.getElevatorSwitch()) {
+                elevator.setTarget(Elevator.ElevatorPresetEnum.SWITCH);
+            } else if (controls.getElevatorScale1()) {
+                elevator.setTarget(Elevator.ElevatorPresetEnum.SCALE_BALANCED);
+            } else if (controls.getElevatorScale2()) {
+                elevator.setTarget(Elevator.ElevatorPresetEnum.SCALE_HIGH);
+            } else if (controls.getElevatorScale3()) {
+                elevator.setTarget(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING);
+            }
+
+            if(controls.getElevatorAdjustmentUp() == true)
+            {
+                elevator.getElevatorAdjustmentUp(controls.getElevatorAdjustmentUp());
+            }
+
+            if(controls.getElevatorAdjustmentDown() == true)
+            {
+                elevator.getElevatorAdjustmentDown(controls.getElevatorAdjustmentUp());
+            }
+        }
+
+        if (ramp != null)
         {
-            elevator.setTarget(Elevator.ElevatorPresetEnum.PICKUP);
-        }
-        else if (controls.getElevatorSwitch())
-        {
-            elevator.setTarget(Elevator.ElevatorPresetEnum.SWITCH);
-        }
-        else if (controls.getElevatorScale1())
-        {
-            elevator.setTarget(Elevator.ElevatorPresetEnum.SCALE_BALANCED);
-        }
-        else if (controls.getElevatorScale2())
-        {
-            elevator.setTarget(Elevator.ElevatorPresetEnum.SCALE_HIGH);
-        }
-        else if (controls.getElevatorScale3())
-        {
-            elevator.setTarget(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING);
-            intake.setIntakeup(elevator.raiseIntake());
-        }
+            if(controls.getDropLeftRamp())
+            {
+                ramp.openRampPinLeft();
+            }
 
-        if(controls.getElevatorAdjustmentUp() == true)
-        {
-            elevator.getElevatorAdjustmentUp(controls.getElevatorAdjustmentUp());
-        }
+            if(controls.getDropRightRamp())
+            {
+                ramp.openRampPinRight();
+            }
 
-        if(controls.getElevatorAdjustmentDown() == true)
-        {
-            elevator.getElevatorAdjustmentDown(controls.getElevatorAdjustmentUp());
-        }
+            //todo: toggle ramp?? or stick with 4 buttons
+            if (controls.getLowerLeftRamp()){
+                ramp.openLeftRamp(true);
+            }else if(controls.getRaiseLeftRamp()){
+                ramp.openLeftRamp(false);
+            }
 
-        if (controls.getIntakeUp()){
-            intake.setIntakeup(true);
-        }else{
-            intake.setIntakeup(false);
-        }
-
-
-        if(controls.getDropLeftRamp()){ramp.openRampPinLeft();}
-
-        if(controls.getDropRightRamp()){ramp.openRampPinRight();}
-        //todo: toggle ramp?? or stick with 4 buttons
-        if (controls.getLowerLeftRamp()){
-            ramp.openLeftRamp(true);
-        }else if(controls.getRaiseLeftRamp()){
-            ramp.openLeftRamp(false);
-        }
-
-        if (controls.getLowerRightRamp()){
-            ramp.openRightRamp(true);
-        }else if(controls.getRaiseRightRamp()){
-            ramp.openRightRamp(false);
+            if (controls.getLowerRightRamp()){
+                ramp.openRightRamp(true);
+            }else if(controls.getRaiseRightRamp()){
+                ramp.openRightRamp(false);
+            }
         }
 
         SmartDashboard.putNumber("gyro", driveTrain.getGyroAngleDegrees());

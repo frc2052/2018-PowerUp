@@ -8,9 +8,6 @@ import frc.team2052.powerup.auto.actions.WaitAction;
 
 import java.util.Arrays;
 
-/**
- * Created by KnightKrawler on 1/15/2018.
- */
 public class DontMove extends AutoMode{
     @Override
     protected void init() throws AutoModeEndedException { //Robot does not move

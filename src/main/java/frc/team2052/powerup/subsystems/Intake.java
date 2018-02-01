@@ -6,14 +6,23 @@ import com.first.team2052.lib.Loopable;
 import edu.wpi.first.wpilibj.Solenoid;
 import frc.team2052.powerup.constants.IntakeConstants;
 
-/**
- * Created by Kay on 1/19/2018.
- */
 public class Intake implements Loopable {//implements Loopable
 
     //SINGLETON
-    private static Intake instance = new Intake();
-    public static Intake getInstance() { return instance; }
+    private static Intake instance = null;
+    public static Intake getInstance()
+    {
+        if (instance == null)
+        {
+            try {
+                instance = new Intake();
+            } catch (Exception exc) {
+                System.out.println("DANGER: Failed to create Intake: " + exc.getMessage());
+                exc.printStackTrace();
+            }
+        }
+        return instance;
+    }
 
     private intakeState currentState = intakeState.OPEN_OFF;
     private Solenoid solenoid1In, solenoid1Out;
@@ -92,7 +101,6 @@ public class Intake implements Loopable {//implements Loopable
                    state = intakeState.OPEN_OUTAKE;
                }
                break;
-
             case CLOSED:
                 if (wantOpenOff) { //Goes from closed to open, motors stay off
                     setOpen(true);

@@ -6,6 +6,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.SerialPort;
 import frc.team2052.powerup.constants.DriveConstants;
 
@@ -20,7 +21,7 @@ class DriveTrainHardware {
     private final TalonSRX rightSlave;
     private final TalonSRX leftSlave;
 
-    AHRS navXGyro;
+    AHRS navXGyro = null;
     //https://github.com/kauailabs/navxmxp/blob/master/roborio/java/navXMXP_Java_DataMonitor/src/org/usfirst/frc/team2465/robot/Robot.java
     private boolean isBrakeMode = true;
 
@@ -44,11 +45,11 @@ class DriveTrainHardware {
         rightMaster.configClosedloopRamp(DriveConstants.kClosedLoopRampRate, DriveConstants.kCANBusConfigTimeoutMS);
 
         //Fix sensor polarity
-        leftMaster.setInverted(false);
-        rightMaster.setInverted(true);
+        rightMaster.setInverted(false);
+        rightSlave.setInverted(false);
 
         leftMaster.setInverted(true);
-        rightMaster.setInverted(false);
+        leftSlave.setInverted(true);
 
         //Configure talons for follower mode
         rightSlave.set(ControlMode.Follower, rightMaster.getDeviceID());
@@ -82,11 +83,12 @@ class DriveTrainHardware {
              *
              * Multiple navX-model devices on a single robot are supported.
              ************************************************************************/
-            navXGyro = new AHRS(SerialPort.Port.kOnboard);//todo: test if the gyro uses onboard
+            navXGyro = new AHRS(I2C.Port.kMXP);//todo: test if the gyro uses onboard
             //ahrs = new AHRS(SerialPort.Port.kMXP, SerialDataType.kProcessedData, (byte)50);
             navXGyro.enableLogging(true);
         } catch (RuntimeException ex ) {
             DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
+            System.out.println("Error instantiating navX MXP:  " + ex.getMessage());
         }
 
         setBrakeMode(false);

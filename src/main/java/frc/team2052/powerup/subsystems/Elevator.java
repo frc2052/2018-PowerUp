@@ -11,8 +11,16 @@ public class Elevator implements Loopable{
     private TalonSRX elevatorTalon;
 
     //SINGLETON
-    private static Elevator instance = new Elevator();
-    public static Elevator getInstance(){
+    private static Elevator instance = null;
+    public static Elevator getInstance() {
+        if (instance == null) {
+            try {
+                instance = new Elevator();
+            } catch (Exception exc) {
+                System.out.println("DANGER: Failed to create Elevator: " + exc.getMessage());
+                exc.printStackTrace();
+            }
+        }
         return instance;
     }
 
@@ -139,7 +147,7 @@ public class Elevator implements Loopable{
     }
 
     public enum ElevatorPresetEnum {
-        PICKUP,
+        PICKUP(),
         SWITCH, //on top of another cube on switch
         SCALE_BALANCED, //balanced on scale
         SCALE_HIGH,//high scale(when scale is tipped toward oponents side)

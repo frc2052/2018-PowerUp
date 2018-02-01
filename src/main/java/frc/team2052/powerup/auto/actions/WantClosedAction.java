@@ -1,6 +1,7 @@
 package frc.team2052.powerup.auto.actions;
 
 import frc.team2052.powerup.subsystems.Intake;
+//Sets Intake to closed in auto mode
 
 public class WantClosedAction implements Action {
     @Override
