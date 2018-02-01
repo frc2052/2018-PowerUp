@@ -7,8 +7,8 @@ public class DriveConstants {
 
     public static int kDriveRightMasterId = 1;
     public static int kDriveRightSlaveId = 2;
-    public static int kDriveLeftMasterId = 3;
-    public static int kDriveLeftSlaveId = 4;
+    public static int kDriveLeftMasterId = 4;
+    public static int kDriveLeftSlaveId = 3;
 
     public static double kOpenLoopRampRate = .5; // this many seconds from 0 to full power
     public static double kClosedLoopRampRate = 0.0;

@@ -7,6 +7,7 @@ import com.first.team2052.lib.path.AdaptivePurePursuitController;
 import com.first.team2052.lib.path.Path;
 import com.first.team2052.lib.vec.RigidTransform2d;
 import com.first.team2052.lib.vec.Rotation2d;
+import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.Timer;
 import frc.team2052.powerup.Kinematics;
 import frc.team2052.powerup.RobotState;
@@ -64,6 +65,7 @@ public class DriveTrain extends DriveTrainHardware {
         }
     };
 
+    //PID loop for drive speed 
     private DriveTrain() {
         setOpenLoop(DriveSignal.NEUTRAL);
 
@@ -106,8 +108,9 @@ public class DriveTrain extends DriveTrainHardware {
      * This method is used by controllers directly
      */
     private void setLeftRightPower(double left_power, double right_power) {
-        leftMaster.set(ControlMode.PercentOutput,-left_power);
-        rightMaster.set(ControlMode.PercentOutput,right_power);
+        System.out.println("LEFT: " + getLeftDistanceInches() + "   RIGHT: " + getRightDistanceInches());
+        leftMaster.set(ControlMode.PercentOutput, left_power);
+        rightMaster.set(ControlMode.PercentOutput, right_power);
     }
 
     /**
@@ -284,15 +287,26 @@ public class DriveTrain extends DriveTrainHardware {
      * Reset's the gyro home point
      */
     public void zeroGyro() {
-        navXGyro.reset();
+        if (navXGyro != null) {
+            System.out.println("Reseting Gyro");
+            navXGyro.reset();
+        } else {
+            System.out.println("DANGER: NO GYRO!!!!");
+        }
     }
 
     /**
      * @return gyro angle in degrees
      */
     public double getGyroAngleDegrees() {
-        // It just so happens that the gyro outputs 4x the amount that it actually turned
-        return -navXGyro.getAngle(); /*/ 4.0*/
+        if (navXGyro != null)
+        {
+            // It just so happens that the gyro outputs 4x the amount that it actually turned
+            return -navXGyro.getAngle(); /*/ 4.0*/
+        } else {
+            System.out.println("DANGER: NO GYRO!!!!");
+            return 0;
+        }
     }
     /**
      * @return gyro angle for multiple uses cartesian, radians, degrees, translation, rotation, interpolation, etc
@@ -308,24 +322,43 @@ public class DriveTrain extends DriveTrainHardware {
      */
 
     public double getGyroRateDegrees() {
-        return navXGyro.getRate() / 4.0;
+        if (navXGyro != null)
+        {
+            return navXGyro.getRate() / 4.0;
+        } else {
+            System.out.println("DANGER: NO GYRO!!!!");
+            return 0;
+        }
     }
 
+    private double convertTicksToRotations(int ticks)
+    {
+        double rotations = ticks / (double) DriveConstants.kDriveEncoderTicksPerRot;
+        return rotations;
+    }
 
     public double getLeftDistanceInches() {
-        return rotationsToInches(leftMaster.getSelectedSensorPosition(kVelocityControlSlot));
+        //encoder spins opposite
+        double wheelRotations = convertTicksToRotations(-leftMaster.getSelectedSensorPosition(kVelocityControlSlot));
+        return rotationsToInches(wheelRotations);
     }
 
     public double getRightDistanceInches() {
-        return rotationsToInches(rightMaster.getSelectedSensorPosition(kVelocityControlSlot));
+        //encoder spins opposite
+        double wheelRotations = convertTicksToRotations(-rightMaster.getSelectedSensorPosition(kVelocityControlSlot));
+        return rotationsToInches(wheelRotations);
     }
 
     public double getLeftVelocityInchesPerSec() {
-        return rpmToInchesPerSecond(leftMaster.getSelectedSensorPosition(kVelocityControlSlot));
+        //encoder spins opposite
+        double wheelRotations = convertTicksToRotations(-leftMaster.getSelectedSensorPosition(kVelocityControlSlot));
+        return rpmToInchesPerSecond(wheelRotations);
     }
 
     public double getRightVelocityInchesPerSec() {
-        return rpmToInchesPerSecond(rightMaster.getSelectedSensorPosition(kVelocityControlSlot));
+        //encoder spins opposite
+        double wheelRotations = convertTicksToRotations(-rightMaster.getSelectedSensorPosition(kVelocityControlSlot));
+        return rpmToInchesPerSecond(wheelRotations);
     }
 
     public Loopable getLoopable() {
