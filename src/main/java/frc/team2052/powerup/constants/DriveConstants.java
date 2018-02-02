@@ -41,7 +41,7 @@ public class DriveConstants {
     public static int kDriveVelocityAllowableError = 0;
     public static double kPathFollowingLookahead = 24;
     public static double kPathFollowingMaxAccel = 50;
-    public static double kPathFollowingMaxVel = 90;
+    public static double kPathFollowingMaxVel = 200;
     public static double kDriveHeadingVelocityKp = 5.0;
     public static double kDriveHeadingVelocityKi = 0.1;
     public static double kDriveHeadingVelocityKd = 60.0;

@@ -7,6 +7,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SerialPort;
 import frc.team2052.powerup.constants.DriveConstants;
 
@@ -69,7 +70,7 @@ class DriveTrainHardware {
         rightMaster.config_IntegralZone(kVelocityControlSlot, DriveConstants.kDriveVelocityIZone, DriveConstants.kCANBusConfigTimeoutMS);
 
         leftMaster.configMotionCruiseVelocity(430, DriveConstants.kCANBusConfigTimeoutMS);//todo: decide timeout seconds
-        rightMaster.configMotionCruiseVelocity(430,DriveConstants.kCANBusConfigTimeoutMS);
+        rightMaster.configMotionCruiseVelocity(430, DriveConstants.kCANBusConfigTimeoutMS);
 
         try {
             /***********************************************************************
@@ -83,7 +84,7 @@ class DriveTrainHardware {
              *
              * Multiple navX-model devices on a single robot are supported.
              ************************************************************************/
-            navXGyro = new AHRS(I2C.Port.kMXP);//todo: test if the gyro uses onboard
+            navXGyro = new AHRS(SPI.Port.kMXP);
             //ahrs = new AHRS(SerialPort.Port.kMXP, SerialDataType.kProcessedData, (byte)50);
             navXGyro.enableLogging(true);
         } catch (RuntimeException ex ) {

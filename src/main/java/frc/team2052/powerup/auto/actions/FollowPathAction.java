@@ -31,7 +31,6 @@ public class FollowPathAction implements Action {
 
     @Override
     public void update() {
-        System.out.println("Remaining length:" + mPath.getRemainingLength());
         mHasStarted = true;
     }
 
