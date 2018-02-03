@@ -36,7 +36,7 @@ public class Elevator implements Loopable{
         elevatorTalon.configMotionCruiseVelocity(430, 10);//todo: decide timeout seconds
         elevatorTalon.setNeutralMode(NeutralMode.Brake);
     }
-    public void setSelectedSensorPosition(){
+    public void zeroSensor(){
         elevatorTalon.setSelectedSensorPosition(0, ElevatorConstants.kElevatorMotorID, DriveConstants.kCANBusConfigTimeoutMS);
     };
 
@@ -53,7 +53,7 @@ public class Elevator implements Loopable{
         int pos = (int)(rotation * ElevatorConstants.kElevatorTicksPerRot);
         //Sets the Carriage at a set height, see https://github.com/CrossTheRoadElec/Phoenix-Documentation/blob/master/Talon%20SRX%20Victor%20SPX%20-%20Software%20Reference%20Manual.pdf
         // in 3.1.2.1, recommended timeout is zero while in robot loop
-//        elevatorTalon.setSelectedSensorPosition(pulses,0, 0);//todo: check error code
+//        elevatorTalon.zeroSensor(pulses,0, 0);//todo: check error code
         elevatorTalon.set(ControlMode.Position, pos);
         return ;
     }
