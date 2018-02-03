@@ -9,7 +9,7 @@ public class ElevatorConstants {
     public static double kElevatorVelocityKf = 0.3;
     public static int kElevatorVelocityIZone = 0;
     public static int kElevatorTicksPerRot = 1024;
-
+    //creates the buttons to control the height of the elevator
     public static int kElevatorSwitchHeightButton = 2;
     public static int kElevatorScale_OneHeightButton = 4;
     public static int kElevatorScale_TwoHeightButton = 3;

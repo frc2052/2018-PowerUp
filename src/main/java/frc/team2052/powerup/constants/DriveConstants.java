@@ -1,6 +1,6 @@
 package frc.team2052.powerup.constants;
 
-//todo: decide which constats are good
+//todo: decide which constants are good
 public class DriveConstants {
 
     public final static int kCANBusConfigTimeoutMS = 10;
