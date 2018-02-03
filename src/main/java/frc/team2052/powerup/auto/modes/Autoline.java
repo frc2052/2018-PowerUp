@@ -6,6 +6,7 @@ import frc.team2052.powerup.auto.AutoMode;
 import frc.team2052.powerup.auto.AutoModeEndedException;
 import frc.team2052.powerup.auto.AutoModeSelector;
 import frc.team2052.powerup.auto.actions.FollowPathAction;
+import frc.team2052.powerup.auto.actions.PrintAction;
 import frc.team2052.powerup.auto.actions.SeriesAction;
 import frc.team2052.powerup.auto.actions.WaitAction;
 
@@ -27,8 +28,9 @@ public class Autoline extends AutoMode{
         //drive past autoline either in left or right start position
 
         runAction(new SeriesAction(Arrays.asList(
-                new FollowPathAction(new Path(forwardPath), false))
+                new FollowPathAction(new Path(forwardPath), false),
+                new PrintAction("Reached ")
                 //pathing past autoline
-        ));
+        )));
     }
 }
