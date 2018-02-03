@@ -13,16 +13,22 @@ import java.util.List;
  */
 public class AutoPaths {
 
+    public static List<Path.Waypoint> Autoline = new ArrayList();
     public static List<Path.Waypoint> LLSwitch = new ArrayList();
     public static List<Path.Waypoint> LLScale = new ArrayList();
     public static List<Path.Waypoint> LRScale = new ArrayList();
     public static List<Path.Waypoint> CLSwitch = new ArrayList();
     public static List<Path.Waypoint> CRSwitch = new ArrayList();
-    public static  List<Path.Waypoint> RLScale = new ArrayList();
-    public static  List<Path.Waypoint> RRScale = new ArrayList();
-    public static  List<Path.Waypoint> RRSwitch = new ArrayList();
+    public static List<Path.Waypoint> RLScale = new ArrayList();
+    public static List<Path.Waypoint> RRScale = new ArrayList();
+    public static List<Path.Waypoint> RRSwitch = new ArrayList();
 
     public static void Init() {
+
+        //start left or right go past autoline
+        Autoline.add(new Path.Waypoint(new Translation2d(0, 0), 40));
+        Autoline.add(new Path.Waypoint(new Translation2d(120 + AutoModeSelector.getTrimX(), 0 ), 40));
+
         //start left go to left switch
         LLSwitch.add(new Path.Waypoint(new Translation2d(0, 0), DriveConstants.kPathFollowingMaxVel));
         LLSwitch.add(new Path.Waypoint(new Translation2d(150, 0), DriveConstants.kPathFollowingMaxVel, "RaiseElevator"));

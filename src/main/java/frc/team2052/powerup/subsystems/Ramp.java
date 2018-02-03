@@ -1,5 +1,6 @@
 package frc.team2052.powerup.subsystems;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Solenoid;
 import frc.team2052.powerup.constants.RampConstants;
 
@@ -11,13 +12,12 @@ public class Ramp {
             try {
                 instance = new Ramp();
             } catch (Exception exc) {
-                System.out.println("DANGER: Failed to create Ramp: " + exc.getMessage());
-                exc.printStackTrace();
+               System.out.println("DANGER: Failed to create Ramp: " + exc.getMessage());
+               exc.printStackTrace();
             }
         }
         return instance;
     }
-
     //Ramp pins for each side and extending/collapsing ramp on each side
     private Solenoid rampPinLeftIn;
     private Solenoid rampPinLeftOut;
@@ -28,33 +28,36 @@ public class Ramp {
     private Solenoid leftRampIn;
     private Solenoid leftRampOut;
 
-    private Ramp() {//todo rename to release pin for clearity
-        rampPinLeftIn  = new Solenoid(1,RampConstants.kRampPinLeftInId);
-        rampPinLeftOut = new Solenoid(1,RampConstants.kRampPinLeftOutId);
-        rampPinRightIn = new Solenoid(1,RampConstants.kRampPinRightInId);
-        rampPinRightOut = new Solenoid(1,RampConstants.kRampPinRightOutId);
-        rightRampIn = new Solenoid(1,RampConstants.kRightRampInId);
-        rightRampOut = new Solenoid(1,RampConstants.kRightRampOutId);
-        leftRampIn = new Solenoid(1,RampConstants.kLeftRampInId);
-        leftRampOut = new Solenoid(1,RampConstants.kLeftRampOutId);
+    private Ramp() {//todo rename to release pin for clarity
+        rampPinLeftIn  = new Solenoid(RampConstants.kRampPinLeftInId); //The pins are used to keep the ramps up while the robot is driving
+        rampPinRightIn = new Solenoid(RampConstants.kRampPinRightInId);
+        rightRampIn = new Solenoid(RampConstants.kRightRampInId);
+        rightRampOut = new Solenoid(RampConstants.kRightRampOutId);
+        leftRampIn = new Solenoid(RampConstants.kLeftRampInId);
+        leftRampOut = new Solenoid(RampConstants.kLeftRampOutId);
     }
-    public void openRampPinLeft() {
-        //double time = DriverStation.getInstance().getMatchTime();
-        //todo: use above code to check gametime
+    public void dropRampPinLeft() {
+        double time = DriverStation.getInstance().getMatchTime();
         rampPinLeftIn.set(true);
-        rampPinLeftOut.set(!false);
     }
-    public void openRampPinRight() {
+    public void dropRampPinRight() {
         rampPinRightIn.set(true);
-        rampPinRightOut.set(!false);
     }
-    public void openRightRamp(boolean rightRampPressed) {
-        rightRampIn.set(rightRampPressed);
-        rightRampOut.set(!rightRampPressed);
+    public void raiseRightRamp() {
+        rightRampIn.set(true);
+        rightRampOut.set(false);
     }
-    public void openLeftRamp(boolean leftRampPressed) {
-        leftRampIn.set(leftRampPressed);
-        leftRampOut.set(!leftRampPressed);
+    public void raiseLeftRamp() {
+        leftRampIn.set(true);
+        leftRampOut.set(false);
+    }
+    public void lowerLeftRamp() {
+        leftRampIn.set(false);
+        leftRampOut.set(true);
+    }
+    public void lowerRightRamp() {
+        rightRampIn.set(false);
+        rightRampOut.set(true);
     }
 
 

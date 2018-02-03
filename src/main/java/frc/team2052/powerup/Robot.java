@@ -104,9 +104,13 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void autonomousInit() {
+        AutoPaths.Init();
         zeroAllSensors();
         Timer.delay(.25);
 
+        if (elevator != null) {
+            elevator.zeroSensor();
+        }
         driveTrain.setOpenLoop(DriveSignal.NEUTRAL);  //put robot into don't move, no looper mode
         driveTrain.setBrakeMode(false); //TODO: should we turn off break mode in Auto?
 
@@ -193,22 +197,28 @@ public class Robot extends IterativeRobot {
             if (controls.getElevatorPickup()) {
                 elevator.setTarget(Elevator.ElevatorPresetEnum.PICKUP);
             } else if (controls.getElevatorSwitch()) {
+                intake.getWantClosed();
                 elevator.setTarget(Elevator.ElevatorPresetEnum.SWITCH);
             } else if (controls.getElevatorScale1()) {
+                intake.getWantClosed();
                 elevator.setTarget(Elevator.ElevatorPresetEnum.SCALE_BALANCED);
             } else if (controls.getElevatorScale2()) {
+                intake.getWantClosed();
                 elevator.setTarget(Elevator.ElevatorPresetEnum.SCALE_HIGH);
             } else if (controls.getElevatorScale3()) {
+                intake.getWantClosed();
                 elevator.setTarget(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING);
             }
 
             if(controls.getElevatorAdjustmentUp() == true)
             {
+                intake.getWantClosed();
                 elevator.getElevatorAdjustmentUp(controls.getElevatorAdjustmentUp());
             }
 
             if(controls.getElevatorAdjustmentDown() == true)
             {
+                intake.getWantClosed();
                 elevator.getElevatorAdjustmentDown(controls.getElevatorAdjustmentUp());
             }
         }
@@ -217,25 +227,25 @@ public class Robot extends IterativeRobot {
         {
             if(controls.getDropLeftRamp())
             {
-                ramp.openRampPinLeft();
+                ramp.dropRampPinLeft();
             }
 
             if(controls.getDropRightRamp())
             {
-                ramp.openRampPinRight();
+                ramp.dropRampPinRight();
             }
 
             //todo: toggle ramp?? or stick with 4 buttons
             if (controls.getLowerLeftRamp()){
-                ramp.openLeftRamp(true);
+                ramp.lowerLeftRamp();
             }else if(controls.getRaiseLeftRamp()){
-                ramp.openLeftRamp(false);
+                ramp.raiseLeftRamp();
             }
 
             if (controls.getLowerRightRamp()){
-                ramp.openRightRamp(true);
+                ramp.lowerRightRamp();
             }else if(controls.getRaiseRightRamp()){
-                ramp.openRightRamp(false);
+                ramp.raiseRightRamp();
             }
         }
 
