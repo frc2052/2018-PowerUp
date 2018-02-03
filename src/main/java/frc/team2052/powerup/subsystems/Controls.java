@@ -60,7 +60,7 @@ public class Controls {
         return joystick1.getRawButton(ControllerConstants.kJoystickOpenOff);
     }
     public boolean getPickupClosed() {
-        return joystick1.getRawButton(ControllerConstants.kJoystickOpenOuttake);
+        return joystick1.getRawButton(ControllerConstants.kJoystickClosed);
     }
     public boolean getPickupIntakeMotor() {
         return secondaryStick.getTrigger();

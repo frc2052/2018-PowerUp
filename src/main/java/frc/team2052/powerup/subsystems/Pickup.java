@@ -8,50 +8,49 @@ import frc.team2052.powerup.constants.PickupConstants;
 public class Pickup {
 
     private static Pickup instance = new Pickup();
-    public static Pickup getInstance() { return instance;}
+    public static Pickup getInstance() {return instance;}
 
-    private Solenoid intakesolenoid;
+    private Solenoid inOutSolonoid, upDownSolonoid;
     private TalonSRX leftMotor, rightMotor;
 
     private Pickup() {
-        intakesolenoid = new Solenoid(PickupConstants.intakeSolenoid);
-        leftMotor = new TalonSRX(PickupConstants.intakeLeftMotorId);
-        rightMotor = new TalonSRX(PickupConstants.intakeRightMotorId);
+        inOutSolonoid = new Solenoid(PickupConstants.inOutSolenoid);
+        upDownSolonoid = new Solenoid(PickupConstants.upDownSolenoid);
+        leftMotor = new TalonSRX(PickupConstants.pickupLeftMotorId);
+        rightMotor = new TalonSRX(PickupConstants.pickupRightMotorId);
         rightMotor.setInverted(true);
     }
 
     private void setMotorSpeed(double speedPercent) {
         leftMotor.set(ControlMode.PercentOutput, speedPercent);
-        rightMotor.set(ControlMode.PercentOutput, speedPercent); //TODO: figure out how to set the motor to be reversed in config
+        rightMotor.set(ControlMode.PercentOutput, speedPercent);
     }
 
-    public void pickupOpen(boolean open) {
-        intakesolenoid.set(open);
+    public void open() {
+        inOutSolonoid.set(true);
     }
 
-    public void pickupClosed(boolean close){
-        intakesolenoid.set(close);
+    public void close(){
+        inOutSolonoid.set(false);
     }
 
-    public void pickupIntake(){
-        setMotorSpeed(1);
+    public void intake(){
+        setMotorSpeed(0.5);
     }
 
-    public void pickupOuttake() {
-        setMotorSpeed(2);
+    public void outtake() {
+        setMotorSpeed(0.5);
     }
 
-    public void pickupStopped() {
+    public void stopped() {
         setMotorSpeed(0);
     }
 
-    public void pickupUp() {
-
+    public void up() {
+        upDownSolonoid.set(true);
     }
 
-    public void pickupDown() {
-
+    public void down() {
+        upDownSolonoid.set(false);
     }
-
-
 }
