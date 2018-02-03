@@ -49,7 +49,7 @@ public class AutoPaths {
         //start center go to left switch
         CLSwitch.add(new Path.Waypoint(new Translation2d(0, 0), 40));
         CLSwitch.add(new Path.Waypoint(new Translation2d(70, 0), 40, "RaiseElevator"));
-        CLSwitch.add(new Path.Waypoint(new Translation2d(70, 54), 40 + AutoModeSelector.getTrimY()));
+        CLSwitch.add(new Path.Waypoint(new Translation2d(70, 54 + AutoModeSelector.getTrimY()), 40 ));
         CLSwitch.add(new Path.Waypoint(new Translation2d(140 + AutoModeSelector.getTrimX(), 54), 40));
 
         //start center go to right switch
