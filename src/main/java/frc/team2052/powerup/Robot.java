@@ -104,6 +104,7 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() {
         zeroAllSensors();
         Timer.delay(.25);
+        elevator.zeroSensor();
 
         driveTrain.setOpenLoop(DriveSignal.NEUTRAL);  //put robot into don't move, no looper mode
         driveTrain.setBrakeMode(false); //TODO: should we turn off break mode in Auto?
@@ -190,22 +191,28 @@ public class Robot extends IterativeRobot {
             if (controls.getElevatorPickup()) {
                 elevator.setTarget(Elevator.ElevatorPresetEnum.PICKUP);
             } else if (controls.getElevatorSwitch()) {
+                intake.getWantClosed();
                 elevator.setTarget(Elevator.ElevatorPresetEnum.SWITCH);
             } else if (controls.getElevatorScale1()) {
+                intake.getWantClosed();
                 elevator.setTarget(Elevator.ElevatorPresetEnum.SCALE_BALANCED);
             } else if (controls.getElevatorScale2()) {
+                intake.getWantClosed();
                 elevator.setTarget(Elevator.ElevatorPresetEnum.SCALE_HIGH);
             } else if (controls.getElevatorScale3()) {
+                intake.getWantClosed();
                 elevator.setTarget(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING);
             }
 
             if(controls.getElevatorAdjustmentUp() == true)
             {
+                intake.getWantClosed();
                 elevator.getElevatorAdjustmentUp(controls.getElevatorAdjustmentUp());
             }
 
             if(controls.getElevatorAdjustmentDown() == true)
             {
+                intake.getWantClosed();
                 elevator.getElevatorAdjustmentDown(controls.getElevatorAdjustmentUp());
             }
         }

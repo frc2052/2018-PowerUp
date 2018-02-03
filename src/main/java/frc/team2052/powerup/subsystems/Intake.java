@@ -53,7 +53,7 @@ public class Intake implements Loopable {//implements Loopable
         solenoid2In.set(open);
         solenoid2Out.set(!open);
     }
-    public void setIntakeup(boolean up) {
+    public void setIntakeup(boolean up) { //true sets it up, false sets it down
         solenoidLift1In.set(up);
         solenoidLift1Out.set(!up);
         solenoidLift2In.set(up);
