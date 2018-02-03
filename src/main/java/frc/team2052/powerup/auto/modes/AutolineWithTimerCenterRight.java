@@ -10,14 +10,16 @@ import frc.team2052.powerup.subsystems.drive.DriveSignal;
 
 import java.util.Arrays;
 
-public class AutolineWithTimerStartCenter extends AutoMode{
+public class AutolineWithTimerCenterRight extends AutoMode{
     @Override
     protected void init() throws AutoModeEndedException {
         runAction(new SeriesAction(Arrays.asList(new WaitAction(AutoModeSelector.SelectedWaitTime))));
         runAction(new SeriesAction(Arrays.asList(
                 new MoveUntilTimeAction(1, new DriveSignal(.2, .2)),
                 new MoveUntilTimeAction(1, new DriveSignal(0, .2)),
+                new MoveUntilTimeAction(2, new DriveSignal(.2, .2)),
                 new MoveUntilTimeAction(1, new DriveSignal(.2, 0)),
-                new MoveUntilTimeAction(1, new DriveSignal(.2, .2)))));
+                new MoveUntilTimeAction(1.6, new DriveSignal(.2, .2)))));
     }
 }
+//when starting in center, crosses autoline to the right using a timer

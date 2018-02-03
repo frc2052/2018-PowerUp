@@ -14,6 +14,7 @@ public class AutolineWithTimer extends AutoMode{
     @Override
     protected void init() throws AutoModeEndedException {
         runAction(new SeriesAction(Arrays.asList(new WaitAction(AutoModeSelector.SelectedWaitTime))));
-        runAction(new SeriesAction(Arrays.asList(new MoveUntilTimeAction(1, new DriveSignal(.2, .2)))));
+        runAction(new SeriesAction(Arrays.asList(new MoveUntilTimeAction(4, new DriveSignal(.2, .2)))));
     }
 }
+//when starting on left orright side, crosses autoline using a timer

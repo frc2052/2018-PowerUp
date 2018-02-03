@@ -18,7 +18,7 @@ public class MoveUntilTimeAction implements Action {
 
     @Override
     public void done() {
-
+        mDrive.setOpenLoop(DriveSignal.NEUTRAL);
     }
 
     @Override
