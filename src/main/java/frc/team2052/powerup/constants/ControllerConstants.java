@@ -1,5 +1,8 @@
 package frc.team2052.powerup.constants;
-
+/* Button numbers for drivers on the joysticks
+ramp buttons to raise/lower/drop pins
+Left ramp buttons will be on joystick0(left stick) and Right ramp buttons will be on joystick1(right ramp)
+ */
 public class ControllerConstants {
     public static int kJoystickDropLeftPin = 8;
     public static int kJoystickDropRightPin = 9;
