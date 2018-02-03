@@ -219,9 +219,9 @@ public class DriveTrain extends DriveTrainHardware {
      */
     private void updatePathFollower() {
         RigidTransform2d robot_pose = RobotState.getInstance().getLatestFieldToVehicle().getValue();
-        System.out.println("ROBOT POSE ----   DEGREES: " + robot_pose.getRotation().getDegrees() + " X: " + robot_pose.getTranslation().getX() + " Y:" + robot_pose.getTranslation().getY());
+//        System.out.println("ROBOT POSE ----   DEGREES: " + robot_pose.getRotation().getDegrees() + " X: " + robot_pose.getTranslation().getX() + " Y:" + robot_pose.getTranslation().getY());
         RigidTransform2d.Delta command = pathFollowingController.update(robot_pose, Timer.getFPGATimestamp());
-        System.out.println("COMMAND---  dx: " + command.dx + "  dy: "+ command.dy);
+//        System.out.println("COMMAND---  dx: " + command.dx + "  dy: "+ command.dy);
         Kinematics.DriveVelocity setpoint = Kinematics.inverseKinematics(command);
 
         // Scale the command to respect the max velocity limits

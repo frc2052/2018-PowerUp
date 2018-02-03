@@ -21,14 +21,12 @@ public class Controls {
 //Tank drive for joysticks
     public double getTank() {
         double tank = -joystick0.getY();
-        if (!joystick1.getTrigger()) {
-            tank *= -1;
-        }
+        //if (joystick1.getTrigger()) {tank *= -1;}
         return tank;
     }
 
     public double getTurn() {
-        return joystick1.getX();
+        return -joystick1.getX();
     }
 
     public boolean getElevatorAdjustmentUp(){return secondaryStick.getRawButton(6);}//press button 6 to raise elevator up 2 in
