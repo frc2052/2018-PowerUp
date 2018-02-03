@@ -105,8 +105,8 @@ public class DriveTrain extends DriveTrainHardware {
      * Sets the motor speeds in percent mode and disables all controllers
      */
     public void setOpenLoop(DriveSignal signal) {
-        System.out.println("ENCODERS LEFT: " + getLeftDistanceInches() + "   RIGHT: " + getRightDistanceInches());
-
+//        System.out.println("ENCODERS LEFT: " + getLeftDistanceInches() + "   RIGHT: " + getRightDistanceInches());
+//        System.out.println("GYRO DEGREES: " + getGyroAngleDegrees());
         driveControlState = DriveControlState.OPEN_LOOP;
         leftMaster.set(ControlMode.PercentOutput, signal.leftMotor);
         rightMaster.set(ControlMode.PercentOutput, signal.rightMotor);
@@ -183,15 +183,16 @@ public class DriveTrain extends DriveTrainHardware {
         if (getDriveControlState() == DriveControlState.PATH_FOLLOWING_CONTROL
                 || getDriveControlState() == DriveControlState.VELOCITY_HEADING_CONTROL
                 || getDriveControlState() == DriveControlState.VISION_FOLLOW) {
-            System.out.printf("Velocity\n\tLeft %s\n\tRight %s\n", leftMaster.getSelectedSensorVelocity(0), rightMaster.getSelectedSensorVelocity(0));
-            System.out.printf("Error\n\tLeft %s\n\tRight %s\n", leftMaster.getClosedLoopError(0), rightMaster.getClosedLoopError(0));
-            System.out.printf("setting velocity final\n\tleft %f\n\tright%f\n", inchesPerSecondToRpm(left_inches_per_sec), inchesPerSecondToRpm(right_inches_per_sec));
-            leftMaster.set(ControlMode.Velocity, inchesPerSecondToTicksPer100Ms(left_inches_per_sec));
-            rightMaster.set(ControlMode.Velocity, inchesPerSecondToTicksPer100Ms(right_inches_per_sec));
-            System.out.println("Left Ticks/100: " + inchesPerSecondToTicksPer100Ms(left_inches_per_sec));
-            System.out.println("Right Ticks/100: " + inchesPerSecondToTicksPer100Ms(right_inches_per_sec));
-            System.out.println("Left inches per sec: " + left_inches_per_sec);
-            System.out.println("Right inches per sec: " + right_inches_per_sec);
+//            System.out.printf("Velocity\n\tLeft %s\n\tRight %s\n", leftMaster.getSelectedSensorVelocity(0), rightMaster.getSelectedSensorVelocity(0));
+//            System.out.printf("Error\n\tLeft %s\n\tRight %s\n", leftMaster.getClosedLoopError(0), rightMaster.getClosedLoopError(0));
+//            System.out.printf("setting velocity final\n\tleft %f\n\tright%f\n", inchesPerSecondToRpm(left_inches_per_sec), inchesPerSecondToRpm(right_inches_per_sec));
+
+            double leftSpeed = inchesPerSecondToTicksPer100Ms(left_inches_per_sec);
+            double rightSpeed = inchesPerSecondToTicksPer100Ms(right_inches_per_sec);
+
+            leftMaster.set(ControlMode.Velocity, leftSpeed);
+            rightMaster.set(ControlMode.Velocity, rightSpeed);
+//            System.out.println("UPDATE VELOCITY SETTING  -----  Angle: " + getGyroAngleDegrees() + "   LEFT: " + leftSpeed + "    RIGHT: " + rightSpeed);
         } else {
             System.out.println("Hit a bad velocity control state");
             leftMaster.set(ControlMode.PercentOutput,0);
@@ -218,7 +219,9 @@ public class DriveTrain extends DriveTrainHardware {
      */
     private void updatePathFollower() {
         RigidTransform2d robot_pose = RobotState.getInstance().getLatestFieldToVehicle().getValue();
+        System.out.println("ROBOT POSE ----   DEGREES: " + robot_pose.getRotation().getDegrees() + " X: " + robot_pose.getTranslation().getX() + " Y:" + robot_pose.getTranslation().getY());
         RigidTransform2d.Delta command = pathFollowingController.update(robot_pose, Timer.getFPGATimestamp());
+        System.out.println("COMMAND---  dx: " + command.dx + "  dy: "+ command.dy);
         Kinematics.DriveVelocity setpoint = Kinematics.inverseKinematics(command);
 
         // Scale the command to respect the max velocity limits
@@ -311,8 +314,7 @@ public class DriveTrain extends DriveTrainHardware {
     public double getGyroAngleDegrees() {
         if (navXGyro != null)
         {
-            // It just so happens that the gyro outputs 4x the amount that it actually turned
-            return -navXGyro.getAngle(); /*/ 4.0*/
+            return navXGyro.getAngle(); //NOTE: getAngle tracks all rotations from init, so it can go beyond 360 and -360
         } else {
             System.out.println("DANGER: NO GYRO!!!!");
             return 0;

@@ -30,7 +30,7 @@ public class AutoModeSelector {
                 sendableChooserWaitTime.addObject(wait.name, wait);
             }
         }
-        SmartDashboard.putData("auto_modes", sendableChooserAutoMode);
+        SmartDashboard.putData("wait_time", sendableChooserWaitTime); //allows driver to choose wait time in Smart Dashboard
     }
 
     public static AutoModeBase getAutoInstance() {
