@@ -28,17 +28,25 @@ public class Elevator implements Loopable{
     //Constructor
     private Elevator() {
         elevatorTalon = new TalonSRX(ElevatorConstants.kElevatorMotorID);
-        elevatorTalon.config_kP(0, ElevatorConstants.kElevatorVelocityKp, 10);//todo: what is slotldx
-        elevatorTalon.config_kI(0, ElevatorConstants.kElevatorVelocityKi, 10);
-        elevatorTalon.config_kD(0, ElevatorConstants.kElevatorVelocityKd, 10);
-        elevatorTalon.config_kF(0, ElevatorConstants.kElevatorVelocityKf, 10);
-        elevatorTalon.config_IntegralZone(0, ElevatorConstants.kElevatorVelocityIZone, 10);
         elevatorTalon.configMotionCruiseVelocity(430, 10);//todo: decide timeout seconds
         elevatorTalon.setNeutralMode(NeutralMode.Brake);
+    }
+
+    public void pidConfig(double p, double i, double d, double f){
+        elevatorTalon.config_kP(0, p, 10);//todo: what is slotldx
+        elevatorTalon.config_kI(0, i, 10);
+        elevatorTalon.config_kD(0, d, 10);
+        elevatorTalon.config_kF(0, f, 10);
+        elevatorTalon.config_IntegralZone(0, ElevatorConstants.kElevatorVelocityIZone, 10);
+    }
+
+    public int getEncoder(){
+        return elevatorTalon.getSelectedSensorPosition(0);
     }
     public void zeroSensor(){
         elevatorTalon.setSelectedSensorPosition(0, ElevatorConstants.kElevatorMotorID, DriveConstants.kCANBusConfigTimeoutMS);
     };
+
 
     public double getHeightInches() {
         int encoderPos = elevatorTalon.getSelectedSensorPosition(0);
