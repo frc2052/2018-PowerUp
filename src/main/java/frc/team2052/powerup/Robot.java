@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2052.powerup.auto.AutoModeRunner;
 import frc.team2052.powerup.auto.AutoModeSelector;
+import frc.team2052.powerup.auto.AutoPaths;
 import frc.team2052.powerup.constants.ControlLoopConstants;
 import frc.team2052.powerup.subsystems.Controls;
 import frc.team2052.powerup.subsystems.Elevator;
@@ -102,10 +103,13 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void autonomousInit() {
+        AutoPaths.Init();
         zeroAllSensors();
         Timer.delay(.25);
-        elevator.zeroSensor();
 
+        if (elevator != null) {
+            elevator.zeroSensor();
+        }
         driveTrain.setOpenLoop(DriveSignal.NEUTRAL);  //put robot into don't move, no looper mode
         driveTrain.setBrakeMode(false); //TODO: should we turn off break mode in Auto?
 

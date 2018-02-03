@@ -16,10 +16,10 @@ public class AutolineWithTimerCenterLeft extends AutoMode{
         runAction(new SeriesAction(Arrays.asList(new WaitAction(AutoModeSelector.SelectedWaitTime))));
         runAction(new SeriesAction(Arrays.asList(
                 new MoveUntilTimeAction(1, new DriveSignal(.2, .2)),
-                new MoveUntilTimeAction(1, new DriveSignal(.2, 0)),
+                new MoveUntilTimeAction(1.3, new DriveSignal(.2, 0)),
                 new MoveUntilTimeAction(2, new DriveSignal(.2, .2)),
                 new MoveUntilTimeAction(1, new DriveSignal(0, .2)),
-                new MoveUntilTimeAction(1.6, new DriveSignal(.2, .2)))));
+                new MoveUntilTimeAction(1.8, new DriveSignal(.2, .2)))));
     }
 }
 //when starting in center, crosses autoline to the left using a timer
