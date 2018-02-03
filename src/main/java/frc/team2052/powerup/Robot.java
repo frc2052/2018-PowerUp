@@ -40,7 +40,7 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void robotInit() {
-        System.out.println("Starting Robot Code - Hornet");
+        System.out.println("Starting Robot Code - HELLO WORLD!");
         driveHelper = new DriveHelper();
 
         //Subsystems
@@ -50,9 +50,9 @@ public class Robot extends IterativeRobot {
 
         //////THESE SUBSYSTEMS ARE FAULT TOLERANT/////
         /////// they will return null if they fail to create themselves////////
-        intake = Intake.getInstance();
-        ramp = Ramp.getInstance();
-        elevator = Elevator.getInstance();
+//        intake = Intake.getInstance();
+//        ramp = Ramp.getInstance();
+//        elevator = Elevator.getInstance();
         //////////////////////////////////////////////
 
         pdp = new PowerDistributionPanel();
@@ -122,6 +122,12 @@ public class Robot extends IterativeRobot {
     @Override
 
     public void autonomousPeriodic() {
+        SmartDashboard.putNumber("gyro", driveTrain.getGyroAngleDegrees());
+        SmartDashboard.putNumber("gyroRate", driveTrain.getGyroRateDegrees());
+        SmartDashboard.putNumber("psi", revRoboticsPressureSensor.getAirPressurePsi());
+        SmartDashboard.putNumber("LeftVel", driveTrain.getLeftVelocityInchesPerSec());
+        SmartDashboard.putNumber("RightVel", driveTrain.getRightVelocityInchesPerSec());
+        robotState.outputToSmartDashboard();
 
     }
 
@@ -208,25 +214,25 @@ public class Robot extends IterativeRobot {
         {
             if(controls.getDropLeftRamp())
             {
-                ramp.openRampPinLeft();
+                ramp.dropRampPinLeft();
             }
 
             if(controls.getDropRightRamp())
             {
-                ramp.openRampPinRight();
+                ramp.dropRampPinRight();
             }
 
             //todo: toggle ramp?? or stick with 4 buttons
             if (controls.getLowerLeftRamp()){
-                ramp.openLeftRamp(true);
+                ramp.lowerLeftRamp();
             }else if(controls.getRaiseLeftRamp()){
-                ramp.openLeftRamp(false);
+                ramp.raiseLeftRamp();
             }
 
             if (controls.getLowerRightRamp()){
-                ramp.openRightRamp(true);
+                ramp.lowerRightRamp();
             }else if(controls.getRaiseRightRamp()){
-                ramp.openRightRamp(false);
+                ramp.raiseRightRamp();
             }
         }
 
