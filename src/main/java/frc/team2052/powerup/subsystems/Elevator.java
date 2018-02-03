@@ -36,9 +36,11 @@ public class Elevator implements Loopable{
         elevatorTalon.configMotionCruiseVelocity(430, 10);//todo: decide timeout seconds
         elevatorTalon.setNeutralMode(NeutralMode.Brake);
     }
+    public void setSelectedSensorPosition(){
+        elevatorTalon.setSelectedSensorPosition(0, ElevatorConstants.kElevatorMotorID, DriveConstants.kCANBusConfigTimeoutMS);
+    };
 
     public double getHeightInches() {
-        elevatorTalon.setSelectedSensorPosition(0, ElevatorConstants.kElevatorMotorID, DriveConstants.kCANBusConfigTimeoutMS);
         int encoderPos = elevatorTalon.getSelectedSensorPosition(0);
         double revolutions = encoderPos / (double)ElevatorConstants.kElevatorTicksPerRot;
         double inches = revolutions * ElevatorConstants.kInchesPerRotation;
@@ -108,7 +110,7 @@ public class Elevator implements Loopable{
 
     public boolean raiseIntake()
     {
-        if(goalElevatorInches == 85)
+        if(goalElevatorInches >= 79)
         {
             return true;
         }

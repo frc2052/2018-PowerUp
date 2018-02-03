@@ -104,6 +104,7 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() {
         zeroAllSensors();
         Timer.delay(.25);
+        elevator.setSelectedSensorPosition();
 
         driveTrain.setOpenLoop(DriveSignal.NEUTRAL);  //put robot into don't move, no looper mode
         driveTrain.setBrakeMode(false); //TODO: should we turn off break mode in Auto?
