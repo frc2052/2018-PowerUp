@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.first.team2052.lib.Loopable;
+import frc.team2052.powerup.constants.DriveConstants;
 import frc.team2052.powerup.constants.ElevatorConstants;
 
 public class Elevator implements Loopable{
@@ -37,11 +38,12 @@ public class Elevator implements Loopable{
     }
 
     public double getHeightInches() {
+        elevatorTalon.setSelectedSensorPosition(0, ElevatorConstants.kElevatorMotorID, DriveConstants.kCANBusConfigTimeoutMS);
         int encoderPos = elevatorTalon.getSelectedSensorPosition(0);
         double revolutions = encoderPos / (double)ElevatorConstants.kElevatorTicksPerRot;
         double inches = revolutions * ElevatorConstants.kInchesPerRotation;
         return inches;
-        // return elevatormotr.encoder position #
+        // return elevatormotor.encoder position #
     }
 
     private void setHeightInches(double targetInches){
@@ -71,7 +73,7 @@ public class Elevator implements Loopable{
     {
         if((isPressed != lastCyclePressedState)&& (getHeightInches()<= goalElevatorInches)) //if switching between pressed and not pressed && going up
         {
-            if(goalElevatorInches > 85) //if greater than elevator can extend
+            if(goalElevatorInches > ElevatorConstants.kElevatorMaxHeight) //if greater than elevator can extend
             {
                 goalElevatorInches = 85;
             }
@@ -89,7 +91,7 @@ public class Elevator implements Loopable{
     {
         if((isPressed != lastCyclePressedState)&& (getHeightInches()<= goalElevatorInches)) //if switching between pressed and not pressed && going up
         {
-            if(goalElevatorInches > 85) //if greater than elevator can extend
+            if(goalElevatorInches > ElevatorConstants.kElevatorMaxHeight) //if greater than elevator can extend
             {
                 goalElevatorInches = 85;
             }

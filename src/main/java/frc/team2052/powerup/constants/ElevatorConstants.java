@@ -16,4 +16,6 @@ public class ElevatorConstants {
     public static int kElevatorScale_OneHeightButton = 4;
     public static int kElevatorScale_TwoHeightButton = 3;
     public static int kElevatorScale_ThreeHeightButton = 5;
+
+    public static int kElevatorMaxHeight = 85;
 }
