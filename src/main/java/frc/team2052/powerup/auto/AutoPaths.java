@@ -22,7 +22,7 @@ public class AutoPaths {
     public static List<Path.Waypoint> RRScale = new ArrayList();
     public static List<Path.Waypoint> RRSwitch = new ArrayList();
 
-    public void Init() {
+    public static void Init() {
 
         //start left or right go past autoline
         Autoline.add(new Path.Waypoint(new Translation2d(0, 0), 40));
