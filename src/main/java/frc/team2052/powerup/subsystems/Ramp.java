@@ -1,6 +1,5 @@
 package frc.team2052.powerup.subsystems;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Solenoid;
 import frc.team2052.powerup.constants.RampConstants;
 
@@ -36,34 +35,44 @@ public class Ramp {
         leftRampIn = new Solenoid(RampConstants.kLeftRampInId);
         leftRampOut = new Solenoid(RampConstants.kLeftRampOutId);
     }
-    public void dropRampPinLeft() {
-        double time = DriverStation.getInstance().getMatchTime();
-        rampPinLeftIn.set(true);
-    }
+
+
+
+
+    public void dropRampPinLeft()  {
+            rampPinLeftIn.set(true);
+        }
+
     public void dropRampPinRight() {
-        rampPinRightIn.set(true);
+            rampPinRightIn.set(true);
     }
+
     public void raiseRightRamp() {
-        rightRampIn.set(true);
-        rightRampOut.set(false);
-    }
+            rightRampIn.set(true);
+            rightRampOut.set(false);
+        }
+
     public void raiseLeftRamp() {
-        leftRampIn.set(true);
-        leftRampOut.set(false);
-    }
+            leftRampIn.set(true);
+            leftRampOut.set(false);
+        }
+
     public void lowerLeftRamp() {
-        leftRampIn.set(false);
-        leftRampOut.set(true);
-    }
+            leftRampIn.set(false);
+            leftRampOut.set(true);
+        }
+
     public void lowerRightRamp() {
         rightRampIn.set(false);
         rightRampOut.set(true);
-    }
-
-
-
 
     }
+}
+
+
+
+
+
 
 
 

@@ -3,6 +3,7 @@ package frc.team2052.powerup;
 import com.first.team2052.lib.ControlLoop;
 import com.first.team2052.lib.RevRoboticsPressureSensor;
 import com.first.team2052.lib.vec.RigidTransform2d;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Timer;
@@ -167,6 +168,7 @@ public class Robot extends IterativeRobot {
         driveTrain.setOpenLoop(driveHelper.drive(controls.getTank(), controls.getTurn(), controls.getQuickTurn()));
           //  visionTurn = false;
         //}
+        double time = DriverStation.getInstance().getMatchTime();
 
         if (intake != null) {
             if (controls.getIntakeOpenIntake()) {
@@ -217,7 +219,7 @@ public class Robot extends IterativeRobot {
             }
         }
 
-        if (ramp != null)
+        if (ramp != null && time < 30)
         {
             if(controls.getDropLeftRamp())
             {
