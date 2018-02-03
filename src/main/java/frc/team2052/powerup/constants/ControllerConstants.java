@@ -9,6 +9,8 @@ public class ControllerConstants {
     public static int kJoystickLowerRightRamp = 10;
     public static int kJoystickPullWinch = 7;
     public static int kJoystickClosed = 3;
+    //haven't decided if we need to drop it straight down
+    public static int kJoystickOpenOff = 60;
     public static int kJoystickCloseClamp = 11;
     public static int kJoystickOpenClamp = 10;
     public static int kJoystickIntakeUp = 9;
