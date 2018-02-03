@@ -214,25 +214,25 @@ public class Robot extends IterativeRobot {
         {
             if(controls.getDropLeftRamp())
             {
-                ramp.openRampPinLeft();
+                ramp.dropRampPinLeft();
             }
 
             if(controls.getDropRightRamp())
             {
-                ramp.openRampPinRight();
+                ramp.dropRampPinRight();
             }
 
             //todo: toggle ramp?? or stick with 4 buttons
             if (controls.getLowerLeftRamp()){
-                ramp.openLeftRamp(true);
+                ramp.lowerLeftRamp();
             }else if(controls.getRaiseLeftRamp()){
-                ramp.openLeftRamp(false);
+                ramp.raiseLeftRamp();
             }
 
             if (controls.getLowerRightRamp()){
-                ramp.openRightRamp(true);
+                ramp.lowerRightRamp();
             }else if(controls.getRaiseRightRamp()){
-                ramp.openRightRamp(false);
+                ramp.raiseRightRamp();
             }
         }
 
