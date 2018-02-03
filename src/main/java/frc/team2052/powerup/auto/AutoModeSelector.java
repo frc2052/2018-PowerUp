@@ -8,6 +8,9 @@ public class AutoModeSelector {
     private static SendableChooser<AutoModeDefinition> sendableChooserAutoMode; //Makes drop down for Auto Mode Selection
     private static SendableChooser<WaitTimeDefinition> sendableChooserWaitTime; //Makes drop down for Wait Time Selection
 
+    public static double trimFactorX =0;
+    public static double trimFactorY =0;
+
     public static double SelectedWaitTime;
     public static void putToSmartDashboard() { //puts the auto modes and delay options to the smartdashboard
         sendableChooserAutoMode = new SendableChooser<AutoModeDefinition>();
@@ -31,6 +34,9 @@ public class AutoModeSelector {
             }
         }
         SmartDashboard.putData("wait_time", sendableChooserWaitTime); //allows driver to choose wait time in Smart Dashboard
+
+        SmartDashboard.putNumber("trim_forward", trimFactorX);
+        SmartDashboard.putNumber("trim_right", trimFactorY);
     }
 
     public static AutoModeBase getAutoInstance() {
@@ -95,5 +101,12 @@ public class AutoModeSelector {
             SelectedWaitTime = WaitTime;
             return SelectedWaitTime;
         }
+    }
+    public static double getTrimY(){
+        return SmartDashboard.getNumber("trim_right", trimFactorY);
+    }
+
+    public static double getTrimX(){
+        return SmartDashboard.getNumber("trim_forward", trimFactorX);
     }
 }
