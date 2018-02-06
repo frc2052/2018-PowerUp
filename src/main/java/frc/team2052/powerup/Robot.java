@@ -7,9 +7,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.team2052.powerup.auto.AutoModeRunner;
-import frc.team2052.powerup.auto.AutoModeSelector;
-import frc.team2052.powerup.auto.AutoPaths;
+import frc.team2052.powerup.auto.*;
 import frc.team2052.powerup.constants.ControlLoopConstants;
 import frc.team2052.powerup.subsystems.Controls;
 import frc.team2052.powerup.subsystems.Elevator;
@@ -121,11 +119,37 @@ public class Robot extends IterativeRobot {
         logLooper.start();
         controlLoop.start();
         slowerLooper.start();
-        autoModeRunner.setAutoMode(AutoModeSelector.getAutoInstance());
+
+        AutoModeSelector.AutoModeDefinition currentAutoMode = AutoModeSelector.getAutoDefinition(); //creates a variable we can change
+        if (DriveTrain.getInstance().CheckGyro() == false ){ //if gyro does not work, set auto path to a path with timer
+            switch (AutoModeSelector.getAutoDefinition()) {
+                case AUTOLINE:
+                    currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
+                case LSTARTONLYSCALE:
+                    currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
+                case LSTARTPERFERSCALE:
+                    currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
+                case LSTARTPREFERSWITCH:
+                    currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
+                case RSTARTONLYSCALE:
+                    currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
+                case RSTARTPREFERSCALE:
+                    currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
+                case RSTARTPREFERSWITCH:
+                    currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
+                case CENTER: {
+                    if (FieldConfig.isMySwitchLeft()) { //see what switch is ours and change path to a timer path that goes to out switch
+                        currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMERCCENTERLEFT;
+                    } else {
+                        currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMERCCENTERRIGHT;
+                    }
+                }
+            }
+        }
+        autoModeRunner.setAutoMode(currentAutoMode.getInstance());
         autoModeRunner.start();
     }
     @Override
-
     public void autonomousPeriodic() {
         SmartDashboard.putNumber("gyro", driveTrain.getGyroAngleDegrees());
         SmartDashboard.putNumber("gyroRate", driveTrain.getGyroRateDegrees());

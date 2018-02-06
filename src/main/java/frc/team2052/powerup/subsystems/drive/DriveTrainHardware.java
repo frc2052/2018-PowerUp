@@ -27,6 +27,8 @@ class DriveTrainHardware {
     private boolean isBrakeMode = true;
 
 
+
+
     DriveTrainHardware() {
         rightMaster = new TalonSRX(DriveConstants.kDriveRightMasterId);
         rightSlave = new TalonSRX(DriveConstants.kDriveRightSlaveId);
