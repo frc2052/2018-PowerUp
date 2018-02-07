@@ -43,6 +43,9 @@ public class AutoModeSelector {
         return sendableChooserAutoMode.getSelected().getInstance();
     } //returns selected enum method
 
+    public static AutoModeDefinition getAutoDefinition(){
+        return sendableChooserAutoMode.getSelected();
+    }
     public enum AutoModeDefinition { //Auto mode options for drive team to choose
         DONT_MOVE("Don't Move", DontMove.class),
         LSTARTONLYSCALE("Start left, go only to scale",LStartOnlyScale.class),

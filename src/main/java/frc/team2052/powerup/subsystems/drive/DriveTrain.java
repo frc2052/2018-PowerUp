@@ -342,6 +342,15 @@ public class DriveTrain extends DriveTrainHardware {
         }
     }
 
+    public boolean CheckGyro() { //returns if Gyro is working or not
+        if (navXGyro == null) {
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
     private double convertTicksToRotations(int ticks)
     {
         double rotations = ticks / (double) DriveConstants.kDriveEncoderTicksPerRot;
