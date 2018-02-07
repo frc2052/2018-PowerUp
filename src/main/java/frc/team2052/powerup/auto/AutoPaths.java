@@ -2,6 +2,7 @@ package frc.team2052.powerup.auto;
 
 import com.first.team2052.lib.path.Path;
 import com.first.team2052.lib.vec.Translation2d;
+import frc.team2052.powerup.constants.DriveConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,51 +30,52 @@ public class AutoPaths {
         Autoline.add(new Path.Waypoint(new Translation2d(120 + AutoModeSelector.getTrimX(), 0 ), 40));
 
         //start left go to left switch
-        LLSwitch.add(new Path.Waypoint(new Translation2d(0, 0), 40));
-        LLSwitch.add(new Path.Waypoint(new Translation2d(182 + AutoModeSelector.getTrimX(), 0), 40, "RaiseElevator"));
-        LLSwitch.add(new Path.Waypoint(new Translation2d(182, -44 + AutoModeSelector.getTrimY()), 40));
+        LLSwitch.add(new Path.Waypoint(new Translation2d(0, 0), DriveConstants.kPathFollowingMaxVel));
+        LLSwitch.add(new Path.Waypoint(new Translation2d(150, 0), DriveConstants.kPathFollowingMaxVel, "RaiseElevator"));
+        LLSwitch.add(new Path.Waypoint(new Translation2d(150, 28), DriveConstants.kPathFollowingMaxVel));
 
         //start left go to left scale
-        LLScale.add(new Path.Waypoint(new Translation2d(0, 0), 40));
-        LLScale.add(new Path.Waypoint(new Translation2d(318 + AutoModeSelector.getTrimX(), 0), 40, "RaiseElevator"));
-        LLScale.add(new Path.Waypoint(new Translation2d(318, -53 + AutoModeSelector.getTrimY()), 40));
+        LLScale.add(new Path.Waypoint(new Translation2d(0, 0), DriveConstants.kPathFollowingMaxVel));
+        LLScale.add(new Path.Waypoint(new Translation2d(305, 0), DriveConstants.kPathFollowingMaxVel, "RaiseElevator"));
+        LLScale.add(new Path.Waypoint(new Translation2d(305, 12), DriveConstants.kPathFollowingMaxVel));
 
         //start left go to right scale
-        LRScale.add(new Path.Waypoint(new Translation2d(0, 0), 40));
-        LRScale.add(new Path.Waypoint(new Translation2d(222, 0), 40, "RaiseElevator"));
-        LRScale.add(new Path.Waypoint(new Translation2d(222, -242), 40));
-        LRScale.add(new Path.Waypoint(new Translation2d(314 + AutoModeSelector.getTrimX(), -242), 40));
-        LRScale.add(new Path.Waypoint(new Translation2d(314, -189 + AutoModeSelector.getTrimY()), 40));
+        LRScale.add(new Path.Waypoint(new Translation2d(0, 0), DriveConstants.kPathFollowingMaxVel));
+        LRScale.add(new Path.Waypoint(new Translation2d(195, 0), DriveConstants.kPathFollowingMaxVel, "RaiseElevator"));
+        LRScale.add(new Path.Waypoint(new Translation2d(195, 250), DriveConstants.kPathFollowingMaxVel));
+        LRScale.add(new Path.Waypoint(new Translation2d(305, 250), DriveConstants.kPathFollowingMaxVel));
+        LRScale.add(new Path.Waypoint(new Translation2d(305, 228), DriveConstants.kPathFollowingMaxVel));
 
 
         //start center go to left switch
-        CLSwitch.add(new Path.Waypoint(new Translation2d(0, 0), 40));
-        CLSwitch.add(new Path.Waypoint(new Translation2d(70, 0), 40, "RaiseElevator"));
-        CLSwitch.add(new Path.Waypoint(new Translation2d(70, 54 + AutoModeSelector.getTrimY()), 40 ));
-        CLSwitch.add(new Path.Waypoint(new Translation2d(140 + AutoModeSelector.getTrimX(), 54), 40));
+        CLSwitch.add(new Path.Waypoint(new Translation2d(0, 0), DriveConstants.kPathFollowingMaxVel));
+        CLSwitch.add(new Path.Waypoint(new Translation2d(30, 0), DriveConstants.kPathFollowingMaxVel, "RaiseElevator"));
+        CLSwitch.add(new Path.Waypoint(new Translation2d(80, -54), DriveConstants.kPathFollowingMaxVel));
+        CLSwitch.add(new Path.Waypoint(new Translation2d(112, -54), DriveConstants.kPathFollowingMaxVel));
 
         //start center go to right switch
-        CRSwitch.add(new Path.Waypoint(new Translation2d(0, 0), 40));
-        CRSwitch.add(new Path.Waypoint(new Translation2d(70, 0), 40, "RaiseElevator"));
-        CRSwitch.add(new Path.Waypoint(new Translation2d(70, -54 + AutoModeSelector.getTrimY()), 40));
-        CRSwitch.add(new Path.Waypoint(new Translation2d(140 + AutoModeSelector.getTrimX(), -54), 40));
+        CRSwitch.add(new Path.Waypoint(new Translation2d(0, 0), DriveConstants.kPathFollowingMaxVel));
+        CRSwitch.add(new Path.Waypoint(new Translation2d(30, 0), DriveConstants.kPathFollowingMaxVel, "RaiseElevator"));
+        CRSwitch.add(new Path.Waypoint(new Translation2d(80, 54), DriveConstants.kPathFollowingMaxVel));
+        CRSwitch.add(new Path.Waypoint(new Translation2d(112, 54), DriveConstants.kPathFollowingMaxVel));
 
         //start right go to left scale
-        RLScale.add(new Path.Waypoint(new Translation2d(0, 0), 40));
-        RLScale.add(new Path.Waypoint(new Translation2d(222, 0), 40, "RaiseElevator"));
-        RLScale.add(new Path.Waypoint(new Translation2d(222, 242), 40));
-        RLScale.add(new Path.Waypoint(new Translation2d(314 + AutoModeSelector.getTrimX(), 242), 40));
-        RLScale.add(new Path.Waypoint(new Translation2d(314, 189 + AutoModeSelector.getTrimY()), 40));
+        RLScale.add(new Path.Waypoint(new Translation2d(0, 0), DriveConstants.kPathFollowingMaxVel));
+        RLScale.add(new Path.Waypoint(new Translation2d(195, 0), DriveConstants.kPathFollowingMaxVel, "RaiseElevator"));
+        RLScale.add(new Path.Waypoint(new Translation2d(195, -250), DriveConstants.kPathFollowingMaxVel));
+        RLScale.add(new Path.Waypoint(new Translation2d(305, -250), DriveConstants.kPathFollowingMaxVel));
+        RLScale.add(new Path.Waypoint(new Translation2d(305, -228), DriveConstants.kPathFollowingMaxVel));
 
         //start right go to right scale
-        RRScale.add(new Path.Waypoint(new Translation2d(0, 0), 40));
-        RRScale.add(new Path.Waypoint(new Translation2d(318 + AutoModeSelector.getTrimX(), 0), 40, "RaiseElevator"));
-        RRScale.add(new Path.Waypoint(new Translation2d(318, 30 + AutoModeSelector.getTrimY()), 40));
+        RRScale.add(new Path.Waypoint(new Translation2d(0, 0), DriveConstants.kPathFollowingMaxVel));
+        RRScale.add(new Path.Waypoint(new Translation2d(305, 0), DriveConstants.kPathFollowingMaxVel, "RaiseElevator"));
+        RRScale.add(new Path.Waypoint(new Translation2d(305, -12), DriveConstants.kPathFollowingMaxVel));
 
         //start right go to right switch
-        RRSwitch.add(new Path.Waypoint(new Translation2d(0, 0), 40));
-        RRSwitch.add(new Path.Waypoint(new Translation2d(182 + AutoModeSelector.getTrimX(), 0), 40, "RaiseElevator"));
-        RRSwitch.add(new Path.Waypoint(new Translation2d(182, 44 + AutoModeSelector.getTrimY()), 40));
+        RRSwitch.add(new Path.Waypoint(new Translation2d(0, 0), DriveConstants.kPathFollowingMaxVel));
+        RRSwitch.add(new Path.Waypoint(new Translation2d(150, 0), DriveConstants.kPathFollowingMaxVel, "RaiseElevator"));
+        RRSwitch.add(new Path.Waypoint(new Translation2d(150, -28), DriveConstants.kPathFollowingMaxVel));
+
 
     }
 }

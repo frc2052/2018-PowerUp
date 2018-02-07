@@ -81,6 +81,7 @@ public class Robot extends IterativeRobot {
 
         AutoModeSelector.putToSmartDashboard();
         autoModeRunner = new AutoModeRunner();
+
     }
 
     @Override
@@ -115,6 +116,7 @@ public class Robot extends IterativeRobot {
             intake.getWantClosed();  //keep the intake closed, because we should be holding a cube
         }
 
+        AutoPaths.Init();
         robotState.reset(Timer.getFPGATimestamp(), new RigidTransform2d());
         logLooper.start();
         controlLoop.start();

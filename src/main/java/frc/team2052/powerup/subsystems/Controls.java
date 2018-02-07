@@ -19,8 +19,7 @@ public class Controls {
 
 //Tank drive for joysticks
     public double getTank() {
-        double tank = leftPrimaryJoystick.getY();
-        return tank;
+        return leftPrimaryJoystick.getY();
     }
 
     public double getTurn() {
