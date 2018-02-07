@@ -54,6 +54,7 @@ public class Robot extends IterativeRobot {
 //        elevator = Elevator.getInstance();
         //////////////////////////////////////////////
 
+        //TODO: do we need to create a PDP object? We don't use it anywhere.
         pdp = new PowerDistributionPanel();
 
         //Control loops for auto and teleop

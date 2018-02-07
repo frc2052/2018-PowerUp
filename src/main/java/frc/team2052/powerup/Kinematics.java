@@ -15,6 +15,7 @@ public class Kinematics {
      * accurate than below, but useful for predicting motion)
      * Forward kinematics computers raw motor configuration 
      * Reverse kinematics used to achieve desired configuration (error correction)
+     * borrowed from https://github.com/Team254/FRC-2016-Public
      */
     public static RigidTransform2d.Delta forwardKinematics(double left_wheel_delta, double right_wheel_delta) {
         double linear_velocity = (left_wheel_delta + right_wheel_delta) / 2; //Average additive change in distance at a given time

@@ -15,6 +15,7 @@ public class DriveHelper {
      * its rate of heading change. This helps make the robot more controllable at
      * high speeds. Also handles the robot's quick turn functionality - "quick turn"
      * overrides constant-curvature turning for turn-in-place maneuvers.
+     * borrowed from https://github.com/Team254/FRC-2016-Public
      */
     public DriveSignal drive(double throttle, double wheel, boolean isQuickTurn) {
         wheel = handleDeadband(wheel, kWheelDeadband);

@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import java.util.Map;
 
 /**
- * Created by KnightKrawler on 1/19/2018.
+ * borrowed from https://github.com/Team254/FRC-2016-Public
  */
 public class RobotState {
     private static RobotState instance = new RobotState();
