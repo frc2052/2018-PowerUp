@@ -8,6 +8,9 @@ public class AutoModeSelector {
     private static SendableChooser<AutoModeDefinition> sendableChooserAutoMode; //Makes drop down for Auto Mode Selection
     private static SendableChooser<WaitTimeDefinition> sendableChooserWaitTime; //Makes drop down for Wait Time Selection
 
+    public static double trimFactorX =0;
+    public static double trimFactorY =0;
+
     public static double SelectedWaitTime;
     public static void putToSmartDashboard() { //puts the auto modes and delay options to the smartdashboard
         sendableChooserAutoMode = new SendableChooser<AutoModeDefinition>();
@@ -30,13 +33,19 @@ public class AutoModeSelector {
                 sendableChooserWaitTime.addObject(wait.name, wait);
             }
         }
-        SmartDashboard.putData("auto_modes", sendableChooserAutoMode);
+        SmartDashboard.putData("wait_time", sendableChooserWaitTime); //allows driver to choose wait time in Smart Dashboard
+
+        SmartDashboard.putNumber("trim_forward", trimFactorX);
+        SmartDashboard.putNumber("trim_right", trimFactorY);
     }
 
     public static AutoModeBase getAutoInstance() {
         return sendableChooserAutoMode.getSelected().getInstance();
     } //returns selected enum method
 
+    public static AutoModeDefinition getAutoDefinition(){
+        return sendableChooserAutoMode.getSelected();
+    }
     public enum AutoModeDefinition { //Auto mode options for drive team to choose
         DONT_MOVE("Don't Move", DontMove.class),
         LSTARTONLYSCALE("Start left, go only to scale",LStartOnlyScale.class),
@@ -46,7 +55,10 @@ public class AutoModeSelector {
         RSTARTPREFERSCALE("Start right, prefer to go to scale", RStartPreferScale.class),
         RSTARTPREFERSWITCH("Start right, prefer to go to switch", RStartPreferSwitch.class),
         CENTER("Start in center, go to switch", Center.class),
-        AUTOLINE("Just pass Autoline", Autoline.class);
+        AUTOLINE("Just pass Autoline", Autoline.class),
+        AUTOLINEWITHTIMER("Start left or right, cross Autoline with timer", AutolineWithTimer.class),
+        AUTOLINEWITHTIMERCCENTERRIGHT("Start center, cross autoline to right with timer", AutolineWithTimerCenterRight.class),
+        AUTOLINEWITHTIMERCCENTERLEFT("Start center, cross autoline to left with timer", AutolineWithTimerCenterLeft.class);
 
 
         private final Class<? extends AutoMode> clazz; //checks if the Class extends AutoMode, and then stores it in clazz
@@ -92,5 +104,12 @@ public class AutoModeSelector {
             SelectedWaitTime = WaitTime;
             return SelectedWaitTime;
         }
+    }
+    public static double getTrimY(){
+        return SmartDashboard.getNumber("trim_right", trimFactorY);
+    }
+
+    public static double getTrimX(){
+        return SmartDashboard.getNumber("trim_forward", trimFactorX);
     }
 }

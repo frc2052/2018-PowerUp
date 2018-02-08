@@ -12,9 +12,11 @@ public class FieldConfig {
         gameData = DriverStation.getInstance().getGameSpecificMessage();
         if(gameData.charAt(0) == 'L')
         {
+            System.out.println("switch is left " + gameData);
             return true;
         } else {
-           return false;
+            System.out.println("switch is right " + gameData);
+            return false;
         }
     }
 
@@ -23,8 +25,10 @@ public class FieldConfig {
         gameData = DriverStation.getInstance().getGameSpecificMessage();
         if(gameData.charAt(1) == 'L')
         {
+            System.out.println("scale is left " + gameData);
             return true;
         } else {
+            System.out.println("scale is left " + gameData);
             return false;
         }
     }

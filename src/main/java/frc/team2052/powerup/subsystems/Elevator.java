@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.first.team2052.lib.Loopable;
+import frc.team2052.powerup.constants.DriveConstants;
 import frc.team2052.powerup.constants.ElevatorConstants;
 
 public class Elevator implements Loopable{
@@ -11,7 +12,18 @@ public class Elevator implements Loopable{
     private TalonSRX elevatorTalon;
 
     //SINGLETON
-    private static Elevator instance = new Elevator();
+    private static Elevator instance = null;
+    public static Elevator getInstance() {
+        if (instance == null) {
+            try {
+                instance = new Elevator();
+            } catch (Exception exc) {
+                System.out.println("DANGER: Failed to create Elevator: " + exc.getMessage());
+                exc.printStackTrace();
+            }
+        }
+        return instance;
+    }
 
     //Constructor
     private Elevator() {
@@ -24,47 +36,93 @@ public class Elevator implements Loopable{
         elevatorTalon.configMotionCruiseVelocity(430, 10);//todo: decide timeout seconds
         elevatorTalon.setNeutralMode(NeutralMode.Brake);
     }
-    public static Elevator getInstance(){
-        return instance;
-    }
+    public void zeroSensor(){
+        elevatorTalon.setSelectedSensorPosition(0, ElevatorConstants.kElevatorMotorID, DriveConstants.kCANBusConfigTimeoutMS);
+    };
 
     public double getHeightInches() {
         int encoderPos = elevatorTalon.getSelectedSensorPosition(0);
         double revolutions = encoderPos / (double)ElevatorConstants.kElevatorTicksPerRot;
         double inches = revolutions * ElevatorConstants.kInchesPerRotation;
         return inches;
-        // return elevatormotr.encoder position #
+        // return elevatormotor.encoder position #
     }
 
-    private void setHeightInches(double tartetInches){
-        double rotation = tartetInches / ElevatorConstants.kInchesPerRotation;
+    private void setHeightInches(double targetInches){
+        double rotation = targetInches / ElevatorConstants.kInchesPerRotation;
         int pos = (int)(rotation * ElevatorConstants.kElevatorTicksPerRot);
         //Sets the Carriage at a set height, see https://github.com/CrossTheRoadElec/Phoenix-Documentation/blob/master/Talon%20SRX%20Victor%20SPX%20-%20Software%20Reference%20Manual.pdf
         // in 3.1.2.1, recommended timeout is zero while in robot loop
-//        elevatorTalon.setSelectedSensorPosition(pulses,0, 0);//todo: check error code
+//        elevatorTalon.zeroSensor(pulses,0, 0);//todo: check error code
         elevatorTalon.set(ControlMode.Position, pos);
         return ;
     }
 
+    private int goalElevatorInches;
 
-    private ElevatorPosEnum currentElevatorPos;
-
-    public void setCurrentPos(ElevatorPosEnum posEnum) {
-        currentElevatorPos = posEnum;
-
+    public void setTarget(ElevatorPresetEnum posEnum) {//sets goal to the correct inches according to the preset
+        goalElevatorInches = getHeightInchesForPreset(posEnum);
     }
-    public ElevatorPosEnum getCurrentPos (){
-        return currentElevatorPos;
-    }
-    public boolean getCarriageIsMoving (){
+
+    public boolean getCarriageIsMoving (){//finds out if the elevator is moving
          boolean accel = elevatorTalon.getSelectedSensorVelocity(0) != 0;
          return accel;
     }
 
 
+    private boolean lastCyclePressedState = false; //declares that the button isn't pressed at the start of the match
+    public void getElevatorAdjustmentUp(boolean isPressed) //Gets value from a button
+    {
+        if((isPressed != lastCyclePressedState)&& (getHeightInches()<= goalElevatorInches)) //if switching between pressed and not pressed && going up
+        {
+            if(goalElevatorInches > ElevatorConstants.kElevatorMaxHeight) //if greater than elevator can extend
+            {
+                goalElevatorInches = 85;
+            }
+            else if(goalElevatorInches < 0) {//if lower than the elevator can contract
+                goalElevatorInches = 0;
+            }
+            else {
+                setHeightInches(goalElevatorInches += 1); //add one inch for each time the button state switches (press + release = two inches)
+            }
+        }
+        lastCyclePressedState = isPressed; //logs what the state is at the end of this cycle to compare against in the next cycle
+    }
+
+    public void getElevatorAdjustmentDown(boolean isPressed)
+    {
+        if((isPressed != lastCyclePressedState)&& (getHeightInches()<= goalElevatorInches)) //if switching between pressed and not pressed && going up
+        {
+            if(goalElevatorInches > ElevatorConstants.kElevatorMaxHeight) //if greater than elevator can extend
+            {
+                goalElevatorInches = 85;
+            }
+            else if(goalElevatorInches < 0) {//if less than elevator can extend
+                goalElevatorInches = 0;
+            }
+            else {
+                setHeightInches(goalElevatorInches -= 1); //gets rid of one inch for each time the button state switches (press and release gets rid of two inches)
+            }
+    }
+        lastCyclePressedState = isPressed; //logs what the state is at the end of this cycle to compare against in the next cycle
+
+    }
+
+    public boolean raiseIntake()
+    {
+        if(goalElevatorInches >= 79)
+        {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    //public void setHeightFromPreset()
     @Override
     public void update(){
-        int targetInches = getHeightInchesForPos(currentElevatorPos);
+        int targetInches = goalElevatorInches;
         setHeightInches(targetInches);
 
     }
@@ -75,33 +133,28 @@ public class Elevator implements Loopable{
     @Override
     public void onStop(){
 
-    }
-    public int getHeightInchesForPos(ElevatorPosEnum posEnum){
+    }//returns height in inches
+    public int getHeightInchesForPreset(ElevatorPresetEnum posEnum){
         switch (posEnum){
             case PICKUP:
                 return 0;
-            case SWITCH_ONE:
-                return 19;
-            case SWITCH_TWO:
+            case SWITCH:
                 return 25;
-            case SCALE_ONE:
-                return 52;
-            case SCALE_TWO:
+            case SCALE_BALANCED:
                 return 64;
-            case SCALE_THREE:
+            case SCALE_HIGH:
                 return 76;
-            case SCALE_FOUR:
-                return 88;
+            case SCALE_HIGH_STACKING:
+                return 85;
         }
         return 0;
     }
-    public enum ElevatorPosEnum {
-        PICKUP,
-        SWITCH_ONE,
-        SWITCH_TWO,
-        SCALE_ONE,
-        SCALE_TWO,
-        SCALE_THREE,
-        SCALE_FOUR
+
+    public enum ElevatorPresetEnum {
+        PICKUP(),
+        SWITCH, //on top of another cube on switch
+        SCALE_BALANCED, //balanced on scale
+        SCALE_HIGH,//high scale(when scale is tipped toward oponents side)
+        SCALE_HIGH_STACKING,//high scale + cube
     }
 }

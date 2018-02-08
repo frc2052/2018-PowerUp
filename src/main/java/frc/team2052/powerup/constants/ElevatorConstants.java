@@ -9,4 +9,5 @@ public class ElevatorConstants {
     public static double kElevatorVelocityKf = 0.3;
     public static int kElevatorVelocityIZone = 0;
     public static int kElevatorTicksPerRot = 1024;
+    public static int kElevatorMaxHeight = 85;
 }

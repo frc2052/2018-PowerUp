@@ -19,6 +19,7 @@ import java.util.Set;
  * Created by KnightKrawler on 1/19/2018.
  */
 public class DriveTrain extends DriveTrainHardware {
+
     private static DriveTrain instance = new DriveTrain();
     private DriveControlState driveControlState;
     private double mLastHeadingErrorDegrees;
@@ -38,6 +39,7 @@ public class DriveTrain extends DriveTrainHardware {
         public void update() {
 
             if (getDriveControlState() == DriveControlState.OPEN_LOOP) {
+                //ignore all looper requests while in teleop mode
                 return;
             }
             setBrakeMode(true);
@@ -93,22 +95,21 @@ public class DriveTrain extends DriveTrainHardware {
         return inchesToRotations(inches_per_second) * 60;
     }
 
+    private static double inchesPerSecondToTicksPer100Ms(double inches_per_second) {
+        return inchesToRotations(inches_per_second) * DriveConstants.kDriveEncoderTicksPerRot / 10 ;
+    }
+
+
+
     /**
      * Sets the motor speeds in percent mode and disables all controllers
      */
     public void setOpenLoop(DriveSignal signal) {
-        if (getDriveControlState() != DriveControlState.OPEN_LOOP) {
-            driveControlState = DriveControlState.OPEN_LOOP;
-        }
-        setLeftRightPower(signal.leftMotor, signal.rightMotor);
-    }
-    /**
-     * Set's the speeds of the motor without resetting a controller
-     * This method is used by controllers directly
-     */
-    private void setLeftRightPower(double left_power, double right_power) {
-        leftMaster.set(ControlMode.PercentOutput,-left_power);
-        rightMaster.set(ControlMode.PercentOutput,right_power);
+//        System.out.println("ENCODERS LEFT: " + getLeftDistanceInches() + "   RIGHT: " + getRightDistanceInches());
+//        System.out.println("GYRO DEGREES: " + getGyroAngleDegrees());
+        driveControlState = DriveControlState.OPEN_LOOP;
+        leftMaster.set(ControlMode.PercentOutput, signal.leftMotor);
+        rightMaster.set(ControlMode.PercentOutput, signal.rightMotor);
     }
 
     /**
@@ -182,8 +183,16 @@ public class DriveTrain extends DriveTrainHardware {
         if (getDriveControlState() == DriveControlState.PATH_FOLLOWING_CONTROL
                 || getDriveControlState() == DriveControlState.VELOCITY_HEADING_CONTROL
                 || getDriveControlState() == DriveControlState.VISION_FOLLOW) {
-            leftMaster.set(ControlMode.PercentOutput, inchesPerSecondToRpm(left_inches_per_sec));
-            rightMaster.set(ControlMode.PercentOutput, inchesPerSecondToRpm(right_inches_per_sec));
+//            System.out.printf("Velocity\n\tLeft %s\n\tRight %s\n", leftMaster.getSelectedSensorVelocity(0), rightMaster.getSelectedSensorVelocity(0));
+//            System.out.printf("Error\n\tLeft %s\n\tRight %s\n", leftMaster.getClosedLoopError(0), rightMaster.getClosedLoopError(0));
+//            System.out.printf("setting velocity final\n\tleft %f\n\tright%f\n", inchesPerSecondToRpm(left_inches_per_sec), inchesPerSecondToRpm(right_inches_per_sec));
+
+            double leftSpeed = inchesPerSecondToTicksPer100Ms(left_inches_per_sec);
+            double rightSpeed = inchesPerSecondToTicksPer100Ms(right_inches_per_sec);
+
+            leftMaster.set(ControlMode.Velocity, leftSpeed);
+            rightMaster.set(ControlMode.Velocity, rightSpeed);
+//            System.out.println("UPDATE VELOCITY SETTING  -----  Angle: " + getGyroAngleDegrees() + "   LEFT: " + leftSpeed + "    RIGHT: " + rightSpeed);
         } else {
             System.out.println("Hit a bad velocity control state");
             leftMaster.set(ControlMode.PercentOutput,0);
@@ -197,8 +206,7 @@ public class DriveTrain extends DriveTrainHardware {
     private void updateVelocityHeadingSetpoint() {
         Rotation2d actualGyroAngle = getGyroAngle();
 
-       // mLastHeadingErrorDegrees = velocityHeadingSetpoint.getHeading().rotateBy(actualGyroAngle.inverse())
-               // .getDegrees();
+        mLastHeadingErrorDegrees = velocityHeadingSetpoint.getHeading().rotateBy(actualGyroAngle.inverse()).getDegrees();
 
         double deltaSpeed = velocityHeadingPid.calculate(mLastHeadingErrorDegrees);
         updateVelocitySetpoint(velocityHeadingSetpoint.getLeftSpeed() + deltaSpeed / 2,
@@ -211,7 +219,9 @@ public class DriveTrain extends DriveTrainHardware {
      */
     private void updatePathFollower() {
         RigidTransform2d robot_pose = RobotState.getInstance().getLatestFieldToVehicle().getValue();
+//        System.out.println("ROBOT POSE ----   DEGREES: " + robot_pose.getRotation().getDegrees() + " X: " + robot_pose.getTranslation().getX() + " Y:" + robot_pose.getTranslation().getY());
         RigidTransform2d.Delta command = pathFollowingController.update(robot_pose, Timer.getFPGATimestamp());
+//        System.out.println("COMMAND---  dx: " + command.dx + "  dy: "+ command.dy);
         Kinematics.DriveVelocity setpoint = Kinematics.inverseKinematics(command);
 
         // Scale the command to respect the max velocity limits
@@ -255,13 +265,13 @@ public class DriveTrain extends DriveTrainHardware {
      * This is used in auto and for other various control states that require velocity control
      */
     protected void configureTalonsForSpeedControl() {
+        //TODO: this method one needs to be called once during init, regardless of drive control state, now that talon mode is passed with speed/percent/position/etc values
+        //change this method to be an init method
         if (driveControlState != DriveControlState.PATH_FOLLOWING_CONTROL
                 && driveControlState != DriveControlState.VELOCITY_HEADING_CONTROL
                 && driveControlState != DriveControlState.VISION_FOLLOW) {
-            //leftMaster.changeControlMode(CANTalon.TalonControlMode.Speed); //todo: test if the robot is ever in the wrong mode
             leftMaster.configAllowableClosedloopError(kVelocityControlSlot, DriveConstants.kDriveVelocityAllowableError, DriveConstants.kCANBusConfigTimeoutMS);
             leftMaster.selectProfileSlot(kVelocityControlSlot,kVelocityControlSlot);
-           // rightMaster.changeControlMode(CANTalon.TalonControlMode.Speed);
             rightMaster.selectProfileSlot(kVelocityControlSlot, kVelocityControlSlot);
             rightMaster.configAllowableClosedloopError(kVelocityControlSlot, DriveConstants.kDriveVelocityAllowableError, DriveConstants.kCANBusConfigTimeoutMS);
             setBrakeMode(true);
@@ -285,15 +295,30 @@ public class DriveTrain extends DriveTrainHardware {
      * Reset's the gyro home point
      */
     public void zeroGyro() {
-        navXGyro.reset();
+        if (navXGyro != null) {
+            System.out.println("Reseting Gyro");
+            try {
+                navXGyro.reset();
+            } catch  (Exception exc) {
+                System.out.println("DANGER: Failed to reset Gyro" + exc.getMessage() + " ---- ");
+                exc.printStackTrace();
+            }
+        } else {
+            System.out.println("DANGER: NO GYRO!!!!");
+        }
     }
 
     /**
      * @return gyro angle in degrees
      */
     public double getGyroAngleDegrees() {
-        // It just so happens that the gyro outputs 4x the amount that it actually turned
-        return -navXGyro.getAngle(); /*/ 4.0*/
+        if (navXGyro != null)
+        {
+            return navXGyro.getAngle(); //NOTE: getAngle tracks all rotations from init, so it can go beyond 360 and -360
+        } else {
+            System.out.println("DANGER: NO GYRO!!!!");
+            return 0;
+        }
     }
     /**
      * @return gyro angle for multiple uses cartesian, radians, degrees, translation, rotation, interpolation, etc
@@ -303,30 +328,57 @@ public class DriveTrain extends DriveTrainHardware {
         return Rotation2d.fromDegrees(getGyroAngleDegrees());
     }
 
-
     /**
      * @return The gyro rate in degrees per second or angular velocity
      */
 
     public double getGyroRateDegrees() {
-        return navXGyro.getRate() / 4.0;
+        if (navXGyro != null)
+        {
+            return navXGyro.getRate();
+        } else {
+            System.out.println("DANGER: NO GYRO!!!!");
+            return 0;
+        }
     }
 
+    public boolean CheckGyro() { //returns if Gyro is working or not
+        if (navXGyro == null) {
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
+    private double convertTicksToRotations(int ticks)
+    {
+        double rotations = ticks / (double) DriveConstants.kDriveEncoderTicksPerRot;
+        return rotations;
+    }
 
     public double getLeftDistanceInches() {
-        return rotationsToInches(leftMaster.getSelectedSensorPosition(kVelocityControlSlot));
+        //encoder spins opposite
+        double wheelRotations = convertTicksToRotations(leftMaster.getSelectedSensorPosition(kVelocityControlSlot));
+        return rotationsToInches(wheelRotations);
     }
 
     public double getRightDistanceInches() {
-        return rotationsToInches(rightMaster.getSelectedSensorPosition(kVelocityControlSlot));
+        //encoder spins opposite
+        double wheelRotations = convertTicksToRotations(rightMaster.getSelectedSensorPosition(kVelocityControlSlot));
+        return rotationsToInches(wheelRotations);
     }
 
     public double getLeftVelocityInchesPerSec() {
-        return rpmToInchesPerSecond(leftMaster.getSelectedSensorPosition(kVelocityControlSlot));
+        //encoder spins opposite
+        double wheelRotations = convertTicksToRotations(leftMaster.getSelectedSensorPosition(kVelocityControlSlot));
+        return rpmToInchesPerSecond(wheelRotations);
     }
 
     public double getRightVelocityInchesPerSec() {
-        return rpmToInchesPerSecond(rightMaster.getSelectedSensorPosition(kVelocityControlSlot));
+        //encoder spins opposite
+        double wheelRotations = convertTicksToRotations(rightMaster.getSelectedSensorPosition(kVelocityControlSlot));
+        return rpmToInchesPerSecond(wheelRotations);
     }
 
     public Loopable getLoopable() {

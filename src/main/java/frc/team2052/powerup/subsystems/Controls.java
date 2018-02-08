@@ -3,18 +3,15 @@ package frc.team2052.powerup.subsystems;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.team2052.powerup.constants.ControllerConstants;
 
-/**
- * Created by KnightKrawler on 1/15/2018.
- */
 public class Controls {
     private static Controls instance = new Controls();
     public static Controls getInstance(){
         return instance;
     }
 //Initiates joysticks
-    private Joystick joystick0 = new Joystick(0);
-    private Joystick joystick1 = new Joystick(1);
-    private Joystick secondaryStick = new Joystick(2);
+    private Joystick leftPrimaryJoystick = new Joystick(0);
+    private Joystick rightPrimaryJoystick = new Joystick(1);
+    private Joystick secondaryJoystick = new Joystick(2);
 
 
     private Controls() {
@@ -22,55 +19,69 @@ public class Controls {
 
 //Tank drive for joysticks
     public double getTank() {
-        double tank = -joystick0.getY();
-        if (!joystick1.getTrigger()) {
-            tank *= -1;
-        }
-        return tank;
+        return leftPrimaryJoystick.getY();
     }
 
     public double getTurn() {
-        return joystick1.getX();
+        return -rightPrimaryJoystick.getX();
     }
+
+    public boolean getElevatorAdjustmentUp(){return secondaryJoystick.getRawButton(6);}//press button 6 to raise elevator up 2 in
+
+    public boolean getElevatorAdjustmentDown(){return secondaryJoystick.getRawButton(7);}//press button 7 to lower elevator 2 in
 
     public boolean getQuickTurn() {
-        return joystick1.getRawButton(3);
+        return rightPrimaryJoystick.getRawButton(3);
     }
 //Ramp classes
-    public boolean getDropLeftRamp() {
-        return secondaryStick.getRawButton(ControllerConstants.kJoystickDropLeftPin);
+    public boolean getDropLeftRamp() {return leftPrimaryJoystick.getRawButton(ControllerConstants.kJoystickDropLeftPin);
     }
     public boolean getDropRightRamp() {
-        return secondaryStick.getRawButton(ControllerConstants.kJoystickDropRightPin);
+        return rightPrimaryJoystick.getRawButton(ControllerConstants.kJoystickDropRightPin);
     }
     public boolean getRaiseRightRamp() {
-        return secondaryStick.getRawButton(ControllerConstants.kJoystickRaiseRightRamp);
+        return rightPrimaryJoystick.getRawButton(ControllerConstants.kJoystickRaiseRightRamp);
     }
     public boolean getRaiseLeftRamp() {
-        return secondaryStick.getRawButton(ControllerConstants.kJoystickRaiseLeftRamp);
+        return rightPrimaryJoystick.getRawButton(ControllerConstants.kJoystickRaiseLeftRamp);
     }
     public boolean getLowerRightRamp() {
-        return secondaryStick.getRawButton(ControllerConstants.kJoystickLowerRightRamp);
+        return leftPrimaryJoystick.getRawButton(ControllerConstants.kJoystickLowerRightRamp);
     }
     public boolean getLowerLeftRamp() {
-        return secondaryStick.getRawButton(ControllerConstants.kJoystickLowerLeftRamp);
+        return leftPrimaryJoystick.getRawButton(ControllerConstants.kJoystickLowerLeftRamp);
     }
     //Intake classes
-    public boolean getPickupOpen() {
-        return joystick1.getRawButton(ControllerConstants.kJoystickOpenOff);
+    public boolean getIntakeUp() {return secondaryJoystick.getRawButton(ControllerConstants.kJoystickIntakeUp);}
+    public boolean getPullWinch() {
+        return secondaryJoystick.getRawButton(ControllerConstants.kJoystickPullWinch);
     }
-    public boolean getPickupClosed() {
-        return joystick1.getRawButton(ControllerConstants.kJoystickClosed);
+    public boolean getIntakeOpenOff() {
+        return rightPrimaryJoystick.getRawButton(ControllerConstants.kJoystickOpenOff);
     }
-    public boolean getPickupIntakeMotor() {
-        return secondaryStick.getTrigger();
+    public boolean getIntakeOpenIntake() {
+        return rightPrimaryJoystick.getTrigger();
     }
-    public boolean getPickupOuttakeMotor() { return joystick1.getTrigger();}
+    public boolean getIntakeOpenOuttake() {
+        return secondaryJoystick.getTrigger();
+    }
+    public boolean getCloseClamp() {
+        return secondaryJoystick.getRawButton(ControllerConstants.kJoystickCloseClamp);
+    }
+    public boolean getOpenClamp() {
+        return secondaryJoystick.getRawButton(ControllerConstants.kJoystickOpenClamp);
+    }
 
+//buttons for different stages of elevator
+    public boolean getElevatorPickup(){return secondaryJoystick.getRawButton(ControllerConstants.kElevatorPickupHeightButton);}
+    public boolean getElevatorSwitch(){return  secondaryJoystick.getRawButton(ControllerConstants.kElevatorSwitchHeightButton); }
+    public boolean getElevatorScale1(){return  secondaryJoystick.getRawButton(ControllerConstants.kElevatorScale_OneHeightButton); }
+    public boolean getElevatorScale2(){return  secondaryJoystick.getRawButton(ControllerConstants.kElevatorScale_TwoHeightButton); }
+    public boolean getElevatorScale3(){return  secondaryJoystick.getRawButton(ControllerConstants.kElevatorScale_ThreeHeightButton); }
    /* public Pickup.PickupState getIntakeState() {
-        if (secondaryStick.getRawButton(2)) {
+        if (secondaryJoystick.getRawButton(2)) {
             return Pickup.PickupState.IN;
-        } else if (secondaryStick.getRawButton(3)) {
+        } else if (secondaryJoystick.getRawButton(3)) {
             return Pickup.PickupState.OUT;
         } else {
             return Pickup.PickupState.STOP;
