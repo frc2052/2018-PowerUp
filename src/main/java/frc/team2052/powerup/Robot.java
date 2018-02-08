@@ -7,8 +7,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.team2052.powerup.auto.AutoModeRunner;
-import frc.team2052.powerup.auto.AutoModeSelector;
+import frc.team2052.powerup.auto.*;
 import frc.team2052.powerup.constants.ControlLoopConstants;
 import frc.team2052.powerup.subsystems.Controls;
 import frc.team2052.powerup.subsystems.Elevator;
@@ -40,7 +39,7 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void robotInit() {
-        System.out.println("Starting Robot Code - Hornet");
+        System.out.println("Starting Robot Code - HELLO WORLD!");
         driveHelper = new DriveHelper();
 
         //Subsystems
@@ -50,9 +49,9 @@ public class Robot extends IterativeRobot {
 
         //////THESE SUBSYSTEMS ARE FAULT TOLERANT/////
         /////// they will return null if they fail to create themselves////////
-        intake = Intake.getInstance();
-        ramp = Ramp.getInstance();
-        elevator = Elevator.getInstance();
+//        intake = Intake.getInstance();
+//        ramp = Ramp.getInstance();
+//        elevator = Elevator.getInstance();
         //////////////////////////////////////////////
 
         pdp = new PowerDistributionPanel();
@@ -82,6 +81,7 @@ public class Robot extends IterativeRobot {
 
         AutoModeSelector.putToSmartDashboard();
         autoModeRunner = new AutoModeRunner();
+
     }
 
     @Override
@@ -102,9 +102,13 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void autonomousInit() {
+        AutoPaths.Init();
         zeroAllSensors();
         Timer.delay(.25);
 
+        if (elevator != null) {
+            elevator.zeroSensor();
+        }
         driveTrain.setOpenLoop(DriveSignal.NEUTRAL);  //put robot into don't move, no looper mode
         driveTrain.setBrakeMode(false); //TODO: should we turn off break mode in Auto?
 
@@ -112,16 +116,49 @@ public class Robot extends IterativeRobot {
             intake.getWantClosed();  //keep the intake closed, because we should be holding a cube
         }
 
+        AutoPaths.Init();
         robotState.reset(Timer.getFPGATimestamp(), new RigidTransform2d());
         logLooper.start();
         controlLoop.start();
         slowerLooper.start();
-        autoModeRunner.setAutoMode(AutoModeSelector.getAutoInstance());
+
+        AutoModeSelector.AutoModeDefinition currentAutoMode = AutoModeSelector.getAutoDefinition(); //creates a variable we can change
+        if (DriveTrain.getInstance().CheckGyro() == false ){ //if gyro does not work, set auto path to a path with timer
+            switch (AutoModeSelector.getAutoDefinition()) {
+                case AUTOLINE:
+                    currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
+                case LSTARTONLYSCALE:
+                    currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
+                case LSTARTPERFERSCALE:
+                    currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
+                case LSTARTPREFERSWITCH:
+                    currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
+                case RSTARTONLYSCALE:
+                    currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
+                case RSTARTPREFERSCALE:
+                    currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
+                case RSTARTPREFERSWITCH:
+                    currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
+                case CENTER: {
+                    if (FieldConfig.isMySwitchLeft()) { //see what switch is ours and change path to a timer path that goes to out switch
+                        currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMERCCENTERLEFT;
+                    } else {
+                        currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMERCCENTERRIGHT;
+                    }
+                }
+            }
+        }
+        autoModeRunner.setAutoMode(currentAutoMode.getInstance());
         autoModeRunner.start();
     }
     @Override
-
     public void autonomousPeriodic() {
+        SmartDashboard.putNumber("gyro", driveTrain.getGyroAngleDegrees());
+        SmartDashboard.putNumber("gyroRate", driveTrain.getGyroRateDegrees());
+        SmartDashboard.putNumber("psi", revRoboticsPressureSensor.getAirPressurePsi());
+        SmartDashboard.putNumber("LeftVel", driveTrain.getLeftVelocityInchesPerSec());
+        SmartDashboard.putNumber("RightVel", driveTrain.getRightVelocityInchesPerSec());
+        robotState.outputToSmartDashboard();
 
     }
 
@@ -184,22 +221,28 @@ public class Robot extends IterativeRobot {
             if (controls.getElevatorPickup()) {
                 elevator.setTarget(Elevator.ElevatorPresetEnum.PICKUP);
             } else if (controls.getElevatorSwitch()) {
+                intake.getWantClosed();
                 elevator.setTarget(Elevator.ElevatorPresetEnum.SWITCH);
             } else if (controls.getElevatorScale1()) {
+                intake.getWantClosed();
                 elevator.setTarget(Elevator.ElevatorPresetEnum.SCALE_BALANCED);
             } else if (controls.getElevatorScale2()) {
+                intake.getWantClosed();
                 elevator.setTarget(Elevator.ElevatorPresetEnum.SCALE_HIGH);
             } else if (controls.getElevatorScale3()) {
+                intake.getWantClosed();
                 elevator.setTarget(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING);
             }
 
             if(controls.getElevatorAdjustmentUp() == true)
             {
+                intake.getWantClosed();
                 elevator.getElevatorAdjustmentUp(controls.getElevatorAdjustmentUp());
             }
 
             if(controls.getElevatorAdjustmentDown() == true)
             {
+                intake.getWantClosed();
                 elevator.getElevatorAdjustmentDown(controls.getElevatorAdjustmentUp());
             }
         }

@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.first.team2052.lib.Loopable;
+import frc.team2052.powerup.constants.DriveConstants;
 import frc.team2052.powerup.constants.ElevatorConstants;
 
 public class Elevator implements Loopable{
@@ -35,13 +36,16 @@ public class Elevator implements Loopable{
         elevatorTalon.configMotionCruiseVelocity(430, 10);//todo: decide timeout seconds
         elevatorTalon.setNeutralMode(NeutralMode.Brake);
     }
+    public void zeroSensor(){
+        elevatorTalon.setSelectedSensorPosition(0, ElevatorConstants.kElevatorMotorID, DriveConstants.kCANBusConfigTimeoutMS);
+    };
 
     public double getHeightInches() {
         int encoderPos = elevatorTalon.getSelectedSensorPosition(0);
         double revolutions = encoderPos / (double)ElevatorConstants.kElevatorTicksPerRot;
         double inches = revolutions * ElevatorConstants.kInchesPerRotation;
         return inches;
-        // return elevatormotr.encoder position #
+        // return elevatormotor.encoder position #
     }
 
     private void setHeightInches(double targetInches){
@@ -49,7 +53,7 @@ public class Elevator implements Loopable{
         int pos = (int)(rotation * ElevatorConstants.kElevatorTicksPerRot);
         //Sets the Carriage at a set height, see https://github.com/CrossTheRoadElec/Phoenix-Documentation/blob/master/Talon%20SRX%20Victor%20SPX%20-%20Software%20Reference%20Manual.pdf
         // in 3.1.2.1, recommended timeout is zero while in robot loop
-//        elevatorTalon.setSelectedSensorPosition(pulses,0, 0);//todo: check error code
+//        elevatorTalon.zeroSensor(pulses,0, 0);//todo: check error code
         elevatorTalon.set(ControlMode.Position, pos);
         return ;
     }
@@ -71,7 +75,7 @@ public class Elevator implements Loopable{
     {
         if((isPressed != lastCyclePressedState)&& (getHeightInches()<= goalElevatorInches)) //if switching between pressed and not pressed && going up
         {
-            if(goalElevatorInches > 85) //if greater than elevator can extend
+            if(goalElevatorInches > ElevatorConstants.kElevatorMaxHeight) //if greater than elevator can extend
             {
                 goalElevatorInches = 85;
             }
@@ -87,10 +91,9 @@ public class Elevator implements Loopable{
 
     public void getElevatorAdjustmentDown(boolean isPressed)
     {
-
         if((isPressed != lastCyclePressedState)&& (getHeightInches()<= goalElevatorInches)) //if switching between pressed and not pressed && going up
         {
-            if(goalElevatorInches > 85) //if greater than elevator can extend
+            if(goalElevatorInches > ElevatorConstants.kElevatorMaxHeight) //if greater than elevator can extend
             {
                 goalElevatorInches = 85;
             }
@@ -103,6 +106,17 @@ public class Elevator implements Loopable{
     }
         lastCyclePressedState = isPressed; //logs what the state is at the end of this cycle to compare against in the next cycle
 
+    }
+
+    public boolean raiseIntake()
+    {
+        if(goalElevatorInches >= 79)
+        {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     //public void setHeightFromPreset()
@@ -131,7 +145,7 @@ public class Elevator implements Loopable{
             case SCALE_HIGH:
                 return 76;
             case SCALE_HIGH_STACKING:
-                return 88;
+                return 85;
         }
         return 0;
     }

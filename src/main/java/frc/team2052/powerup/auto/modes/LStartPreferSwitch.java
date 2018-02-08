@@ -13,6 +13,7 @@ public class LStartPreferSwitch extends AutoMode {
 
         runAction(new SeriesAction(Arrays.asList(new WaitAction(AutoModeSelector.SelectedWaitTime))));
         if(FieldConfig.isMySwitchLeft()) { //if left switch is ours
+            System.out.println("RUNNING LL SWITCH");
             runAction(new SeriesAction(Arrays.asList(
                     new ParallelAction(Arrays.asList(
                         new FollowPathAction(new Path(AutoPaths.LLSwitch), false), //pathing to the left switch

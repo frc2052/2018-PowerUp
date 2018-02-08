@@ -6,8 +6,16 @@ import frc.team2052.powerup.constants.RampConstants;
 
 public class Ramp {
 
-    private static Ramp instance = new Ramp();
+    private static Ramp instance = null;
     public static Ramp getInstance() {
+        if (instance == null) {
+            try {
+                instance = new Ramp();
+            } catch (Exception exc) {
+               System.out.println("DANGER: Failed to create Ramp: " + exc.getMessage());
+               exc.printStackTrace();
+            }
+        }
         return instance;
     }
     //Ramp pins for each side and extending/collapsing ramp on each side

@@ -2,7 +2,6 @@ package frc.team2052.powerup.subsystems;
 
 import edu.wpi.first.wpilibj.Joystick;
 import frc.team2052.powerup.constants.ControllerConstants;
-import frc.team2052.powerup.constants.ElevatorConstants;
 
 public class Controls {
     private static Controls instance = new Controls();
@@ -10,9 +9,9 @@ public class Controls {
         return instance;
     }
 //Initiates joysticks
-    private Joystick joystick0 = new Joystick(0);
-    private Joystick joystick1 = new Joystick(1);
-    private Joystick secondaryStick = new Joystick(2);
+    private Joystick leftPrimaryJoystick = new Joystick(0);
+    private Joystick rightPrimaryJoystick = new Joystick(1);
+    private Joystick secondaryJoystick = new Joystick(2);
 
 
     private Controls() {
@@ -20,73 +19,69 @@ public class Controls {
 
 //Tank drive for joysticks
     public double getTank() {
-        double tank = -joystick0.getY();
-        if (!joystick1.getTrigger()) {
-            tank *= -1;
-        }
-        return tank;
+        return leftPrimaryJoystick.getY();
     }
 
     public double getTurn() {
-        return joystick1.getX();
+        return -rightPrimaryJoystick.getX();
     }
 
-    public boolean getElevatorAdjustmentUp(){return secondaryStick.getRawButton(6);}//press button 6 to raise elevator up 2 in
+    public boolean getElevatorAdjustmentUp(){return secondaryJoystick.getRawButton(6);}//press button 6 to raise elevator up 2 in
 
-    public boolean getElevatorAdjustmentDown(){return secondaryStick.getRawButton(7);}//press button 7 to lower elevator 2 in
+    public boolean getElevatorAdjustmentDown(){return secondaryJoystick.getRawButton(7);}//press button 7 to lower elevator 2 in
 
     public boolean getQuickTurn() {
-        return joystick1.getRawButton(3);
+        return rightPrimaryJoystick.getRawButton(3);
     }
-
-
-
-    //Ramp classes
+//Ramp classes
+    public boolean getDropLeftRamp() {return leftPrimaryJoystick.getRawButton(ControllerConstants.kJoystickDropLeftPin);
+    }
     public boolean getDropRightRamp() {
-        return joystick1.getRawButton(ControllerConstants.kJoystickDropRightPin);
+        return rightPrimaryJoystick.getRawButton(ControllerConstants.kJoystickDropRightPin);
     }
     public boolean getRaiseRightRamp() {
-        return joystick1.getRawButton(ControllerConstants.kJoystickRaiseRightRamp);
+        return rightPrimaryJoystick.getRawButton(ControllerConstants.kJoystickRaiseRightRamp);
+    }
+    public boolean getRaiseLeftRamp() {
+        return rightPrimaryJoystick.getRawButton(ControllerConstants.kJoystickRaiseLeftRamp);
     }
     public boolean getLowerRightRamp() {
-        return joystick1.getRawButton(ControllerConstants.kJoystickLowerRightRamp);
+        return leftPrimaryJoystick.getRawButton(ControllerConstants.kJoystickLowerRightRamp);
     }
-    public boolean getLowerLeftRamp() {return joystick0.getRawButton(ControllerConstants.kJoystickLowerLeftRamp); }
-    public boolean getDropLeftRamp() {return secondaryStick.getRawButton(ControllerConstants.kJoystickDropLeftPin); }
-    public boolean getRaiseLeftRamp() {return joystick0.getRawButton(ControllerConstants.kJoystickRaiseLeftRamp); }
-
-
+    public boolean getLowerLeftRamp() {
+        return leftPrimaryJoystick.getRawButton(ControllerConstants.kJoystickLowerLeftRamp);
+    }
     //Intake classes
-    public boolean getIntakeUp() {return secondaryStick.getRawButton(ControllerConstants.kJoystickIntakeUp);}
+    public boolean getIntakeUp() {return secondaryJoystick.getRawButton(ControllerConstants.kJoystickIntakeUp);}
     public boolean getPullWinch() {
-        return secondaryStick.getRawButton(ControllerConstants.kJoystickPullWinch);
+        return secondaryJoystick.getRawButton(ControllerConstants.kJoystickPullWinch);
     }
     public boolean getIntakeOpenOff() {
-        return joystick1.getRawButton(ControllerConstants.kJoystickOpenOff);
+        return rightPrimaryJoystick.getRawButton(ControllerConstants.kJoystickOpenOff);
     }
     public boolean getIntakeOpenIntake() {
-        return joystick1.getRawButton(ControllerConstants.kJoystickOpenIntake);
+        return rightPrimaryJoystick.getTrigger();
     }
     public boolean getIntakeOpenOuttake() {
-        return joystick1.getRawButton(ControllerConstants.kJoystickOpenOuttake);
+        return secondaryJoystick.getTrigger();
     }
     public boolean getCloseClamp() {
-        return secondaryStick.getRawButton(ControllerConstants.kJoystickCloseClamp);
+        return secondaryJoystick.getRawButton(ControllerConstants.kJoystickCloseClamp);
     }
     public boolean getOpenClamp() {
-        return secondaryStick.getRawButton(ControllerConstants.kJoystickOpenClamp);
+        return secondaryJoystick.getRawButton(ControllerConstants.kJoystickOpenClamp);
     }
 
 //buttons for different stages of elevator
-    public boolean getElevatorPickup(){return secondaryStick.getTrigger();}
-    public boolean getElevatorSwitch(){return  secondaryStick.getRawButton(ElevatorConstants.kElevatorSwitchHeightButton); }
-    public boolean getElevatorScale1(){return  secondaryStick.getRawButton(ElevatorConstants.kElevatorScale_OneHeightButton); }
-    public boolean getElevatorScale2(){return  secondaryStick.getRawButton(ElevatorConstants.kElevatorScale_TwoHeightButton); }
-    public boolean getElevatorScale3(){return  secondaryStick.getRawButton(ElevatorConstants.kElevatorScale_ThreeHeightButton); }
+    public boolean getElevatorPickup(){return secondaryJoystick.getRawButton(ControllerConstants.kElevatorPickupHeightButton);}
+    public boolean getElevatorSwitch(){return  secondaryJoystick.getRawButton(ControllerConstants.kElevatorSwitchHeightButton); }
+    public boolean getElevatorScale1(){return  secondaryJoystick.getRawButton(ControllerConstants.kElevatorScale_OneHeightButton); }
+    public boolean getElevatorScale2(){return  secondaryJoystick.getRawButton(ControllerConstants.kElevatorScale_TwoHeightButton); }
+    public boolean getElevatorScale3(){return  secondaryJoystick.getRawButton(ControllerConstants.kElevatorScale_ThreeHeightButton); }
    /* public Pickup.PickupState getIntakeState() {
-        if (secondaryStick.getRawButton(2)) {
+        if (secondaryJoystick.getRawButton(2)) {
             return Pickup.PickupState.IN;
-        } else if (secondaryStick.getRawButton(3)) {
+        } else if (secondaryJoystick.getRawButton(3)) {
             return Pickup.PickupState.OUT;
         } else {
             return Pickup.PickupState.STOP;

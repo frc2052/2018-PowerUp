@@ -11,11 +11,15 @@ public class ControllerConstants {
     public static int kJoystickLowerLeftRamp = 7;
     public static int kJoystickLowerRightRamp = 10;
     public static int kJoystickPullWinch = 7;
-    public static int kJoystickOpenOff = 1;
-    public static int kJoystickOpenIntake = 2;
-    public static int kJoystickOpenOuttake = 4;
     public static int kJoystickClosed = 3;
-    public static int kJoystickCloseClamp = 8;
-    public static int kJoystickOpenClamp = 9;
-    public static int kJoystickIntakeUp = 10;
+    //haven't decided if we need to drop it straight down
+    public static int kJoystickOpenOff = 60;
+    public static int kJoystickCloseClamp = 11;
+    public static int kJoystickOpenClamp = 10;
+    public static int kJoystickIntakeUp = 9;
+    public static int kElevatorPickupHeightButton = 8;
+    public static int kElevatorSwitchHeightButton = 2;
+    public static int kElevatorScale_OneHeightButton = 4;
+    public static int kElevatorScale_TwoHeightButton = 3;
+    public static int kElevatorScale_ThreeHeightButton = 5;
 }
