@@ -123,10 +123,8 @@ public class Robot extends IterativeRobot {
         slowerLooper.start();
 
         AutoModeSelector.AutoModeDefinition currentAutoMode = AutoModeSelector.getAutoDefinition(); //creates a variable we can change
-        if (DriveTrain.getInstance().CheckGyro() == false ){ //if gyro does not work, set auto path to a path with timer
+        if (!DriveTrain.getInstance().CheckGyro() ){ //if gyro does not work, set auto path to a path with timer
             switch (AutoModeSelector.getAutoDefinition()) {
-                case AUTOLINE:
-                    currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
                 case LSTARTONLYSCALE:
                     currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
                 case LSTARTPERFERSCALE:
@@ -234,13 +232,13 @@ public class Robot extends IterativeRobot {
                 elevator.setTarget(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING);
             }
 
-            if(controls.getElevatorAdjustmentUp() == true)
+            if(controls.getElevatorAdjustmentUp())
             {
                 intake.getWantClosed();
                 elevator.getElevatorAdjustmentUp(controls.getElevatorAdjustmentUp());
             }
 
-            if(controls.getElevatorAdjustmentDown() == true)
+            if(controls.getElevatorAdjustmentDown())
             {
                 intake.getWantClosed();
                 elevator.getElevatorAdjustmentDown(controls.getElevatorAdjustmentUp());
