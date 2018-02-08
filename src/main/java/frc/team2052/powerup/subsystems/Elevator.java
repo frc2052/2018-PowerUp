@@ -28,7 +28,7 @@ public class Elevator implements Loopable{
     //Constructor
     private Elevator() {
         elevatorTalon = new TalonSRX(ElevatorConstants.kElevatorMotorID);
-        elevatorTalon.configMotionCruiseVelocity(430, 10);//todo: decide timeout seconds
+        elevatorTalon.configMotionCruiseVelocity(10, 10);//todo: decide timeout seconds
         elevatorTalon.setNeutralMode(NeutralMode.Brake);
     }
 
@@ -38,6 +38,7 @@ public class Elevator implements Loopable{
         elevatorTalon.config_kD(0, d, 10);
         elevatorTalon.config_kF(0, f, 10);
         elevatorTalon.config_IntegralZone(0, ElevatorConstants.kElevatorVelocityIZone, 10);
+        System.out.println("P = " + p + "  I = " + i + "  D =" + d + "  F =" + f);
     }
 
     public int getEncoder(){
@@ -57,11 +58,14 @@ public class Elevator implements Loopable{
     }
 
     private void setHeightInches(double targetInches){
-        double rotation = targetInches / ElevatorConstants.kInchesPerRotation;
+        double rotation = targetInches / ElevatorConstants.kInchesPerRotation; //todo set inches per rot
         int pos = (int)(rotation * ElevatorConstants.kElevatorTicksPerRot);
         //Sets the Carriage at a set height, see https://github.com/CrossTheRoadElec/Phoenix-Documentation/blob/master/Talon%20SRX%20Victor%20SPX%20-%20Software%20Reference%20Manual.pdf
         // in 3.1.2.1, recommended timeout is zero while in robot loop
 //        elevatorTalon.zeroSensor(pulses,0, 0);//todo: check error code
+        System.out.println("pos: " + pos);
+        System.out.println("rot: " + rotation);
+        System.out.println("(int)rot: " + (int)rotation);
         elevatorTalon.set(ControlMode.Position, pos);
         return ;
     }
