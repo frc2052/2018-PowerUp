@@ -2,7 +2,7 @@ package frc.team2052.powerup.constants;
 
 public class ElevatorConstants {
     public static double kInchesPerRotation = 1;
-    public static int kElevatorMotorID = 10;
+    public static int kElevatorMotorID = 7;
     public static double kElevatorVelocityKp = 0.2;
     public static double kElevatorVelocityKi = 0.0;
     public static double kElevatorVelocityKd = 2.0;

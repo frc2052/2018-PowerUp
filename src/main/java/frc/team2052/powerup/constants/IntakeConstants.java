@@ -5,8 +5,8 @@ public class IntakeConstants {
     public static int intakeSolenoidOut1 =2;
     public static int intakeSolenoidIn2 =3;
     public static int intakeSolenoidOut2 =4;
-    public static int intakeRightMotorId =5;
-    public static int intakeLeftMotorId =6;
+    public static int intakeRightMotorId =8;
+    public static int intakeLeftMotorId =9;
     public static int intakeSolenoidLiftIn1 =7;
     public static int intakeSolenoidLiftOut1 =8;
     public static int intakeSolenoidLiftIn2 =9;
