@@ -22,7 +22,7 @@ public class RStartPreferSwitch extends AutoMode {
                     new WantOpenOutakeAction() //pushes cube out
             )));
         }
-        else if(FieldConfig.isMyScaleLeft() == false){ // if right scale is ours
+        else if(!FieldConfig.isMyScaleLeft()){ // if right scale is ours
             runAction(new SeriesAction(Arrays.asList(
                     new ParallelAction(Arrays.asList(
                         new FollowPathAction(new Path(AutoPaths.RRScale), false), //pathing to the right scale
