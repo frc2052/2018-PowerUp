@@ -1,11 +1,8 @@
 package frc.team2052.powerup.auto.actions;
 
-import frc.team2052.powerup.subsystems.Intake;
 import frc.team2052.powerup.subsystems.Pickup;
 
-public class WantOpenOffAction implements Action {
-//Sets intake to open with motors off in auto mode.
-    
+public class LowerPickupAction implements Action{
     @Override
     public void done() {
 
@@ -13,14 +10,12 @@ public class WantOpenOffAction implements Action {
 
     @Override
     public boolean isFinished() {
-        //return Intake.getInstance().getWantOpenOff() ;
         return true;
     }
 
     @Override
     public void start() {
-        //Intake.getInstance().setWantOpenOff();
-        Pickup.getInstance().open();
+        Pickup.getInstance().position3();
     }
 
     @Override

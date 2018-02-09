@@ -1,6 +1,7 @@
 package frc.team2052.powerup.auto.actions;
 
 import frc.team2052.powerup.subsystems.Intake;
+import frc.team2052.powerup.subsystems.Pickup;
 
 public class WantOpenIntakeAction implements Action{
 //Sets intake to open with motors spinning to release cube in auto mode
@@ -12,12 +13,14 @@ public class WantOpenIntakeAction implements Action{
 
     @Override
     public boolean isFinished() {
-        return Intake.getInstance().getWantOpenIntake() == true;
+        //return Intake.getInstance().getWantOpenIntake() == true;
+        return true;
     }
 
     @Override
     public void start() {
-        Intake.getInstance().setWantOpenIntake();
+        //Intake.getInstance().setWantOpenIntake();
+        Pickup.getInstance().intake();
     }
 
     @Override
