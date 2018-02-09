@@ -33,10 +33,7 @@ public class Intake implements Loopable {//implements Loopable
     private TalonSRX leftMotor, rightMotor;
 
     private Intake() {
-        solenoid1In = new Solenoid(IntakeConstants.intakeSolenoidIn1);
-        solenoid1Out = new Solenoid(IntakeConstants.intakeSolenoidOut1);
-        solenoid2In = new Solenoid(IntakeConstants.intakeSolenoidIn2);
-        solenoid2Out = new Solenoid(IntakeConstants.intakeSolenoidOut2);
+        solenoid1In = new Solenoid(IntakeConstants.intakeSolenoid);
         solenoidLift1In = new Solenoid(IntakeConstants.intakeSolenoidLiftIn1);
         solenoidLift1Out = new Solenoid(IntakeConstants.intakeSolenoidLiftOut1);
         solenoidLift2In = new Solenoid(IntakeConstants.intakeSolenoidLiftIn2);
