@@ -14,10 +14,6 @@ compileJava {
     sourceCompatibility = 1.8
 }
 
-telemetry {
-    reportTelemetry = false
-}
-
 def TEAM = 2052
 def ROBOT_CLASS = "frc.team2052.powerup.Robot"
 
