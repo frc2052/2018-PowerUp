@@ -8,12 +8,9 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.team2052.powerup.auto.AutoModeRunner;
-import frc.team2052.powerup.auto.AutoModeSelector;
-import frc.team2052.powerup.auto.AutoPaths;
-import frc.team2052.powerup.auto.FieldConfig;
 import frc.team2052.powerup.constants.ControlLoopConstants;
 import frc.team2052.powerup.subsystems.*;
+import frc.team2052.powerup.auto.*;
 import frc.team2052.powerup.subsystems.drive.DriveSignal;
 import frc.team2052.powerup.subsystems.drive.DriveTrain;
 
@@ -58,8 +55,8 @@ public class Robot extends IterativeRobot {
         pdp = new PowerDistributionPanel();
 
         //Control loops for auto and teleop
-        controlLoop = new ControlLoop(ControlLoopConstants.kControlLoopPeriod);
-        slowerLooper = new ControlLoop(ControlLoopConstants.kSlowControlLoopPeriod);
+        controlLoop = new ControlLoop(Constants.kControlLoopPeriod);
+        slowerLooper = new ControlLoop(Constants.kSlowControlLoopPeriod);
 
         robotState = RobotState.getInstance();
         stateEstimator = RobotStateEstimator.getInstance();
@@ -111,7 +108,7 @@ public class Robot extends IterativeRobot {
             elevator.zeroSensor();
         }
         driveTrain.setOpenLoop(DriveSignal.NEUTRAL);  //put robot into don't move, no looper mode
-        driveTrain.setBrakeMode(false); //TODO: should we turn off break mode in Auto?
+        driveTrain.setBrakeMode(false);
 
         if (intake != null) {
             intake.getWantClosed();  //keep the intake closed, because we should be holding a cube
@@ -236,13 +233,13 @@ public class Robot extends IterativeRobot {
             if(controls.getElevatorAdjustmentUp())
             {
                 intake.getWantClosed();
-                elevator.getElevatorAdjustmentUp(controls.getElevatorAdjustmentUp());
+                elevator.setElevatorAdjustmentUp(controls.getElevatorAdjustmentUp());
             }
 
             if(controls.getElevatorAdjustmentDown())
             {
                 intake.getWantClosed();
-                elevator.getElevatorAdjustmentDown(controls.getElevatorAdjustmentUp());
+                elevator.setElevatorAdjustmentDown(controls.getElevatorAdjustmentUp());
             }
         }
 
@@ -258,7 +255,6 @@ public class Robot extends IterativeRobot {
                 ramp.dropRampPinRight();
             }
 
-            //todo: toggle ramp?? or stick with 4 buttons
             if (controls.getLowerLeftRamp()){
                 ramp.lowerLeftRamp();
             }else if(controls.getRaiseLeftRamp()){
@@ -286,7 +282,7 @@ public class Robot extends IterativeRobot {
     @Override
     public void testPeriodic() { }
 
-    public void zeroAllSensors() { //todo: add this for the elevator
+    public void zeroAllSensors() {
         driveTrain.resetEncoders();
         driveTrain.zeroGyro();
     }

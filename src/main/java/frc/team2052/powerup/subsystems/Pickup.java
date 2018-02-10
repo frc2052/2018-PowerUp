@@ -3,7 +3,7 @@ package frc.team2052.powerup.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.Solenoid;
-import frc.team2052.powerup.constants.PickupConstants;
+import frc.team2052.powerup.Constants;
 
 public class Pickup {
 
@@ -17,13 +17,13 @@ public class Pickup {
     private TalonSRX leftMotor, rightMotor;
 
     private Pickup() { //getting solenoids and talons from constants and setting the right motor to be inverted
-        inOutSolonoid = new Solenoid(PickupConstants.inOutSolenoid);
-        upDownSolonoidLIn = new Solenoid(PickupConstants.upDownLSolenoidIn);
-        upDownSolonoidLOut = new Solenoid(PickupConstants.upDownSolenoid1Out);
-        upDownSolonoidSIn = new Solenoid(PickupConstants.upDownSolenoid2In);
-        upDownSolonoidSOut = new Solenoid(PickupConstants.upDownSolenoid2Out);
-        leftMotor = new TalonSRX(PickupConstants.pickupLeftMotorId);
-        rightMotor = new TalonSRX(PickupConstants.pickupRightMotorId);
+        inOutSolonoid = new Solenoid(Constants.inOutSolenoid);
+        upDownSolonoidLIn = new Solenoid(Constants.upDownLSolenoidIn);
+        upDownSolonoidLOut = new Solenoid(Constants.upDownSolenoid1Out);
+        upDownSolonoidSIn = new Solenoid(Constants.upDownSolenoid2In);
+        upDownSolonoidSOut = new Solenoid(Constants.upDownSolenoid2Out);
+        leftMotor = new TalonSRX(Constants.intakeLeftMotorId);
+        rightMotor = new TalonSRX(Constants.intakeRightMotorId);
         rightMotor.setInverted(true);
     }
 
