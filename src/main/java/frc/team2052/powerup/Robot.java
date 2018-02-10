@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2052.powerup.auto.*;
-import frc.team2052.powerup.constants.ControlLoopConstants;
 import frc.team2052.powerup.subsystems.Controls;
 import frc.team2052.powerup.subsystems.Elevator;
 import frc.team2052.powerup.subsystems.Intake;
@@ -57,8 +56,8 @@ public class Robot extends IterativeRobot {
         pdp = new PowerDistributionPanel();
 
         //Control loops for auto and teleop
-        controlLoop = new ControlLoop(ControlLoopConstants.kControlLoopPeriod);
-        slowerLooper = new ControlLoop(ControlLoopConstants.kSlowControlLoopPeriod);
+        controlLoop = new ControlLoop(Constants.kControlLoopPeriod);
+        slowerLooper = new ControlLoop(Constants.kSlowControlLoopPeriod);
 
         robotState = RobotState.getInstance();
         stateEstimator = RobotStateEstimator.getInstance();
@@ -123,10 +122,8 @@ public class Robot extends IterativeRobot {
         slowerLooper.start();
 
         AutoModeSelector.AutoModeDefinition currentAutoMode = AutoModeSelector.getAutoDefinition(); //creates a variable we can change
-        if (DriveTrain.getInstance().CheckGyro() == false ){ //if gyro does not work, set auto path to a path with timer
+        if (!DriveTrain.getInstance().CheckGyro() ){ //if gyro does not work, set auto path to a path with timer
             switch (AutoModeSelector.getAutoDefinition()) {
-                case AUTOLINE:
-                    currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
                 case LSTARTONLYSCALE:
                     currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
                 case LSTARTPERFERSCALE:
@@ -234,13 +231,13 @@ public class Robot extends IterativeRobot {
                 elevator.setTarget(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING);
             }
 
-            if(controls.getElevatorAdjustmentUp() == true)
+            if(controls.getElevatorAdjustmentUp())
             {
                 intake.getWantClosed();
                 elevator.setElevatorAdjustmentUp(controls.getElevatorAdjustmentUp());
             }
 
-            if(controls.getElevatorAdjustmentDown() == true)
+            if(controls.getElevatorAdjustmentDown())
             {
                 intake.getWantClosed();
                 elevator.getElevatorAdjustmentDown(controls.getElevatorAdjustmentUp());
