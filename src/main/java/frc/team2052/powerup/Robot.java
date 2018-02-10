@@ -3,15 +3,13 @@ package frc.team2052.powerup;
 import com.first.team2052.lib.ControlLoop;
 import com.first.team2052.lib.RevRoboticsPressureSensor;
 import com.first.team2052.lib.vec.RigidTransform2d;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.team2052.powerup.subsystems.*;
 import frc.team2052.powerup.auto.*;
-import frc.team2052.powerup.subsystems.Controls;
-import frc.team2052.powerup.subsystems.Elevator;
-import frc.team2052.powerup.subsystems.Intake;
-import frc.team2052.powerup.subsystems.Ramp;
 import frc.team2052.powerup.subsystems.drive.DriveSignal;
 import frc.team2052.powerup.subsystems.drive.DriveTrain;
 
@@ -35,16 +33,14 @@ public class Robot extends IterativeRobot {
     private PowerDistributionPanel pdp = null;
     private RevRoboticsPressureSensor revRoboticsPressureSensor = null;
 
+    private CameraServer cameraServer;
 
     @Override
     public void robotInit() {
-        System.out.println("Starting Robot Code - HELLO WORLD!");
-        driveHelper = new DriveHelper();
-
-        //Subsystems
         driveTrain = DriveTrain.getInstance();
         driveHelper = new DriveHelper();
         controls = Controls.getInstance();
+        Camera.getInstance().init();
 
         //////THESE SUBSYSTEMS ARE FAULT TOLERANT/////
         /////// they will return null if they fail to create themselves////////
@@ -52,6 +48,8 @@ public class Robot extends IterativeRobot {
 //        ramp = Ramp.getInstance();
 //        elevator = Elevator.getInstance();
         //////////////////////////////////////////////
+
+
 
         pdp = new PowerDistributionPanel();
 
