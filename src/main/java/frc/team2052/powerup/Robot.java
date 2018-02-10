@@ -237,7 +237,7 @@ public class Robot extends IterativeRobot {
             if(controls.getElevatorAdjustmentUp() == true)
             {
                 intake.getWantClosed();
-                elevator.getElevatorAdjustmentUp(controls.getElevatorAdjustmentUp());
+                elevator.setElevatorAdjustmentUp(controls.getElevatorAdjustmentUp());
             }
 
             if(controls.getElevatorAdjustmentDown() == true)
