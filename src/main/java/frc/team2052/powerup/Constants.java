@@ -23,14 +23,13 @@ public class Constants {public static int intakeSolenoid =1;
     public static int intakeSolenoidLiftOut1 =8;
     public static int intakeSolenoidLiftIn2 =9;
     public static int intakeSolenoidLiftOut2 =10;
-    public static int inOutSolenoid =1;
     public static int upDownLSolenoidIn =2;
     public static int upDownSolenoid1Out =3;
     public static int upDownSolenoid2In =4;
     public static int upDownSolenoid2Out =5;
-    public static int kRampPinLeftInId = 0;
+    public static int kRampLeftPinReleaseId = 0;
     public static int kRampPinLeftOutId = 1;
-    public static int kRampPinRightInId = 2;
+    public static int kRampRightPinReleaseId = 2;
     public static int kRampPinRightOutId = 3;
     public static int kRightRampInId = 4;
     public static int kRightRampOutId = 5;
@@ -38,7 +37,8 @@ public class Constants {public static int intakeSolenoid =1;
     public static int kLeftRampOutId = 7;
 
     /////////// Intake ////////////
-    public static double intakeInSpeed = 1;
+    public static double intakeInSpeedRight = 0.48;
+    public static double intakeInSpeedLeft = 0.6;
     public static double intakeOutSpeed = -.6;
     public static double intakeStopSpeed = 0;
 

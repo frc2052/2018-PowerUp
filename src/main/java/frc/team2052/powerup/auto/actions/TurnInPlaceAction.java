@@ -1,8 +1,6 @@
 package frc.team2052.powerup.auto.actions;
 
-public class WantOpenOffAction implements Action {
-//Sets intake to open with motors off in auto mode.
-    
+public class TurnInPlaceAction implements Action {
     @Override
     public void done() {
 
@@ -10,13 +8,12 @@ public class WantOpenOffAction implements Action {
 
     @Override
     public boolean isFinished() {
-        //return Intake.getInstance().getWantOpenOff() ;
-        return true;
+        return false;
     }
 
     @Override
     public void start() {
-        //Intake.getInstance().setWantOpenOff();
+
     }
 
     @Override

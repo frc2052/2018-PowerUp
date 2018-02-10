@@ -11,65 +11,61 @@ public class Pickup {
     public static Pickup getInstance() {return instance;}
 
     //setting solenoids and talons
-    private Solenoid inOutSolonoid, upDownSolonoid;
-    private Solenoid upDownSolonoidLIn, upDownSolonoidLOut;
-    private Solenoid upDownSolonoidSIn, upDownSolonoidSOut;
+    private Solenoid upDownSolenoidLIn, upDownSolenoidLOut;
+    private Solenoid upDownSolenoidSIn, upDownSolenoidSOut;
     private TalonSRX leftMotor, rightMotor;
 
     private Pickup() { //getting solenoids and talons from constants and setting the right motor to be inverted
-        inOutSolonoid = new Solenoid(Constants.inOutSolenoid);
-        upDownSolonoidLIn = new Solenoid(Constants.upDownLSolenoidIn);
-        upDownSolonoidLOut = new Solenoid(Constants.upDownSolenoid1Out);
-        upDownSolonoidSIn = new Solenoid(Constants.upDownSolenoid2In);
-        upDownSolonoidSOut = new Solenoid(Constants.upDownSolenoid2Out);
+        upDownSolenoidLIn = new Solenoid(Constants.upDownLSolenoidIn);
+        upDownSolenoidLOut = new Solenoid(Constants.upDownSolenoid1Out);
+        upDownSolenoidSIn = new Solenoid(Constants.upDownSolenoid2In);
+        upDownSolenoidSOut = new Solenoid(Constants.upDownSolenoid2Out);
         leftMotor = new TalonSRX(Constants.pickupLeftMotorId);
         rightMotor = new TalonSRX(Constants.pickupRightMotorId);
         rightMotor.setInverted(true);
     }
 
-    private void setMotorSpeed(double speedPercent) { //setting the speed in which the motors spin at
-        leftMotor.set(ControlMode.PercentOutput, speedPercent);
+    private void setRightMotorSpeed(double speedPercent) { //setting the speed in which the motors spin at
         rightMotor.set(ControlMode.PercentOutput, speedPercent);
     }
 
-    public void open() {
-        inOutSolonoid.set(true);
-    } //opening pickup
-
-    public void close(){
-        inOutSolonoid.set(false);
-    } //closing pickup
+    private void setLeftMotorSpeed(double speedPercent) {
+        leftMotor.set(ControlMode.PercentOutput, speedPercent);
+    }
 
     public void intake(){
-        setMotorSpeed(0.6);
+        setRightMotorSpeed(Constants.intakeInSpeedRight);
+        setLeftMotorSpeed(Constants.intakeInSpeedLeft);
     } //activating intake and setting speed
 
     public void outtake() {
-        setMotorSpeed(-0.4);
+        setRightMotorSpeed(Constants.intakeOutSpeed);
+        setLeftMotorSpeed(Constants.intakeOutSpeed);
     } //activating outtake and setting speed
 
     public void stopped() {
-        setMotorSpeed(0);
+        setRightMotorSpeed(Constants.intakeStopSpeed);
+        setLeftMotorSpeed(Constants.intakeStopSpeed);
     } //stop wheels
 
-    public void position1() { //pickup rotates all the way up
-        upDownSolonoidLIn.set(true);
-        upDownSolonoidLOut.set(false);
-        upDownSolonoidSIn.set(true);
-        upDownSolonoidSOut.set(false);
+    public void pickupPositionDown() { //pickup rotates all the way up
+        upDownSolenoidLIn.set(true);
+        upDownSolenoidLOut.set(false);
+        upDownSolenoidSIn.set(true);
+        upDownSolenoidSOut.set(false);
     }
 
-    public void position2() { //pickup rotates at an angle to stack
-        upDownSolonoidLIn.set(true);
-        upDownSolonoidLOut.set(false);
-        upDownSolonoidSIn.set(false);
-        upDownSolonoidSOut.set(true);
+    public void pickupPositionRaised() { //pickup rotates at an angle to stack
+        upDownSolenoidLIn.set(true);
+        upDownSolenoidLOut.set(false);
+        upDownSolenoidSIn.set(false);
+        upDownSolenoidSOut.set(true);
     }
 
-    public void position3() { //pickup goes flat to intake
-        upDownSolonoidLIn.set(false);
-        upDownSolonoidLOut.set(true);
-        upDownSolonoidSIn.set(false);
-        upDownSolonoidSOut.set(true);
+    public void pickupPositionUp() { //pickup goes flat to intake
+        upDownSolenoidLIn.set(false);
+        upDownSolenoidLOut.set(true);
+        upDownSolenoidSIn.set(false);
+        upDownSolenoidSOut.set(true);
     }
 }
