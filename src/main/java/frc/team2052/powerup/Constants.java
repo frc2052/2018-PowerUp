@@ -61,19 +61,20 @@ public class Constants {public static int intakeSolenoid =1;
     public static int kJoystickIntakeUp = 9;
 
     /////////// Elevator ////////////
-    public static double kElevatorInchesPerRotation = 1;
+    public static int kElevatorMaxHeight = 50; //50 for testing 74 for real
+    public static int kElevatorMinHeight = 2;
+    public static double kElevatorInchesPerRotation = 74/8; // total travel distance for elevator is 74 inches in 8 revolutions
     public static double kElevatorVelocityKp = 1;
     public static double kElevatorVelocityKi = 0;
     public static double kElevatorVelocityKd = 0;
     public static double kElevatorVelocityKf = 0;
     public static int kElevatorVelocityIZone = 0;
-    public static int kElevatorTicksPerRot = 1024;
-    public static int kElevatorMaxHeight = 74;
-    public static int kElevatorMinHeight = 2;
+    public static int kElevatorTicksPerRot = 1024 * 4;
+
     public static int kElevatorSwitchHeight = 25;
     public static int kElevatorScaleBalancedHeight = 64;
     public static int kElevatorRampSeconds = 0;
-    public static double kElevatorPeakPower = .35;
+    public static double kElevatorPeakPower = .4;
 
     /////////// Control Loops ////////////
     public static final double kControlLoopPeriod = 1.0 / 100.0;

@@ -7,6 +7,8 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.first.team2052.lib.Loopable;
 import frc.team2052.powerup.Constants;
 
+import static frc.team2052.powerup.Constants.kElevatorMaxHeight;
+
 public class Elevator implements Loopable{
 
     private TalonSRX elevatorTalon;
@@ -56,7 +58,20 @@ public class Elevator implements Loopable{
 
     public void setTarget(ElevatorPresetEnum posEnum) {
         //sets goal to the correct inches according to the preset
-        goalElevatorInches = getHeightInchesForPreset(posEnum);
+        int calcTarget = getHeightInchesForPreset(posEnum);
+        setAndVerifyGoalInches(calcTarget);
+    }
+
+    private void setAndVerifyGoalInches(int newGoalInches){
+        if (newGoalInches >  Constants.kElevatorMaxHeight) {
+            goalElevatorInches = Constants.kElevatorMaxHeight;
+        }
+        else if (newGoalInches < Constants.kElevatorMinHeight) {
+            goalElevatorInches = Constants.kElevatorMinHeight;
+        }
+        else {
+            goalElevatorInches = newGoalInches;
+        }
     }
 
     public boolean getCarriageIsMoving (){//finds out if the elevator is moving
@@ -70,16 +85,7 @@ public class Elevator implements Loopable{
     {
         if((isPressed != lastCyclePressedState)&& (getHeightInches()<= goalElevatorInches)) //if switching between pressed and not pressed && going up
         {
-            if(goalElevatorInches > Constants.kElevatorMaxHeight) //if greater than elevator can extend
-            {
-                goalElevatorInches = Constants.kElevatorMaxHeight;
-            }
-            else if(goalElevatorInches < 0) {//if lower than the elevator can contract
-                goalElevatorInches = 0;
-            }
-            else {
-                goalElevatorInches += 1; //add one inch for each time the button state switches (press + release = two inches)
-            }
+            setAndVerifyGoalInches(goalElevatorInches + 1);
         }
         lastCyclePressedState = isPressed; //logs what the state is at the end of this cycle to compare against in the next cycle
     }
@@ -88,17 +94,8 @@ public class Elevator implements Loopable{
     {
         if((isPressed != lastCyclePressedState)&& (getHeightInches()<= goalElevatorInches)) //if switching between pressed and not pressed && going up
         {
-            if(goalElevatorInches > Constants.kElevatorMaxHeight) //if greater than elevator can extend
-            {
-                goalElevatorInches = Constants.kElevatorMaxHeight;
-            }
-            else if(goalElevatorInches < Constants.kElevatorMinHeight) {//if less than elevator can extend
-                goalElevatorInches = Constants.kElevatorMinHeight;
-            }
-            else {
-                goalElevatorInches -= 1; //gets rid of one inch for each time the button state switches (press and release gets rid of two inches)
-            }
-    }
+            setAndVerifyGoalInches(goalElevatorInches - 1);
+        }
         lastCyclePressedState = isPressed; //logs what the state is at the end of this cycle to compare against in the next cycle
 
     }
@@ -129,9 +126,9 @@ public class Elevator implements Loopable{
             case SCALE_BALANCED:
                 return Constants.kElevatorScaleBalancedHeight;
             case SCALE_HIGH:
-                return Constants.kElevatorMaxHeight;
+                return kElevatorMaxHeight;
             case SCALE_HIGH_STACKING:
-                return Constants.kElevatorMaxHeight;
+                return kElevatorMaxHeight;
         }
         return 0;
     }
