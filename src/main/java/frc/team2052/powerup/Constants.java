@@ -8,26 +8,25 @@ public class Constants {public static int intakeSolenoid =1;
     public final static int kCANBusConfigTimeoutMS = 10;
 
     /////////// Motor IDs ////////////
-    public static int intakeRightMotorId =5;
-    public static int intakeLeftMotorId =6;
-    public static int pickupRightMotorId =5;
-    public static int pickupLeftMotorId =6;
-    public static int kElevatorMotorID = 10;
     public static int kDriveRightMasterId = 1;
     public static int kDriveRightSlaveId = 2;
+    public static int kDriveLeftSlaveId = 3;
     public static int kDriveLeftMasterId = 4;
-    public static int kDriveLeftSlaveId = 3;//todo: decide which constants are good
+    public static int kElevatorMotorID = 7;
+    public static int intakeRightMotorId =8;
+    public static int intakeLeftMotorId =9;
+//todo: decide which constants are good
 
     /////////// Solenoids ////////////
-    public static int intakeSolenoidLiftIn1 =7;
-    public static int intakeSolenoidLiftOut1 =8;
-    public static int intakeSolenoidLiftIn2 =9;
-    public static int intakeSolenoidLiftOut2 =10;
     public static int inOutSolenoid =1;
     public static int upDownLSolenoidIn =2;
     public static int upDownSolenoid1Out =3;
     public static int upDownSolenoid2In =4;
     public static int upDownSolenoid2Out =5;
+    public static int intakeSolenoidLiftIn1 =7;
+    public static int intakeSolenoidLiftOut1 =8;
+    public static int intakeSolenoidLiftIn2 =9;
+    public static int intakeSolenoidLiftOut2 =10;
     public static int kRampPinLeftInId = 0;
     public static int kRampPinLeftOutId = 1;
     public static int kRampPinRightInId = 2;
