@@ -52,16 +52,6 @@ public class Elevator implements Loopable{
         return inches;
     }
 
-//    private void setHeightInches(double targetInches){
-//        double rotation = targetInches / ElevatorConstants.kElevatorInchesPerRotation;
-//        int pos = (int)(rotation * ElevatorConstants.kElevatorTicksPerRot);
-//        //Sets the Carriage at a set height, see https://github.com/CrossTheRoadElec/Phoenix-Documentation/blob/master/Talon%20SRX%20Victor%20SPX%20-%20Software%20Reference%20Manual.pdf
-//        // in 3.1.2.1, recommended timeout is zero while in robot loop
-////        elevatorTalon.zeroSensor(pulses,0, 0);//todo: check error code
-//        elevatorTalon.set(ControlMode.Position, pos);
-//        return ;
-//    }
-
     private int goalElevatorInches;
 
     public void setTarget(ElevatorPresetEnum posEnum) {
