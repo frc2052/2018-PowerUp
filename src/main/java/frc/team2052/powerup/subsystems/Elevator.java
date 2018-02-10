@@ -5,8 +5,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.first.team2052.lib.Loopable;
-import frc.team2052.powerup.constants.DriveConstants;
-import frc.team2052.powerup.constants.ElevatorConstants;
+import frc.team2052.powerup.Constants;
 
 public class Elevator implements Loopable{
 
@@ -28,28 +27,28 @@ public class Elevator implements Loopable{
 
     //Constructor
     private Elevator() {
-        elevatorTalon = new TalonSRX(ElevatorConstants.kElevatorMotorID);
+        elevatorTalon = new TalonSRX(Constants.kElevatorMotorID);
         elevatorTalon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder,0,10);
         elevatorTalon.setSensorPhase(true);
-        elevatorTalon.configClosedloopRamp(ElevatorConstants.kElevatorRampSeconds, 10);
-        elevatorTalon.configPeakOutputForward(ElevatorConstants.kElevatorPeakPower, 10);
-        elevatorTalon.configPeakOutputReverse(ElevatorConstants.kElevatorPeakPower, 10);
+        elevatorTalon.configClosedloopRamp(Constants.kElevatorRampSeconds, 10);
+        elevatorTalon.configPeakOutputForward(Constants.kElevatorPeakPower, 10);
+        elevatorTalon.configPeakOutputReverse(Constants.kElevatorPeakPower, 10);
         elevatorTalon.setNeutralMode(NeutralMode.Brake);
-        elevatorTalon.config_kP(0, ElevatorConstants.kElevatorVelocityKp, 10);//todo: what is slotldx
-        elevatorTalon.config_kI(0, ElevatorConstants.kElevatorVelocityKi, 10);
-        elevatorTalon.config_kD(0, ElevatorConstants.kElevatorVelocityKd, 10);
-        elevatorTalon.config_kF(0, ElevatorConstants.kElevatorVelocityKf, 10);
-        elevatorTalon.config_IntegralZone(0, ElevatorConstants.kElevatorVelocityIZone, 10);
+        elevatorTalon.config_kP(0, Constants.kElevatorVelocityKp, 10);//todo: what is slotldx
+        elevatorTalon.config_kI(0, Constants.kElevatorVelocityKi, 10);
+        elevatorTalon.config_kD(0, Constants.kElevatorVelocityKd, 10);
+        elevatorTalon.config_kF(0, Constants.kElevatorVelocityKf, 10);
+        elevatorTalon.config_IntegralZone(0, Constants.kElevatorVelocityIZone, 10);
     }
     public void zeroSensor(){
-        elevatorTalon.setSelectedSensorPosition(0, 0, DriveConstants.kCANBusConfigTimeoutMS);
+        elevatorTalon.setSelectedSensorPosition(0, 0, Constants.kCANBusConfigTimeoutMS);
     }
 
 
     public double getHeightInches() {
         int encoderPos = elevatorTalon.getSelectedSensorPosition(0);
-        double revolutions = encoderPos / (double)ElevatorConstants.kElevatorTicksPerRot;
-        double inches = revolutions * ElevatorConstants.kElevatorInchesPerRotation;
+        double revolutions = encoderPos / (double)Constants.kElevatorTicksPerRot;
+        double inches = revolutions * Constants.kElevatorInchesPerRotation;
         return inches;
     }
 
@@ -81,9 +80,9 @@ public class Elevator implements Loopable{
     {
         if((isPressed != lastCyclePressedState)&& (getHeightInches()<= goalElevatorInches)) //if switching between pressed and not pressed && going up
         {
-            if(goalElevatorInches > ElevatorConstants.kElevatorMaxHeight) //if greater than elevator can extend
+            if(goalElevatorInches > Constants.kElevatorMaxHeight) //if greater than elevator can extend
             {
-                goalElevatorInches = ElevatorConstants.kElevatorMaxHeight;
+                goalElevatorInches = Constants.kElevatorMaxHeight;
             }
             else if(goalElevatorInches < 0) {//if lower than the elevator can contract
                 goalElevatorInches = 0;
@@ -99,12 +98,12 @@ public class Elevator implements Loopable{
     {
         if((isPressed != lastCyclePressedState)&& (getHeightInches()<= goalElevatorInches)) //if switching between pressed and not pressed && going up
         {
-            if(goalElevatorInches > ElevatorConstants.kElevatorMaxHeight) //if greater than elevator can extend
+            if(goalElevatorInches > Constants.kElevatorMaxHeight) //if greater than elevator can extend
             {
-                goalElevatorInches = ElevatorConstants.kElevatorMaxHeight;
+                goalElevatorInches = Constants.kElevatorMaxHeight;
             }
-            else if(goalElevatorInches < ElevatorConstants.kElevatorMinHeight) {//if less than elevator can extend
-                goalElevatorInches = ElevatorConstants.kElevatorMinHeight;
+            else if(goalElevatorInches < Constants.kElevatorMinHeight) {//if less than elevator can extend
+                goalElevatorInches = Constants.kElevatorMinHeight;
             }
             else {
                 goalElevatorInches -= 1; //gets rid of one inch for each time the button state switches (press and release gets rid of two inches)
@@ -117,8 +116,8 @@ public class Elevator implements Loopable{
     //public void setHeightFromPreset()
     @Override
     public void update(){
-        double rotation = goalElevatorInches / ElevatorConstants.kElevatorInchesPerRotation;
-        int pos = (int)(rotation * ElevatorConstants.kElevatorTicksPerRot);
+        double rotation = goalElevatorInches / Constants.kElevatorInchesPerRotation;
+        int pos = (int)(rotation * Constants.kElevatorTicksPerRot);
         //Sets the Carriage at a set height, see https://github.com/CrossTheRoadElec/Phoenix-Documentation/blob/master/Talon%20SRX%20Victor%20SPX%20-%20Software%20Reference%20Manual.pdf
         // in 3.1.2.1, recommended timeout is zero while in robot loop
         elevatorTalon.set(ControlMode.Position, pos);
@@ -134,15 +133,15 @@ public class Elevator implements Loopable{
     public int getHeightInchesForPreset(ElevatorPresetEnum posEnum){
         switch (posEnum){
             case PICKUP:
-                return ElevatorConstants.kElevatorMinHeight;
+                return Constants.kElevatorMinHeight;
             case SWITCH:
-                return ElevatorConstants.kElevatorSwitchHeight;
+                return Constants.kElevatorSwitchHeight;
             case SCALE_BALANCED:
-                return ElevatorConstants.kElevatorScaleBalancedHeight;
+                return Constants.kElevatorScaleBalancedHeight;
             case SCALE_HIGH:
-                return ElevatorConstants.kElevatorMaxHeight;
+                return Constants.kElevatorMaxHeight;
             case SCALE_HIGH_STACKING:
-                return ElevatorConstants.kElevatorMaxHeight;
+                return Constants.kElevatorMaxHeight;
         }
         return 0;
     }
