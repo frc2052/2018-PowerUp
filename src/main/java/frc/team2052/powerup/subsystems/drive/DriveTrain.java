@@ -107,8 +107,8 @@ public class DriveTrain extends DriveTrainHardware {
 //        System.out.println("ENCODERS LEFT: " + getLeftDistanceInches() + "   RIGHT: " + getRightDistanceInches());
 //        System.out.println("GYRO DEGREES: " + getGyroAngleDegrees());
         driveControlState = DriveControlState.OPEN_LOOP;
-        leftMaster.set(ControlMode.PercentOutput, signal.leftMotor);
-        rightMaster.set(ControlMode.PercentOutput, signal.rightMotor);
+        leftMaster.set(ControlMode.PercentOutput, signal.leftMotorSpeedPercent);
+        rightMaster.set(ControlMode.PercentOutput, signal.rightMotorSpeedPercent);
     }
 
     /**
@@ -120,7 +120,6 @@ public class DriveTrain extends DriveTrainHardware {
     public synchronized void followPath(Path path, boolean reversed) {
         //If not already in the path following control state, then configure the talons and reset the PID loop for turning to get rid of any Integral error that may have accumulated
         if (getDriveControlState() != DriveControlState.PATH_FOLLOWING_CONTROL) {
-            configureTalonsForSpeedControl();
             driveControlState = DriveControlState.PATH_FOLLOWING_CONTROL;
             velocityHeadingPid.reset();
         }
@@ -165,7 +164,6 @@ public class DriveTrain extends DriveTrainHardware {
     public synchronized void setVelocityHeadingSetpoint(double forward_inches_per_sec, Rotation2d headingSetpoint) {
         //If not already in the velocity heading control state, then configure the talons and reset the PID loop for turning to get rid of any Integral error that may have accumulated
         if (getDriveControlState() != DriveControlState.VELOCITY_HEADING_CONTROL) {
-            configureTalonsForSpeedControl();
             driveControlState = DriveControlState.VELOCITY_HEADING_CONTROL;
             velocityHeadingPid.reset();
         }
@@ -256,24 +254,6 @@ public class DriveTrain extends DriveTrainHardware {
             return null;
         } else {
             return pathFollowingController.getMarkersCrossed();
-        }
-    }
-
-    /**
-     * Configures talons for velocity speed control via closed loop control on the Talon SRX
-     * This is used in auto and for other various control states that require velocity control
-     */
-    protected void configureTalonsForSpeedControl() {
-        //TODO: this method one needs to be called once during init, regardless of drive control state, now that talon mode is passed with speed/percent/position/etc values
-        //change this method to be an init method
-        if (driveControlState != DriveControlState.PATH_FOLLOWING_CONTROL
-                && driveControlState != DriveControlState.VELOCITY_HEADING_CONTROL
-                && driveControlState != DriveControlState.VISION_FOLLOW) {
-            leftMaster.configAllowableClosedloopError(kVelocityControlSlot, Constants.kDriveVelocityAllowableError, Constants.kCANBusConfigTimeoutMS);
-            leftMaster.selectProfileSlot(kVelocityControlSlot,kVelocityControlSlot);
-            rightMaster.selectProfileSlot(kVelocityControlSlot, kVelocityControlSlot);
-            rightMaster.configAllowableClosedloopError(kVelocityControlSlot, Constants.kDriveVelocityAllowableError, Constants.kCANBusConfigTimeoutMS);
-            setBrakeMode(true);
         }
     }
 

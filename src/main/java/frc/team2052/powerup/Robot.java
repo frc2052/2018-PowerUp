@@ -109,7 +109,7 @@ public class Robot extends IterativeRobot {
             elevator.zeroSensor();
         }
         driveTrain.setOpenLoop(DriveSignal.NEUTRAL);  //put robot into don't move, no looper mode
-        driveTrain.setBrakeMode(false); //TODO: should we turn off break mode in Auto?
+        driveTrain.setBrakeMode(false);
 
         if (intake != null) {
             intake.getWantClosed();  //keep the intake closed, because we should be holding a cube
@@ -256,7 +256,6 @@ public class Robot extends IterativeRobot {
                 ramp.dropRampPinRight();
             }
 
-            //todo: toggle ramp?? or stick with 4 buttons
             if (controls.getLowerLeftRamp()){
                 ramp.lowerLeftRamp();
             }else if(controls.getRaiseLeftRamp()){
@@ -284,7 +283,7 @@ public class Robot extends IterativeRobot {
     @Override
     public void testPeriodic() { }
 
-    public void zeroAllSensors() { //todo: add this for the elevator
+    public void zeroAllSensors() {
         driveTrain.resetEncoders();
         driveTrain.zeroGyro();
     }
