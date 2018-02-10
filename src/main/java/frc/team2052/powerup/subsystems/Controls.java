@@ -26,10 +26,6 @@ public class Controls {
         return -rightPrimaryJoystick.getX();
     }
 
-    public boolean getElevatorAdjustmentUp(){return secondaryJoystick.getRawButton(6);}//press button 6 to raise elevator up 2 in
-
-    public boolean getElevatorAdjustmentDown(){return secondaryJoystick.getRawButton(7);}//press button 7 to lower elevator 2 in
-
     public boolean getQuickTurn() {
         return rightPrimaryJoystick.getRawButton(3);
     }
@@ -53,9 +49,7 @@ public class Controls {
     }
     //Intake classes
     public boolean getIntakeUp() {return secondaryJoystick.getRawButton(Constants.kJoystickIntakeUp);}
-    public boolean getPullWinch() {
-        return secondaryJoystick.getRawButton(Constants.kJoystickPullWinch);
-    }
+
     public boolean getIntakeOpenOff() {
         return rightPrimaryJoystick.getRawButton(Constants.kJoystickOpenOff);
     }
@@ -78,6 +72,9 @@ public class Controls {
     public boolean getElevatorScale1(){return  secondaryJoystick.getRawButton(Constants.kElevatorScale_OneHeightButton); }
     public boolean getElevatorScale2(){return  secondaryJoystick.getRawButton(Constants.kElevatorScale_TwoHeightButton); }
     public boolean getElevatorScale3(){return  secondaryJoystick.getRawButton(Constants.kElevatorScale_ThreeHeightButton); }
+    public boolean getElevatorAdjustmentUp(){ return secondaryJoystick.getRawButton(Constants.kElevatorScale_TrimUpButton); }
+    public boolean getElevatorAdjustmentDown(){ return secondaryJoystick.getRawButton(Constants.kElevatorScale_TrimDownButton); }
+
    /* public Pickup.PickupState getIntakeState() {
         if (secondaryJoystick.getRawButton(2)) {
             return Pickup.PickupState.IN;

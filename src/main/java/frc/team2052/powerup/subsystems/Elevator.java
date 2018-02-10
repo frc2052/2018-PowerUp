@@ -34,7 +34,7 @@ public class Elevator implements Loopable{
         elevatorTalon.setSensorPhase(true);
         elevatorTalon.configClosedloopRamp(Constants.kElevatorRampSeconds, 10);
         elevatorTalon.configPeakOutputForward(Constants.kElevatorPeakPower, 10);
-        elevatorTalon.configPeakOutputReverse(Constants.kElevatorPeakPower, 10);
+        elevatorTalon.configPeakOutputReverse(-Constants.kElevatorPeakPower, 10);
         elevatorTalon.setNeutralMode(NeutralMode.Brake);
         elevatorTalon.config_kP(0, Constants.kElevatorVelocityKp, 10);//todo: what is slotldx
         elevatorTalon.config_kI(0, Constants.kElevatorVelocityKi, 10);
@@ -84,7 +84,7 @@ public class Elevator implements Loopable{
     private boolean lastCyclePressedState = false; //declares that the button isn't pressed at the start of the match
     public void setElevatorAdjustmentUp(boolean isPressed) //if the button state has changed, it will add an extra inch
     {
-        if((isPressed != lastCyclePressedState)&& (getHeightInches()<= goalElevatorInches)) //if switching between pressed and not pressed && going up
+        if(isPressed != lastCyclePressedState) //if switching between pressed and not pressed && going up
         {
             setAndVerifyGoalInches(goalElevatorInches + 1);
         }
@@ -93,12 +93,11 @@ public class Elevator implements Loopable{
 
     public void setElevatorAdjustmentDown(boolean isPressed)//if the button state has changed, it will remove an inch
     {
-        if((isPressed != lastCyclePressedState)&& (getHeightInches()<= goalElevatorInches)) //if switching between pressed and not pressed && going up
+        if(isPressed != lastCyclePressedState) //if switching between pressed and not pressed && going up
         {
             setAndVerifyGoalInches(goalElevatorInches - 1);
         }
         lastCyclePressedState = isPressed; //logs what the state is at the end of this cycle to compare against in the next cycle
-
     }
 
     //public void setHeightFromPreset()
@@ -109,7 +108,7 @@ public class Elevator implements Loopable{
         //Sets the Carriage at a set height, see https://github.com/CrossTheRoadElec/Phoenix-Documentation/blob/master/Talon%20SRX%20Victor%20SPX%20-%20Software%20Reference%20Manual.pdf
         // in 3.1.2.1, recommended timeout is zero while in robot loop
 
-        System.out.println("Looper Ticks " + pos);
+        System.out.println("Target Ticks " + pos + " Actual Ticks " + elevatorTalon.getSelectedSensorPosition(0));
 
         elevatorTalon.set(ControlMode.Position, pos);
     }
@@ -128,11 +127,11 @@ public class Elevator implements Loopable{
             case SWITCH:
                 return Constants.kElevatorSwitchHeight;
             case SCALE_BALANCED:
-                return Constants.kElevatorScaleBalancedHeight;
+                return (int)(Constants.kElevatorMaxHeight * .6);
             case SCALE_HIGH:
-                return kElevatorMaxHeight;
+                return (int)(Constants.kElevatorMaxHeight * .8);
             case SCALE_HIGH_STACKING:
-                return kElevatorMaxHeight;
+                return Constants.kElevatorMaxHeight;
         }
         return 0;
     }

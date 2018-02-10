@@ -229,17 +229,11 @@ public class Robot extends IterativeRobot {
             } else if (controls.getElevatorScale3()) {
 //                intake.getWantClosed();
                 elevator.setTarget(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING);
-            }
-
-            if(controls.getElevatorAdjustmentUp())
-            {
-                intake.getWantClosed();
+            } else if(controls.getElevatorAdjustmentUp()) {
+//                intake.getWantClosed();
                 elevator.setElevatorAdjustmentUp(controls.getElevatorAdjustmentUp());
-            }
-
-            if(controls.getElevatorAdjustmentDown())
-            {
-                intake.getWantClosed();
+            } else if(controls.getElevatorAdjustmentDown()) {
+//                intake.getWantClosed();
                 elevator.setElevatorAdjustmentDown(controls.getElevatorAdjustmentUp());
             }
         }

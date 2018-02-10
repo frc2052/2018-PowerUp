@@ -42,19 +42,22 @@ public class Constants {public static int intakeSolenoid =1;
     public static double intakeStopSpeed = 0;
 
     /////////// Buttons ////////////
+    //SECONDARY
     public static int kElevatorPickupHeightButton = 8;
     public static int kElevatorSwitchHeightButton = 2;
     public static int kElevatorScale_OneHeightButton = 4;
     public static int kElevatorScale_TwoHeightButton = 3;
     public static int kElevatorScale_ThreeHeightButton = 5;
+    public static int kElevatorScale_TrimUpButton =  6;
+    public static int kElevatorScale_TrimDownButton =  7;
+
     public static int kJoystickDropLeftPin = 8;
     public static int kJoystickDropRightPin = 9;
     public static int kJoystickRaiseRightRamp = 11;
     public static int kJoystickRaiseLeftRamp = 6;
     public static int kJoystickLowerLeftRamp = 7;
     public static int kJoystickLowerRightRamp = 10;
-    public static int kJoystickPullWinch = 7;
-    public static int kJoystickClosed = 3;
+
     public static int kJoystickOpenOff = 60;
     public static int kJoystickCloseClamp = 11;
     public static int kJoystickOpenClamp = 10;
