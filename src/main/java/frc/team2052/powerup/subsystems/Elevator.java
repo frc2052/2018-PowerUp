@@ -4,8 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.first.team2052.lib.Loopable;
-import frc.team2052.powerup.constants.DriveConstants;
-import frc.team2052.powerup.constants.ElevatorConstants;
+import frc.team2052.powerup.Constants;
 
 public class Elevator implements Loopable{
 
@@ -27,30 +26,30 @@ public class Elevator implements Loopable{
 
     //Constructor
     private Elevator() {
-        elevatorTalon = new TalonSRX(ElevatorConstants.kElevatorMotorID);
-        elevatorTalon.config_kP(0, ElevatorConstants.kElevatorVelocityKp, 10);//todo: what is slotldx
-        elevatorTalon.config_kI(0, ElevatorConstants.kElevatorVelocityKi, 10);
-        elevatorTalon.config_kD(0, ElevatorConstants.kElevatorVelocityKd, 10);
-        elevatorTalon.config_kF(0, ElevatorConstants.kElevatorVelocityKf, 10);
-        elevatorTalon.config_IntegralZone(0, ElevatorConstants.kElevatorVelocityIZone, 10);
+        elevatorTalon = new TalonSRX(Constants.kElevatorMotorID);
+        elevatorTalon.config_kP(0, Constants.kElevatorVelocityKp, 10);//todo: what is slotldx
+        elevatorTalon.config_kI(0, Constants.kElevatorVelocityKi, 10);
+        elevatorTalon.config_kD(0, Constants.kElevatorVelocityKd, 10);
+        elevatorTalon.config_kF(0, Constants.kElevatorVelocityKf, 10);
+        elevatorTalon.config_IntegralZone(0, Constants.kElevatorVelocityIZone, 10);
         elevatorTalon.configMotionCruiseVelocity(430, 10);//todo: decide timeout seconds
         elevatorTalon.setNeutralMode(NeutralMode.Brake);
     }
     public void zeroSensor(){
-        elevatorTalon.setSelectedSensorPosition(0, ElevatorConstants.kElevatorMotorID, DriveConstants.kCANBusConfigTimeoutMS);
+        elevatorTalon.setSelectedSensorPosition(0, Constants.kElevatorMotorID, Constants.kCANBusConfigTimeoutMS);
     };
 
     public double getHeightInches() {
         int encoderPos = elevatorTalon.getSelectedSensorPosition(0);
-        double revolutions = encoderPos / (double)ElevatorConstants.kElevatorTicksPerRot;
-        double inches = revolutions * ElevatorConstants.kInchesPerRotation;
+        double revolutions = encoderPos / (double)Constants.kElevatorTicksPerRot;
+        double inches = revolutions * Constants.kInchesPerRotation;
         return inches;
         // return elevatormotor.encoder position #
     }
 
     private void setHeightInches(double targetInches){
-        double rotation = targetInches / ElevatorConstants.kInchesPerRotation;
-        int pos = (int)(rotation * ElevatorConstants.kElevatorTicksPerRot);
+        double rotation = targetInches / Constants.kInchesPerRotation;
+        int pos = (int)(rotation * Constants.kElevatorTicksPerRot);
         //Sets the Carriage at a set height, see https://github.com/CrossTheRoadElec/Phoenix-Documentation/blob/master/Talon%20SRX%20Victor%20SPX%20-%20Software%20Reference%20Manual.pdf
         // in 3.1.2.1, recommended timeout is zero while in robot loop
 //        elevatorTalon.zeroSensor(pulses,0, 0);//todo: check error code
@@ -75,7 +74,7 @@ public class Elevator implements Loopable{
     {
         if((isPressed != lastCyclePressedState)&& (getHeightInches()<= goalElevatorInches)) //if switching between pressed and not pressed && going up
         {
-            if(goalElevatorInches > ElevatorConstants.kElevatorMaxHeight) //if greater than elevator can extend
+            if(goalElevatorInches > Constants.kElevatorMaxHeight) //if greater than elevator can extend
             {
                 goalElevatorInches = 85;
             }
@@ -93,7 +92,7 @@ public class Elevator implements Loopable{
     {
         if((isPressed != lastCyclePressedState)&& (getHeightInches()<= goalElevatorInches)) //if switching between pressed and not pressed && going up
         {
-            if(goalElevatorInches > ElevatorConstants.kElevatorMaxHeight) //if greater than elevator can extend
+            if(goalElevatorInches > Constants.kElevatorMaxHeight) //if greater than elevator can extend
             {
                 goalElevatorInches = 85;
             }

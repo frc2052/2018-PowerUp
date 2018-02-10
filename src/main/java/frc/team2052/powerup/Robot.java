@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2052.powerup.auto.*;
-import frc.team2052.powerup.constants.ControlLoopConstants;
 import frc.team2052.powerup.subsystems.Controls;
 import frc.team2052.powerup.subsystems.Elevator;
 import frc.team2052.powerup.subsystems.Intake;
@@ -57,8 +56,8 @@ public class Robot extends IterativeRobot {
         pdp = new PowerDistributionPanel();
 
         //Control loops for auto and teleop
-        controlLoop = new ControlLoop(ControlLoopConstants.kControlLoopPeriod);
-        slowerLooper = new ControlLoop(ControlLoopConstants.kSlowControlLoopPeriod);
+        controlLoop = new ControlLoop(Constants.kControlLoopPeriod);
+        slowerLooper = new ControlLoop(Constants.kSlowControlLoopPeriod);
 
         robotState = RobotState.getInstance();
         stateEstimator = RobotStateEstimator.getInstance();

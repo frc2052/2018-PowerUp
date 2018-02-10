@@ -8,10 +8,9 @@ import com.first.team2052.lib.path.Path;
 import com.first.team2052.lib.vec.RigidTransform2d;
 import com.first.team2052.lib.vec.Rotation2d;
 import edu.wpi.first.wpilibj.Timer;
+import frc.team2052.powerup.Constants;
 import frc.team2052.powerup.Kinematics;
 import frc.team2052.powerup.RobotState;
-import frc.team2052.powerup.constants.ControlLoopConstants;
-import frc.team2052.powerup.constants.DriveConstants;
 
 import java.util.Set;
 
@@ -70,8 +69,8 @@ public class DriveTrain extends DriveTrainHardware {
     private DriveTrain() {
         setOpenLoop(DriveSignal.NEUTRAL);
 
-        velocityHeadingPid = new SynchronousPID(DriveConstants.kDriveHeadingVelocityKp, DriveConstants.kDriveHeadingVelocityKi,
-                DriveConstants.kDriveHeadingVelocityKd);
+        velocityHeadingPid = new SynchronousPID(Constants.kDriveHeadingVelocityKp, Constants.kDriveHeadingVelocityKi,
+                Constants.kDriveHeadingVelocityKd);
         velocityHeadingPid.setOutputRange(-30, 30);
     }
 
@@ -80,7 +79,7 @@ public class DriveTrain extends DriveTrainHardware {
     }
 
     private static double rotationsToInches(double rotations) {
-        return rotations * (DriveConstants.kDriveWheelDiameterInches * Math.PI);
+        return rotations * (Constants.kDriveWheelDiameterInches * Math.PI);
     }
 
     private static double rpmToInchesPerSecond(double rpm) {
@@ -88,7 +87,7 @@ public class DriveTrain extends DriveTrainHardware {
     }
 
     private static double inchesToRotations(double inches) {
-        return inches / (DriveConstants.kDriveWheelDiameterInches * Math.PI);
+        return inches / (Constants.kDriveWheelDiameterInches * Math.PI);
     }
 
     private static double inchesPerSecondToRpm(double inches_per_second) {
@@ -96,7 +95,7 @@ public class DriveTrain extends DriveTrainHardware {
     }
 
     private static double inchesPerSecondToTicksPer100Ms(double inches_per_second) {
-        return inchesToRotations(inches_per_second) * DriveConstants.kDriveEncoderTicksPerRot / 10 ;
+        return inchesToRotations(inches_per_second) * Constants.kDriveEncoderTicksPerRot / 10 ;
     }
 
 
@@ -126,8 +125,8 @@ public class DriveTrain extends DriveTrainHardware {
             velocityHeadingPid.reset();
         }
         //Make a new path following controller under the constraints of the drive train.
-        pathFollowingController = new AdaptivePurePursuitController(DriveConstants.kPathFollowingLookahead,
-                DriveConstants.kPathFollowingMaxAccel, ControlLoopConstants.kControlLoopPeriod, path, reversed, 0.25);
+        pathFollowingController = new AdaptivePurePursuitController(Constants.kPathFollowingLookahead,
+                Constants.kPathFollowingMaxAccel, Constants.kControlLoopPeriod, path, reversed, 0.25);
         //Update the path follower right away
         updatePathFollower();
     }
@@ -229,8 +228,8 @@ public class DriveTrain extends DriveTrainHardware {
         double max_vel = 0.0;
         max_vel = Math.max(max_vel, Math.abs(setpoint.left));
         max_vel = Math.max(max_vel, Math.abs(setpoint.right));
-        if (max_vel > DriveConstants.kPathFollowingMaxVel) {
-            double scaling = DriveConstants.kPathFollowingMaxVel / max_vel;
+        if (max_vel > Constants.kPathFollowingMaxVel) {
+            double scaling = Constants.kPathFollowingMaxVel / max_vel;
             setpoint = new Kinematics.DriveVelocity(setpoint.left * scaling, setpoint.right * scaling);
         }
 
@@ -270,10 +269,10 @@ public class DriveTrain extends DriveTrainHardware {
         if (driveControlState != DriveControlState.PATH_FOLLOWING_CONTROL
                 && driveControlState != DriveControlState.VELOCITY_HEADING_CONTROL
                 && driveControlState != DriveControlState.VISION_FOLLOW) {
-            leftMaster.configAllowableClosedloopError(kVelocityControlSlot, DriveConstants.kDriveVelocityAllowableError, DriveConstants.kCANBusConfigTimeoutMS);
+            leftMaster.configAllowableClosedloopError(kVelocityControlSlot, Constants.kDriveVelocityAllowableError, Constants.kCANBusConfigTimeoutMS);
             leftMaster.selectProfileSlot(kVelocityControlSlot,kVelocityControlSlot);
             rightMaster.selectProfileSlot(kVelocityControlSlot, kVelocityControlSlot);
-            rightMaster.configAllowableClosedloopError(kVelocityControlSlot, DriveConstants.kDriveVelocityAllowableError, DriveConstants.kCANBusConfigTimeoutMS);
+            rightMaster.configAllowableClosedloopError(kVelocityControlSlot, Constants.kDriveVelocityAllowableError, Constants.kCANBusConfigTimeoutMS);
             setBrakeMode(true);
         }
     }
@@ -283,12 +282,12 @@ public class DriveTrain extends DriveTrainHardware {
      */
     public void resetEncoders() {
         //Set the rotations to zero
-        rightMaster.setSelectedSensorPosition(0, kVelocityControlSlot, DriveConstants.kCANBusConfigTimeoutMS);
-        leftMaster.setSelectedSensorPosition(0, kVelocityControlSlot, DriveConstants.kCANBusConfigTimeoutMS);
+        rightMaster.setSelectedSensorPosition(0, kVelocityControlSlot, Constants.kCANBusConfigTimeoutMS);
+        leftMaster.setSelectedSensorPosition(0, kVelocityControlSlot, Constants.kCANBusConfigTimeoutMS);
 
         //Set the encoder position to zero (ticks)
-        rightMaster.getSensorCollection().setQuadraturePosition(0, DriveConstants.kCANBusConfigTimeoutMS);
-        leftMaster.getSensorCollection().setQuadraturePosition(0, DriveConstants.kCANBusConfigTimeoutMS);
+        rightMaster.getSensorCollection().setQuadraturePosition(0, Constants.kCANBusConfigTimeoutMS);
+        leftMaster.getSensorCollection().setQuadraturePosition(0, Constants.kCANBusConfigTimeoutMS);
     }
 
     /**
@@ -353,7 +352,7 @@ public class DriveTrain extends DriveTrainHardware {
 
     private double convertTicksToRotations(int ticks)
     {
-        double rotations = ticks / (double) DriveConstants.kDriveEncoderTicksPerRot;
+        double rotations = ticks / (double) Constants.kDriveEncoderTicksPerRot;
         return rotations;
     }
 
