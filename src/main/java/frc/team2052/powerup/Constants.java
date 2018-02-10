@@ -22,7 +22,6 @@ public class Constants {public static int intakeSolenoid =1;
     public static int intakeSolenoidLiftIn1 =7;
     public static int intakeSolenoidLiftOut1 =8;
     public static int intakeSolenoidLiftIn2 =9;
-    public static int intakeSolenoidLiftOut2 =10;
     public static int upDownLSolenoidIn =2;
     public static int upDownSolenoid1Out =3;
     public static int upDownSolenoid2In =4;
@@ -37,8 +36,8 @@ public class Constants {public static int intakeSolenoid =1;
     public static int kLeftRampOutId = 7;
 
     /////////// Intake ////////////
-    public static double intakeInSpeedRight = 0.48;
     public static double intakeInSpeedLeft = 0.6;
+    public static double intakeInSpeedRight = intakeInSpeedLeft * .8;
     public static double intakeOutSpeed = -.6;
     public static double intakeStopSpeed = 0;
 

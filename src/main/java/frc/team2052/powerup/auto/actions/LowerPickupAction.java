@@ -15,7 +15,7 @@ public class LowerPickupAction implements Action{
 
     @Override
     public void start() {
-        Pickup.getInstance().pickupPositionUp();
+        Pickup.getInstance().Init();
     }
 
     @Override

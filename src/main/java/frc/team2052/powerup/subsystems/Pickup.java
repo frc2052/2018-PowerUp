@@ -48,21 +48,21 @@ public class Pickup {
         setLeftMotorSpeed(Constants.intakeStopSpeed);
     } //stop wheels
 
-    public void pickupPositionDown() { //pickup rotates all the way up
+    public void pickupPositionDown() { //Flat
         upDownSolenoidLIn.set(true);
         upDownSolenoidLOut.set(false);
         upDownSolenoidSIn.set(true);
         upDownSolenoidSOut.set(false);
     }
 
-    public void pickupPositionRaised() { //pickup rotates at an angle to stack
+    public void pickupPositionRaised() { //Angled
         upDownSolenoidLIn.set(true);
         upDownSolenoidLOut.set(false);
         upDownSolenoidSIn.set(false);
         upDownSolenoidSOut.set(true);
     }
 
-    public void pickupPositionUp() { //pickup goes flat to intake
+    public void Init() { //All the way up
         upDownSolenoidLIn.set(false);
         upDownSolenoidLOut.set(true);
         upDownSolenoidSIn.set(false);
