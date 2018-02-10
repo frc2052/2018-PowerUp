@@ -33,8 +33,6 @@ public class Robot extends IterativeRobot {
     private PowerDistributionPanel pdp = null;
     private RevRoboticsPressureSensor revRoboticsPressureSensor = null;
 
-    private CameraServer cameraServer;
-
     @Override
     public void robotInit() {
         driveTrain = DriveTrain.getInstance();

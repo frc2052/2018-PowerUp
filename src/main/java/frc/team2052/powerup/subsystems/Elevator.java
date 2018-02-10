@@ -41,7 +41,6 @@ public class Elevator implements Loopable{
         elevatorTalon.config_kD(0, Constants.kElevatorVelocityKd, 10);
         elevatorTalon.config_kF(0, Constants.kElevatorVelocityKf, 10);
         elevatorTalon.config_IntegralZone(0, Constants.kElevatorVelocityIZone, 10);
-        elevatorTalon.setInverted(true);
     }
 
     public void zeroSensor(){

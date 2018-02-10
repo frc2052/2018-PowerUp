@@ -74,7 +74,7 @@ public class Constants {public static int intakeSolenoid =1;
     public static int kElevatorSwitchHeight = 25;
     public static int kElevatorScaleBalancedHeight = 64;
     public static int kElevatorRampSeconds = 0;
-    public static double kElevatorPeakPower = 1;
+    public static double kElevatorPeakPower = .6;
 
     /////////// Control Loops ////////////
     public static final double kControlLoopPeriod = 1.0 / 100.0;
