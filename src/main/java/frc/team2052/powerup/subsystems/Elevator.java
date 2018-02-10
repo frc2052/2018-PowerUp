@@ -40,6 +40,7 @@ public class Elevator implements Loopable{
         elevatorTalon.config_kF(0, Constants.kElevatorVelocityKf, 10);
         elevatorTalon.config_IntegralZone(0, Constants.kElevatorVelocityIZone, 10);
     }
+
     public void zeroSensor(){
         elevatorTalon.setSelectedSensorPosition(0, 0, Constants.kCANBusConfigTimeoutMS);
     }

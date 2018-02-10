@@ -72,6 +72,12 @@ class DriveTrainHardware {
         leftMaster.configMotionCruiseVelocity(430, Constants.kCANBusConfigTimeoutMS);//todo: decide timeout seconds
         rightMaster.configMotionCruiseVelocity(430, Constants.kCANBusConfigTimeoutMS);
 
+        leftMaster.configAllowableClosedloopError(kVelocityControlSlot, Constants.kDriveVelocityAllowableError, Constants.kCANBusConfigTimeoutMS);
+        leftMaster.selectProfileSlot(kVelocityControlSlot,kVelocityControlSlot);
+        rightMaster.selectProfileSlot(kVelocityControlSlot, kVelocityControlSlot);
+        rightMaster.configAllowableClosedloopError(kVelocityControlSlot, Constants.kDriveVelocityAllowableError, Constants.kCANBusConfigTimeoutMS);
+        setBrakeMode(true);
+
         try {
             /***********************************************************************
              * navX-MXP:
