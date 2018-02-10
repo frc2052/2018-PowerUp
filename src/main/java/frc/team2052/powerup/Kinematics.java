@@ -2,7 +2,6 @@ package frc.team2052.powerup;
 
 import com.first.team2052.lib.vec.RigidTransform2d;
 import com.first.team2052.lib.vec.Rotation2d;
-import frc.team2052.powerup.constants.DriveConstants;
 
 /**
  * Created by KnightKrawler on 1/19/2018.
@@ -19,7 +18,7 @@ public class Kinematics {
     public static RigidTransform2d.Delta forwardKinematics(double left_wheel_delta, double right_wheel_delta) {
         double linear_velocity = (left_wheel_delta + right_wheel_delta) / 2; //Average additive change in distance at a given time
         double delta_v = (right_wheel_delta - left_wheel_delta) / 2; //Average change in distance between wheels at a given time
-        double delta_rotation = delta_v * 2 * DriveConstants.kTrackScrubFactor / DriveConstants.kTrackEffectiveDiameter; 
+        double delta_rotation = delta_v * 2 * Constants.kTrackScrubFactor / Constants.kTrackEffectiveDiameter;
         //calculates change in rotation over time based on drive constants and average velocity difference between wheels
         return new RigidTransform2d.Delta(linear_velocity, 0, delta_rotation);
         //Returns coordinates for linear velocity and the rotational velocity calculated from this value (no gyro data)
@@ -63,7 +62,7 @@ public class Kinematics {
             return new DriveVelocity(velocity.dx, velocity.dx);
         }
         //Calculate the turning speed based off the change in angle and the scrub factor
-        double delta_v = DriveConstants.kTrackEffectiveDiameter * velocity.dtheta / (2 * DriveConstants.kTrackScrubFactor);
+        double delta_v = Constants.kTrackEffectiveDiameter * velocity.dtheta / (2 * Constants.kTrackScrubFactor);
         return new DriveVelocity(velocity.dx - delta_v, velocity.dx + delta_v);
     }
 }
