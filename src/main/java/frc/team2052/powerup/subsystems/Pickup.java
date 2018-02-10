@@ -22,8 +22,8 @@ public class Pickup {
         upDownSolonoidLOut = new Solenoid(Constants.upDownSolenoid1Out);
         upDownSolonoidSIn = new Solenoid(Constants.upDownSolenoid2In);
         upDownSolonoidSOut = new Solenoid(Constants.upDownSolenoid2Out);
-        leftMotor = new TalonSRX(Constants.pickupLeftMotorId);
-        rightMotor = new TalonSRX(Constants.pickupRightMotorId);
+        leftMotor = new TalonSRX(Constants.intakeLeftMotorId);
+        rightMotor = new TalonSRX(Constants.intakeRightMotorId);
         rightMotor.setInverted(true);
     }
 
