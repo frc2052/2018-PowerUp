@@ -62,7 +62,7 @@ public class Pickup {
         upDownSolenoidSOut.set(true);
     }
 
-    public void Init() { //All the way up
+    public void init() { //All the way up
         upDownSolenoidLIn.set(false);
         upDownSolenoidLOut.set(true);
         upDownSolenoidSIn.set(false);

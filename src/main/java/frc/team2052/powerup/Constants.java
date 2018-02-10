@@ -13,8 +13,8 @@ public class Constants {public static int intakeSolenoid =1;
     public static int kDriveLeftSlaveId = 3;
     public static int kDriveLeftMasterId = 4;
     public static int kElevatorMotorID = 7;
-    public static int intakeRightMotorId =8;
-    public static int intakeLeftMotorId =9;
+    public static int pickupRightMotorId =8;
+    public static int pickupLeftMotorId =9;
 //todo: decide which constants are good
 
     /////////// Solenoids ////////////

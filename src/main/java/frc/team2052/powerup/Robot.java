@@ -45,7 +45,7 @@ public class Robot extends IterativeRobot {
         //////THESE SUBSYSTEMS ARE FAULT TOLERANT/////
         /////// they will return null if they fail to create themselves////////
 //        intake = Intake.getInstance();
-       intake.Init();
+       intake.init();
 //        ramp = Ramp.getInstance();
 //        elevator = Elevator.getInstance();
         //////////////////////////////////////////////
@@ -64,10 +64,6 @@ public class Robot extends IterativeRobot {
         controlLoop.addLoopable(driveTrain.getLoopable());
         controlLoop.addLoopable(stateEstimator);
 
-        if (intake != null) {
-            //Slower loops because why update them 100 times a second
-            slowerLooper.addLoopable(intake);
-        }
 
         //slowerLooper.addLoopable(VisionProcessor.getInstance());
 
@@ -110,11 +106,6 @@ public class Robot extends IterativeRobot {
         driveTrain.setOpenLoop(DriveSignal.NEUTRAL);  //put robot into don't move, no looper mode
         driveTrain.setBrakeMode(false);
 
-        if (intake != null) {
-            intake.getWantClosed();  //keep the intake closed, because we should be holding a cube
-        }
-
-        intake.Init();
         AutoPaths.Init();
         robotState.reset(Timer.getFPGATimestamp(), new RigidTransform2d());
         logLooper.start();
