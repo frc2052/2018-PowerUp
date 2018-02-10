@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.team2052.powerup.constants.ControlLoopConstants;
 import frc.team2052.powerup.subsystems.*;
 import frc.team2052.powerup.auto.*;
 import frc.team2052.powerup.subsystems.drive.DriveSignal;
