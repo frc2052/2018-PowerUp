@@ -50,7 +50,7 @@ public class Robot extends IterativeRobot {
         /////// they will return null if they fail to create themselves////////
 //        intake = Intake.getInstance();
 //        ramp = Ramp.getInstance();
-//        elevator = Elevator.getInstance();
+        elevator = Elevator.getInstance();
         //////////////////////////////////////////////
 
         pdp = new PowerDistributionPanel();
@@ -65,6 +65,10 @@ public class Robot extends IterativeRobot {
         controlLoop.addLoopable(driveTrain.getLoopable());
         controlLoop.addLoopable(stateEstimator);
 
+
+        if (elevator != null) {
+            controlLoop.addLoopable(elevator);
+        }
         if (intake != null) {
             //Slower loops because why update them 100 times a second
             slowerLooper.addLoopable(intake);
@@ -218,16 +222,16 @@ public class Robot extends IterativeRobot {
             if (controls.getElevatorPickup()) {
                 elevator.setTarget(Elevator.ElevatorPresetEnum.PICKUP);
             } else if (controls.getElevatorSwitch()) {
-                intake.getWantClosed();
+//                intake.getWantClosed();
                 elevator.setTarget(Elevator.ElevatorPresetEnum.SWITCH);
             } else if (controls.getElevatorScale1()) {
-                intake.getWantClosed();
+//                intake.getWantClosed();
                 elevator.setTarget(Elevator.ElevatorPresetEnum.SCALE_BALANCED);
             } else if (controls.getElevatorScale2()) {
-                intake.getWantClosed();
+//                intake.getWantClosed();
                 elevator.setTarget(Elevator.ElevatorPresetEnum.SCALE_HIGH);
             } else if (controls.getElevatorScale3()) {
-                intake.getWantClosed();
+//                intake.getWantClosed();
                 elevator.setTarget(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING);
             }
 

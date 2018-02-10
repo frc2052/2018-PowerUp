@@ -41,6 +41,7 @@ public class Elevator implements Loopable{
         elevatorTalon.config_kD(0, Constants.kElevatorVelocityKd, 10);
         elevatorTalon.config_kF(0, Constants.kElevatorVelocityKf, 10);
         elevatorTalon.config_IntegralZone(0, Constants.kElevatorVelocityIZone, 10);
+        elevatorTalon.setInverted(true);
     }
 
     public void zeroSensor(){
@@ -59,6 +60,7 @@ public class Elevator implements Loopable{
     public void setTarget(ElevatorPresetEnum posEnum) {
         //sets goal to the correct inches according to the preset
         int calcTarget = getHeightInchesForPreset(posEnum);
+        System.out.println("Set Position Inches " + calcTarget);
         setAndVerifyGoalInches(calcTarget);
     }
 
@@ -107,6 +109,9 @@ public class Elevator implements Loopable{
         int pos = (int)(rotation * Constants.kElevatorTicksPerRot);
         //Sets the Carriage at a set height, see https://github.com/CrossTheRoadElec/Phoenix-Documentation/blob/master/Talon%20SRX%20Victor%20SPX%20-%20Software%20Reference%20Manual.pdf
         // in 3.1.2.1, recommended timeout is zero while in robot loop
+
+        System.out.println("Looper Ticks " + pos);
+
         elevatorTalon.set(ControlMode.Position, pos);
     }
     @Override
