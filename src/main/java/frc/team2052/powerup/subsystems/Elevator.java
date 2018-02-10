@@ -44,7 +44,6 @@ public class Elevator implements Loopable{
         elevatorTalon.setSelectedSensorPosition(0, 0, Constants.kCANBusConfigTimeoutMS);
     }
 
-
     public double getHeightInches() {
         int encoderPos = elevatorTalon.getSelectedSensorPosition(0);
         double revolutions = encoderPos / (double)Constants.kElevatorTicksPerRot;
@@ -66,7 +65,7 @@ public class Elevator implements Loopable{
 
 
     private boolean lastCyclePressedState = false; //declares that the button isn't pressed at the start of the match
-    public void setElevatorAdjustmentUp(boolean isPressed) //Gets value from a button
+    public void setElevatorAdjustmentUp(boolean isPressed) //if the button state has changed, it will add an extra inch
     {
         if((isPressed != lastCyclePressedState)&& (getHeightInches()<= goalElevatorInches)) //if switching between pressed and not pressed && going up
         {
@@ -84,7 +83,7 @@ public class Elevator implements Loopable{
         lastCyclePressedState = isPressed; //logs what the state is at the end of this cycle to compare against in the next cycle
     }
 
-    public void getElevatorAdjustmentDown(boolean isPressed)
+    public void setElevatorAdjustmentDown(boolean isPressed)//if the button state has changed, it will remove an inch
     {
         if((isPressed != lastCyclePressedState)&& (getHeightInches()<= goalElevatorInches)) //if switching between pressed and not pressed && going up
         {
