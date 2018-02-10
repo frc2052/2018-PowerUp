@@ -34,7 +34,7 @@ public class Elevator implements Loopable{
         elevatorTalon.configPeakOutputForward(Constants.kElevatorPeakPower, 10);
         elevatorTalon.configPeakOutputReverse(Constants.kElevatorPeakPower, 10);
         elevatorTalon.setNeutralMode(NeutralMode.Brake);
-        elevatorTalon.config_kP(0, Constants.kElevatorVelocityKp, 10);//todo: what is slotldx
+        elevatorTalon.config_kP(0, Constants.kElevatorVelocityKp, 10);
         elevatorTalon.config_kI(0, Constants.kElevatorVelocityKi, 10);
         elevatorTalon.config_kD(0, Constants.kElevatorVelocityKd, 10);
         elevatorTalon.config_kF(0, Constants.kElevatorVelocityKf, 10);

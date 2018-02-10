@@ -6,7 +6,7 @@ import com.first.team2052.lib.vec.Rotation2d;
  * Created by KnightKrawler on 1/19/2018.
  */
 public class VelocityHeadingSetpoint {
-    private final double leftSpeed_; //todo: why are there underscores
+    private final double leftSpeed_;
     private final double rightSpeed_;
     private final Rotation2d headingSetpoint_;
 

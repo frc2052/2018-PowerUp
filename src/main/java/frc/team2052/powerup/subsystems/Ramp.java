@@ -19,45 +19,45 @@ public class Ramp {
         return instance;
     }
     //Ramp pins for each side and extending/collapsing ramp on each side
-    private Solenoid rampPinLeftIn;
+    private Solenoid rampLeftPinReleaseSol;
     private Solenoid rampPinLeftOut;
-    private Solenoid rampPinRightIn;
+    private Solenoid rampRightPinReleaseSol;
     private Solenoid rampPinRightOut;
-    private Solenoid rightRampIn;
-    private Solenoid rightRampOut;
-    private Solenoid leftRampIn;
-    private Solenoid leftRampOut;
+    private Solenoid rightRampInSol;
+    private Solenoid rightRampOutSol;
+    private Solenoid leftRampInSol;
+    private Solenoid leftRampOutSol;
 
-    private Ramp() {//todo rename to release pin for clarity
-        rampPinLeftIn  = new Solenoid(Constants.kRampPinLeftInId); //The pins are used to keep the ramps up while the robot is driving
-        rampPinRightIn = new Solenoid(Constants.kRampPinRightInId);
-        rightRampIn = new Solenoid(Constants.kRightRampInId);
-        rightRampOut = new Solenoid(Constants.kRightRampOutId);
-        leftRampIn = new Solenoid(Constants.kLeftRampInId);
-        leftRampOut = new Solenoid(Constants.kLeftRampOutId);
+    private Ramp() {
+        rampLeftPinReleaseSol = new Solenoid(Constants.kRampLeftPinReleaseId); //The pins are used to keep the ramps up while the robot is driving
+        rampRightPinReleaseSol = new Solenoid(Constants.kRampRightPinReleaseId);
+        rightRampInSol = new Solenoid(Constants.kRightRampInId);
+        rightRampOutSol = new Solenoid(Constants.kRightRampOutId);
+        leftRampInSol = new Solenoid(Constants.kLeftRampInId);
+        leftRampOutSol = new Solenoid(Constants.kLeftRampOutId);
     }
     public void dropRampPinLeft() {
         double time = DriverStation.getInstance().getMatchTime();
-        rampPinLeftIn.set(true);
+        rampLeftPinReleaseSol.set(true);
     }
     public void dropRampPinRight() {
-        rampPinRightIn.set(true);
+        rampRightPinReleaseSol.set(true);
     }
     public void raiseRightRamp() {
-        rightRampIn.set(true);
-        rightRampOut.set(false);
+        rightRampInSol.set(true);
+        rightRampOutSol.set(false);
     }
     public void raiseLeftRamp() {
-        leftRampIn.set(true);
-        leftRampOut.set(false);
+        leftRampInSol.set(true);
+        leftRampOutSol.set(false);
     }
     public void lowerLeftRamp() {
-        leftRampIn.set(false);
-        leftRampOut.set(true);
+        leftRampInSol.set(false);
+        leftRampOutSol.set(true);
     }
     public void lowerRightRamp() {
-        rightRampIn.set(false);
-        rightRampOut.set(true);
+        rightRampInSol.set(false);
+        rightRampOutSol.set(true);
     }
 
 
