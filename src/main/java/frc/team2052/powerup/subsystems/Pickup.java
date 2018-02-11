@@ -11,18 +11,19 @@ public class Pickup {
     public static Pickup getInstance() {return instance;}
 
     //setting solenoids and talons
-    private Solenoid upDownSolenoidLIn, upDownSolenoidLOut;
-    private Solenoid upDownSolenoidSIn, upDownSolenoidSOut;
+    private Solenoid armLongSolenoidIn, armLongSolenoidOut;
+    private Solenoid armShortSolenoidIn, armShortSolenoidOut;
     private TalonSRX leftMotor, rightMotor;
 
     private Pickup() { //getting solenoids and talons from constants and setting the right motor to be inverted
-        upDownSolenoidLIn = new Solenoid(Constants.upDownLSolenoidIn);
-        upDownSolenoidLOut = new Solenoid(Constants.upDownSolenoid1Out);
-        upDownSolenoidSIn = new Solenoid(Constants.upDownSolenoid2In);
-        upDownSolenoidSOut = new Solenoid(Constants.upDownSolenoid2Out);
+        armLongSolenoidIn = new Solenoid(Constants.armLongSolenoidIn);
+        armLongSolenoidOut = new Solenoid(Constants.armLongSolenoidOut);
+        armShortSolenoidIn = new Solenoid(Constants.armShortSolenoidIn);
+        armShortSolenoidOut = new Solenoid(Constants.armShortSolenoidOut);
         leftMotor = new TalonSRX(Constants.pickupLeftMotorId);
         rightMotor = new TalonSRX(Constants.pickupRightMotorId);
-        rightMotor.setInverted(true);
+        leftMotor.setInverted(false);
+        rightMotor.setInverted(false);
     }
 
     private void setRightMotorSpeed(double speedPercent) { //setting the speed in which the motors spin at
@@ -49,23 +50,23 @@ public class Pickup {
     } //stop wheels
 
     public void pickupPositionDown() { //Flat
-        upDownSolenoidLIn.set(true);
-        upDownSolenoidLOut.set(false);
-        upDownSolenoidSIn.set(true);
-        upDownSolenoidSOut.set(false);
+        armLongSolenoidIn.set(true);
+        armLongSolenoidOut.set(false);
+        armShortSolenoidIn.set(true);
+        armShortSolenoidOut.set(false);
     }
 
     public void pickupPositionRaised() { //Angled
-        upDownSolenoidLIn.set(true);
-        upDownSolenoidLOut.set(false);
-        upDownSolenoidSIn.set(false);
-        upDownSolenoidSOut.set(true);
+        armLongSolenoidIn.set(false);
+        armLongSolenoidOut.set(true);
+        armShortSolenoidIn.set(false);
+        armShortSolenoidOut.set(false);
     }
 
     public void init() { //All the way up
-        upDownSolenoidLIn.set(false);
-        upDownSolenoidLOut.set(true);
-        upDownSolenoidSIn.set(false);
-        upDownSolenoidSOut.set(true);
+        armLongSolenoidIn.set(false);
+        armLongSolenoidOut.set(true);
+        armShortSolenoidIn.set(false);
+        armShortSolenoidOut.set(true);
     }
 }

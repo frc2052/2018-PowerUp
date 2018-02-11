@@ -47,28 +47,13 @@ public class Controls {
     public boolean getLowerLeftRamp() {
         return leftPrimaryJoystick.getRawButton(Constants.kJoystickLowerLeftRamp);
     }
+
     //Intake classes
     public boolean getIntakeUp() {return secondaryJoystick.getRawButton(Constants.kJoystickIntakeUp);}
-
-    public boolean getIntakeOpenOff() {
-        return rightPrimaryJoystick.getRawButton(Constants.kJoystickOpenOff);
-    }
     public boolean getIntake () {return secondaryJoystick.getTrigger();}
     public boolean getOuttake () {return leftPrimaryJoystick.getTrigger();}
-    public boolean getIntakeOpenIntake() {
-        return rightPrimaryJoystick.getTrigger();
-    }
-    public boolean getIntakeOpenOuttake() {
-        return secondaryJoystick.getTrigger();
-    }
-    public boolean getCloseClamp() {
-        return secondaryJoystick.getRawButton(Constants.kJoystickCloseClamp);
-    }
-    public boolean getOpenClamp() {
-        return secondaryJoystick.getRawButton(Constants.kJoystickOpenClamp);
-    }
 
-//buttons for different stages of elevator
+    //buttons for different stages of elevator
     public boolean getElevatorPickup(){return secondaryJoystick.getRawButton(Constants.kElevatorPickupHeightButton);}
     public boolean getElevatorSwitch(){return  secondaryJoystick.getRawButton(Constants.kElevatorSwitchHeightButton); }
     public boolean getElevatorScale1(){return  secondaryJoystick.getRawButton(Constants.kElevatorScale_OneHeightButton); }

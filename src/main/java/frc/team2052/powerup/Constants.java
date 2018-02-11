@@ -13,7 +13,6 @@ public class Constants {public static int intakeSolenoid =1;
     public static int kDriveRightSlaveId = 2;
     public static int kDriveLeftSlaveId = 3;
     public static int kDriveLeftMasterId = 4;
-    public static int kPCMId = 6;
     public static int kElevatorMotorID = 7;
     public static int pickupRightMotorId =8;
     public static int pickupLeftMotorId =9;
@@ -27,17 +26,15 @@ public class Constants {public static int intakeSolenoid =1;
     public static int jawsSolenoidOut =21;
     public static int jawsSolenoidIn =22;
 
-    public static int kRampPinLeftInId = 10;
-    public static int kRampPinLeftOutId = 11;
-    public static int kRampPinRightInId = 12;
-    public static int kRampPinRightOutId = 13;
+    public static int kRampLeftPinReleaseId = 10;
+    public static int kRampRightPinReleaseId = 11;
     public static int kRightRampInId = 14;
     public static int kRightRampOutId = 15;
     public static int kLeftRampInId = 16;
     public static int kLeftRampOutId = 17;
 
     /////////// Intake ////////////
-    public static double intakeInSpeedLeft = 0.6;
+    public static double intakeInSpeedLeft = 1;
     public static double intakeInSpeedRight = intakeInSpeedLeft * .8;
     public static double intakeOutSpeed = -.6;
     public static double intakeStopSpeed = 0;
@@ -59,14 +56,11 @@ public class Constants {public static int intakeSolenoid =1;
     public static int kJoystickLowerLeftRamp = 7;
     public static int kJoystickLowerRightRamp = 10;
 
-    public static int kJoystickOpenOff = 60;
-    public static int kJoystickCloseClamp = 11;
-    public static int kJoystickOpenClamp = 10;
     public static int kJoystickIntakeUp = 9;
 
     /////////// Elevator ////////////
     public static int kElevatorMaxHeight = 74; //50 for testing 74 for real
-    public static int kElevatorMinHeight = 2;
+    public static int kElevatorMinHeight = 0;
     public static double kElevatorInchesPerRotation = 74/8; // total travel distance for elevator is 74 inches in 8 revolutions
     public static double kElevatorVelocityKp = 1;
     public static double kElevatorVelocityKi = 0;

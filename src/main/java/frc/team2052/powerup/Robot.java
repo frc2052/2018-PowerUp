@@ -40,14 +40,13 @@ public class Robot extends IterativeRobot {
 
         //////THESE SUBSYSTEMS ARE FAULT TOLERANT/////
         /////// they will return null if they fail to create themselves////////
-//        intake = Intake.getInstance();
-       intake.init();
+        intake = Pickup.getInstance();
 //        ramp = Ramp.getInstance();
         elevator = Elevator.getInstance();
         //////////////////////////////////////////////
 
         try {
-            compressor = new Compressor(Constants.kPCMId);
+            compressor = new Compressor();
             compressor.setClosedLoopControl(true);
         } catch (Exception exc) {
             System.out.println("DANGER: No compressor!");
@@ -70,6 +69,10 @@ public class Robot extends IterativeRobot {
             elevator.zeroSensor();
             controlLoop.addLoopable(elevator);
         }
+        if (intake != null)
+        {
+            intake.init();
+        }
 
         //slowerLooper.addLoopable(VisionProcessor.getInstance());
 
@@ -81,7 +84,6 @@ public class Robot extends IterativeRobot {
 
         AutoModeSelector.putToSmartDashboard();
         autoModeRunner = new AutoModeRunner();
-
     }
 
     @Override
@@ -169,8 +171,6 @@ public class Robot extends IterativeRobot {
 
         driveTrain.setOpenLoop(DriveSignal.NEUTRAL);
         driveTrain.setBrakeMode(true);
-
-        driveTrain.resetEncoders();
     }
 
     @Override
@@ -197,6 +197,8 @@ public class Robot extends IterativeRobot {
                 intake.intake();
             } else if (controls.getOuttake()) {
                 intake.outtake();
+            } else {
+                intake.stopped();
             }
 
             if (controls.getIntakeUp()){
