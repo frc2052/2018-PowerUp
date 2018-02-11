@@ -20,23 +20,21 @@ public class Constants {public static int intakeSolenoid =1;
 //todo: decide which constants are good
 
     /////////// Solenoids ////////////
-    public static int inOutSolenoid =1;
-    public static int upDownLSolenoidIn =2;
-    public static int upDownSolenoid1Out =3;
-    public static int upDownSolenoid2In =4;
-    public static int upDownSolenoid2Out =5;
-    public static int intakeSolenoidLiftIn1 =7;
-    public static int intakeSolenoidLiftOut1 =8;
-    public static int intakeSolenoidLiftIn2 =9;
-    public static int intakeSolenoidLiftOut2 =10;
-    public static int kRampPinLeftInId = 0;
-    public static int kRampPinLeftOutId = 1;
-    public static int kRampPinRightInId = 2;
-    public static int kRampPinRightOutId = 3;
-    public static int kRightRampInId = 4;
-    public static int kRightRampOutId = 5;
-    public static int kLeftRampInId = 6;
-    public static int kLeftRampOutId = 7;
+    public static int armLongSolenoidOut = 0;
+    public static int armLongSolenoidIn = 1;
+    public static int armShortSolenoidOut =2;
+    public static int armShortSolenoidIn = 3;
+    public static int jawsSolenoidOut =21;
+    public static int jawsSolenoidIn =22;
+
+    public static int kRampPinLeftInId = 10;
+    public static int kRampPinLeftOutId = 11;
+    public static int kRampPinRightInId = 12;
+    public static int kRampPinRightOutId = 13;
+    public static int kRightRampInId = 14;
+    public static int kRightRampOutId = 15;
+    public static int kLeftRampInId = 16;
+    public static int kLeftRampOutId = 17;
 
     /////////// Intake ////////////
     public static double intakeInSpeed = 1;
@@ -79,7 +77,7 @@ public class Constants {public static int intakeSolenoid =1;
     public static int kElevatorSwitchHeight = 25;
     public static int kElevatorScaleBalancedHeight = 64;
     public static int kElevatorRampSeconds = 0;
-    public static double kElevatorPeakUpPower = .6;
+    public static double kElevatorPeakUpPower = .7;
     public static double kElevatorPeakDownPower = .1;
 
     /////////// Control Loops ////////////

@@ -40,13 +40,17 @@ public class Robot extends IterativeRobot {
 
         //////THESE SUBSYSTEMS ARE FAULT TOLERANT/////
         /////// they will return null if they fail to create themselves////////
-//        intake = Intake.getInstance();
+        intake = Intake.getInstance();
 //        ramp = Ramp.getInstance();
         elevator = Elevator.getInstance();
         //////////////////////////////////////////////
 
-        compressor = new Compressor(Constants.kPCMId);
-        compressor.setClosedLoopControl(true);
+        try {
+            compressor = new Compressor(Constants.kPCMId);
+            compressor.setClosedLoopControl(true);
+        } catch (Exception exc) {
+            System.out.println("DANGER: No compressor!");
+        }
 
         pdp = new PowerDistributionPanel(Constants.kPDPId);
 
