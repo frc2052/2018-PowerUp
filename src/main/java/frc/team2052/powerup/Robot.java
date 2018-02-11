@@ -3,10 +3,7 @@ package frc.team2052.powerup;
 import com.first.team2052.lib.ControlLoop;
 import com.first.team2052.lib.RevRoboticsPressureSensor;
 import com.first.team2052.lib.vec.RigidTransform2d;
-import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
-import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2052.powerup.subsystems.*;
 import frc.team2052.powerup.auto.*;
@@ -32,6 +29,7 @@ public class Robot extends IterativeRobot {
 
     private PowerDistributionPanel pdp = null;
     private RevRoboticsPressureSensor revRoboticsPressureSensor = null;
+    private Compressor compressor;
 
     @Override
     public void robotInit() {
@@ -47,9 +45,10 @@ public class Robot extends IterativeRobot {
         elevator = Elevator.getInstance();
         //////////////////////////////////////////////
 
+        compressor = new Compressor(Constants.kPCMId);
+        compressor.setClosedLoopControl(true);
 
-
-        pdp = new PowerDistributionPanel();
+        pdp = new PowerDistributionPanel(Constants.kPDPId);
 
         //Control loops for auto and teleop
         controlLoop = new ControlLoop(Constants.kControlLoopPeriod);
@@ -63,6 +62,7 @@ public class Robot extends IterativeRobot {
 
 
         if (elevator != null) {
+            elevator.zeroSensor();
             controlLoop.addLoopable(elevator);
         }
         if (intake != null) {
@@ -229,13 +229,12 @@ public class Robot extends IterativeRobot {
             } else if (controls.getElevatorScale3()) {
 //                intake.getWantClosed();
                 elevator.setTarget(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING);
-            } else if(controls.getElevatorAdjustmentUp()) {
-//                intake.getWantClosed();
-                elevator.setElevatorAdjustmentUp(controls.getElevatorAdjustmentUp());
-            } else if(controls.getElevatorAdjustmentDown()) {
-//                intake.getWantClosed();
-                elevator.setElevatorAdjustmentDown(controls.getElevatorAdjustmentUp());
             }
+
+            //elevator class checks if the button changed its state and adjusts to that
+            //so always send if the buttons is up or down
+            elevator.setElevatorAdjustmentUp(controls.getElevatorAdjustmentUp());
+            elevator.setElevatorAdjustmentDown(controls.getElevatorAdjustmentDown());
         }
 
         if (ramp != null)

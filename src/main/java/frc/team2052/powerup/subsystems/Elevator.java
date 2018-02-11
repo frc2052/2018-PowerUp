@@ -31,10 +31,11 @@ public class Elevator implements Loopable{
     private Elevator() {
         elevatorTalon = new TalonSRX(Constants.kElevatorMotorID);
         elevatorTalon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder,0,10);
+        elevatorTalon.setInverted(true);
         elevatorTalon.setSensorPhase(true);
         elevatorTalon.configClosedloopRamp(Constants.kElevatorRampSeconds, 10);
-        elevatorTalon.configPeakOutputForward(Constants.kElevatorPeakPower, 10);
-        elevatorTalon.configPeakOutputReverse(-Constants.kElevatorPeakPower, 10);
+        elevatorTalon.configPeakOutputForward(Constants.kElevatorPeakUpPower, 10);
+        elevatorTalon.configPeakOutputReverse(-Constants.kElevatorPeakDownPower, 10);
         elevatorTalon.setNeutralMode(NeutralMode.Brake);
         elevatorTalon.config_kP(0, Constants.kElevatorVelocityKp, 10);//todo: what is slotldx
         elevatorTalon.config_kI(0, Constants.kElevatorVelocityKi, 10);
@@ -81,23 +82,25 @@ public class Elevator implements Loopable{
     }
 
 
-    private boolean lastCyclePressedState = false; //declares that the button isn't pressed at the start of the match
+    private boolean lastUpPressedState = false; //declares that the button isn't pressed at the start of the match
     public void setElevatorAdjustmentUp(boolean isPressed) //if the button state has changed, it will add an extra inch
     {
-        if(isPressed != lastCyclePressedState) //if switching between pressed and not pressed && going up
+        if(isPressed != lastUpPressedState) //if switching between pressed and not pressed && going up
         {
             setAndVerifyGoalInches(goalElevatorInches + 1);
         }
-        lastCyclePressedState = isPressed; //logs what the state is at the end of this cycle to compare against in the next cycle
+        lastUpPressedState = isPressed; //logs what the state is at the end of this cycle to compare against in the next cycle
     }
+    private boolean lastDownPressedState = false;
 
     public void setElevatorAdjustmentDown(boolean isPressed)//if the button state has changed, it will remove an inch
+
     {
-        if(isPressed != lastCyclePressedState) //if switching between pressed and not pressed && going up
+        if(isPressed != lastDownPressedState) //if switching between pressed and not pressed && going up
         {
             setAndVerifyGoalInches(goalElevatorInches - 1);
         }
-        lastCyclePressedState = isPressed; //logs what the state is at the end of this cycle to compare against in the next cycle
+        lastDownPressedState = isPressed; //logs what the state is at the end of this cycle to compare against in the next cycle
     }
 
     //public void setHeightFromPreset()

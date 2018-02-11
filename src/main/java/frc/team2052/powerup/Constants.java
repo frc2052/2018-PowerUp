@@ -7,11 +7,13 @@ public class Constants {public static int intakeSolenoid =1;
 
     public final static int kCANBusConfigTimeoutMS = 10;
 
-    /////////// Motor IDs ////////////
+    /////////// DEVICE IDs ////////////
+    public static int kPDPId = 0;
     public static int kDriveRightMasterId = 1;
     public static int kDriveRightSlaveId = 2;
     public static int kDriveLeftSlaveId = 3;
     public static int kDriveLeftMasterId = 4;
+    public static int kPCMId = 6;
     public static int kElevatorMotorID = 7;
     public static int intakeRightMotorId =8;
     public static int intakeLeftMotorId =9;
@@ -64,7 +66,7 @@ public class Constants {public static int intakeSolenoid =1;
     public static int kJoystickIntakeUp = 9;
 
     /////////// Elevator ////////////
-    public static int kElevatorMaxHeight = 50; //50 for testing 74 for real
+    public static int kElevatorMaxHeight = 74; //50 for testing 74 for real
     public static int kElevatorMinHeight = 2;
     public static double kElevatorInchesPerRotation = 74/8; // total travel distance for elevator is 74 inches in 8 revolutions
     public static double kElevatorVelocityKp = 1;
@@ -77,7 +79,8 @@ public class Constants {public static int intakeSolenoid =1;
     public static int kElevatorSwitchHeight = 25;
     public static int kElevatorScaleBalancedHeight = 64;
     public static int kElevatorRampSeconds = 0;
-    public static double kElevatorPeakPower = .6;
+    public static double kElevatorPeakUpPower = .6;
+    public static double kElevatorPeakDownPower = .1;
 
     /////////// Control Loops ////////////
     public static final double kControlLoopPeriod = 1.0 / 100.0;
