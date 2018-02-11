@@ -53,6 +53,8 @@ public class Controls {
     public boolean getIntakeOpenOff() {
         return rightPrimaryJoystick.getRawButton(Constants.kJoystickOpenOff);
     }
+    public boolean getIntake () {return secondaryJoystick.getTrigger();}
+    public boolean getOuttake () {return leftPrimaryJoystick.getTrigger();}
     public boolean getIntakeOpenIntake() {
         return rightPrimaryJoystick.getTrigger();
     }

@@ -17,7 +17,7 @@ public class Robot extends IterativeRobot {
     private ControlLoop slowerLooper = null;
 
     private static DriveTrain driveTrain = null;
-    private Intake intake = null;
+    private Pickup intake = null;
     private Controls controls = null;
     private Ramp ramp = null;
     private Elevator elevator = null;
@@ -40,7 +40,8 @@ public class Robot extends IterativeRobot {
 
         //////THESE SUBSYSTEMS ARE FAULT TOLERANT/////
         /////// they will return null if they fail to create themselves////////
-        intake = Intake.getInstance();
+//        intake = Intake.getInstance();
+       intake.init();
 //        ramp = Ramp.getInstance();
         elevator = Elevator.getInstance();
         //////////////////////////////////////////////
@@ -68,10 +69,6 @@ public class Robot extends IterativeRobot {
         if (elevator != null) {
             elevator.zeroSensor();
             controlLoop.addLoopable(elevator);
-        }
-        if (intake != null) {
-            //Slower loops because why update them 100 times a second
-            slowerLooper.addLoopable(intake);
         }
 
         //slowerLooper.addLoopable(VisionProcessor.getInstance());
@@ -114,10 +111,6 @@ public class Robot extends IterativeRobot {
         }
         driveTrain.setOpenLoop(DriveSignal.NEUTRAL);  //put robot into don't move, no looper mode
         driveTrain.setBrakeMode(false);
-
-        if (intake != null) {
-            intake.getWantClosed();  //keep the intake closed, because we should be holding a cube
-        }
 
         AutoPaths.Init();
         robotState.reset(Timer.getFPGATimestamp(), new RigidTransform2d());
@@ -200,20 +193,16 @@ public class Robot extends IterativeRobot {
         //}
 
         if (intake != null) {
-            if (controls.getIntakeOpenIntake()) {
-                intake.setWantOpenIntake();
-            } else if (controls.getIntakeOpenOuttake()) {
-                intake.getWantOpenOutake();
-            } else if (controls.getIntakeOpenOff()) {
-                intake.getWantOpenOff();
-            } else {
-                intake.getWantClosed();
+            if (controls.getIntake()) {
+                intake.intake();
+            } else if (controls.getOuttake()) {
+                intake.outtake();
             }
 
             if (controls.getIntakeUp()){
-                intake.setIntakeup(true);
+                intake.pickupPositionRaised();
             }else{
-                intake.setIntakeup(false);
+                intake.pickupPositionDown();
             }
         }
 
@@ -222,16 +211,12 @@ public class Robot extends IterativeRobot {
             if (controls.getElevatorPickup()) {
                 elevator.setTarget(Elevator.ElevatorPresetEnum.PICKUP);
             } else if (controls.getElevatorSwitch()) {
-//                intake.getWantClosed();
                 elevator.setTarget(Elevator.ElevatorPresetEnum.SWITCH);
             } else if (controls.getElevatorScale1()) {
-//                intake.getWantClosed();
                 elevator.setTarget(Elevator.ElevatorPresetEnum.SCALE_BALANCED);
             } else if (controls.getElevatorScale2()) {
-//                intake.getWantClosed();
                 elevator.setTarget(Elevator.ElevatorPresetEnum.SCALE_HIGH);
             } else if (controls.getElevatorScale3()) {
-//                intake.getWantClosed();
                 elevator.setTarget(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING);
             }
 

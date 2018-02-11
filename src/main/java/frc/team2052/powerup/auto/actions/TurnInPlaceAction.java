@@ -1,8 +1,6 @@
 package frc.team2052.powerup.auto.actions;
 
-import frc.team2052.powerup.subsystems.Pickup;
-
-public class LowerPickupAction implements Action{
+public class TurnInPlaceAction implements Action {
     @Override
     public void done() {
 
@@ -10,12 +8,12 @@ public class LowerPickupAction implements Action{
 
     @Override
     public boolean isFinished() {
-        return true;
+        return false;
     }
 
     @Override
     public void start() {
-        Pickup.getInstance().pickupPositionDown();
+
     }
 
     @Override

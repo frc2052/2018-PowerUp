@@ -15,8 +15,8 @@ public class Constants {public static int intakeSolenoid =1;
     public static int kDriveLeftMasterId = 4;
     public static int kPCMId = 6;
     public static int kElevatorMotorID = 7;
-    public static int intakeRightMotorId =8;
-    public static int intakeLeftMotorId =9;
+    public static int pickupRightMotorId =8;
+    public static int pickupLeftMotorId =9;
 //todo: decide which constants are good
 
     /////////// Solenoids ////////////
@@ -37,7 +37,8 @@ public class Constants {public static int intakeSolenoid =1;
     public static int kLeftRampOutId = 17;
 
     /////////// Intake ////////////
-    public static double intakeInSpeed = 1;
+    public static double intakeInSpeedLeft = 0.6;
+    public static double intakeInSpeedRight = intakeInSpeedLeft * .8;
     public static double intakeOutSpeed = -.6;
     public static double intakeStopSpeed = 0;
 
