@@ -7,7 +7,8 @@ public class Constants {public static int intakeSolenoid =1;
 
     public final static int kCANBusConfigTimeoutMS = 10;
 
-    /////////// Motor IDs ////////////
+    /////////// DEVICE IDs ////////////
+    public static int kPDPId = 0;
     public static int kDriveRightMasterId = 1;
     public static int kDriveRightSlaveId = 2;
     public static int kDriveLeftSlaveId = 3;
@@ -18,61 +19,61 @@ public class Constants {public static int intakeSolenoid =1;
 //todo: decide which constants are good
 
     /////////// Solenoids ////////////
-    public static int intakeSolenoidLiftIn1 =7;
-    public static int intakeSolenoidLiftOut1 =8;
-    public static int intakeSolenoidLiftIn2 =9;
-    public static int upDownLSolenoidIn =2;
-    public static int upDownSolenoid1Out =3;
-    public static int upDownSolenoid2In =4;
-    public static int upDownSolenoid2Out =5;
-    public static int kRampLeftPinReleaseId = 0;
-    public static int kRampPinLeftOutId = 1;
-    public static int kRampRightPinReleaseId = 2;
-    public static int kRampPinRightOutId = 3;
-    public static int kRightRampInId = 4;
-    public static int kRightRampOutId = 5;
-    public static int kLeftRampInId = 6;
-    public static int kLeftRampOutId = 7;
+    public static int armLongSolenoidOut = 0;
+    public static int armLongSolenoidIn = 1;
+    public static int armShortSolenoidOut =2;
+    public static int armShortSolenoidIn = 3;
+    public static int jawsSolenoidOut =21;
+    public static int jawsSolenoidIn =22;
+
+    public static int kRampLeftPinReleaseId = 10;
+    public static int kRampRightPinReleaseId = 11;
+    public static int kRightRampInId = 14;
+    public static int kRightRampOutId = 15;
+    public static int kLeftRampInId = 16;
+    public static int kLeftRampOutId = 17;
 
     /////////// Intake ////////////
-    public static double intakeInSpeedLeft = 0.6;
+    public static double intakeInSpeedLeft = 1;
     public static double intakeInSpeedRight = intakeInSpeedLeft * .8;
     public static double intakeOutSpeed = -.6;
     public static double intakeStopSpeed = 0;
 
     /////////// Buttons ////////////
+    //SECONDARY
     public static int kElevatorPickupHeightButton = 8;
     public static int kElevatorSwitchHeightButton = 2;
     public static int kElevatorScale_OneHeightButton = 4;
     public static int kElevatorScale_TwoHeightButton = 3;
     public static int kElevatorScale_ThreeHeightButton = 5;
+    public static int kElevatorScale_TrimUpButton =  6;
+    public static int kElevatorScale_TrimDownButton =  7;
+
     public static int kJoystickDropLeftPin = 8;
     public static int kJoystickDropRightPin = 9;
     public static int kJoystickRaiseRightRamp = 11;
     public static int kJoystickRaiseLeftRamp = 6;
     public static int kJoystickLowerLeftRamp = 7;
     public static int kJoystickLowerRightRamp = 10;
-    public static int kJoystickPullWinch = 7;
-    public static int kJoystickClosed = 3;
-    public static int kJoystickOpenOff = 60;
-    public static int kJoystickCloseClamp = 11;
-    public static int kJoystickOpenClamp = 10;
+
     public static int kJoystickIntakeUp = 9;
 
     /////////// Elevator ////////////
-    public static double kElevatorInchesPerRotation = 1;
+    public static int kElevatorMaxHeight = 74; //50 for testing 74 for real
+    public static int kElevatorMinHeight = 0;
+    public static double kElevatorInchesPerRotation = 74/8; // total travel distance for elevator is 74 inches in 8 revolutions
     public static double kElevatorVelocityKp = 1;
     public static double kElevatorVelocityKi = 0;
     public static double kElevatorVelocityKd = 0;
     public static double kElevatorVelocityKf = 0;
     public static int kElevatorVelocityIZone = 0;
-    public static int kElevatorTicksPerRot = 1024;
-    public static int kElevatorMaxHeight = 74;
-    public static int kElevatorMinHeight = 2;
+    public static int kElevatorTicksPerRot = 1024 * 4;
+
     public static int kElevatorSwitchHeight = 25;
     public static int kElevatorScaleBalancedHeight = 64;
     public static int kElevatorRampSeconds = 0;
-    public static double kElevatorPeakPower = .35;
+    public static double kElevatorPeakUpPower = .7;
+    public static double kElevatorPeakDownPower = .1;
 
     /////////// Control Loops ////////////
     public static final double kControlLoopPeriod = 1.0 / 100.0;

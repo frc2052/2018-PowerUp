@@ -3,10 +3,7 @@ package frc.team2052.powerup;
 import com.first.team2052.lib.ControlLoop;
 import com.first.team2052.lib.RevRoboticsPressureSensor;
 import com.first.team2052.lib.vec.RigidTransform2d;
-import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
-import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2052.powerup.subsystems.*;
 import frc.team2052.powerup.auto.*;
@@ -32,8 +29,7 @@ public class Robot extends IterativeRobot {
 
     private PowerDistributionPanel pdp = null;
     private RevRoboticsPressureSensor revRoboticsPressureSensor = null;
-
-    private CameraServer cameraServer;
+    private Compressor compressor;
 
     @Override
     public void robotInit() {
@@ -44,15 +40,19 @@ public class Robot extends IterativeRobot {
 
         //////THESE SUBSYSTEMS ARE FAULT TOLERANT/////
         /////// they will return null if they fail to create themselves////////
-//        intake = Intake.getInstance();
-       intake.init();
+        intake = Pickup.getInstance();
 //        ramp = Ramp.getInstance();
-//        elevator = Elevator.getInstance();
+        elevator = Elevator.getInstance();
         //////////////////////////////////////////////
 
+        try {
+            compressor = new Compressor();
+            compressor.setClosedLoopControl(true);
+        } catch (Exception exc) {
+            System.out.println("DANGER: No compressor!");
+        }
 
-
-        pdp = new PowerDistributionPanel();
+        pdp = new PowerDistributionPanel(Constants.kPDPId);
 
         //Control loops for auto and teleop
         controlLoop = new ControlLoop(Constants.kControlLoopPeriod);
@@ -65,6 +65,15 @@ public class Robot extends IterativeRobot {
         controlLoop.addLoopable(stateEstimator);
 
 
+        if (elevator != null) {
+            elevator.zeroSensor();
+            controlLoop.addLoopable(elevator);
+        }
+        if (intake != null)
+        {
+            intake.init();
+        }
+
         //slowerLooper.addLoopable(VisionProcessor.getInstance());
 
         //Logging for auto
@@ -75,7 +84,6 @@ public class Robot extends IterativeRobot {
 
         AutoModeSelector.putToSmartDashboard();
         autoModeRunner = new AutoModeRunner();
-
     }
 
     @Override
@@ -163,8 +171,6 @@ public class Robot extends IterativeRobot {
 
         driveTrain.setOpenLoop(DriveSignal.NEUTRAL);
         driveTrain.setBrakeMode(true);
-
-        driveTrain.resetEncoders();
     }
 
     @Override
@@ -191,6 +197,8 @@ public class Robot extends IterativeRobot {
                 intake.intake();
             } else if (controls.getOuttake()) {
                 intake.outtake();
+            } else {
+                intake.stopped();
             }
 
             if (controls.getIntakeUp()){
@@ -214,15 +222,10 @@ public class Robot extends IterativeRobot {
                 elevator.setTarget(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING);
             }
 
-            if(controls.getElevatorAdjustmentUp())
-            {
-                elevator.setElevatorAdjustmentUp(controls.getElevatorAdjustmentUp());
-            }
-
-            if(controls.getElevatorAdjustmentDown())
-            {
-                elevator.setElevatorAdjustmentDown(controls.getElevatorAdjustmentUp());
-            }
+            //elevator class checks if the button changed its state and adjusts to that
+            //so always send if the buttons is up or down
+            elevator.setElevatorAdjustmentUp(controls.getElevatorAdjustmentUp());
+            elevator.setElevatorAdjustmentDown(controls.getElevatorAdjustmentDown());
         }
 
         if (ramp != null)
