@@ -53,7 +53,7 @@ public class DriveTrain extends DriveTrainHardware {
                 case VELOCITY_HEADING_CONTROL:
                     updateVelocityHeadingSetpoint();
                     return;
-                //case VISION_FOLLOW: // todo:vision fix
+                //case VISION_FOLLOW:
                   //  updateVisionFollow();
                     //break;
             }
@@ -130,7 +130,7 @@ public class DriveTrain extends DriveTrainHardware {
         updatePathFollower();
     }
 
-    //todo: comment out since not created yet?
+
 /*
     private void updateVisionFollow() {
         VisionTrackingTurnAngleResult latestTargetResult = VisionProcessor.getInstance().getLatestTargetResult();

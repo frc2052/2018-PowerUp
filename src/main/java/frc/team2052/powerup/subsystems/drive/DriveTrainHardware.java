@@ -35,7 +35,6 @@ class DriveTrainHardware {
         leftSlave = new TalonSRX(Constants.kDriveLeftSlaveId);
 
 
-        //todo: check if setting encoderticks is needed
 
         leftMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, kVelocityControlSlot, Constants.kCANBusConfigTimeoutMS);
         rightMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, kVelocityControlSlot, Constants.kCANBusConfigTimeoutMS);
@@ -56,7 +55,7 @@ class DriveTrainHardware {
         rightSlave.set(ControlMode.Follower, rightMaster.getDeviceID());
         leftSlave.set(ControlMode.Follower, leftMaster.getDeviceID());
 
-        // Load velocity control gains //todo: decide timeout seconds for
+        // Load velocity control gains
         leftMaster.config_kP(kVelocityControlSlot, Constants.kDriveVelocityKp, Constants.kCANBusConfigTimeoutMS);
         leftMaster.config_kI(kVelocityControlSlot, Constants.kDriveVelocityKi, Constants.kCANBusConfigTimeoutMS);
         leftMaster.config_kD(kVelocityControlSlot, Constants.kDriveVelocityKd, Constants.kCANBusConfigTimeoutMS);
@@ -69,7 +68,7 @@ class DriveTrainHardware {
         rightMaster.config_kF(kVelocityControlSlot, Constants.kDriveVelocityKf, Constants.kCANBusConfigTimeoutMS);
         rightMaster.config_IntegralZone(kVelocityControlSlot, Constants.kDriveVelocityIZone, Constants.kCANBusConfigTimeoutMS);
 
-        leftMaster.configMotionCruiseVelocity(430, Constants.kCANBusConfigTimeoutMS);//todo: decide timeout seconds
+        leftMaster.configMotionCruiseVelocity(430, Constants.kCANBusConfigTimeoutMS);
         rightMaster.configMotionCruiseVelocity(430, Constants.kCANBusConfigTimeoutMS);
 
         leftMaster.configAllowableClosedloopError(kVelocityControlSlot, Constants.kDriveVelocityAllowableError, Constants.kCANBusConfigTimeoutMS);
