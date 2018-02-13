@@ -1,20 +1,25 @@
 package frc.team2052.powerup.auto.actions;
 
-import frc.team2052.powerup.Constants;
 import frc.team2052.powerup.subsystems.drive.DriveTrain;
 
 public class TurnInPlaceAction implements Action {
 
+    double baseSpeedConstant = .1; //the slowest we want the robot to move
+    double baseSpeed; //holds the current base speed
     double error; //the angle the robot is off
     double angle; //the angle the robot is currently
     double target; //the angle we want to go to
-    double integral;
-    double piOutput;
-    double p = 1.0/120;
-    double i = 1.0/120;
+    double output; //the output to the wheels
+    double P = 1.0; //SpeedCurveMultiplier. this will increase the speed that we start at and increase the acceleration
 
-    public TurnInPlaceAction(double targetDegrees){
-        this.target = targetDegrees;
+
+    /**
+     *
+     * @param turnDegrees the change in rotation in degrees
+     */
+
+    public TurnInPlaceAction(double turnDegrees){
+        this.target = DriveTrain.getInstance().getGyroAngleDegrees() + turnDegrees; //turns a displacemen value to a set degree value
     }
 
     @Override
@@ -24,7 +29,7 @@ public class TurnInPlaceAction implements Action {
 
     @Override
     public boolean isFinished() {
-        if (error <.5){ //if the robot is .5 degrees or less from the target position then finish, if not keep turning
+        if (Math.abs(error) < .5){ //if the robot is .5 degrees or less from the target position then finish, if not keep turning
             return true;
         }
         else {
@@ -39,11 +44,15 @@ public class TurnInPlaceAction implements Action {
 
     @Override
     public void update() {
-        angle = Math.abs(DriveTrain.getInstance().getGyroAngleDegrees()%360); //angle communicates with the gyro to find the current angle
         error = target - angle; //setting the error angle to equal the difference of the target angle and current angle
-        integral = integral + error * Constants.kControlLoopPeriod;
-        piOutput = p *error + i * integral;
-        System.out.println("PI Output; " + piOutput/10 + "  ERROR: " + error);
-        DriveTrain.getInstance().turnInPlace( -piOutput/10,piOutput/10); //setting the speeds for the left and right wheels for turning
+        if(error < 0){ //if we are to the right of the target make the base speed negativve
+            baseSpeed = -baseSpeedConstant;
+        }else{
+            baseSpeed = baseSpeedConstant;
+        }
+        angle = DriveTrain.getInstance().getGyroAngleDegrees(); //angle communicates with the gyro to find the current angle
+
+        output = baseSpeed + P * (error/360); //base speed is constant and error slowly goes down so the robot will slow down as it gets closer
+        DriveTrain.getInstance().turnInPlace(-output, output); //setting the speeds for the left and right wheels for turning
     }
 }
