@@ -57,7 +57,9 @@ public class AutoModeSelector {
         CENTER("Start in center, go to switch", Center.class),
         AUTOLINEWITHTIMER("Start left or right, cross Autoline with timer", AutolineWithTimer.class),
         AUTOLINEWITHTIMERCCENTERRIGHT("Start center, cross autoline to right with timer", AutolineWithTimerCenterRight.class),
-        AUTOLINEWITHTIMERCCENTERLEFT("Start center, cross autoline to left with timer", AutolineWithTimerCenterLeft.class);
+        AUTOLINEWITHTIMERCCENTERLEFT("Start center, cross autoline to left with timer", AutolineWithTimerCenterLeft.class),
+        TURNINPLACEAUTOTEST("Turn in place test", TurnInPlaceActionTest.class);
+
 
 
         private final Class<? extends AutoMode> clazz; //checks if the Class extends AutoMode, and then stores it in clazz
