@@ -25,6 +25,7 @@ public class Elevator implements Loopable{
         return instance;
     }
 
+
     //Constructor
     private Elevator() {
         elevatorTalon = new TalonSRX(ElevatorConstants.kElevatorMotorID);
@@ -35,6 +36,8 @@ public class Elevator implements Loopable{
         elevatorTalon.config_IntegralZone(0, ElevatorConstants.kElevatorVelocityIZone, 10);
         elevatorTalon.configMotionCruiseVelocity(430, 10);//todo: decide timeout seconds
         elevatorTalon.setNeutralMode(NeutralMode.Brake);
+        elevatorTalon.configPeakCurrentLimit(2, 10);
+
     }
     public void zeroSensor(){
         elevatorTalon.setSelectedSensorPosition(0, ElevatorConstants.kElevatorMotorID, DriveConstants.kCANBusConfigTimeoutMS);
@@ -157,4 +160,5 @@ public class Elevator implements Loopable{
         SCALE_HIGH,//high scale(when scale is tipped toward oponents side)
         SCALE_HIGH_STACKING,//high scale + cube
     }
+
 }
