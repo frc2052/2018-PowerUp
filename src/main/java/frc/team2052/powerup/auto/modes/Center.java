@@ -18,7 +18,7 @@ public class Center extends AutoMode {
                         new FollowPathAction(new Path(AutoPaths.CLSwitch), false), //pathing to left switch
                         new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
                              new ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH))))), //raises elevator to place cube on switch
-                    new WantOpenOutakeAction()//pushes cube out
+                    new WantOutakeAction()//pushes cube out
             )));
         }
         else { //if right switch is ours
@@ -27,7 +27,7 @@ public class Center extends AutoMode {
                         new FollowPathAction(new Path(AutoPaths.CRSwitch), false),//pathing to right switch
                         new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
                             new ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH))))),//raises elevator to place cube on switch
-                    new WantOpenOutakeAction()//pushes cube out
+                    new WantOutakeAction()//pushes cube out
             )));
         }
     }

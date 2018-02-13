@@ -19,7 +19,7 @@ public class LStartOnlyScale extends AutoMode {
                         new FollowPathAction(new Path(AutoPaths.LLScale), false), //pathing to left scale
                         new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
                             new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_BALANCED))))), //Elevator raises to place on switch
-                    new WantOpenOutakeAction() //pushes cube out
+                    new WantOutakeAction() //pushes cube out
             )));
         }
         else {
@@ -28,7 +28,7 @@ public class LStartOnlyScale extends AutoMode {
                         new FollowPathAction(new Path(AutoPaths.LRScale), false),  //pathing to right scale
                         new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
                             new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_BALANCED))))), //Elevator raises to place on balanced scale
-                    new WantOpenOutakeAction() //pushes cube out
+                    new WantOutakeAction() //pushes cube out
             )));
         }
     }

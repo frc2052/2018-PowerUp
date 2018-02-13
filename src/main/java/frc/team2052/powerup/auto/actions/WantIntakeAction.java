@@ -2,8 +2,8 @@ package frc.team2052.powerup.auto.actions;
 
 import frc.team2052.powerup.subsystems.Pickup;
 
-public class WantOpenIntakeAction implements Action{
-//Sets intake to open with motors spinning to release cube in auto mode
+public class WantIntakeAction implements Action{
+//Wants intake
     
     @Override
     public void done() {
