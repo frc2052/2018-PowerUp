@@ -16,7 +16,7 @@ public class LStartPreferSwitch extends AutoMode {
             System.out.println("RUNNING LL SWITCH");
             runAction(new SeriesAction(Arrays.asList(
                     new ParallelAction(Arrays.asList(
-                        new FollowPathAction(new Path(AutoPaths.LLSwitch), false), //pathing to the left switch
+                        new FollowPathAction(new Path(AutoPaths.LLSwitch), false), //going to the left switch
                         new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
                             new  ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH))))), //Elevator raises to place on switch
                     new WantOutakeAction() //pushes cube out
@@ -25,7 +25,7 @@ public class LStartPreferSwitch extends AutoMode {
         else if(FieldConfig.isMyScaleLeft()){ // if left Scale is ours
             runAction(new SeriesAction(Arrays.asList(
                     new ParallelAction(Arrays.asList(
-                        new FollowPathAction(new Path(AutoPaths.LLScale), false), //pathing to the left scale
+                        new FollowPathAction(new Path(AutoPaths.LLScale), false), //going to the left scale
                         new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
                             new  ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_BALANCED))))), //Elevator raises to place on balanced scale
                     new WantOutakeAction() //pushes cube out

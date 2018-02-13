@@ -24,7 +24,7 @@ public class LStartPreferScale extends AutoMode {
         else if(FieldConfig.isMySwitchLeft()){ // if left switch is ours
             runAction(new SeriesAction(Arrays.asList(
                     new ParallelAction(Arrays.asList(
-                        new FollowPathAction(new Path(AutoPaths.LLSwitch), false), //pathing to the left switch
+                        new FollowPathAction(new Path(AutoPaths.LLSwitch), false), //going to the left switch
                         new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
                             new ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH))))), //Elevator raises to place on switch
                     new WantOutakeAction() //pushes cube out
@@ -33,7 +33,7 @@ public class LStartPreferScale extends AutoMode {
          else {
             runAction(new SeriesAction(Arrays.asList(
                     new ParallelAction(Arrays.asList(
-                        new FollowPathAction(new Path(AutoPaths.LRScale), false), //pathing to the right scale
+                        new FollowPathAction(new Path(AutoPaths.LRScale), false), //going to the right scale
                         new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
                             new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_BALANCED))))), //Elevator raises to place on balanced scale
                     new WantOutakeAction() //pushes cube out

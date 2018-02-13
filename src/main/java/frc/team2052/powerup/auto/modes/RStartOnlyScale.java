@@ -15,7 +15,7 @@ public class RStartOnlyScale extends AutoMode {
         if(!FieldConfig.isMyScaleLeft()) { //if right scale is ours
             runAction(new SeriesAction(Arrays.asList(
                     new ParallelAction(Arrays.asList(
-                        new FollowPathAction(new Path(AutoPaths.RRScale), false), //pathing to right scale
+                        new FollowPathAction(new Path(AutoPaths.RRScale), false), //going to right scale
                         new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
                             new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_BALANCED))))), //Elevator raises to place on balanced scale
                     new WantOutakeAction() //pushes cube out

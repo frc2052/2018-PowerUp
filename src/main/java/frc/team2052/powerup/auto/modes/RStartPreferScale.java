@@ -24,7 +24,7 @@ public class RStartPreferScale extends AutoMode {
         } else if(!FieldConfig.isMySwitchLeft()){ // if right switch is ours
             runAction(new SeriesAction(Arrays.asList(
                 new ParallelAction(Arrays.asList(
-                    new FollowPathAction(new Path(AutoPaths.RRSwitch), false), //pathing to the right switch
+                    new FollowPathAction(new Path(AutoPaths.RRSwitch), false), //going to the right switch
                     new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
                         new  ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH))))), //Elevator raises to place on switch
                 new WantOutakeAction() //pushes cube out
@@ -32,7 +32,7 @@ public class RStartPreferScale extends AutoMode {
         } else {
             runAction(new SeriesAction(Arrays.asList(
                     new ParallelAction(Arrays.asList(
-                        new FollowPathAction(new Path(AutoPaths.RLScale), false), //pathing to the left scale
+                        new FollowPathAction(new Path(AutoPaths.RLScale), false), //going to the left scale
                         new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
                             new  ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_BALANCED))))), //Elevator raises to place on balanced scale
                 new WantOutakeAction() //pushes cube out

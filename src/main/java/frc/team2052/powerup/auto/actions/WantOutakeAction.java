@@ -12,13 +12,11 @@ public class WantOutakeAction implements Action{
 
     @Override
     public boolean isFinished() {
-        //return Intake.getInstance().getWantOpenOutake() == true;
         return true;
     }
 
     @Override
     public void start() {
-        //Intake.getInstance().setWantOpenIntake();
         Pickup.getInstance().outtake();
     }
 

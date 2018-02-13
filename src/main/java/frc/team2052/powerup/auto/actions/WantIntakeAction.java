@@ -12,13 +12,11 @@ public class WantIntakeAction implements Action{
 
     @Override
     public boolean isFinished() {
-        //return Intake.getInstance().getWantOpenIntake() == true;
         return true;
     }
 
     @Override
     public void start() {
-        //Intake.getInstance().setWantOpenIntake();
         Pickup.getInstance().intake();
     }
 
