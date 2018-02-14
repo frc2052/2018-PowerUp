@@ -59,8 +59,8 @@ public class DriveHelper {
             rightPwm = -1.0;
         }
 
-        mSignal.rightMotor = rightPwm;
-        mSignal.leftMotor = leftPwm;
+        mSignal.rightMotorSpeedPercent = rightPwm;
+        mSignal.leftMotorSpeedPercent = leftPwm;
         return mSignal;
     }
 
