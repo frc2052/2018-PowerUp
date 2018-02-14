@@ -1,21 +1,6 @@
 package frc.team2052.powerup.subsystems;
-import com.first.team2052.lib.ControlLoop;
-import com.first.team2052.lib.RevRoboticsPressureSensor;
-import com.first.team2052.lib.vec.RigidTransform2d;
-import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.hal.PDPJNI;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.team2052.powerup.auto.*;
-import frc.team2052.powerup.constants.ControlLoopConstants;
-import frc.team2052.powerup.subsystems.Controls;
-import frc.team2052.powerup.subsystems.Elevator;
-import frc.team2052.powerup.subsystems.Intake;
-import frc.team2052.powerup.subsystems.Ramp;
-import frc.team2052.powerup.subsystems.drive.DriveSignal;
-import frc.team2052.powerup.subsystems.drive.DriveTrain;
-import frc.team2052.powerup.Robot;
 
 
 public class AmpGetter extends PowerDistributionPanel
