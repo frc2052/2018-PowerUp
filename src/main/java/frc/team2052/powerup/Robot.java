@@ -128,13 +128,13 @@ public class Robot extends IterativeRobot {
                 case AUTOLINE:
                     currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
                 case LSTARTONLYSCALE:
--                    currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
--                case LSTARTPERFERSCALE:
--                    currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
--                case LSTARTPREFERSWITCH:
--                    currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
--                case RSTARTONLYSCALE:
--                    currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
+                    currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
+                case LSTARTPERFERSCALE:
+                    currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
+                case LSTARTPREFERSWITCH:
+                    currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
+                case RSTARTONLYSCALE:
+                    currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
                 case RSTARTPREFERSCALE:
                     currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
                 case RSTARTPREFERSWITCH:
