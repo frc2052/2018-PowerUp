@@ -105,10 +105,12 @@ public class DriveTrain extends DriveTrainHardware {
      */
     public void setOpenLoop(DriveSignal signal) {
 //        System.out.println("ENCODERS LEFT: " + getLeftDistanceInches() + "   RIGHT: " + getRightDistanceInches());
-       System.out.println("GYRO DEGREES: " + getGyroAngleDegrees());
+       System.out.println("GYRO DEGREES: " + getGyroAngleDegrees() + "  LEFT : " + leftMaster.getSelectedSensorPosition(kVelocityControlSlot) + "  RIGHT : " + rightMaster.getSelectedSensorPosition(kVelocityControlSlot));
         driveControlState = DriveControlState.OPEN_LOOP;
         leftMaster.set(ControlMode.PercentOutput, signal.leftMotorSpeedPercent);
         rightMaster.set(ControlMode.PercentOutput, signal.rightMotorSpeedPercent);
+
+
     }
 
     /**
