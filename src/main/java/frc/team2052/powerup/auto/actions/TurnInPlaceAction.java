@@ -29,12 +29,7 @@ public class TurnInPlaceAction implements Action {
 
     @Override
     public boolean isFinished() {
-        if (Math.abs(error) < .5){ //if the robot is .5 degrees or less from the target position then finish, if not keep turning
-            return true;
-        }
-        else {
-            return false;
-        }
+        return isFinished;
     }
 
     @Override
