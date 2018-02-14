@@ -16,7 +16,7 @@ public class Constants {public static int intakeSolenoid =1;
     public static int kElevatorMotorID = 7;
     public static int pickupRightMotorId =8;
     public static int pickupLeftMotorId =9;
-//todo: decide which constants are good
+
 
     /////////// Solenoids ////////////
     public static int armLongSolenoidOut = 0;
@@ -98,8 +98,8 @@ public class Constants {public static int intakeSolenoid =1;
     public static double kDriveHeadingVelocityKp = 5.0;
     public static double kDriveHeadingVelocityKi = 0.1;
     public static double kDriveHeadingVelocityKd = 60.0;
-    public static double kTrackLengthInches = 8.265;//TODO: Need to update these values
-    public static double kTrackWidthInches = 23.8;
+    public static double kTrackLengthInches = 11.75;
+    public static double kTrackWidthInches = 23;
     public static double kTrackEffectiveDiameter = (kTrackWidthInches * kTrackWidthInches + kTrackLengthInches * kTrackLengthInches) / kTrackWidthInches;
     public final static double kTrackScrubFactor = 0.5;
     //Hornet    public final static double kTrackScrubFactor = 0.65;

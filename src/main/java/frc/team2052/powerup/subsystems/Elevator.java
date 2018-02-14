@@ -27,6 +27,7 @@ public class Elevator implements Loopable{
         return instance;
     }
 
+
     //Constructor
     private Elevator() {
         elevatorTalon = new TalonSRX(Constants.kElevatorMotorID);
@@ -37,6 +38,7 @@ public class Elevator implements Loopable{
         elevatorTalon.configPeakOutputForward(Constants.kElevatorPeakUpPower, 10);
         elevatorTalon.configPeakOutputReverse(-Constants.kElevatorPeakDownPower, 10);
         elevatorTalon.setNeutralMode(NeutralMode.Brake);
+        elevatorTalon.configPeakCurrentLimit(2, 10);
         elevatorTalon.config_kP(0, Constants.kElevatorVelocityKp, 10);
         elevatorTalon.config_kI(0, Constants.kElevatorVelocityKi, 10);
         elevatorTalon.config_kD(0, Constants.kElevatorVelocityKd, 10);
@@ -169,4 +171,5 @@ public class Elevator implements Loopable{
         SCALE_HIGH,//high scale(when scale is tipped toward opponents side)
         SCALE_HIGH_STACKING,//high scale + cube
     }
+
 }

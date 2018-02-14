@@ -34,11 +34,13 @@ public class AutoTest extends AutoMode{
                 new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_BALANCED),
                 new ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH),
                 new ElevatorAction(Elevator.ElevatorPresetEnum.PICKUP),
+                
+                new WantIntakeAction(), //pickup Intake
+                new WantOffAction(), //pickup off
+                new WantOutakeAction(), //pickup outtake
+                new WantOffAction(), //pickup off
 
-                new WantClosedAction(), //pickup closed
-                new WantOpenOffAction(), // pickup open and off
-                new WantOpenIntakeAction(), //pickup open and intaking
-                new WantOpenOutakeAction() //pickup open and outaking
+                new LowerPickupAction()  //Test lowering the Pickup
         ));
 
     }
