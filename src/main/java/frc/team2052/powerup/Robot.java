@@ -33,7 +33,7 @@ public class Robot extends IterativeRobot {
     private DriveHelper driveHelper = null;
     private RobotStateEstimator stateEstimator = null;
 
-    public PowerDistributionPanel pdp = null;
+    private PowerDistributionPanel pdp = null;
     private RevRoboticsPressureSensor revRoboticsPressureSensor = null;
 
 
@@ -55,14 +55,6 @@ public class Robot extends IterativeRobot {
         //////////////////////////////////////////////
 
         pdp = new PowerDistributionPanel();
-        pdp.getCurrent(2);
-        pdp.getVoltage();
-        if(pdp.getVoltage() > 12){
-
-        }
-
-
-
 
         //Control loops for auto and teleop
         controlLoop = new ControlLoop(ControlLoopConstants.kControlLoopPeriod);
