@@ -62,6 +62,10 @@ public class Controls {
     public boolean getElevatorAdjustmentUp(){ return secondaryJoystick.getRawButton(Constants.kElevatorScale_TrimUpButton); }
     public boolean getElevatorAdjustmentDown(){ return secondaryJoystick.getRawButton(Constants.kElevatorScale_TrimDownButton); }
 
+    public boolean getElevatorEmergencyUp() { return secondaryJoystick.getRawButton(Constants.kManualElevator_RaiseButton);}
+    public boolean getElevatorEmergencyDown() {return secondaryJoystick.getRawButton(Constants.kManualElevator_LowerButton);}
+
+
    /* public Pickup.PickupState getIntakeState() {
         if (secondaryJoystick.getRawButton(2)) {
             return Pickup.PickupState.IN;

@@ -74,6 +74,33 @@ public class Elevator implements Loopable{
             goalElevatorInches = newGoalInches;
         }
     }
+    //Emergency manual control
+    private boolean emergencyDownWasPressed = false; // variable makes it able to stop the motor only one time once it is let go
+    public void setEmergencyDown(boolean isPressed) {
+        if (isPressed == true) { // if true, it will go up and set the was pressed to true
+            elevatorTalon.set(ControlMode.PercentOutput, Constants.kElevatorPeakDownPower);
+            emergencyDownWasPressed = true;
+        } else { //if false, it will stop once and set the was pressed to false
+            if (emergencyDownWasPressed == true) {
+                elevatorTalon.set(ControlMode.PercentOutput, 0);
+                emergencyDownWasPressed = false;
+            }
+        }
+
+    } // similar to the above emergency down code
+    private boolean emergencyUpWasPresesed = false; //able to stop motor only once after pressed
+    public void setEmergencyUp (boolean isPressed) {
+        if (isPressed == true) {
+            elevatorTalon.set(ControlMode.PercentOutput,Constants.kElevatorPeakUpPower);
+            emergencyUpWasPresesed = true;
+        } else {
+            if (emergencyUpWasPresesed == true) {
+                elevatorTalon.set(ControlMode.PercentOutput, 0);
+                emergencyUpWasPresesed = false;
+            }
+        }
+    }
+
 
     public boolean getCarriageIsMoving (){//finds out if the elevator is moving
          boolean accel = elevatorTalon.getSelectedSensorVelocity(0) != 0;
