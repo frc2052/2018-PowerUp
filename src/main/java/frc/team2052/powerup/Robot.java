@@ -71,7 +71,7 @@ public class Robot extends IterativeRobot {
         }
         if (intake != null)
         {
-            intake.init();
+            intake.pickupPositionStartingConfig();
         }
 
         //slowerLooper.addLoopable(VisionProcessor.getInstance());
@@ -188,6 +188,7 @@ public class Robot extends IterativeRobot {
                 }
             }
         } else {*/
+
         driveTrain.setOpenLoop(driveHelper.drive(controls.getTank(), controls.getTurn(), controls.getQuickTurn()));
           //  visionTurn = false;
         //}
@@ -203,6 +204,8 @@ public class Robot extends IterativeRobot {
 
             if (controls.getIntakeUp()){
                 intake.pickupPositionRaised();
+            }else if (controls.getStartConfig()){
+                intake.pickupPositionStartingConfig();
             }else{
                 intake.pickupPositionDown();
             }

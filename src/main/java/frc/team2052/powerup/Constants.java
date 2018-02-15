@@ -57,6 +57,7 @@ public class Constants {public static int intakeSolenoid =1;
     public static int kJoystickLowerRightRamp = 10;
 
     public static int kJoystickIntakeUp = 9;
+    public static int  kJoystickIntakeStartConfig = 10;
 
     /////////// Elevator ////////////
     public static int kElevatorMaxHeight = 74; //50 for testing 74 for real

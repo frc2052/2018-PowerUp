@@ -52,6 +52,7 @@ public class Controls {
     public boolean getIntakeUp() {return secondaryJoystick.getRawButton(Constants.kJoystickIntakeUp);}
     public boolean getIntake () {return secondaryJoystick.getTrigger();}
     public boolean getOuttake () {return leftPrimaryJoystick.getTrigger();}
+    public boolean getStartConfig () {return secondaryJoystick.getRawButton(Constants.kJoystickIntakeStartConfig);}
 
     //buttons for different stages of elevator
     public boolean getElevatorPickup(){return secondaryJoystick.getRawButton(Constants.kElevatorPickupHeightButton);}
