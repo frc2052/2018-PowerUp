@@ -19,11 +19,11 @@ public class Controls {
 
 //Tank drive for joysticks
     public double getTank() {
-        return leftPrimaryJoystick.getY();
+        return -leftPrimaryJoystick.getY();
     }
 
     public double getTurn() {
-        return -rightPrimaryJoystick.getX();
+        return rightPrimaryJoystick.getX();
     }
 
     public boolean getQuickTurn() {

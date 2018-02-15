@@ -5,6 +5,7 @@ import com.first.team2052.lib.RevRoboticsPressureSensor;
 import com.first.team2052.lib.vec.RigidTransform2d;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.team2052.powerup.auto.modes.TestPath;
 import frc.team2052.powerup.subsystems.*;
 import frc.team2052.powerup.auto.*;
 import frc.team2052.powerup.subsystems.drive.DriveSignal;
@@ -144,7 +145,8 @@ public class Robot extends IterativeRobot {
                 }
             }
         }
-        autoModeRunner.setAutoMode(currentAutoMode.getInstance());
+//        autoModeRunner.setAutoMode(currentAutoMode.getInstance());
+        autoModeRunner.setAutoMode(new TestPath());
         autoModeRunner.start();
     }
     @Override

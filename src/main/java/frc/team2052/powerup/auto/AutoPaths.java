@@ -22,7 +22,11 @@ public class AutoPaths {
     public static List<Path.Waypoint> RRScale = new ArrayList();
     public static List<Path.Waypoint> RRSwitch = new ArrayList();
 
+    public static List<Path.Waypoint> TestRun = new ArrayList();
+
     public static void Init() {
+        TestRun.add(new Path.Waypoint(new Translation2d(0, 0), Constants.kPathFollowingMaxVel));
+        TestRun.add(new Path.Waypoint(new Translation2d(50, 0), Constants.kPathFollowingMaxVel, "RaiseElevator"));
 
         //start left go to left switch
         LLSwitch.add(new Path.Waypoint(new Translation2d(0, 0), Constants.kPathFollowingMaxVel));
