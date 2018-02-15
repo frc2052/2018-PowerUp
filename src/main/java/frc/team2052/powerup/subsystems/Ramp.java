@@ -7,7 +7,7 @@ import frc.team2052.powerup.Constants;
 public class Ramp {
 
     private static Ramp instance = null;
-    public static Ramp getInstance() {
+    public static Ramp getInstance() { //if ramp doesn't work, still do other stuff
         if (instance == null) {
             try {
                 instance = new Ramp();
@@ -20,9 +20,7 @@ public class Ramp {
     }
     //Ramp pins for each side and extending/collapsing ramp on each side
     private Solenoid rampLeftPinReleaseSol;
-    private Solenoid rampPinLeftOut;
     private Solenoid rampRightPinReleaseSol;
-    private Solenoid rampPinRightOut;
     private Solenoid rightRampInSol;
     private Solenoid rightRampOutSol;
     private Solenoid leftRampInSol;
@@ -36,33 +34,29 @@ public class Ramp {
         leftRampInSol = new Solenoid(Constants.kLeftRampInId);
         leftRampOutSol = new Solenoid(Constants.kLeftRampOutId);
     }
-    public void dropRampPinLeft() {
+    public void dropRampPinLeft() { //drops left pin
         double time = DriverStation.getInstance().getMatchTime();
         rampLeftPinReleaseSol.set(true);
     }
-    public void dropRampPinRight() {
+    public void dropRampPinRight() { //drops right pin
         rampRightPinReleaseSol.set(true);
     }
-    public void raiseRightRamp() {
+    public void raiseRightRamp() { //raises right ramp
         rightRampInSol.set(true);
         rightRampOutSol.set(false);
     }
-    public void raiseLeftRamp() {
+    public void raiseLeftRamp() { //raises left ramp
         leftRampInSol.set(true);
         leftRampOutSol.set(false);
     }
-    public void lowerLeftRamp() {
+    public void lowerLeftRamp() { //lowers left ramp
         leftRampInSol.set(false);
         leftRampOutSol.set(true);
     }
-    public void lowerRightRamp() {
+    public void lowerRightRamp() { //lowers right ramp
         rightRampInSol.set(false);
         rightRampOutSol.set(true);
     }
-
-
-
-
     }
 
 

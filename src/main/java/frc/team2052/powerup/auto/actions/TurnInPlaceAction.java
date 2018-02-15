@@ -24,7 +24,6 @@ public class TurnInPlaceAction implements Action {
 
     @Override
     public void done() {
-
     }
 
     @Override
@@ -34,7 +33,6 @@ public class TurnInPlaceAction implements Action {
 
     @Override
     public void start() {
-
     }
 
     @Override

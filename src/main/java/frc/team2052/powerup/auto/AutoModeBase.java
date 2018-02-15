@@ -13,7 +13,7 @@ public abstract class AutoModeBase {
         Timer.delay(seconds);
     }
 
-    public void errorStop(String message) throws AutoModeEndedException { //sends a messege to SD if they'res an error
+    public void errorStop(String message) throws AutoModeEndedException { //sends a message to SD if they'res an error
         System.out.println(message);
         //stop();
         throw new AutoModeEndedException();
@@ -36,7 +36,7 @@ public abstract class AutoModeBase {
         return isRunning();
     }
 
-    protected void runAction(SeriesAction action) throws AutoModeEndedException { //
+    protected void runAction(SeriesAction action) throws AutoModeEndedException {
         isRunningWithThrow(); //checks to see if running
         action.start(); //begins something
         while (!action.isFinished() && isRunningWithThrow()) { //update while action is not done, but still is running
