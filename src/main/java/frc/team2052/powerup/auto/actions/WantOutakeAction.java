@@ -7,23 +7,19 @@ public class WantOutakeAction implements Action{
     
     @Override
     public void done() {
-
     }
 
     @Override
     public boolean isFinished() {
-        //return Intake.getInstance().getWantOpenOutake() == true;
         return true;
     }
 
     @Override
     public void start() {
-        //Intake.getInstance().setWantOpenIntake();
         Pickup.getInstance().outtake();
     }
 
     @Override
     public void update() {
-
     }
 }

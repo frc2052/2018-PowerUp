@@ -19,12 +19,10 @@ public class WaitAction implements Action {
 
     @Override
     public void update() {
-
     }
 
     @Override
     public void done() {
-
     }
 
     @Override

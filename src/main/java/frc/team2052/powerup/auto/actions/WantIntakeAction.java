@@ -7,23 +7,19 @@ public class WantIntakeAction implements Action{
     
     @Override
     public void done() {
-
     }
 
     @Override
     public boolean isFinished() {
-        //return Intake.getInstance().getWantOpenIntake() == true;
         return true;
     }
 
     @Override
     public void start() {
-        //Intake.getInstance().setWantOpenIntake();
         Pickup.getInstance().intake();
     }
 
     @Override
     public void update() {
-
     }
 }

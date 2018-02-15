@@ -1,8 +1,8 @@
 package frc.team2052.powerup.auto.modes;
 
-import com.first.team2052.lib.path.Path;
-import frc.team2052.powerup.auto.*;
-import frc.team2052.powerup.auto.actions.FollowPathAction;
+import frc.team2052.powerup.auto.AutoMode;
+import frc.team2052.powerup.auto.AutoModeEndedException;
+import frc.team2052.powerup.auto.AutoModeSelector;
 import frc.team2052.powerup.auto.actions.MoveUntilTimeAction;
 import frc.team2052.powerup.auto.actions.SeriesAction;
 import frc.team2052.powerup.auto.actions.WaitAction;
@@ -22,4 +22,4 @@ public class AutolineWithTimerCenterRight extends AutoMode{
                 new MoveUntilTimeAction(1.8, new DriveSignal(.2, .2)))));
     }
 }
-//when starting in center, crosses autoline to the right using a timer
+//when starting in center, crosses auto line to the right using a timer
