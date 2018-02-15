@@ -287,6 +287,11 @@ public class DriveTrain extends DriveTrainHardware {
         } else {
             System.out.println("DANGER: NO GYRO!!!!");
         }
+        if (navXGyro.isCalibrating())
+        {
+            System.out.println("Gyro still calibrating");
+        }
+        System.out.println("Gyro Reset");
     }
 
     /**
