@@ -124,20 +124,10 @@ public class Robot extends IterativeRobot {
         if (!DriveTrain.getInstance().CheckGyro() ){ //if gyro does not work, set auto path to a path with timer
             switch (AutoModeSelector.getAutoDefinition()) {
                 case LSTARTONLYSCALE:
-                    currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
-                    break;
                 case LSTARTPERFERSCALE:
-                    currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
-                    break;
                 case LSTARTPREFERSWITCH:
-                    currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
-                    break;
                 case RSTARTONLYSCALE:
-                    currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
-                    break;
                 case RSTARTPREFERSCALE:
-                    currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
-                    break;
                 case RSTARTPREFERSWITCH:
                     currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
                     break;
