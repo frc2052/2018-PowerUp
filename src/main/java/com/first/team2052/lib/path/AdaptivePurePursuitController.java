@@ -4,6 +4,7 @@ package com.first.team2052.lib.path;
 import com.first.team2052.lib.vec.RigidTransform2d;
 import com.first.team2052.lib.vec.Rotation2d;
 import com.first.team2052.lib.vec.Translation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.Optional;
 import java.util.Set;
@@ -53,6 +54,9 @@ public class AdaptivePurePursuitController {
         }
 
         double distance_from_path = mPath.update(robot_pose.getTranslation());
+
+        SmartDashboard.putNumber("OffPathInchesInActivePursuit", distance_from_path);
+
         if (this.isDone()) {
             return new RigidTransform2d.Delta(0, 0, 0);
         }

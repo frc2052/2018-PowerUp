@@ -156,8 +156,11 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("psi", revRoboticsPressureSensor.getAirPressurePsi());
         SmartDashboard.putNumber("LeftVel", driveTrain.getLeftVelocityInchesPerSec());
         SmartDashboard.putNumber("RightVel", driveTrain.getRightVelocityInchesPerSec());
+        SmartDashboard.putNumber("LeftInches", driveTrain.getLeftDistanceInches());
+        SmartDashboard.putNumber("RightInches", driveTrain.getRightDistanceInches());
+        SmartDashboard.putNumber("LeftRaw", driveTrain.getLeftRawTicks());
+        SmartDashboard.putNumber("RightRaw", driveTrain.getRightRawTicks());
         robotState.outputToSmartDashboard();
-
     }
 
     @Override

@@ -8,6 +8,7 @@ import com.first.team2052.lib.path.Path;
 import com.first.team2052.lib.vec.RigidTransform2d;
 import com.first.team2052.lib.vec.Rotation2d;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2052.powerup.Constants;
 import frc.team2052.powerup.Kinematics;
 import frc.team2052.powerup.RobotState;
@@ -192,6 +193,16 @@ public class DriveTrain extends DriveTrainHardware {
             leftMaster.set(ControlMode.Velocity, leftSpeed);
             rightMaster.set(ControlMode.Velocity, rightSpeed);
 //            System.out.println("UPDATE VELOCITY SETTING  -----  Angle: " + getGyroAngleDegrees() + "   LEFT: " + leftSpeed + "    RIGHT: " + rightSpeed);
+
+
+            //determine a turn direction and what "rate"
+            //negative is turn left, positive right, 0 straight ahead
+
+            //calculate how much more left or right the velocity is, then devide by double the larger number to normalize the "percent" turn.
+            //number should be between -1 and 1
+            double turn = (leftSpeed - rightSpeed) / (Math.max(Math.abs(leftSpeed), Math.abs(rightSpeed)) * 2);
+            SmartDashboard.putNumber("DriveTurnRate", turn);
+
         } else {
             System.out.println("Hit a bad velocity control state");
             leftMaster.set(ControlMode.PercentOutput,0);
@@ -222,6 +233,7 @@ public class DriveTrain extends DriveTrainHardware {
         RigidTransform2d.Delta command = pathFollowingController.update(robot_pose, Timer.getFPGATimestamp());
 //        System.out.println("COMMAND---  dx: " + command.dx + "  dy: "+ command.dy);
         Kinematics.DriveVelocity setpoint = Kinematics.inverseKinematics(command);
+
 
         // Scale the command to respect the max velocity limits
         // We don't want our robot setpoints for turning, etc over it's limits, so we scale our outputs
@@ -365,6 +377,14 @@ public class DriveTrain extends DriveTrainHardware {
         //encoder spins opposite
         double wheelRotations = convertTicksToRotations(rightMaster.getSelectedSensorPosition(kVelocityControlSlot));
         return rpmToInchesPerSecond(wheelRotations);
+    }
+
+    public double getLeftRawTicks(){
+        return leftMaster.getSelectedSensorPosition(kVelocityControlSlot);
+    }
+
+    public double getRightRawTicks(){
+        return rightMaster.getSelectedSensorPosition(kVelocityControlSlot);
     }
 
     public Loopable getLoopable() {
