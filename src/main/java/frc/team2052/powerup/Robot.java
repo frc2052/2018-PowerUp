@@ -226,6 +226,9 @@ public class Robot extends IterativeRobot {
             //so always send if the buttons is up or down
             elevator.setElevatorAdjustmentUp(controls.getElevatorAdjustmentUp());
             elevator.setElevatorAdjustmentDown(controls.getElevatorAdjustmentDown());
+
+            elevator.setEmergencyDown(controls.getElevatorEmergencyDown());
+            elevator.setEmergencyUp(controls.getElevatorEmergencyUp());
         }
 
         if (ramp != null)
