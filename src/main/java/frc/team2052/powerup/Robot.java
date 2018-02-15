@@ -154,8 +154,6 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("gyro", driveTrain.getGyroAngleDegrees());
         SmartDashboard.putNumber("gyroRate", driveTrain.getGyroRateDegrees());
         SmartDashboard.putNumber("psi", revRoboticsPressureSensor.getAirPressurePsi());
-        SmartDashboard.putNumber("LeftVel", driveTrain.getLeftVelocityInchesPerSec());
-        SmartDashboard.putNumber("RightVel", driveTrain.getRightVelocityInchesPerSec());
         SmartDashboard.putNumber("LeftInches", driveTrain.getLeftDistanceInches());
         SmartDashboard.putNumber("RightInches", driveTrain.getRightDistanceInches());
         SmartDashboard.putNumber("LeftRaw", driveTrain.getLeftRawTicks());
@@ -261,11 +259,11 @@ public class Robot extends IterativeRobot {
             }
         }
 
-        SmartDashboard.putNumber("gyro", driveTrain.getGyroAngleDegrees());
+        SmartDashboard.putNumber("gyroAngle", driveTrain.getGyroAngleDegrees());
         SmartDashboard.putNumber("gyroRate", driveTrain.getGyroRateDegrees());
         SmartDashboard.putNumber("psi", revRoboticsPressureSensor.getAirPressurePsi());
-        SmartDashboard.putNumber("LeftVel", driveTrain.getLeftVelocityInchesPerSec());
-        SmartDashboard.putNumber("RightVel", driveTrain.getRightVelocityInchesPerSec());
+        SmartDashboard.putNumber("LeftInches", driveTrain.getLeftDistanceInches());
+        SmartDashboard.putNumber("RightInches", driveTrain.getRightDistanceInches());
         robotState.outputToSmartDashboard();
     }
 

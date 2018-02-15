@@ -83,9 +83,9 @@ public class DriveTrain extends DriveTrainHardware {
         return rotations * (Constants.kDriveWheelDiameterInches * Math.PI);
     }
 
-    private static double rpmToInchesPerSecond(double rpm) {
-        return rotationsToInches(rpm) / 60.0;
-    }
+//    private static double rpmToInchesPerSecond(double rpm) {
+//        return rotationsToInches(rpm) / 60.0;
+//    }
 
     private static double inchesToRotations(double inches) {
         return inches / (Constants.kDriveWheelDiameterInches * Math.PI);
@@ -110,8 +110,6 @@ public class DriveTrain extends DriveTrainHardware {
         driveControlState = DriveControlState.OPEN_LOOP;
         leftMaster.set(ControlMode.PercentOutput, signal.leftMotorSpeedPercent);
         rightMaster.set(ControlMode.PercentOutput, signal.rightMotorSpeedPercent);
-
-
     }
 
     /**
@@ -216,7 +214,10 @@ public class DriveTrain extends DriveTrainHardware {
     private void updateVelocityHeadingSetpoint() {
         Rotation2d actualGyroAngle = getGyroAngle();
 
+        SmartDashboard.putNumber("velocityWhereWeArePoint", actualGyroAngle.getDegrees());
+        SmartDashboard.putNumber("velocityWhereWeWantToGo", velocityHeadingSetpoint.getHeading().getDegrees());
         mLastHeadingErrorDegrees = velocityHeadingSetpoint.getHeading().rotateBy(actualGyroAngle.inverse()).getDegrees();
+        SmartDashboard.putNumber("velocityWhereToTurn", mLastHeadingErrorDegrees);
 
         double deltaSpeed = velocityHeadingPid.calculate(mLastHeadingErrorDegrees);
         updateVelocitySetpoint(velocityHeadingSetpoint.getLeftSpeed() + deltaSpeed / 2,
@@ -366,18 +367,18 @@ public class DriveTrain extends DriveTrainHardware {
         double wheelRotations = convertTicksToRotations(rightMaster.getSelectedSensorPosition(kVelocityControlSlot));
         return rotationsToInches(wheelRotations);
     }
-
-    public double getLeftVelocityInchesPerSec() {
-        //encoder spins opposite
-        double wheelRotations = convertTicksToRotations(leftMaster.getSelectedSensorPosition(kVelocityControlSlot));
-        return rpmToInchesPerSecond(wheelRotations);
-    }
-
-    public double getRightVelocityInchesPerSec() {
-        //encoder spins opposite
-        double wheelRotations = convertTicksToRotations(rightMaster.getSelectedSensorPosition(kVelocityControlSlot));
-        return rpmToInchesPerSecond(wheelRotations);
-    }
+//
+//    public double getLeftVelocityInchesPerSec() {
+//        //encoder spins opposite
+//        double wheelRotations = convertTicksToRotations(leftMaster.getSelectedSensorPosition(kVelocityControlSlot));
+//        return rpmToInchesPerSecond(wheelRotations);
+//    }
+//
+//    public double getRightVelocityInchesPerSec() {
+//        //encoder spins opposite
+//        double wheelRotations = convertTicksToRotations(rightMaster.getSelectedSensorPosition(kVelocityControlSlot));
+//        return rpmToInchesPerSecond(wheelRotations);
+//    }
 
     public double getLeftRawTicks(){
         return leftMaster.getSelectedSensorPosition(kVelocityControlSlot);

@@ -50,8 +50,8 @@ class DriveTrainHardware {
         leftMaster.setInverted(false);
         leftSlave.setInverted(false);
 
-        leftMaster.setSensorPhase(false);
         rightMaster.setSensorPhase(false);
+        leftMaster.setSensorPhase(false);
 
         //Configure talons for follower mode
         rightSlave.set(ControlMode.Follower, rightMaster.getDeviceID());
