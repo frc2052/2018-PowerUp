@@ -35,19 +35,24 @@ public class Pickup {
     }
 
     public void intake(){
-        setRightMotorSpeed(Constants.intakeInSpeedRight);
-        setLeftMotorSpeed(Constants.intakeInSpeedLeft);
+        setRightMotorSpeed(Constants.pickupInSpeedRight);
+        setLeftMotorSpeed(Constants.pickupInSpeedLeft);
     } //activating intake and setting speed
 
     public void outtake() {
-        setRightMotorSpeed(Constants.intakeOutSpeed);
-        setLeftMotorSpeed(Constants.intakeOutSpeed);
+        setRightMotorSpeed(Constants.pickupOutSpeed);
+        setLeftMotorSpeed(Constants.pickupOutSpeed);
     } //activating outtake and setting speed
 
     public void stopped() {
-        setRightMotorSpeed(Constants.intakeStopSpeed);
-        setLeftMotorSpeed(Constants.intakeStopSpeed);
+        setRightMotorSpeed(Constants.pickupStopSpeed);
+        setLeftMotorSpeed(Constants.pickupStopSpeed);
     } //stop wheels
+
+    public void wantHold() {
+        setRightMotorSpeed(Constants.pickupHoldSpeed);
+        setLeftMotorSpeed(Constants.pickupHoldSpeed);
+    }
 
     public void pickupPositionDown() { //Flat
         armLongSolenoidIn.set(true);

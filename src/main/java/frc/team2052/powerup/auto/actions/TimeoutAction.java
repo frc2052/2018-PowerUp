@@ -14,9 +14,7 @@ public class TimeoutAction implements Action {
     }
 
     @Override
-    public void done() {
-        action.done();
-    }
+    public void done() {action.done();}
 
     @Override
     public boolean isFinished() {

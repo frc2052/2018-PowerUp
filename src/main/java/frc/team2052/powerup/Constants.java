@@ -1,8 +1,6 @@
 package frc.team2052.powerup;
 
-/**
- * Created by KnightKrawler on 2/9/2018.
- */
+
 public class Constants {public static int intakeSolenoid =1;
 
     public final static int kCANBusConfigTimeoutMS = 10;
@@ -34,10 +32,11 @@ public class Constants {public static int intakeSolenoid =1;
     public static int kLeftRampOutId = 17;
 
     /////////// Intake ////////////
-    public static double intakeInSpeedLeft = 1;
-    public static double intakeInSpeedRight = intakeInSpeedLeft * .8;
-    public static double intakeOutSpeed = -.6;
-    public static double intakeStopSpeed = 0;
+    public static double pickupInSpeedLeft = 1;
+    public static double pickupInSpeedRight = pickupInSpeedLeft * .8;
+    public static double pickupOutSpeed = -.6;
+    public static double pickupStopSpeed = 0;
+    public static double pickupHoldSpeed = 0.1;
 
     /////////// Buttons ////////////
     //SECONDARY

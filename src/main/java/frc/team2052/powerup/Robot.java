@@ -17,7 +17,7 @@ public class Robot extends IterativeRobot {
     private ControlLoop slowerLooper = null;
 
     private static DriveTrain driveTrain = null;
-    private Pickup intake = null;
+    private Pickup pickup = null;
     private Controls controls = null;
     private Ramp ramp = null;
     private Elevator elevator = null;
@@ -40,7 +40,7 @@ public class Robot extends IterativeRobot {
 
         //////THESE SUBSYSTEMS ARE FAULT TOLERANT/////
         /////// they will return null if they fail to create themselves////////
-        intake = Pickup.getInstance();
+        pickup = Pickup.getInstance();
 //        ramp = Ramp.getInstance();
         elevator = Elevator.getInstance();
         //////////////////////////////////////////////
@@ -69,9 +69,9 @@ public class Robot extends IterativeRobot {
             elevator.zeroSensor();
             controlLoop.addLoopable(elevator);
         }
-        if (intake != null)
+        if (pickup != null)
         {
-            intake.init();
+            pickup.init();
         }
 
         //slowerLooper.addLoopable(VisionProcessor.getInstance());
@@ -189,19 +189,19 @@ public class Robot extends IterativeRobot {
           //  visionTurn = false;
         //}
 
-        if (intake != null) {
+        if (pickup != null) {
             if (controls.getIntake()) {
-                intake.intake();
+                pickup.intake();
             } else if (controls.getOuttake()) {
-                intake.outtake();
+                pickup.outtake();
             } else {
-                intake.stopped();
+                pickup.stopped();
             }
 
             if (controls.getIntakeUp()){
-                intake.pickupPositionRaised();
+                pickup.pickupPositionRaised();
             }else{
-                intake.pickupPositionDown();
+                pickup.pickupPositionDown();
             }
         }
 

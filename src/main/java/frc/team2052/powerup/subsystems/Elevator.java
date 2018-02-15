@@ -7,8 +7,6 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.first.team2052.lib.Loopable;
 import frc.team2052.powerup.Constants;
 
-import static frc.team2052.powerup.Constants.kElevatorMaxHeight;
-
 public class Elevator implements Loopable{
 
     private TalonSRX elevatorTalon;
@@ -66,10 +64,10 @@ public class Elevator implements Loopable{
     }
 
     private void setAndVerifyGoalInches(int newGoalInches){
-        if (newGoalInches >  Constants.kElevatorMaxHeight) {
+        if (newGoalInches >  Constants.kElevatorMaxHeight) { //if goal inches is above the max height of elevator, set goal inches to the max height
             goalElevatorInches = Constants.kElevatorMaxHeight;
         }
-        else if (newGoalInches < Constants.kElevatorMinHeight) {
+        else if (newGoalInches < Constants.kElevatorMinHeight) { //if goal inches is below min height of elevator, set goal inches to min height
             goalElevatorInches = Constants.kElevatorMinHeight;
         }
         else {
