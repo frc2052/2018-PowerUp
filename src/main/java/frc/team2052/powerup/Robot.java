@@ -125,22 +125,29 @@ public class Robot extends IterativeRobot {
             switch (AutoModeSelector.getAutoDefinition()) {
                 case LSTARTONLYSCALE:
                     currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
+                    break;
                 case LSTARTPERFERSCALE:
                     currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
+                    break;
                 case LSTARTPREFERSWITCH:
                     currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
+                    break;
                 case RSTARTONLYSCALE:
                     currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
+                    break;
                 case RSTARTPREFERSCALE:
                     currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
+                    break;
                 case RSTARTPREFERSWITCH:
                     currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
+                    break;
                 case CENTER: {
                     if (FieldConfig.isMySwitchLeft()) { //see what switch is ours and change path to a timer path that goes to out switch
                         currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMERCCENTERLEFT;
                     } else {
                         currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMERCCENTERRIGHT;
                     }
+                    break;
                 }
             }
         }
