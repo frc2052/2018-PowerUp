@@ -47,9 +47,11 @@ class DriveTrainHardware {
         //Fix sensor polarity
         rightMaster.setInverted(false);
         rightSlave.setInverted(false);
-
         leftMaster.setInverted(true);
         leftSlave.setInverted(true);
+
+        rightMaster.setSensorPhase(false);
+        leftMaster.setSensorPhase(false);
 
         //Configure talons for follower mode
         rightSlave.set(ControlMode.Follower, rightMaster.getDeviceID());
@@ -67,9 +69,6 @@ class DriveTrainHardware {
         rightMaster.config_kD(kVelocityControlSlot, Constants.kDriveVelocityKd, Constants.kCANBusConfigTimeoutMS);
         rightMaster.config_kF(kVelocityControlSlot, Constants.kDriveVelocityKf, Constants.kCANBusConfigTimeoutMS);
         rightMaster.config_IntegralZone(kVelocityControlSlot, Constants.kDriveVelocityIZone, Constants.kCANBusConfigTimeoutMS);
-
-        leftMaster.configMotionCruiseVelocity(430, Constants.kCANBusConfigTimeoutMS);
-        rightMaster.configMotionCruiseVelocity(430, Constants.kCANBusConfigTimeoutMS);
 
         leftMaster.configAllowableClosedloopError(kVelocityControlSlot, Constants.kDriveVelocityAllowableError, Constants.kCANBusConfigTimeoutMS);
         leftMaster.selectProfileSlot(kVelocityControlSlot,kVelocityControlSlot);

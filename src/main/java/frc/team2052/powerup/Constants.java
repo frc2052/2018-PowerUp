@@ -9,10 +9,10 @@ public class Constants {public static int intakeSolenoid =1;
 
     /////////// DEVICE IDs ////////////
     public static int kPDPId = 0;
-    public static int kDriveRightMasterId = 1;
-    public static int kDriveRightSlaveId = 2;
-    public static int kDriveLeftSlaveId = 3;
-    public static int kDriveLeftMasterId = 4;
+    public static int kDriveRightMasterId = 4;
+    public static int kDriveRightSlaveId = 3;
+    public static int kDriveLeftSlaveId = 2;
+    public static int kDriveLeftMasterId = 1;
     public static int kElevatorMotorID = 7;
     public static int pickupRightMotorId =8;
     public static int pickupLeftMotorId =9;
@@ -59,6 +59,7 @@ public class Constants {public static int intakeSolenoid =1;
     public static int kJoystickLowerRightRamp = 10;
 
     public static int kJoystickIntakeUp = 9;
+    public static int  kJoystickIntakeStartConfig = 10;
 
     /////////// Elevator ////////////
     public static int kElevatorMaxHeight = 74; //50 for testing 74 for real

@@ -8,7 +8,7 @@ import org.opencv.core.Mat;
 
 public class Camera {
     private static Camera instance = null;
-    public static Camera getInstance() {
+    public static Camera getInstance() { //if the camera isn't working the robot can still do things
         if (instance == null) {
             try {
                 instance = new Camera();

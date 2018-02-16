@@ -1,14 +1,14 @@
 package frc.team2052.powerup.auto.modes;
 
-        import com.first.team2052.lib.path.Path;
-        import frc.team2052.powerup.auto.*;
-        import frc.team2052.powerup.auto.actions.FollowPathAction;
-        import frc.team2052.powerup.auto.actions.MoveUntilTimeAction;
-        import frc.team2052.powerup.auto.actions.SeriesAction;
-        import frc.team2052.powerup.auto.actions.WaitAction;
-        import frc.team2052.powerup.subsystems.drive.DriveSignal;
+import frc.team2052.powerup.auto.AutoMode;
+import frc.team2052.powerup.auto.AutoModeEndedException;
+import frc.team2052.powerup.auto.AutoModeSelector;
+import frc.team2052.powerup.auto.actions.MoveUntilTimeAction;
+import frc.team2052.powerup.auto.actions.SeriesAction;
+import frc.team2052.powerup.auto.actions.WaitAction;
+import frc.team2052.powerup.subsystems.drive.DriveSignal;
 
-        import java.util.Arrays;
+import java.util.Arrays;
 
 public class AutolineWithTimer extends AutoMode{
     @Override
@@ -17,4 +17,4 @@ public class AutolineWithTimer extends AutoMode{
         runAction(new SeriesAction(Arrays.asList(new MoveUntilTimeAction(4, new DriveSignal(.2, .2)))));
     }
 }
-//when starting on left orright side, crosses autoline using a timer
+//when starting on left or right side, crosses auto line using a timer
