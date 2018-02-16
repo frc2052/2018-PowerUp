@@ -29,7 +29,7 @@ public class AmpGetter extends PowerDistributionPanel
          double current1 = PDPJNI.getPDPChannelCurrent((byte) 0, n_module);
 
         checkPDPChannel(0);
-        System.out.println("Intake Motor 1 Amps ="  + current1);
+        System.out.println("Intake Motor 1 Amps ="  + current1);//intake max 30 amps
         return current1;
 
     }
@@ -41,7 +41,7 @@ public class AmpGetter extends PowerDistributionPanel
         return current2;
     }
     public double getCurrentElevator(int channel) {
-        double current3 = PDPJNI.getPDPChannelCurrent((byte) 3, n_module);
+        double current3 = PDPJNI.getPDPChannelCurrent((byte) 3, n_module);//elevator max 40 amps
 
         checkPDPChannel(3);
         System.out.println("Elevator Motor Amps ="  + current3);
