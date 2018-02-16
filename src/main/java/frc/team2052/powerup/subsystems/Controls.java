@@ -23,7 +23,7 @@ public class Controls {
     }
 
     public double getTurn() {
-        return rightPrimaryJoystick.getX();
+        return -rightPrimaryJoystick.getX();
     }
 
     public boolean getQuickTurn() {

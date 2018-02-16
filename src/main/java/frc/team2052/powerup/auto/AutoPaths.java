@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class AutoPaths {
 
-    
+
     public static List<Path.Waypoint> LLSwitch;
     public static List<Path.Waypoint> LLScale;
     public static List<Path.Waypoint> LRScale;
