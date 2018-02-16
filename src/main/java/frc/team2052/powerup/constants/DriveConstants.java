@@ -5,10 +5,10 @@ public class DriveConstants {
 
     public final static int kCANBusConfigTimeoutMS = 10;
 
-    public static int kDriveRightMasterId = 1;
-    public static int kDriveRightSlaveId = 2;
-    public static int kDriveLeftMasterId = 4;
-    public static int kDriveLeftSlaveId = 3;
+    public static int kDriveRightMasterId = 4;
+    public static int kDriveRightSlaveId = 3;
+    public static int kDriveLeftMasterId = 1;
+    public static int kDriveLeftSlaveId = 2;
 
     public static double kOpenLoopRampRate = .5; // this many seconds from 0 to full power
     public static double kClosedLoopRampRate = 0.0;

@@ -105,8 +105,8 @@ public class DriveTrain extends DriveTrainHardware {
      * Sets the motor speeds in percent mode and disables all controllers
      */
     public void setOpenLoop(DriveSignal signal) {
-//        System.out.println("ENCODERS LEFT: " + getLeftDistanceInches() + "   RIGHT: " + getRightDistanceInches());
-//        System.out.println("GYRO DEGREES: " + getGyroAngleDegrees());
+        System.out.println("ENCODERS LEFT: " + getLeftDistanceInches() + "   RIGHT: " + getRightDistanceInches());
+        System.out.println("GYRO DEGREES: " + getGyroAngleDegrees());
         driveControlState = DriveControlState.OPEN_LOOP;
         leftMaster.set(ControlMode.PercentOutput, signal.leftMotor);
         rightMaster.set(ControlMode.PercentOutput, signal.rightMotor);
@@ -192,7 +192,7 @@ public class DriveTrain extends DriveTrainHardware {
 
             leftMaster.set(ControlMode.Velocity, leftSpeed);
             rightMaster.set(ControlMode.Velocity, rightSpeed);
-//            System.out.println("UPDATE VELOCITY SETTING  -----  Angle: " + getGyroAngleDegrees() + "   LEFT: " + leftSpeed + "    RIGHT: " + rightSpeed);
+            System.out.println("UPDATE VELOCITY SETTING  -----  Angle: " + getGyroAngleDegrees() + "   LEFT: " + leftSpeed + "    RIGHT: " + rightSpeed);
         } else {
             System.out.println("Hit a bad velocity control state");
             leftMaster.set(ControlMode.PercentOutput,0);

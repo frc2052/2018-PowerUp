@@ -13,16 +13,26 @@ import java.util.List;
  */
 public class AutoPaths {
 
-    public static List<Path.Waypoint> LLSwitch = new ArrayList();
-    public static List<Path.Waypoint> LLScale = new ArrayList();
-    public static List<Path.Waypoint> LRScale = new ArrayList();
-    public static List<Path.Waypoint> CLSwitch = new ArrayList();
-    public static List<Path.Waypoint> CRSwitch = new ArrayList();
-    public static  List<Path.Waypoint> RLScale = new ArrayList();
-    public static  List<Path.Waypoint> RRScale = new ArrayList();
-    public static  List<Path.Waypoint> RRSwitch = new ArrayList();
+    public static List<Path.Waypoint> LLSwitch = null;
+    public static List<Path.Waypoint> LLScale =  null;
+    public static List<Path.Waypoint> LRScale =  null;
+    public static List<Path.Waypoint> CLSwitch = null;
+    public static List<Path.Waypoint> CRSwitch = null;
+    public static  List<Path.Waypoint> RLScale = null;
+    public static  List<Path.Waypoint> RRScale = null;
+    public static  List<Path.Waypoint> RRSwitch = null;
 
     public static void Init() {
+
+        LLSwitch = new ArrayList();
+        LLScale = new ArrayList();
+        LRScale = new ArrayList();
+        CLSwitch = new ArrayList();
+        CRSwitch = new ArrayList();
+        RLScale = new ArrayList();
+        RRScale = new ArrayList();
+        RRSwitch = new ArrayList();
+
         //start left go to left switch
         LLSwitch.add(new Path.Waypoint(new Translation2d(0, 0), DriveConstants.kPathFollowingMaxVel));
         LLSwitch.add(new Path.Waypoint(new Translation2d(150, 0), DriveConstants.kPathFollowingMaxVel, "RaiseElevator"));
