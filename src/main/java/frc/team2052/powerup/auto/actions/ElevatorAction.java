@@ -40,6 +40,10 @@ public class ElevatorAction implements Action{
     @Override
     public void update() {
         if(amps.getCurrentElevator(3) >= 40){
+            //if we get stuck, the elavator will draw too many amps
+            //so lets simulate an emergency override button down then up event
+            Elevator.getInstance().setEmergencyDown(true);
+            Elevator.getInstance().setEmergencyDown(false);
         isStuck = true;
         }
 

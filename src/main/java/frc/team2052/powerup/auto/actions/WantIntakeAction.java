@@ -16,7 +16,7 @@ public class WantIntakeAction implements Action {
 
     @Override
     public void done() {
-
+        Pickup.getInstance().stopped();
     }
 
     @Override
@@ -35,6 +35,8 @@ public class WantIntakeAction implements Action {
     public void update() {
         if (amps.getCurrentIntake1(0) >= 30 || amps.getCurrentIntake2(2) >= 30) {
             isDone = true;
+
+
         }
 
     }
