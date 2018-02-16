@@ -7,8 +7,6 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.first.team2052.lib.Loopable;
 import frc.team2052.powerup.Constants;
 
-import static frc.team2052.powerup.Constants.kElevatorMaxHeight;
-
 public class Elevator implements Loopable{
 
     private TalonSRX elevatorTalon;
@@ -38,7 +36,6 @@ public class Elevator implements Loopable{
         elevatorTalon.configPeakOutputForward(Constants.kElevatorPeakUpPower, 10);
         elevatorTalon.configPeakOutputReverse(-Constants.kElevatorPeakDownPower, 10);
         elevatorTalon.setNeutralMode(NeutralMode.Brake);
-        elevatorTalon.configPeakCurrentLimit(2, 10);
         elevatorTalon.config_kP(0, Constants.kElevatorVelocityKp, 10);
         elevatorTalon.config_kI(0, Constants.kElevatorVelocityKi, 10);
         elevatorTalon.config_kD(0, Constants.kElevatorVelocityKd, 10);
