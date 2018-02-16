@@ -47,9 +47,11 @@ class DriveTrainHardware {
         //Fix sensor polarity
         rightMaster.setInverted(false);
         rightSlave.setInverted(false);
-
         leftMaster.setInverted(true);
         leftSlave.setInverted(true);
+
+        rightMaster.setSensorPhase(false);
+        leftMaster.setSensorPhase(false);
 
         //Configure talons for follower mode
         rightSlave.set(ControlMode.Follower, rightMaster.getDeviceID());

@@ -63,7 +63,7 @@ public class Pickup {
         armShortSolenoidOut.set(false);
     }
 
-    public void init() { //All the way up
+    public void pickupPositionStartingConfig() { //All the way up
         armLongSolenoidIn.set(false);
         armLongSolenoidOut.set(true);
         armShortSolenoidIn.set(false);

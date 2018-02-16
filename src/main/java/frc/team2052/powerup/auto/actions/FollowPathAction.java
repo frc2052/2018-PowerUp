@@ -30,8 +30,15 @@ public class FollowPathAction implements Action {
     }
 
     @Override
-    public void update() {
+    public void update()
+    {
         mHasStarted = true;
+        try {
+            System.out.println("GYRO  " + mDrive.getGyroAngleDegrees() + "  REMAINING: " + mPath.getRemainingLength() + "  LEFT: " + mDrive.getLeftDistanceInches() + "  RIGHT: " + mDrive.getRightDistanceInches());
+        } catch (Exception exc)
+        {
+            System.out.println("FAILURE: " + exc.getMessage());
+        }
     }
 
     @Override

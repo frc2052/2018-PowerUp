@@ -5,6 +5,7 @@ import com.first.team2052.lib.RevRoboticsPressureSensor;
 import com.first.team2052.lib.vec.RigidTransform2d;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.team2052.powerup.auto.modes.TestPath;
 import frc.team2052.powerup.subsystems.*;
 import frc.team2052.powerup.auto.*;
 import frc.team2052.powerup.subsystems.drive.DriveSignal;
@@ -71,7 +72,7 @@ public class Robot extends IterativeRobot {
         }
         if (intake != null)
         {
-            intake.init();
+            intake.pickupPositionStartingConfig();
         }
 
         //slowerLooper.addLoopable(VisionProcessor.getInstance());
@@ -142,6 +143,7 @@ public class Robot extends IterativeRobot {
             }
         }
         autoModeRunner.setAutoMode(currentAutoMode.getInstance());
+        //autoModeRunner.setAutoMode(new TestPath());
         autoModeRunner.start();
     }
     @Override
@@ -149,10 +151,11 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("gyro", driveTrain.getGyroAngleDegrees());
         SmartDashboard.putNumber("gyroRate", driveTrain.getGyroRateDegrees());
         SmartDashboard.putNumber("psi", revRoboticsPressureSensor.getAirPressurePsi());
-        SmartDashboard.putNumber("LeftVel", driveTrain.getLeftVelocityInchesPerSec());
-        SmartDashboard.putNumber("RightVel", driveTrain.getRightVelocityInchesPerSec());
+        SmartDashboard.putNumber("LeftInches", driveTrain.getLeftDistanceInches());
+        SmartDashboard.putNumber("RightInches", driveTrain.getRightDistanceInches());
+        SmartDashboard.putNumber("LeftRaw", driveTrain.getLeftRawTicks());
+        SmartDashboard.putNumber("RightRaw", driveTrain.getRightRawTicks());
         robotState.outputToSmartDashboard();
-
     }
 
     @Override
@@ -185,6 +188,7 @@ public class Robot extends IterativeRobot {
                 }
             }
         } else {*/
+
         driveTrain.setOpenLoop(driveHelper.drive(controls.getTank(), controls.getTurn(), controls.getQuickTurn()));
           //  visionTurn = false;
         //}
@@ -200,6 +204,8 @@ public class Robot extends IterativeRobot {
 
             if (controls.getIntakeUp()){
                 intake.pickupPositionRaised();
+            }else if (controls.getStartConfig()){
+                intake.pickupPositionStartingConfig();
             }else{
                 intake.pickupPositionDown();
             }
@@ -253,11 +259,11 @@ public class Robot extends IterativeRobot {
             }
         }
 
-        SmartDashboard.putNumber("gyro", driveTrain.getGyroAngleDegrees());
+        SmartDashboard.putNumber("gyroAngle", driveTrain.getGyroAngleDegrees());
         SmartDashboard.putNumber("gyroRate", driveTrain.getGyroRateDegrees());
         SmartDashboard.putNumber("psi", revRoboticsPressureSensor.getAirPressurePsi());
-        SmartDashboard.putNumber("LeftVel", driveTrain.getLeftVelocityInchesPerSec());
-        SmartDashboard.putNumber("RightVel", driveTrain.getRightVelocityInchesPerSec());
+        SmartDashboard.putNumber("LeftInches", driveTrain.getLeftDistanceInches());
+        SmartDashboard.putNumber("RightInches", driveTrain.getRightDistanceInches());
         robotState.outputToSmartDashboard();
     }
 

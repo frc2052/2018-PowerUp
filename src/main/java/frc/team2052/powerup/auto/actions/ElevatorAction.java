@@ -15,7 +15,11 @@ public class ElevatorAction implements Action{
 
     @Override
     public boolean isFinished() {
-        return Elevator.getInstance().getHeightInchesForPreset(ElevatorState)== Elevator.getInstance().getHeightInches();
+        int target = Elevator.getInstance().getHeightInchesForPreset(ElevatorState);
+        double current = Elevator.getInstance().getHeightInches();
+        System.out.println("ELEVATOR DELTA: " + (target - current) + "+++++++++++++++++");
+
+        return  target - 1 < current && target + 1 > current;
     }
 
     @Override

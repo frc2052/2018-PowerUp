@@ -14,19 +14,21 @@ public class Center extends AutoMode {
         runAction(new SeriesAction(Arrays.asList(new WaitAction(AutoModeSelector.SelectedWaitTime))));
         if(FieldConfig.isMySwitchLeft()) { //if left switch is ours
             runAction(new SeriesAction(Arrays.asList(
-                    new ParallelAction(Arrays.asList(
-                        new FollowPathAction(new Path(AutoPaths.CLSwitch), false), //pathing to left switch
-                        new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
-                             new ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH))))), //raises elevator to place cube on switch
-                    new WantOutakeAction()//pushes cube out
+                                    new ParallelAction(Arrays.asList(
+                                            new FollowPathAction(new Path(AutoPaths.CLSwitch), false), //pathing to left switch
+                                            new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
+                                                new ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH),
+                                                new LowerPickupAction())))),
+                                    new WantOutakeAction()//pushes cube out
             )));
         }
         else { //if right switch is ours
             runAction(new SeriesAction(Arrays.asList(
                     new ParallelAction(Arrays.asList(
-                        new FollowPathAction(new Path(AutoPaths.CRSwitch), false),//pathing to right switch
-                        new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
-                            new ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH))))),//raises elevator to place cube on switch
+                            new FollowPathAction(new Path(AutoPaths.CRSwitch), false), //pathing to left switch
+                            new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
+                                    new ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH),
+                                    new LowerPickupAction())))),
                     new WantOutakeAction()//pushes cube out
             )));
         }
