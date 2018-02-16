@@ -125,23 +125,20 @@ public class Robot extends IterativeRobot {
         if (!DriveTrain.getInstance().CheckGyro() ){ //if gyro does not work, set auto path to a path with timer
             switch (AutoModeSelector.getAutoDefinition()) {
                 case LSTARTONLYSCALE:
-                    currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
                 case LSTARTPERFERSCALE:
-                    currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
                 case LSTARTPREFERSWITCH:
-                    currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
                 case RSTARTONLYSCALE:
-                    currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
                 case RSTARTPREFERSCALE:
-                    currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
                 case RSTARTPREFERSWITCH:
                     currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
+                    break;
                 case CENTER: {
                     if (FieldConfig.isMySwitchLeft()) { //see what switch is ours and change path to a timer path that goes to out switch
                         currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMERCCENTERLEFT;
                     } else {
                         currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMERCCENTERRIGHT;
                     }
+                    break;
                 }
             }
         }
@@ -232,6 +229,9 @@ public class Robot extends IterativeRobot {
             //so always send if the buttons is up or down
             elevator.setElevatorAdjustmentUp(controls.getElevatorAdjustmentUp());
             elevator.setElevatorAdjustmentDown(controls.getElevatorAdjustmentDown());
+
+            elevator.setEmergencyDown(controls.getElevatorEmergencyDown());
+            elevator.setEmergencyUp(controls.getElevatorEmergencyUp());
         }
 
         if (ramp != null)

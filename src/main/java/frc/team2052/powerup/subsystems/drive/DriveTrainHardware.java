@@ -70,9 +70,6 @@ class DriveTrainHardware {
         rightMaster.config_kF(kVelocityControlSlot, Constants.kDriveVelocityKf, Constants.kCANBusConfigTimeoutMS);
         rightMaster.config_IntegralZone(kVelocityControlSlot, Constants.kDriveVelocityIZone, Constants.kCANBusConfigTimeoutMS);
 
-        leftMaster.configMotionCruiseVelocity(430, Constants.kCANBusConfigTimeoutMS);
-        rightMaster.configMotionCruiseVelocity(430, Constants.kCANBusConfigTimeoutMS);
-
         leftMaster.configAllowableClosedloopError(kVelocityControlSlot, Constants.kDriveVelocityAllowableError, Constants.kCANBusConfigTimeoutMS);
         leftMaster.selectProfileSlot(kVelocityControlSlot,kVelocityControlSlot);
         rightMaster.selectProfileSlot(kVelocityControlSlot, kVelocityControlSlot);

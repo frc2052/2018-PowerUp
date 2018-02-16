@@ -8,16 +8,16 @@ public class AutoModeSelector {
     private static SendableChooser<AutoModeDefinition> sendableChooserAutoMode; //Makes drop down for Auto Mode Selection
     private static SendableChooser<WaitTimeDefinition> sendableChooserWaitTime; //Makes drop down for Wait Time Selection
 
-    public static double trimFactorX =0;
-    public static double trimFactorY =0;
+    private static double trimFactorX =0;
+    private static double trimFactorY =0;
 
     public static double SelectedWaitTime;
-    public static void putToSmartDashboard() { //puts the auto modes and delay options to the smartdashboard
+    public static void putToSmartDashboard() { //puts the auto modes and delay options to the smart dashboard
         sendableChooserAutoMode = new SendableChooser<AutoModeDefinition>();
         for (int i = 0; i < AutoModeDefinition.values().length; i++) {
             AutoModeDefinition mode = AutoModeDefinition.values()[i];
             if (i == 0) {
-                sendableChooserAutoMode.addDefault(mode.name, mode); //a sendableChooser is a list
+                sendableChooserAutoMode.addDefault(mode.name, mode); //a sendeble Chooser is a list
             } else {
                 sendableChooserAutoMode.addObject(mode.name, mode);
             }

@@ -7,7 +7,6 @@ public class LowerPickupAction implements Action{
 
     @Override
     public void done() {
-
     }
 
     @Override
@@ -23,6 +22,5 @@ public class LowerPickupAction implements Action{
 
     @Override
     public void update() {
-
     }
 }

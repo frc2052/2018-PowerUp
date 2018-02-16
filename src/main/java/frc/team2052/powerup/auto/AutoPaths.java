@@ -7,10 +7,6 @@ import frc.team2052.powerup.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
-
-/**
- * Created by Lancelot on 1/19/2018.
- */
 public class AutoPaths {
 
 
@@ -55,7 +51,6 @@ public class AutoPaths {
         LRScale.add(new Path.Waypoint(new Translation2d(305, 250), Constants.kPathFollowingMaxVel));
         LRScale.add(new Path.Waypoint(new Translation2d(305, 228), Constants.kPathFollowingMaxVel));
 
-
         //start center go to left switch
         CLSwitch.add(new Path.Waypoint(new Translation2d(0, 0), Constants.kPathFollowingMaxVel));
         CLSwitch.add(new Path.Waypoint(new Translation2d(30, 0), Constants.kPathFollowingMaxVel, "RaiseElevator"));
@@ -84,7 +79,6 @@ public class AutoPaths {
         RRSwitch.add(new Path.Waypoint(new Translation2d(0, 0), Constants.kPathFollowingMaxVel));
         RRSwitch.add(new Path.Waypoint(new Translation2d(150, 0), Constants.kPathFollowingMaxVel, "RaiseElevator"));
         RRSwitch.add(new Path.Waypoint(new Translation2d(150, -28), Constants.kPathFollowingMaxVel));
-
 
     }
 }

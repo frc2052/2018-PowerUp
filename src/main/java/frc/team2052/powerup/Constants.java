@@ -48,6 +48,8 @@ public class Constants {public static int intakeSolenoid =1;
     public static int kElevatorScale_ThreeHeightButton = 5;
     public static int kElevatorScale_TrimUpButton =  6;
     public static int kElevatorScale_TrimDownButton =  7;
+    public static int kManualElevator_RaiseButton = 11; //emergency manual elevator control
+    public static int kManualElevator_LowerButton = 12; //-Find manual elevator buttons
 
     public static int kJoystickDropLeftPin = 8;
     public static int kJoystickDropRightPin = 9;

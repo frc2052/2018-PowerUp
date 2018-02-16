@@ -10,12 +10,10 @@ public class WantOutakeAction implements Action{
     private double startTimeSec = 0;
     @Override
     public void done() {
-
     }
 
     @Override
     public boolean isFinished() {
-        //return Intake.getInstance().getWantOpenOutake() == true;
         return isDone;
     }
 
@@ -27,7 +25,7 @@ public class WantOutakeAction implements Action{
 
     @Override
     public void update() {
-        if ((Timer.getFPGATimestamp() - startTimeSec) < 3) {
+        if ((Timer.getFPGATimestamp() - startTimeSec) < 1.5) {
             Pickup.getInstance().outtake();
         } else {
             Pickup.getInstance().stopped();
