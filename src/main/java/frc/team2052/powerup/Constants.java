@@ -9,10 +9,10 @@ public class Constants {public static int intakeSolenoid =1;
 
     /////////// DEVICE IDs ////////////
     public static int kPDPId = 0;
-    public static int kDriveRightMasterId = 1;
-    public static int kDriveRightSlaveId = 2;
-    public static int kDriveLeftSlaveId = 3;
-    public static int kDriveLeftMasterId = 4;
+    public static int kDriveRightMasterId = 4;
+    public static int kDriveRightSlaveId = 3;
+    public static int kDriveLeftSlaveId = 2;
+    public static int kDriveLeftMasterId = 1;
     public static int kElevatorMotorID = 7;
     public static int pickupRightMotorId =8;
     public static int pickupLeftMotorId =9;
@@ -92,8 +92,8 @@ public class Constants {public static int intakeSolenoid =1;
     public static double kDriveVelocityRampRate = 0.0;
     public static int kDriveVelocityAllowableError = 0;
     public static double kPathFollowingLookahead = 24;
-    public static double kPathFollowingMaxAccel = 50;
-    public static double kPathFollowingMaxVel = 100;
+    public static double kPathFollowingMaxAccel = 100;
+    public static double kPathFollowingMaxVel = 200;
     public static double kDriveHeadingVelocityKp = 5.0;
     public static double kDriveHeadingVelocityKi = 0.1;
     public static double kDriveHeadingVelocityKd = 60.0;

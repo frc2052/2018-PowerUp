@@ -126,7 +126,7 @@ public class DriveTrain extends DriveTrainHardware {
         }
         //Make a new path following controller under the constraints of the drive train.
         pathFollowingController = new AdaptivePurePursuitController(Constants.kPathFollowingLookahead,
-                Constants.kPathFollowingMaxAccel, Constants.kControlLoopPeriod, path, reversed, 0.25);
+                Constants.kPathFollowingMaxAccel, Constants.kControlLoopPeriod, path, reversed, 1.5);
         //Update the path follower right away
         updatePathFollower();
     }

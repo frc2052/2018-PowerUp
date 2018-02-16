@@ -145,8 +145,8 @@ public class Robot extends IterativeRobot {
                 }
             }
         }
-//        autoModeRunner.setAutoMode(currentAutoMode.getInstance());
-        autoModeRunner.setAutoMode(new TestPath());
+        autoModeRunner.setAutoMode(currentAutoMode.getInstance());
+        //autoModeRunner.setAutoMode(new TestPath());
         autoModeRunner.start();
     }
     @Override

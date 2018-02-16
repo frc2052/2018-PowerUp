@@ -45,13 +45,13 @@ class DriveTrainHardware {
         rightMaster.configClosedloopRamp(Constants.kDriveClosedLoopRampRate, Constants.kCANBusConfigTimeoutMS);
 
         //Fix sensor polarity
-        rightMaster.setInverted(true);
-        rightSlave.setInverted(true);
-        leftMaster.setInverted(false);
-        leftSlave.setInverted(false);
+        rightMaster.setInverted(false);
+        rightSlave.setInverted(false);
+        leftMaster.setInverted(true);
+        leftSlave.setInverted(true);
 
-        rightMaster.setSensorPhase(false);
-        leftMaster.setSensorPhase(false);
+//        rightMaster.setSensorPhase(false);
+//        leftMaster.setSensorPhase(false);
 
         //Configure talons for follower mode
         rightSlave.set(ControlMode.Follower, rightMaster.getDeviceID());
