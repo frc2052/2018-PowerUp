@@ -8,13 +8,16 @@ public class AutoModeSelector {
     private static SendableChooser<AutoModeDefinition> sendableChooserAutoMode; //Makes drop down for Auto Mode Selection
     private static SendableChooser<WaitTimeDefinition> sendableChooserWaitTime; //Makes drop down for Wait Time Selection
 
+    private static double trimFactorX =0;
+    private static double trimFactorY =0;
+
     public static double SelectedWaitTime;
-    public static void putToSmartDashboard() { //puts the auto modes and delay options to the smartdashboard
+    public static void putToSmartDashboard() { //puts the auto modes and delay options to the smart dashboard
         sendableChooserAutoMode = new SendableChooser<AutoModeDefinition>();
         for (int i = 0; i < AutoModeDefinition.values().length; i++) {
             AutoModeDefinition mode = AutoModeDefinition.values()[i];
             if (i == 0) {
-                sendableChooserAutoMode.addDefault(mode.name, mode); //a sendableChooser is a list
+                sendableChooserAutoMode.addDefault(mode.name, mode); //a sendeble Chooser is a list
             } else {
                 sendableChooserAutoMode.addObject(mode.name, mode);
             }
@@ -31,12 +34,18 @@ public class AutoModeSelector {
             }
         }
         SmartDashboard.putData("wait_time", sendableChooserWaitTime); //allows driver to choose wait time in Smart Dashboard
+
+        SmartDashboard.putNumber("trim_forward", trimFactorX);
+        SmartDashboard.putNumber("trim_right", trimFactorY);
     }
 
     public static AutoModeBase getAutoInstance() {
         return sendableChooserAutoMode.getSelected().getInstance();
     } //returns selected enum method
 
+    public static AutoModeDefinition getAutoDefinition(){
+        return sendableChooserAutoMode.getSelected();
+    }
     public enum AutoModeDefinition { //Auto mode options for drive team to choose
         DONT_MOVE("Don't Move", DontMove.class),
         LSTARTONLYSCALE("Start left, go only to scale",LStartOnlyScale.class),
@@ -46,7 +55,11 @@ public class AutoModeSelector {
         RSTARTPREFERSCALE("Start right, prefer to go to scale", RStartPreferScale.class),
         RSTARTPREFERSWITCH("Start right, prefer to go to switch", RStartPreferSwitch.class),
         CENTER("Start in center, go to switch", Center.class),
-        AUTOLINE("Just pass Autoline", Autoline.class);
+        AUTOLINEWITHTIMER("Start left or right, cross Autoline with timer", AutolineWithTimer.class),
+        AUTOLINEWITHTIMERCCENTERRIGHT("Start center, cross autoline to right with timer", AutolineWithTimerCenterRight.class),
+        AUTOLINEWITHTIMERCCENTERLEFT("Start center, cross autoline to left with timer", AutolineWithTimerCenterLeft.class),
+        TURNINPLACEAUTOTEST("Turn in place test", TurnInPlaceActionTest.class);
+
 
 
         private final Class<? extends AutoMode> clazz; //checks if the Class extends AutoMode, and then stores it in clazz
@@ -92,5 +105,12 @@ public class AutoModeSelector {
             SelectedWaitTime = WaitTime;
             return SelectedWaitTime;
         }
+    }
+    public static double getTrimY(){
+        return SmartDashboard.getNumber("trim_right", trimFactorY);
+    }
+
+    public static double getTrimX(){
+        return SmartDashboard.getNumber("trim_forward", trimFactorX);
     }
 }

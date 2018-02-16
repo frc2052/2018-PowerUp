@@ -4,7 +4,7 @@ public class AutoModeRunner {
     Thread autoThread;
     AutoModeBase autoMode;
 
-    public void start() {//Initalizes auto mode
+    public void start() {//Initializes auto mode
         if (autoMode == null)
             return;
         autoThread = new Thread(() -> autoMode.start());

@@ -1,12 +1,12 @@
 package frc.team2052.powerup.subsystems;
 
 import edu.wpi.first.wpilibj.Solenoid;
-import frc.team2052.powerup.constants.RampConstants;
+import frc.team2052.powerup.Constants;
 
 public class Ramp {
 
     private static Ramp instance = null;
-    public static Ramp getInstance() {
+    public static Ramp getInstance() { //if ramp doesn't work, still do other stuff
         if (instance == null) {
             try {
                 instance = new Ramp();
@@ -17,6 +17,7 @@ public class Ramp {
         }
         return instance;
     }
+  
     //Ramp pins for each side and extending/collapsing ramp on each side
     private Solenoid rampPinLeftIn;
     private Solenoid rampPinLeftOut;
@@ -35,9 +36,6 @@ public class Ramp {
         leftRampIn = new Solenoid(RampConstants.kLeftRampInId);
         leftRampOut = new Solenoid(RampConstants.kLeftRampOutId);
     }
-
-
-
 
     public void dropRampPinLeft()  {
             rampPinLeftIn.set(true);
@@ -68,11 +66,3 @@ public class Ramp {
 
     }
 }
-
-
-
-
-
-
-
-

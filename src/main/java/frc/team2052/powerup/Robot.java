@@ -3,18 +3,11 @@ package frc.team2052.powerup;
 import com.first.team2052.lib.ControlLoop;
 import com.first.team2052.lib.RevRoboticsPressureSensor;
 import com.first.team2052.lib.vec.RigidTransform2d;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
-import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.team2052.powerup.auto.AutoModeRunner;
-import frc.team2052.powerup.auto.AutoModeSelector;
-import frc.team2052.powerup.constants.ControlLoopConstants;
-import frc.team2052.powerup.subsystems.Controls;
-import frc.team2052.powerup.subsystems.Elevator;
-import frc.team2052.powerup.subsystems.Intake;
-import frc.team2052.powerup.subsystems.Ramp;
+import frc.team2052.powerup.auto.modes.TestPath;
+import frc.team2052.powerup.subsystems.*;
+import frc.team2052.powerup.auto.*;
 import frc.team2052.powerup.subsystems.drive.DriveSignal;
 import frc.team2052.powerup.subsystems.drive.DriveTrain;
 
@@ -25,7 +18,7 @@ public class Robot extends IterativeRobot {
     private ControlLoop slowerLooper = null;
 
     private static DriveTrain driveTrain = null;
-    private Intake intake = null;
+    private Pickup intake = null;
     private Controls controls = null;
     private Ramp ramp = null;
     private Elevator elevator = null;
@@ -37,30 +30,34 @@ public class Robot extends IterativeRobot {
 
     private PowerDistributionPanel pdp = null;
     private RevRoboticsPressureSensor revRoboticsPressureSensor = null;
-
+    private Compressor compressor;
 
     @Override
     public void robotInit() {
-        System.out.println("Starting Robot Code - HELLO WORLD!");
-        driveHelper = new DriveHelper();
-
-        //Subsystems
         driveTrain = DriveTrain.getInstance();
         driveHelper = new DriveHelper();
         controls = Controls.getInstance();
+        //Camera.getInstance().init();
 
         //////THESE SUBSYSTEMS ARE FAULT TOLERANT/////
         /////// they will return null if they fail to create themselves////////
-//        intake = Intake.getInstance();
+        intake = Pickup.getInstance();
 //        ramp = Ramp.getInstance();
-//        elevator = Elevator.getInstance();
+        elevator = Elevator.getInstance();
         //////////////////////////////////////////////
 
-        pdp = new PowerDistributionPanel();
+        try {
+            compressor = new Compressor();
+            compressor.setClosedLoopControl(true);
+        } catch (Exception exc) {
+            System.out.println("DANGER: No compressor!");
+        }
+
+        pdp = new PowerDistributionPanel(Constants.kPDPId);
 
         //Control loops for auto and teleop
-        controlLoop = new ControlLoop(ControlLoopConstants.kControlLoopPeriod);
-        slowerLooper = new ControlLoop(ControlLoopConstants.kSlowControlLoopPeriod);
+        controlLoop = new ControlLoop(Constants.kControlLoopPeriod);
+        slowerLooper = new ControlLoop(Constants.kSlowControlLoopPeriod);
 
         robotState = RobotState.getInstance();
         stateEstimator = RobotStateEstimator.getInstance();
@@ -68,9 +65,14 @@ public class Robot extends IterativeRobot {
         controlLoop.addLoopable(driveTrain.getLoopable());
         controlLoop.addLoopable(stateEstimator);
 
-        if (intake != null) {
-            //Slower loops because why update them 100 times a second
-            slowerLooper.addLoopable(intake);
+
+        if (elevator != null) {
+            elevator.zeroSensor();
+            controlLoop.addLoopable(elevator);
+        }
+        if (intake != null)
+        {
+            intake.pickupPositionStartingConfig();
         }
 
         //slowerLooper.addLoopable(VisionProcessor.getInstance());
@@ -103,34 +105,57 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void autonomousInit() {
+        AutoPaths.Init();
         zeroAllSensors();
         Timer.delay(.25);
-        elevator.zeroSensor();
 
-        driveTrain.setOpenLoop(DriveSignal.NEUTRAL);  //put robot into don't move, no looper mode
-        driveTrain.setBrakeMode(false); //TODO: should we turn off break mode in Auto?
-
-        if (intake != null) {
-            intake.getWantClosed();  //keep the intake closed, because we should be holding a cube
+        if (elevator != null) {
+            elevator.zeroSensor();
         }
+        driveTrain.setOpenLoop(DriveSignal.NEUTRAL);  //put robot into don't move, no looper mode
+        driveTrain.setBrakeMode(false);
 
+        AutoPaths.Init();
         robotState.reset(Timer.getFPGATimestamp(), new RigidTransform2d());
         logLooper.start();
         controlLoop.start();
         slowerLooper.start();
-        autoModeRunner.setAutoMode(AutoModeSelector.getAutoInstance());
+
+        AutoModeSelector.AutoModeDefinition currentAutoMode = AutoModeSelector.getAutoDefinition(); //creates a variable we can change
+        if (!DriveTrain.getInstance().CheckGyro() ){ //if gyro does not work, set auto path to a path with timer
+            switch (AutoModeSelector.getAutoDefinition()) {
+                case LSTARTONLYSCALE:
+                case LSTARTPERFERSCALE:
+                case LSTARTPREFERSWITCH:
+                case RSTARTONLYSCALE:
+                case RSTARTPREFERSCALE:
+                case RSTARTPREFERSWITCH:
+                    currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
+                    break;
+                case CENTER: {
+                    if (FieldConfig.isMySwitchLeft()) { //see what switch is ours and change path to a timer path that goes to out switch
+                        currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMERCCENTERLEFT;
+                    } else {
+                        currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMERCCENTERRIGHT;
+                    }
+                    break;
+                }
+            }
+        }
+        autoModeRunner.setAutoMode(currentAutoMode.getInstance());
+        //autoModeRunner.setAutoMode(new TestPath());
         autoModeRunner.start();
     }
     @Override
-
     public void autonomousPeriodic() {
         SmartDashboard.putNumber("gyro", driveTrain.getGyroAngleDegrees());
         SmartDashboard.putNumber("gyroRate", driveTrain.getGyroRateDegrees());
         SmartDashboard.putNumber("psi", revRoboticsPressureSensor.getAirPressurePsi());
-        SmartDashboard.putNumber("LeftVel", driveTrain.getLeftVelocityInchesPerSec());
-        SmartDashboard.putNumber("RightVel", driveTrain.getRightVelocityInchesPerSec());
+        SmartDashboard.putNumber("LeftInches", driveTrain.getLeftDistanceInches());
+        SmartDashboard.putNumber("RightInches", driveTrain.getRightDistanceInches());
+        SmartDashboard.putNumber("LeftRaw", driveTrain.getLeftRawTicks());
+        SmartDashboard.putNumber("RightRaw", driveTrain.getRightRawTicks());
         robotState.outputToSmartDashboard();
-
     }
 
     @Override
@@ -146,8 +171,6 @@ public class Robot extends IterativeRobot {
 
         driveTrain.setOpenLoop(DriveSignal.NEUTRAL);
         driveTrain.setBrakeMode(true);
-
-        driveTrain.resetEncoders();
     }
 
     @Override
@@ -165,26 +188,27 @@ public class Robot extends IterativeRobot {
                 }
             }
         } else {*/
+
         driveTrain.setOpenLoop(driveHelper.drive(controls.getTank(), controls.getTurn(), controls.getQuickTurn()));
           //  visionTurn = false;
         //}
         double time = DriverStation.getInstance().getMatchTime();
 
         if (intake != null) {
-            if (controls.getIntakeOpenIntake()) {
-                intake.setWantOpenIntake();
-            } else if (controls.getIntakeOpenOuttake()) {
-                intake.getWantOpenOutake();
-            } else if (controls.getIntakeOpenOff()) {
-                intake.getWantOpenOff();
+            if (controls.getIntake()) {
+                intake.intake();
+            } else if (controls.getOuttake()) {
+                intake.outtake();
             } else {
-                intake.getWantClosed();
+                intake.stopped();
             }
 
             if (controls.getIntakeUp()){
-                intake.setIntakeup(true);
+                intake.pickupPositionRaised();
+            }else if (controls.getStartConfig()){
+                intake.pickupPositionStartingConfig();
             }else{
-                intake.setIntakeup(false);
+                intake.pickupPositionDown();
             }
         }
 
@@ -193,30 +217,22 @@ public class Robot extends IterativeRobot {
             if (controls.getElevatorPickup()) {
                 elevator.setTarget(Elevator.ElevatorPresetEnum.PICKUP);
             } else if (controls.getElevatorSwitch()) {
-                intake.getWantClosed();
                 elevator.setTarget(Elevator.ElevatorPresetEnum.SWITCH);
             } else if (controls.getElevatorScale1()) {
-                intake.getWantClosed();
                 elevator.setTarget(Elevator.ElevatorPresetEnum.SCALE_BALANCED);
             } else if (controls.getElevatorScale2()) {
-                intake.getWantClosed();
                 elevator.setTarget(Elevator.ElevatorPresetEnum.SCALE_HIGH);
             } else if (controls.getElevatorScale3()) {
-                intake.getWantClosed();
                 elevator.setTarget(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING);
             }
 
-            if(controls.getElevatorAdjustmentUp() == true)
-            {
-                intake.getWantClosed();
-                elevator.getElevatorAdjustmentUp(controls.getElevatorAdjustmentUp());
-            }
+            //elevator class checks if the button changed its state and adjusts to that
+            //so always send if the buttons is up or down
+            elevator.setElevatorAdjustmentUp(controls.getElevatorAdjustmentUp());
+            elevator.setElevatorAdjustmentDown(controls.getElevatorAdjustmentDown());
 
-            if(controls.getElevatorAdjustmentDown() == true)
-            {
-                intake.getWantClosed();
-                elevator.getElevatorAdjustmentDown(controls.getElevatorAdjustmentUp());
-            }
+            elevator.setEmergencyDown(controls.getElevatorEmergencyDown());
+            elevator.setEmergencyUp(controls.getElevatorEmergencyUp());
         }
 
         if (ramp != null && time < 30)
@@ -231,7 +247,6 @@ public class Robot extends IterativeRobot {
                 ramp.dropRampPinRight();
             }
 
-            //todo: toggle ramp?? or stick with 4 buttons
             if (controls.getLowerLeftRamp()){
                 ramp.lowerLeftRamp();
             }else if(controls.getRaiseLeftRamp()){
@@ -245,11 +260,11 @@ public class Robot extends IterativeRobot {
             }
         }
 
-        SmartDashboard.putNumber("gyro", driveTrain.getGyroAngleDegrees());
+        SmartDashboard.putNumber("gyroAngle", driveTrain.getGyroAngleDegrees());
         SmartDashboard.putNumber("gyroRate", driveTrain.getGyroRateDegrees());
         SmartDashboard.putNumber("psi", revRoboticsPressureSensor.getAirPressurePsi());
-        SmartDashboard.putNumber("LeftVel", driveTrain.getLeftVelocityInchesPerSec());
-        SmartDashboard.putNumber("RightVel", driveTrain.getRightVelocityInchesPerSec());
+        SmartDashboard.putNumber("LeftInches", driveTrain.getLeftDistanceInches());
+        SmartDashboard.putNumber("RightInches", driveTrain.getRightDistanceInches());
         robotState.outputToSmartDashboard();
     }
 
@@ -259,7 +274,7 @@ public class Robot extends IterativeRobot {
     @Override
     public void testPeriodic() { }
 
-    public void zeroAllSensors() { //todo: add this for the elevator
+    public void zeroAllSensors() {
         driveTrain.resetEncoders();
         driveTrain.zeroGyro();
     }

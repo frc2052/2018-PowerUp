@@ -4,6 +4,7 @@ import com.first.team2052.lib.Loopable;
 import com.first.team2052.lib.vec.RigidTransform2d;
 import com.first.team2052.lib.vec.Rotation2d;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2052.powerup.subsystems.drive.DriveTrain;
 
 /**
@@ -38,7 +39,9 @@ public class RobotStateEstimator implements Loopable {
         Rotation2d gyroAngle = driveTrain.getGyroAngle();
 
         //System.out.println("Left Encoder: " + left_distance + "   Right Encoder: " + right_distance);
-        
+
+        SmartDashboard.putNumber("RobotStateGyro", gyroAngle.getDegrees());
+
         //Generates most previous distance and encoder values
         RigidTransform2d odometry = robotState.generateOdometryFromSensors(
                 left_distance - left_encoder_prev_distance,

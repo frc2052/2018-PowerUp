@@ -21,11 +21,9 @@ public class WaitUntilAngle implements Action {
 
     @Override
     public void start() {
-
     }
 
     @Override
     public void update() {
-
     }
 }

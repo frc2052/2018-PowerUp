@@ -1,9 +1,10 @@
 package frc.team2052.powerup.auto.actions;
 
-import frc.team2052.powerup.subsystems.Intake;
-//Sets Intake to closed in auto mode
+import frc.team2052.powerup.subsystems.Pickup;
 
-public class WantClosedAction implements Action {
+public class WantOffAction implements Action {
+//Sets intake off
+    
     @Override
     public void done() {
 
@@ -11,13 +12,12 @@ public class WantClosedAction implements Action {
 
     @Override
     public boolean isFinished() {
-        return Intake.getInstance().getWantClosed() == true;
+        return true;
     }
 
     @Override
     public void start() {
-        Intake.getInstance().setWantClosed();
-
+        Pickup.getInstance().stopped();
     }
 
     @Override

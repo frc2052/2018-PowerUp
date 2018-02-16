@@ -6,10 +6,8 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.SerialPort;
-import frc.team2052.powerup.constants.DriveConstants;
+import frc.team2052.powerup.Constants;
 
 /**
  * Created by KnightKrawler on 1/19/2018.
@@ -27,50 +25,56 @@ class DriveTrainHardware {
     private boolean isBrakeMode = true;
 
 
+
+
     DriveTrainHardware() {
-        rightMaster = new TalonSRX(DriveConstants.kDriveRightMasterId);
-        rightSlave = new TalonSRX(DriveConstants.kDriveRightSlaveId);
+        rightMaster = new TalonSRX(Constants.kDriveRightMasterId);
+        rightSlave = new TalonSRX(Constants.kDriveRightSlaveId);
 
-        leftMaster = new TalonSRX(DriveConstants.kDriveLeftMasterId);
-        leftSlave = new TalonSRX(DriveConstants.kDriveLeftSlaveId);
+        leftMaster = new TalonSRX(Constants.kDriveLeftMasterId);
+        leftSlave = new TalonSRX(Constants.kDriveLeftSlaveId);
 
 
-        //todo: check if setting encoderticks is needed
 
-        leftMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, kVelocityControlSlot, DriveConstants.kCANBusConfigTimeoutMS);
-        rightMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, kVelocityControlSlot, DriveConstants.kCANBusConfigTimeoutMS);
+        leftMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, kVelocityControlSlot, Constants.kCANBusConfigTimeoutMS);
+        rightMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, kVelocityControlSlot, Constants.kCANBusConfigTimeoutMS);
 
-        leftMaster.configOpenloopRamp(DriveConstants.kOpenLoopRampRate, DriveConstants.kCANBusConfigTimeoutMS);
-        leftMaster.configClosedloopRamp(DriveConstants.kClosedLoopRampRate, DriveConstants.kCANBusConfigTimeoutMS);
-        rightMaster.configOpenloopRamp(DriveConstants.kOpenLoopRampRate, DriveConstants.kCANBusConfigTimeoutMS);
-        rightMaster.configClosedloopRamp(DriveConstants.kClosedLoopRampRate, DriveConstants.kCANBusConfigTimeoutMS);
+        leftMaster.configOpenloopRamp(Constants.kDriveOpenLoopRampRate, Constants.kCANBusConfigTimeoutMS);
+        leftMaster.configClosedloopRamp(Constants.kDriveClosedLoopRampRate, Constants.kCANBusConfigTimeoutMS);
+        rightMaster.configOpenloopRamp(Constants.kDriveOpenLoopRampRate, Constants.kCANBusConfigTimeoutMS);
+        rightMaster.configClosedloopRamp(Constants.kDriveClosedLoopRampRate, Constants.kCANBusConfigTimeoutMS);
 
         //Fix sensor polarity
         rightMaster.setInverted(false);
         rightSlave.setInverted(false);
-
         leftMaster.setInverted(true);
         leftSlave.setInverted(true);
+
+        rightMaster.setSensorPhase(false);
+        leftMaster.setSensorPhase(false);
 
         //Configure talons for follower mode
         rightSlave.set(ControlMode.Follower, rightMaster.getDeviceID());
         leftSlave.set(ControlMode.Follower, leftMaster.getDeviceID());
 
-        // Load velocity control gains //todo: decide timeout seconds for
-        leftMaster.config_kP(kVelocityControlSlot, DriveConstants.kDriveVelocityKp, DriveConstants.kCANBusConfigTimeoutMS);
-        leftMaster.config_kI(kVelocityControlSlot, DriveConstants.kDriveVelocityKi, DriveConstants.kCANBusConfigTimeoutMS);
-        leftMaster.config_kD(kVelocityControlSlot, DriveConstants.kDriveVelocityKd, DriveConstants.kCANBusConfigTimeoutMS);
-        leftMaster.config_kF(kVelocityControlSlot, DriveConstants.kDriveVelocityKf, DriveConstants.kCANBusConfigTimeoutMS);
-        leftMaster.config_IntegralZone(kVelocityControlSlot, DriveConstants.kDriveVelocityIZone, DriveConstants.kCANBusConfigTimeoutMS);
+        // Load velocity control gains
+        leftMaster.config_kP(kVelocityControlSlot, Constants.kDriveVelocityKp, Constants.kCANBusConfigTimeoutMS);
+        leftMaster.config_kI(kVelocityControlSlot, Constants.kDriveVelocityKi, Constants.kCANBusConfigTimeoutMS);
+        leftMaster.config_kD(kVelocityControlSlot, Constants.kDriveVelocityKd, Constants.kCANBusConfigTimeoutMS);
+        leftMaster.config_kF(kVelocityControlSlot, Constants.kDriveVelocityKf, Constants.kCANBusConfigTimeoutMS);
+        leftMaster.config_IntegralZone(kVelocityControlSlot, Constants.kDriveVelocityIZone, Constants.kCANBusConfigTimeoutMS);
 
-        rightMaster.config_kP(kVelocityControlSlot, DriveConstants.kDriveVelocityKp, DriveConstants.kCANBusConfigTimeoutMS);
-        rightMaster.config_kI(kVelocityControlSlot, DriveConstants.kDriveVelocityKi, DriveConstants.kCANBusConfigTimeoutMS);
-        rightMaster.config_kD(kVelocityControlSlot, DriveConstants.kDriveVelocityKd, DriveConstants.kCANBusConfigTimeoutMS);
-        rightMaster.config_kF(kVelocityControlSlot, DriveConstants.kDriveVelocityKf, DriveConstants.kCANBusConfigTimeoutMS);
-        rightMaster.config_IntegralZone(kVelocityControlSlot, DriveConstants.kDriveVelocityIZone, DriveConstants.kCANBusConfigTimeoutMS);
+        rightMaster.config_kP(kVelocityControlSlot, Constants.kDriveVelocityKp, Constants.kCANBusConfigTimeoutMS);
+        rightMaster.config_kI(kVelocityControlSlot, Constants.kDriveVelocityKi, Constants.kCANBusConfigTimeoutMS);
+        rightMaster.config_kD(kVelocityControlSlot, Constants.kDriveVelocityKd, Constants.kCANBusConfigTimeoutMS);
+        rightMaster.config_kF(kVelocityControlSlot, Constants.kDriveVelocityKf, Constants.kCANBusConfigTimeoutMS);
+        rightMaster.config_IntegralZone(kVelocityControlSlot, Constants.kDriveVelocityIZone, Constants.kCANBusConfigTimeoutMS);
 
-        leftMaster.configMotionCruiseVelocity(430, DriveConstants.kCANBusConfigTimeoutMS);//todo: decide timeout seconds
-        rightMaster.configMotionCruiseVelocity(430, DriveConstants.kCANBusConfigTimeoutMS);
+        leftMaster.configAllowableClosedloopError(kVelocityControlSlot, Constants.kDriveVelocityAllowableError, Constants.kCANBusConfigTimeoutMS);
+        leftMaster.selectProfileSlot(kVelocityControlSlot,kVelocityControlSlot);
+        rightMaster.selectProfileSlot(kVelocityControlSlot, kVelocityControlSlot);
+        rightMaster.configAllowableClosedloopError(kVelocityControlSlot, Constants.kDriveVelocityAllowableError, Constants.kCANBusConfigTimeoutMS);
+        setBrakeMode(true);
 
         try {
             /***********************************************************************

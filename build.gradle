@@ -40,7 +40,6 @@ dependencies {
     compile ctre()
     compile navx()
     compile openrio.powerup.matchData()
-    compile 'com.team2052:KnightLib:1.0.0'
 }
 
 // Setting up my Jar File. In this case, adding all libraries into the main jar ('fat jar')
