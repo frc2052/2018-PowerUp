@@ -11,6 +11,7 @@ public class FieldConfig {
 
 
     public static boolean isMySwitchLeft() { //Switch is left = true, Switch is right = false
+        //string gameData;
         //gameData = DriverStation.getInstance().getGameSpecificMessage(); //getting the three letters telling us which scale/switch is ours
 
         if (gameData !=null && gameData.length() > 1) {
@@ -34,8 +35,8 @@ public class FieldConfig {
     }
 
     public static boolean isMyScaleLeft() { //Scale is left = true, Scale is right = false
-        String gameData;
-        gameData = DriverStation.getInstance().getGameSpecificMessage(); //getting the three letters telling us which scale/switch is ours
+        //String gameData;
+        //gameData = DriverStation.getInstance().getGameSpecificMessage(); //getting the three letters telling us which scale/switch is ours
         if (gameData !=null && gameData.length() > 2) {
             if (gameData.charAt(1) == 'L') //if second letter is left (our scale is left)
             {
