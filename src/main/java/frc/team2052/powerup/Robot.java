@@ -3,6 +3,7 @@ package frc.team2052.powerup;
 import com.first.team2052.lib.ControlLoop;
 import com.first.team2052.lib.RevRoboticsPressureSensor;
 import com.first.team2052.lib.vec.RigidTransform2d;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2052.powerup.auto.modes.TestPath;
@@ -33,6 +34,7 @@ public class Robot extends IterativeRobot {
     private Compressor compressor;
 
     private boolean firstIntakeButtonPressed;
+    NetworkTableInstance offSeasonNetworkTable = null;
 
     @Override
     public void robotInit() {
@@ -87,6 +89,9 @@ public class Robot extends IterativeRobot {
 
         AutoModeSelector.putToSmartDashboard();
         autoModeRunner = new AutoModeRunner();
+
+        offSeasonNetworkTable = NetworkTableInstance.create();
+        offSeasonNetworkTable.startClient("10.0.100.5");
     }
 
     @Override
@@ -144,6 +149,9 @@ public class Robot extends IterativeRobot {
                 }
             }
         }
+
+        FieldConfig.gameData = offSeasonNetworkTable.getTable("OffseasonFMSInfo").getEntry("GameData").getString("defaultValue");
+
         autoModeRunner.setAutoMode(currentAutoMode.getInstance());
         //autoModeRunner.setAutoMode(new TestPath());
         autoModeRunner.start();

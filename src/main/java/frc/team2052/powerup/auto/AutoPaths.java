@@ -33,8 +33,8 @@ public class AutoPaths {
         RRScale = new ArrayList();
         RRSwitch = new ArrayList();
         TestRun = new ArrayList();
-        ReverseLScale = new ArrayList<>();
-        ReverseRScale = new ArrayList<>();
+        ReverseLScale = new ArrayList();
+        ReverseRScale = new ArrayList();
 
         TestRun.add(new Path.Waypoint(new Translation2d(0, 0), Constants.kPathFollowingMaxVel));
         TestRun.add(new Path.Waypoint(new Translation2d(50, 0), Constants.kPathFollowingMaxVel, "RaiseElevator"));
