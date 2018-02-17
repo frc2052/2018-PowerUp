@@ -1,5 +1,6 @@
 package frc.team2052.powerup.subsystems;
 
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Solenoid;
 import frc.team2052.powerup.Constants;
 
@@ -19,30 +20,44 @@ public class Ramp {
     }
   
     //Ramp pins for each side and extending/collapsing ramp on each side
-    private Solenoid rampPinLeftIn;
-    private Solenoid rampPinLeftOut;
-    private Solenoid rampPinRightIn;
-    private Solenoid rampPinRightOut;
+    private Servo rightRampServo;
+    private Servo leftRampServo;
     private Solenoid rightRampIn;
     private Solenoid rightRampOut;
     private Solenoid leftRampIn;
     private Solenoid leftRampOut;
 
     private Ramp() {//todo rename to release pin for clarity
-        rampPinLeftIn  = new Solenoid(Constants.kRampLeftPinReleaseId); //The pins are used to keep the ramps up while the robot is driving
-        rampPinRightIn = new Solenoid(Constants.kRampRightPinReleaseId);
+        rightRampServo = new Servo(Constants.kRampRightServoId);
+        leftRampServo = new Servo(Constants.kRampLeftServoId);
         rightRampIn = new Solenoid(Constants.kRightRampInId);
         rightRampOut = new Solenoid(Constants.kRightRampOutId);
         leftRampIn = new Solenoid(Constants.kLeftRampInId);
         leftRampOut = new Solenoid(Constants.kLeftRampOutId);
     }
 
-    public void dropRampPinLeft()  {
-            rampPinLeftIn.set(true);
+    /**
+     *
+     * @param release if true release Left ramp
+     */
+    public void dropRampPinLeft(boolean release)  {
+        if(release){
+            leftRampServo.setAngle(Constants.kRampLeftServoReleaseAngle);
+        }else{
+            leftRampServo.setAngle(Constants.kRampLeftServoClosedAngle);
         }
+    }
 
-    public void dropRampPinRight() {
-            rampPinRightIn.set(true);
+    /**
+     *
+     * @param release if true release Right ramp
+     */
+    public void dropRampPinRight(boolean release) {
+        if(release){
+            rightRampServo.setAngle(Constants.kRampRightServoReleaseAngle);
+        }else{
+            rightRampServo.setAngle(Constants.kRampRightServoClosedAngle);
+        }
     }
 
     public void raiseRightRamp() {

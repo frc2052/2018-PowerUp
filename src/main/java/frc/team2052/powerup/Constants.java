@@ -17,27 +17,34 @@ public class Constants {public static int intakeSolenoid =1;
     public static int pickupRightMotorId =8;
     public static int pickupLeftMotorId =9;
 
+    public static int kRampLeftServoId = 10;//todo: find values
+    public static int kRampRightServoId = 11;
+
 
     /////////// Solenoids ////////////
     public static int armLongSolenoidOut = 0;
     public static int armLongSolenoidIn = 1;
-    public static int armShortSolenoidOut =2;
+    public static int armShortSolenoidOut =2;//not used
     public static int armShortSolenoidIn = 3;
     public static int jawsSolenoidOut =21;
     public static int jawsSolenoidIn =22;
 
-    public static int kRampLeftPinReleaseId = 10;
-    public static int kRampRightPinReleaseId = 11;
-    public static int kRightRampInId = 14;
-    public static int kRightRampOutId = 15;
-    public static int kLeftRampInId = 16;
-    public static int kLeftRampOutId = 17;
+    public static int kRightRampInId = 14;//not used
+    public static int kRightRampOutId = 5;
+    public static int kLeftRampInId = 16;//not used
+    public static int kLeftRampOutId = 4;
 
     /////////// Intake ////////////
     public static double intakeInSpeedLeft = 1;
     public static double intakeInSpeedRight = intakeInSpeedLeft * .8;
     public static double intakeOutSpeed = -.6;
     public static double intakeStopSpeed = 0;
+
+    /////////// Ramp ////////////
+    public static int kRampRightServoReleaseAngle = 150;
+    public static int kRampRightServoClosedAngle = 0;
+    public static int kRampLeftServoReleaseAngle = 150;
+    public static int kRampLeftServoClosedAngle = 0;
 
     /////////// Buttons ////////////
     //SECONDARY
@@ -94,6 +101,7 @@ public class Constants {public static int intakeSolenoid =1;
     public static double kDriveVelocityRampRate = 0.0;
     public static int kDriveVelocityAllowableError = 0;
     public static double kPathFollowingLookahead = 24;
+    public static double kPathFollowingMinVel = 20;
     public static double kPathFollowingMaxAccel = 100;
     public static double kPathFollowingMaxVel = 200;
     public static double kDriveHeadingVelocityKp = 5.0;

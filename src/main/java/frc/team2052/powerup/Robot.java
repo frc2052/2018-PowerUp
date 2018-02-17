@@ -42,7 +42,7 @@ public class Robot extends IterativeRobot {
         //////THESE SUBSYSTEMS ARE FAULT TOLERANT/////
         /////// they will return null if they fail to create themselves////////
         intake = Pickup.getInstance();
-//        ramp = Ramp.getInstance();
+        ramp = Ramp.getInstance();
         elevator = Elevator.getInstance();
         //////////////////////////////////////////////
 
@@ -237,15 +237,10 @@ public class Robot extends IterativeRobot {
 
         if (ramp != null && time < 30)
         {
-            if(controls.getDropLeftRamp())
-            {
-                ramp.dropRampPinLeft();
-            }
+            ramp.dropRampPinLeft(controls.getDropLeftRamp());
 
-            if(controls.getDropRightRamp())
-            {
-                ramp.dropRampPinRight();
-            }
+            ramp.dropRampPinRight(controls.getDropRightRamp());
+
 
             if (controls.getLowerLeftRamp()){
                 ramp.lowerLeftRamp();

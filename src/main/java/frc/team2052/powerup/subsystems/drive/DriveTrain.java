@@ -241,8 +241,12 @@ public class DriveTrain extends DriveTrainHardware {
         double max_vel = 0.0;
         max_vel = Math.max(max_vel, Math.abs(setpoint.left));
         max_vel = Math.max(max_vel, Math.abs(setpoint.right));
+
         if (max_vel > Constants.kPathFollowingMaxVel) {
             double scaling = Constants.kPathFollowingMaxVel / max_vel;
+            setpoint = new Kinematics.DriveVelocity(setpoint.left * scaling, setpoint.right * scaling);
+        } else if (max_vel < Constants.kPathFollowingMinVel) {
+            double scaling = max_vel / Constants.kPathFollowingMinVel;
             setpoint = new Kinematics.DriveVelocity(setpoint.left * scaling, setpoint.right * scaling);
         }
 
