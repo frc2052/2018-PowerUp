@@ -64,13 +64,13 @@ public class AutoPaths {
         CLSwitch.add(new Path.Waypoint(new Translation2d(0, 0), Constants.kPathFollowingMaxVel));
         CLSwitch.add(new Path.Waypoint(new Translation2d(30, 0), Constants.kPathFollowingMaxVel, "RaiseElevator"));
         CLSwitch.add(new Path.Waypoint(new Translation2d(80, -75), Constants.kPathFollowingMaxVel));
-        CLSwitch.add(new Path.Waypoint(new Translation2d(112, -75), Constants.kPathFollowingMaxVel));
+        CLSwitch.add(new Path.Waypoint(new Translation2d(108, -75), Constants.kPathFollowingMaxVel));
 
         //start center go to right switch
         CRSwitch.add(new Path.Waypoint(new Translation2d(0, 0), Constants.kPathFollowingMaxVel));
         CRSwitch.add(new Path.Waypoint(new Translation2d(30, 0), Constants.kPathFollowingMaxVel, "RaiseElevator"));
         CRSwitch.add(new Path.Waypoint(new Translation2d(80, 54), Constants.kPathFollowingMaxVel));
-        CRSwitch.add(new Path.Waypoint(new Translation2d(112, 54), Constants.kPathFollowingMaxVel));
+        CRSwitch.add(new Path.Waypoint(new Translation2d(108, 54), Constants.kPathFollowingMaxVel));
 
         //start right go to left scale
         RLScale.add(new Path.Waypoint(new Translation2d(0, 0), Constants.kPathFollowingMaxVel));

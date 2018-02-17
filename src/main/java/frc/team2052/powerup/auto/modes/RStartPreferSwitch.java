@@ -20,7 +20,8 @@ public class RStartPreferSwitch extends AutoMode {
                         new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
                             new  ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH), //Elevator raises to place on balanced scale
                             new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN))))),
-                    new WantOutakeAction() //pushes cube out
+                    new WantOutakeAction(), //pushes cube out
+                    new MoveArmAction(MoveArmAction.ArmPositionEnum.START)
             )));
         }
         else if(!FieldConfig.isMyScaleLeft()){ // if right scale is ours

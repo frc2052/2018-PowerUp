@@ -32,6 +32,8 @@ public class Robot extends IterativeRobot {
     private RevRoboticsPressureSensor revRoboticsPressureSensor = null;
     private Compressor compressor;
 
+    private boolean firstIntakeButtonPressed;
+
     @Override
     public void robotInit() {
         driveTrain = DriveTrain.getInstance();
@@ -195,6 +197,7 @@ public class Robot extends IterativeRobot {
         double time = DriverStation.getInstance().getMatchTime();
 
         if (intake != null) {
+
             if (controls.getIntake()) {
                 intake.intake();
             } else if (controls.getOuttake()) {
@@ -203,12 +206,15 @@ public class Robot extends IterativeRobot {
                 intake.stopped();
             }
 
-            if (controls.getIntakeUp()){
-                intake.pickupPositionRaised();
-            }else if (controls.getStartConfig()){
-                intake.pickupPositionStartingConfig();
-            }else{
-                intake.pickupPositionDown();
+            firstIntakeButtonPressed = firstIntakeButtonPressed || controls.getIntakeUp();
+            if (firstIntakeButtonPressed) {
+                if (controls.getIntakeUp()) {
+                    intake.pickupPositionRaised();
+                } else if (controls.getStartConfig()) {
+                    intake.pickupPositionStartingConfig();
+                } else {
+                    intake.pickupPositionDown();
+                }
             }
         }
 

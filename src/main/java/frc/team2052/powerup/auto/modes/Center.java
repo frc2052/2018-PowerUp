@@ -15,22 +15,24 @@ public class Center extends AutoMode {
         runAction(new SeriesAction(Arrays.asList(new WaitAction(AutoModeSelector.SelectedWaitTime))));
         if(FieldConfig.isMySwitchLeft()) { //if left switch is ours
             runAction(new SeriesAction(Arrays.asList(
-                                    new ParallelAction(Arrays.asList(
-                                            new TimeoutAction(new FollowPathAction(new Path(AutoPaths.CLSwitch), false), 8), //pathing to left switch
-                                            new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
-                                                new ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH),
-                                                new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN))))), //lowers pickup to position pointing out
-                                    new WantOutakeAction()//pushes cube out
+                    new ParallelAction(Arrays.asList(
+                            new TimeoutAction(new FollowPathAction(new Path(AutoPaths.CLSwitch), false), 6), //pathing to left switch
+                            new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
+                                new ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH),
+                                new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN))))), //lowers pickup to position pointing out
+                    new WantOutakeAction(),//pushes cube out
+                    new MoveArmAction(MoveArmAction.ArmPositionEnum.START)
             )));
         }
         else { //if right switch is ours
             runAction(new SeriesAction(Arrays.asList(
                     new ParallelAction(Arrays.asList(
-                            new TimeoutAction(new FollowPathAction(new Path(AutoPaths.CRSwitch), false), 8), //pathing to left switch
+                            new TimeoutAction(new FollowPathAction(new Path(AutoPaths.CRSwitch), false), 6), //pathing to left switch
                             new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
                                     new ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH),
                                     new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN))))), //lowers pickup to position pointing out
-                    new WantOutakeAction()//pushes cube out
+                    new WantOutakeAction(),//pushes cube out
+                    new MoveArmAction(MoveArmAction.ArmPositionEnum.START)
             )));
         }
     }

@@ -20,7 +20,8 @@ public class LStartPreferSwitch extends AutoMode {
                         new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
                             new  ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH), //Elevator raises to place on switch
                             new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN))))), //lowers pickup to position pointing out
-                    new WantOutakeAction() //pushes cube out
+                    new WantOutakeAction(), //pushes cube out
+                    new MoveArmAction(MoveArmAction.ArmPositionEnum.START)
             )));
         }
         else if(FieldConfig.isMyScaleLeft()){ // if left Scale is ours
