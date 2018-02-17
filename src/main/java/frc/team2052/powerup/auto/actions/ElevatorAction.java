@@ -6,9 +6,6 @@ import frc.team2052.powerup.subsystems.Elevator;
 public class ElevatorAction implements Action{
     private boolean isStuck = false;
 
-    public ElevatorAction() {
-    }
-
     @Override
     public void done() {
     }

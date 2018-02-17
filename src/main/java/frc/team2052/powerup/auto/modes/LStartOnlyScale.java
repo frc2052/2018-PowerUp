@@ -19,8 +19,9 @@ public class LStartOnlyScale extends AutoMode {
                         new TimeoutAction(new FollowPathAction(new Path(AutoPaths.LLScale), false), 10), //pathing to left scale
                         new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
                             new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH), //Elevator raises to place on switch
-                            new LowerPickupAction())))), //lowers pickup to position pointing out
-                    new WantOutakeAction() //pushes cube out
+                            new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN))))), //lowers pickup to position pointing out
+                    new WantOutakeAction(),//pushes cube out
+                    new MoveArmAction(MoveArmAction.ArmPositionEnum.START)
             )));
         }
         else {
@@ -29,8 +30,9 @@ public class LStartOnlyScale extends AutoMode {
                         new TimeoutAction(new FollowPathAction(new Path(AutoPaths.LRScale), false), 10),  //pathing to right scale
                         new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
                             new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH), //Elevator raises to place on balanced scale
-                            new LowerPickupAction())))), //lowers pickup to position pointing out
-                    new WantOutakeAction() //pushes cube out
+                            new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN))))), //lowers pickup to position pointing out
+                    new WantOutakeAction(),//pushes cube out
+                    new MoveArmAction(MoveArmAction.ArmPositionEnum.START)
             )));
         }
     }

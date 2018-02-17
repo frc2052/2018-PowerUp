@@ -19,7 +19,7 @@ public class Center extends AutoMode {
                                             new TimeoutAction(new FollowPathAction(new Path(AutoPaths.CLSwitch), false), 8), //pathing to left switch
                                             new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
                                                 new ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH),
-                                                new LowerPickupAction())))), //lowers pickup to position pointing out
+                                                new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN))))), //lowers pickup to position pointing out
                                     new WantOutakeAction()//pushes cube out
             )));
         }
@@ -29,7 +29,7 @@ public class Center extends AutoMode {
                             new TimeoutAction(new FollowPathAction(new Path(AutoPaths.CRSwitch), false), 8), //pathing to left switch
                             new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
                                     new ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH),
-                                    new LowerPickupAction())))), //lowers pickup to position pointing out
+                                    new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN))))), //lowers pickup to position pointing out
                     new WantOutakeAction()//pushes cube out
             )));
         }

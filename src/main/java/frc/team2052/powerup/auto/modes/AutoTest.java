@@ -40,7 +40,7 @@ public class AutoTest extends AutoMode{
                 new WantOutakeAction(), //pickup outtake
                 new WantOffAction(), //pickup off
 
-                new LowerPickupAction()  //Test lowering the Pickup
+                new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN)  //Test lowering the Pickup
         ));
 
     }

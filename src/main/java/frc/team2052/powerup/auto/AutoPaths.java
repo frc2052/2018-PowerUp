@@ -19,6 +19,9 @@ public class AutoPaths {
     public static List<Path.Waypoint> RRScale;
     public static List<Path.Waypoint> RRSwitch;
     public static List<Path.Waypoint> TestRun;
+    public static List<Path.Waypoint> ReverseRScale;
+    public static List<Path.Waypoint> ReverseLScale;
+
 
     public static void Init() {
         LLSwitch = new ArrayList();
@@ -30,6 +33,8 @@ public class AutoPaths {
         RRScale = new ArrayList();
         RRSwitch = new ArrayList();
         TestRun = new ArrayList();
+        ReverseLScale = new ArrayList<>();
+        ReverseRScale = new ArrayList<>();
 
         TestRun.add(new Path.Waypoint(new Translation2d(0, 0), Constants.kPathFollowingMaxVel));
         TestRun.add(new Path.Waypoint(new Translation2d(50, 0), Constants.kPathFollowingMaxVel, "RaiseElevator"));
@@ -42,7 +47,8 @@ public class AutoPaths {
 
         //start left go to left scale
         LLScale.add(new Path.Waypoint(new Translation2d(0, 0), Constants.kPathFollowingMaxVel));
-        LLScale.add(new Path.Waypoint(new Translation2d(225, 0), Constants.kPathFollowingMaxVel, "RaiseElevator"));
+        RRScale.add(new Path.Waypoint(new Translation2d(150, 0), Constants.kPathFollowingMaxVel, "RaiseElevator"));
+        LLScale.add(new Path.Waypoint(new Translation2d(225, 0), Constants.kPathFollowingMaxVel));
         LLScale.add(new Path.Waypoint(new Translation2d(241, 0), Constants.kPathFollowingMaxVel));
         LLScale.add(new Path.Waypoint(new Translation2d(266, 20), Constants.kPathFollowingMaxVel));
 
@@ -86,6 +92,14 @@ public class AutoPaths {
         RRSwitch.add(new Path.Waypoint(new Translation2d(120, 0), Constants.kPathFollowingMaxVel, "RaiseElevator"));
         RRSwitch.add(new Path.Waypoint(new Translation2d(150, 0), Constants.kPathFollowingMaxVel));
         RRSwitch.add(new Path.Waypoint(new Translation2d(150, -28), Constants.kPathFollowingMaxVel));
+
+        for(int i = RRScale.size() -1; i >= RRScale.size()-2; i--){
+            ReverseRScale.add(RRScale.get(i));
+        }
+
+        for(int i = LLScale.size() -1; i >= LLScale.size()-2; i--){
+            ReverseLScale.add(LLScale.get(i));
+        }
 
     }
 }
