@@ -16,18 +16,20 @@ public class LStartOnlyScale extends AutoMode {
         if(FieldConfig.isMyScaleLeft()) { //if left scale is ours
             runAction(new SeriesAction(Arrays.asList(
                     new ParallelAction(Arrays.asList(
-                        new FollowPathAction(new Path(AutoPaths.LLScale), false), //pathing to left scale
+                        new TimeoutAction(new FollowPathAction(new Path(AutoPaths.LLScale), false), 10), //pathing to left scale
                         new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
-                            new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_BALANCED))))), //Elevator raises to place on switch
+                            new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH), //Elevator raises to place on switch
+                            new LowerPickupAction())))), //lowers pickup to position pointing out
                     new WantOutakeAction() //pushes cube out
             )));
         }
         else {
             runAction(new SeriesAction(Arrays.asList(
                     new ParallelAction(Arrays.asList(
-                        new FollowPathAction(new Path(AutoPaths.LRScale), false),  //pathing to right scale
+                        new TimeoutAction(new FollowPathAction(new Path(AutoPaths.LRScale), false), 10),  //pathing to right scale
                         new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
-                            new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_BALANCED))))), //Elevator raises to place on balanced scale
+                            new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH), //Elevator raises to place on balanced scale
+                            new LowerPickupAction())))), //lowers pickup to position pointing out
                     new WantOutakeAction() //pushes cube out
             )));
         }

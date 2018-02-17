@@ -235,7 +235,7 @@ public class Robot extends IterativeRobot {
             elevator.setEmergencyUp(controls.getElevatorEmergencyUp());
         }
 
-        if (ramp != null && time < 30)
+        if (ramp != null /*&& time < 30*/)
         {
             ramp.dropRampPinLeft(controls.getDropLeftRamp());
 
@@ -243,14 +243,17 @@ public class Robot extends IterativeRobot {
 
 
             if (controls.getLowerLeftRamp()){
+                System.out.println("LOWER LEFT RAMP");
                 ramp.lowerLeftRamp();
             }else if(controls.getRaiseLeftRamp()){
+                System.out.println("RAISE LEFT RAMP________");
                 ramp.raiseLeftRamp();
             }
 
             if (controls.getLowerRightRamp()){
                 ramp.lowerRightRamp();
             }else if(controls.getRaiseRightRamp()){
+                System.out.println("RAISING RIGHT RAMP");
                 ramp.raiseRightRamp();
             }
         }

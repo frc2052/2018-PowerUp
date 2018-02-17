@@ -61,23 +61,23 @@ public class Ramp {
     }
 
     public void raiseRightRamp() {
-            rightRampIn.set(true);
-            rightRampOut.set(false);
+            rightRampIn.set(false);
+            rightRampOut.set(true);
         }
 
     public void raiseLeftRamp() {
-            leftRampIn.set(true);
-            leftRampOut.set(false);
-        }
-
-    public void lowerLeftRamp() {
             leftRampIn.set(false);
             leftRampOut.set(true);
         }
 
+    public void lowerLeftRamp() {
+            leftRampIn.set(true);
+            leftRampOut.set(false);
+        }
+
     public void lowerRightRamp() {
-        rightRampIn.set(false);
-        rightRampOut.set(true);
+        rightRampIn.set(true);
+        rightRampOut.set(false);
 
     }
 }
