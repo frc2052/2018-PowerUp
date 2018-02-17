@@ -58,8 +58,8 @@ public class Constants {public static int intakeSolenoid =1;
     public static int kManualElevator_RaiseButton = 11; //emergency manual elevator control
     public static int kManualElevator_LowerButton = 12; //-Find manual elevator buttons
 
-    public static int kJoystickDropLeftPin = 10;
-    public static int kJoystickDropRightPin = 11;
+    public static int kJoystickDropLeftPin = 9;
+    public static int kJoystickDropRightPin = 9;
     public static int kJoystickRaiseRightRamp = 5;
     public static int kJoystickRaiseLeftRamp = 5;
     public static int kJoystickLowerLeftRamp = 2;

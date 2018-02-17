@@ -42,12 +42,12 @@ public class Controls {
 //Ramp classes
     public boolean getDropLeftRamp() {return rightPrimaryJoystick.getRawButton(Constants.kJoystickDropLeftPin);}
     public boolean getDropRightRamp() {
-        return rightPrimaryJoystick.getRawButton(Constants.kJoystickDropRightPin);
+        return leftPrimaryJoystick.getRawButton(Constants.kJoystickDropRightPin);
     }
-    public boolean getRaiseRightRamp() {return rightPrimaryJoystick.getRawButton(Constants.kJoystickRaiseRightRamp);}
+    public boolean getRaiseRightRamp() {return leftPrimaryJoystick.getRawButton(Constants.kJoystickRaiseRightRamp);}
     public boolean getRaiseLeftRamp() {return rightPrimaryJoystick.getRawButton(Constants.kJoystickRaiseLeftRamp);}
     public boolean getLowerRightRamp() {return leftPrimaryJoystick.getRawButton(Constants.kJoystickLowerRightRamp);}
-    public boolean getLowerLeftRamp() {return leftPrimaryJoystick.getRawButton(Constants.kJoystickLowerLeftRamp);}
+    public boolean getLowerLeftRamp() {return rightPrimaryJoystick.getRawButton(Constants.kJoystickLowerLeftRamp);}
 
     //Intake classes
     public boolean getIntakeUp() {return secondaryJoystick.getRawButton(Constants.kJoystickIntakeUp);}
