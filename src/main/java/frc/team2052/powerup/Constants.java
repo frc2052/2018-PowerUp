@@ -37,7 +37,7 @@ public class Constants {public static int intakeSolenoid =1;
     /////////// Intake ////////////
     public static double intakeInSpeedLeft = 1;
     public static double intakeInSpeedRight = intakeInSpeedLeft * .8;
-    public static double intakeOutSpeed = -.6;
+    public static double intakeOutSpeed = -.35;
     public static double intakeStopSpeed = 0;
 
     /////////// Ramp ////////////
@@ -58,12 +58,12 @@ public class Constants {public static int intakeSolenoid =1;
     public static int kManualElevator_RaiseButton = 11; //emergency manual elevator control
     public static int kManualElevator_LowerButton = 12; //-Find manual elevator buttons
 
-    public static int kJoystickDropLeftPin = 8;
-    public static int kJoystickDropRightPin = 9;
-    public static int kJoystickRaiseRightRamp = 11;
-    public static int kJoystickRaiseLeftRamp = 6;
-    public static int kJoystickLowerLeftRamp = 7;
-    public static int kJoystickLowerRightRamp = 10;
+    public static int kJoystickDropLeftPin = 10;
+    public static int kJoystickDropRightPin = 11;
+    public static int kJoystickRaiseRightRamp = 5;
+    public static int kJoystickRaiseLeftRamp = 5;
+    public static int kJoystickLowerLeftRamp = 2;
+    public static int kJoystickLowerRightRamp = 2;
 
     public static int kJoystickIntakeUp = 9;
     public static int  kJoystickIntakeStartConfig = 10;

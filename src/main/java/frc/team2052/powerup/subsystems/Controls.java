@@ -19,18 +19,28 @@ public class Controls {
 
 //Tank drive for joysticks
     public double getTank() {
-        return -leftPrimaryJoystick.getY();
+        double val = -leftPrimaryJoystick.getY();
+        if (val < .15 && val > -.15)
+        {
+            val = 0;
+        }
+        return val;
     }
 
     public double getTurn() {
-        return -rightPrimaryJoystick.getX();
+        double val = -rightPrimaryJoystick.getX();
+        if (val < .1 && val > -.1)
+        {
+            val = 0;
+        }
+        return val;
     }
 
     public boolean getQuickTurn() {
         return rightPrimaryJoystick.getRawButton(3);
     }
 //Ramp classes
-    public boolean getDropLeftRamp() {return leftPrimaryJoystick.getRawButton(Constants.kJoystickDropLeftPin);}
+    public boolean getDropLeftRamp() {return rightPrimaryJoystick.getRawButton(Constants.kJoystickDropLeftPin);}
     public boolean getDropRightRamp() {
         return rightPrimaryJoystick.getRawButton(Constants.kJoystickDropRightPin);
     }
