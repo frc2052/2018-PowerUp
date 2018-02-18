@@ -34,7 +34,6 @@ public class Robot extends IterativeRobot {
     private Compressor compressor;
 
     private boolean firstIntakeButtonPressed;
-    NetworkTableInstance offSeasonNetworkTable = null;
 
     @Override
     public void robotInit() {
@@ -89,9 +88,6 @@ public class Robot extends IterativeRobot {
 
         AutoModeSelector.putToSmartDashboard();
         autoModeRunner = new AutoModeRunner();
-
-        offSeasonNetworkTable = NetworkTableInstance.create();
-        offSeasonNetworkTable.startClient("10.0.100.5");
     }
 
     @Override
@@ -149,8 +145,6 @@ public class Robot extends IterativeRobot {
                 }
             }
         }
-
-        FieldConfig.gameData = offSeasonNetworkTable.getTable("OffseasonFMSInfo").getEntry("GameData").getString("defaultValue");
 
         autoModeRunner.setAutoMode(currentAutoMode.getInstance());
         //autoModeRunner.setAutoMode(new TestPath());

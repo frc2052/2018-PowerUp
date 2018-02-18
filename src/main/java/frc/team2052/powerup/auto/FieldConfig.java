@@ -7,12 +7,10 @@ import edu.wpi.first.wpilibj.DriverStation;
  * To get info from FMS about which scale and switch correspond to our alliance
  */
 public class FieldConfig {
-    public static String gameData;
-
 
     public static boolean isMySwitchLeft() { //Switch is left = true, Switch is right = false
-        //string gameData;
-        //gameData = DriverStation.getInstance().getGameSpecificMessage(); //getting the three letters telling us which scale/switch is ours
+        String gameData;
+        gameData = DriverStation.getInstance().getGameSpecificMessage(); //getting the three letters telling us which scale/switch is ours
 
         if (gameData !=null && gameData.length() > 1) {
             if (gameData.charAt(0) == 'L') //if the first letter is left (our switch is left)
@@ -35,8 +33,8 @@ public class FieldConfig {
     }
 
     public static boolean isMyScaleLeft() { //Scale is left = true, Scale is right = false
-        //String gameData;
-        //gameData = DriverStation.getInstance().getGameSpecificMessage(); //getting the three letters telling us which scale/switch is ours
+        String gameData;
+        gameData = DriverStation.getInstance().getGameSpecificMessage(); //getting the three letters telling us which scale/switch is ours
         if (gameData !=null && gameData.length() > 2) {
             if (gameData.charAt(1) == 'L') //if second letter is left (our scale is left)
             {
