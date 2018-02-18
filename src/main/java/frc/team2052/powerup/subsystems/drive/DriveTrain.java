@@ -106,7 +106,7 @@ public class DriveTrain extends DriveTrainHardware {
      */
     public void setOpenLoop(DriveSignal signal) {
 //        System.out.println("ENCODERS LEFT: " + getLeftDistanceInches() + "   RIGHT: " + getRightDistanceInches());
-       System.out.println("GYRO DEGREES: " + getGyroAngleDegrees() + "  LEFT : " + leftMaster.getSelectedSensorPosition(kVelocityControlSlot) + "  RIGHT : " + rightMaster.getSelectedSensorPosition(kVelocityControlSlot));
+      // System.out.println("GYRO DEGREES: " + getGyroAngleDegrees() + "  LEFT : " + leftMaster.getSelectedSensorPosition(kVelocityControlSlot) + "  RIGHT : " + rightMaster.getSelectedSensorPosition(kVelocityControlSlot));
         driveControlState = DriveControlState.OPEN_LOOP;
         leftMaster.set(ControlMode.PercentOutput, signal.leftMotorSpeedPercent);
         rightMaster.set(ControlMode.PercentOutput, signal.rightMotorSpeedPercent);
@@ -241,8 +241,12 @@ public class DriveTrain extends DriveTrainHardware {
         double max_vel = 0.0;
         max_vel = Math.max(max_vel, Math.abs(setpoint.left));
         max_vel = Math.max(max_vel, Math.abs(setpoint.right));
+
         if (max_vel > Constants.kPathFollowingMaxVel) {
             double scaling = Constants.kPathFollowingMaxVel / max_vel;
+            setpoint = new Kinematics.DriveVelocity(setpoint.left * scaling, setpoint.right * scaling);
+        } else if (max_vel < Constants.kPathFollowingMinVel) {
+            double scaling = max_vel / Constants.kPathFollowingMinVel;
             setpoint = new Kinematics.DriveVelocity(setpoint.left * scaling, setpoint.right * scaling);
         }
 

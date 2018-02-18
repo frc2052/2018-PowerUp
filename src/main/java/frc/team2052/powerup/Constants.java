@@ -17,27 +17,34 @@ public class Constants {public static int intakeSolenoid =1;
     public static int pickupRightMotorId =8;
     public static int pickupLeftMotorId =9;
 
+    public static int kRampLeftServoId = 0;
+    public static int kRampRightServoId = 1;
+
 
     /////////// Solenoids ////////////
-    public static int armLongSolenoidOut = 0;
-    public static int armLongSolenoidIn = 1;
-    public static int armShortSolenoidOut =2;
-    public static int armShortSolenoidIn = 3;
+    public static int armLongSolenoidOut = 3;
+    public static int armLongSolenoidIn = 2;
+    public static int armShortSolenoidOut =0;
+    public static int armShortSolenoidIn = 1;
     public static int jawsSolenoidOut =21;
     public static int jawsSolenoidIn =22;
 
-    public static int kRampLeftPinReleaseId = 10;
-    public static int kRampRightPinReleaseId = 11;
-    public static int kRightRampInId = 14;
-    public static int kRightRampOutId = 15;
-    public static int kLeftRampInId = 16;
-    public static int kLeftRampOutId = 17;
+    public static int kRightRampInId = 7;
+    public static int kRightRampOutId = 5;
+    public static int kLeftRampInId = 6;
+    public static int kLeftRampOutId = 4;
 
     /////////// Intake ////////////
     public static double intakeInSpeedLeft = 1;
     public static double intakeInSpeedRight = intakeInSpeedLeft * .8;
-    public static double intakeOutSpeed = -.6;
-    public static double intakeStopSpeed = 0;
+    public static double intakeOutSpeed = -.35;
+    public static double intakeStopSpeed = .1;
+
+    /////////// Ramp ////////////
+    public static int kRampRightServoReleaseAngle = 150;
+    public static int kRampRightServoClosedAngle = 0;
+    public static int kRampLeftServoReleaseAngle = 90;
+    public static int kRampLeftServoClosedAngle = 0;
 
     /////////// Buttons ////////////
     //SECONDARY
@@ -51,12 +58,12 @@ public class Constants {public static int intakeSolenoid =1;
     public static int kManualElevator_RaiseButton = 11; //emergency manual elevator control
     public static int kManualElevator_LowerButton = 12; //-Find manual elevator buttons
 
-    public static int kJoystickDropLeftPin = 8;
+    public static int kJoystickDropLeftPin = 9;
     public static int kJoystickDropRightPin = 9;
-    public static int kJoystickRaiseRightRamp = 11;
-    public static int kJoystickRaiseLeftRamp = 6;
-    public static int kJoystickLowerLeftRamp = 7;
-    public static int kJoystickLowerRightRamp = 10;
+    public static int kJoystickRaiseRightRamp = 5;
+    public static int kJoystickRaiseLeftRamp = 5;
+    public static int kJoystickLowerLeftRamp = 2;
+    public static int kJoystickLowerRightRamp = 2;
 
     public static int kJoystickIntakeUp = 9;
     public static int  kJoystickIntakeStartConfig = 10;
@@ -72,7 +79,7 @@ public class Constants {public static int intakeSolenoid =1;
     public static int kElevatorVelocityIZone = 0;
     public static int kElevatorTicksPerRot = 1024 * 4;
 
-    public static int kElevatorSwitchHeight = 25;
+    public static int kElevatorSwitchHeight = 32;
     public static int kElevatorScaleBalancedHeight = 64;
     public static int kElevatorRampSeconds = 0;
     public static double kElevatorPeakUpPower = .7;
@@ -94,8 +101,9 @@ public class Constants {public static int intakeSolenoid =1;
     public static double kDriveVelocityRampRate = 0.0;
     public static int kDriveVelocityAllowableError = 0;
     public static double kPathFollowingLookahead = 24;
-    public static double kPathFollowingMaxAccel = 100;
-    public static double kPathFollowingMaxVel = 200;
+    public static double kPathFollowingMinVel = 40;
+    public static double kPathFollowingMaxAccel = 150;
+    public static double kPathFollowingMaxVel = 250;
     public static double kDriveHeadingVelocityKp = 5.0;
     public static double kDriveHeadingVelocityKi = 0.1;
     public static double kDriveHeadingVelocityKd = 60.0;

@@ -5,12 +5,9 @@ import frc.team2052.powerup.subsystems.Pickup;
 
 public class WantIntakeAction implements Action {
     //Wants intake
-    private AmpGetter amps;
     private boolean isDone = false;
 
     public WantIntakeAction() {
-        amps = AmpGetter.getInstance();
-
 
     }
 
@@ -32,7 +29,7 @@ public class WantIntakeAction implements Action {
 
     @Override
     public void update() {
-        if (amps.getCurrentIntake1(0) >= 30 || amps.getCurrentIntake2(2) >= 30) {
+        if (AmpGetter.getCurrentIntake1(0) >= 30 || AmpGetter.getCurrentIntake2(2) >= 30) {
             isDone = true;
         }
     }

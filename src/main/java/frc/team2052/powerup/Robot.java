@@ -32,6 +32,8 @@ public class Robot extends IterativeRobot {
     private RevRoboticsPressureSensor revRoboticsPressureSensor = null;
     private Compressor compressor;
 
+    private boolean firstIntakeButtonPressed;
+
     @Override
     public void robotInit() {
         driveTrain = DriveTrain.getInstance();
@@ -42,7 +44,7 @@ public class Robot extends IterativeRobot {
         //////THESE SUBSYSTEMS ARE FAULT TOLERANT/////
         /////// they will return null if they fail to create themselves////////
         intake = Pickup.getInstance();
-//        ramp = Ramp.getInstance();
+        ramp = Ramp.getInstance();
         elevator = Elevator.getInstance();
         //////////////////////////////////////////////
 
@@ -142,6 +144,7 @@ public class Robot extends IterativeRobot {
                 }
             }
         }
+
         autoModeRunner.setAutoMode(currentAutoMode.getInstance());
         //autoModeRunner.setAutoMode(new TestPath());
         autoModeRunner.start();
@@ -195,6 +198,7 @@ public class Robot extends IterativeRobot {
         double time = DriverStation.getInstance().getMatchTime();
 
         if (intake != null) {
+
             if (controls.getIntake()) {
                 intake.intake();
             } else if (controls.getOuttake()) {
@@ -203,12 +207,15 @@ public class Robot extends IterativeRobot {
                 intake.stopped();
             }
 
-            if (controls.getIntakeUp()){
-                intake.pickupPositionRaised();
-            }else if (controls.getStartConfig()){
-                intake.pickupPositionStartingConfig();
-            }else{
-                intake.pickupPositionDown();
+            firstIntakeButtonPressed = firstIntakeButtonPressed || controls.getIntakeUp();
+            if (firstIntakeButtonPressed) {
+                if (controls.getIntakeUp()) {
+                    intake.pickupPositionRaised();
+                } else if (controls.getStartConfig()) {
+                    intake.pickupPositionStartingConfig();
+                } else {
+                    intake.pickupPositionDown();
+                }
             }
         }
 
@@ -235,27 +242,25 @@ public class Robot extends IterativeRobot {
             elevator.setEmergencyUp(controls.getElevatorEmergencyUp());
         }
 
-        if (ramp != null && time < 30)
+        if (ramp != null /*&& time < 30*/)
         {
-            if(controls.getDropLeftRamp())
-            {
-                ramp.dropRampPinLeft();
-            }
+            ramp.dropRampPinLeft(controls.getDropLeftRamp());
 
-            if(controls.getDropRightRamp())
-            {
-                ramp.dropRampPinRight();
-            }
+            ramp.dropRampPinRight(controls.getDropRightRamp());
+
 
             if (controls.getLowerLeftRamp()){
+                System.out.println("LOWER LEFT RAMP");
                 ramp.lowerLeftRamp();
             }else if(controls.getRaiseLeftRamp()){
+                System.out.println("RAISE LEFT RAMP________");
                 ramp.raiseLeftRamp();
             }
 
             if (controls.getLowerRightRamp()){
                 ramp.lowerRightRamp();
             }else if(controls.getRaiseRightRamp()){
+                System.out.println("RAISING RIGHT RAMP");
                 ramp.raiseRightRamp();
             }
         }

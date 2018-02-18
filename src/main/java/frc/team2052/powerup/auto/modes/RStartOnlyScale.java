@@ -15,19 +15,24 @@ public class RStartOnlyScale extends AutoMode {
         if(!FieldConfig.isMyScaleLeft()) { //if right scale is ours
             runAction(new SeriesAction(Arrays.asList(
                     new ParallelAction(Arrays.asList(
-                        new FollowPathAction(new Path(AutoPaths.RRScale), false), //pathing to right scale
+                        new TimeoutAction(new FollowPathAction(new Path(AutoPaths.RRScale), false), 10), //pathing to right scale
                         new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
-                            new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_BALANCED))))), //Elevator raises to place on balanced scale
-                    new WantOutakeAction() //pushes cube out
+                            new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING), //Elevator raises to place on balanced scale
+                            new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN))))), //lowers pickup to position pointing out
+                    new WantOutakeAction(), //pushes cube out
+                    new MoveArmAction(MoveArmAction.ArmPositionEnum.START)
             )));
         }
         else {
             runAction(new SeriesAction(Arrays.asList(
                     new ParallelAction(Arrays.asList(
-                        new FollowPathAction(new Path(AutoPaths.RLScale), false), //pathing to left scale
+                        new TimeoutAction(new FollowPathAction(new Path(AutoPaths.RLScale), false), 10), //pathing to left scale
                         new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
-                            new  ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_BALANCED))))), //Elevator raises to balanced scale
-                    new WantOutakeAction() //pushes cube out
+                            new  ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING), //Elevator raises to balanced scale
+                            new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN))))), //lowers pickup to position pointing out
+                    new WantOutakeAction(), //pushes cube out
+                    new MoveArmAction(MoveArmAction.ArmPositionEnum.START)
+
             )));
         }
     }

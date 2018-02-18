@@ -16,26 +16,32 @@ public class RStartPreferScale extends AutoMode {
         if(!FieldConfig.isMyScaleLeft()) { //if right scale is ours
             runAction(new SeriesAction(Arrays.asList(
                 new ParallelAction(Arrays.asList(
-                    new FollowPathAction(new Path(AutoPaths.RRScale), false), //pathing to the right scale
+                    new TimeoutAction(new FollowPathAction(new Path(AutoPaths.RRScale), false), 10), //pathing to the right scale
                     new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
-                        new  ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_BALANCED))))), //Elevator raises to place on balanced scale
-                new WantOutakeAction() //pushes cube out
+                        new  ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING), //Elevator raises to place on balanced scale
+                        new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN))))), //lowers pickup to position pointing out
+                new WantOutakeAction(), //pushes cube out
+                new MoveArmAction(MoveArmAction.ArmPositionEnum.START)
             )));
         } else if(!FieldConfig.isMySwitchLeft()){ // if right switch is ours
             runAction(new SeriesAction(Arrays.asList(
                 new ParallelAction(Arrays.asList(
-                    new FollowPathAction(new Path(AutoPaths.RRSwitch), false), //pathing to the right switch
+                    new TimeoutAction(new FollowPathAction(new Path(AutoPaths.RRSwitch), false),8), //pathing to the right switch
                     new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
-                        new  ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH))))), //Elevator raises to place on switch
-                new WantOutakeAction() //pushes cube out
+                        new  ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH), //Elevator raises to place on switch
+                        new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN))))), //lowers pickup to position pointing out
+                new WantOutakeAction(), //pushes cube out
+                new MoveArmAction(MoveArmAction.ArmPositionEnum.START)
             )));
         } else {
             runAction(new SeriesAction(Arrays.asList(
                     new ParallelAction(Arrays.asList(
-                        new FollowPathAction(new Path(AutoPaths.RLScale), false), //pathing to the left scale
+                        new TimeoutAction(new FollowPathAction(new Path(AutoPaths.RLScale), false), 10), //pathing to the left scale
                         new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
-                            new  ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_BALANCED))))), //Elevator raises to place on balanced scale
-                new WantOutakeAction() //pushes cube out
+                            new  ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH), //Elevator raises to place on balanced scale
+                            new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN))))),
+                new WantOutakeAction(), //pushes cube out
+                new MoveArmAction(MoveArmAction.ArmPositionEnum.START)
             )));
         }
     }
