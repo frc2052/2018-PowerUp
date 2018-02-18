@@ -106,7 +106,7 @@ public class DriveTrain extends DriveTrainHardware {
      */
     public void setOpenLoop(DriveSignal signal) {
 //        System.out.println("ENCODERS LEFT: " + getLeftDistanceInches() + "   RIGHT: " + getRightDistanceInches());
-      // System.out.println("GYRO DEGREES: " + getGyroAngleDegrees() + "  LEFT : " + leftMaster.getSelectedSensorPosition(kVelocityControlSlot) + "  RIGHT : " + rightMaster.getSelectedSensorPosition(kVelocityControlSlot));
+        System.out.println("GYRO DEGREES: " + getGyroAngleDegrees() + "  LEFT : " + leftMaster.getSelectedSensorPosition(kVelocityControlSlot) + "  RIGHT : " + rightMaster.getSelectedSensorPosition(kVelocityControlSlot));
         driveControlState = DriveControlState.OPEN_LOOP;
         leftMaster.set(ControlMode.PercentOutput, signal.leftMotorSpeedPercent);
         rightMaster.set(ControlMode.PercentOutput, signal.rightMotorSpeedPercent);
@@ -190,7 +190,7 @@ public class DriveTrain extends DriveTrainHardware {
 
             leftMaster.set(ControlMode.Velocity, leftSpeed);
             rightMaster.set(ControlMode.Velocity, rightSpeed);
-//            System.out.println("UPDATE VELOCITY SETTING  -----  Angle: " + getGyroAngleDegrees() + "   LEFT: " + leftSpeed + "    RIGHT: " + rightSpeed);
+            System.out.println("UPDATE VELOCITY SETTING  -----  Angle: " + getGyroAngleDegrees() + "   LEFT SPEED FROM CHEESY: " + leftSpeed + "    RIGHT SPEED FROM CHEESY: " + rightSpeed);
 
 
             //determine a turn direction and what "rate"

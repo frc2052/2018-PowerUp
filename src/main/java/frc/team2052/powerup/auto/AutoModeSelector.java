@@ -7,11 +7,11 @@ import frc.team2052.powerup.auto.modes.*;
 public class AutoModeSelector {
     private static SendableChooser<AutoModeDefinition> sendableChooserAutoMode; //Makes drop down for Auto Mode Selection
     private static SendableChooser<WaitTimeDefinition> sendableChooserWaitTime; //Makes drop down for Wait Time Selection
+    private static SendableChooser<AutoDisableDefinition> sendableChooserAutoDisable;
 
     private static double trimFactorX =0;
     private static double trimFactorY =0;
 
-    public static double SelectedWaitTime;
     public static void putToSmartDashboard() { //puts the auto modes and delay options to the smart dashboard
         sendableChooserAutoMode = new SendableChooser<AutoModeDefinition>();
         for (int i = 0; i < AutoModeDefinition.values().length; i++) {
@@ -35,32 +35,60 @@ public class AutoModeSelector {
         }
         SmartDashboard.putData("wait_time", sendableChooserWaitTime); //allows driver to choose wait time in Smart Dashboard
 
+        sendableChooserAutoDisable = new SendableChooser<AutoDisableDefinition>();
+        for (int i = 0; i < AutoDisableDefinition.values().length; i++) {  //compiles all wait time definitions into a sendableChooser
+            AutoDisableDefinition auto = AutoDisableDefinition.values()[i];
+            if (i == 0) {
+                sendableChooserAutoDisable.addDefault(auto.name, auto);
+            } else {
+                sendableChooserAutoDisable.addObject(auto.name, auto);
+            }
+        }
+        SmartDashboard.putData("auto_disabled_pos", sendableChooserAutoDisable);
+
         SmartDashboard.putNumber("trim_forward", trimFactorX);
         SmartDashboard.putNumber("trim_right", trimFactorY);
     }
 
-    public static AutoModeBase getAutoInstance() {
-        return sendableChooserAutoMode.getSelected().getInstance();
-    } //returns selected enum method
-
     public static AutoModeDefinition getAutoDefinition(){
-        return sendableChooserAutoMode.getSelected();
+        try {
+            return sendableChooserAutoMode.getSelected();
+        } catch (Exception exc) {
+            System.out.println("FAILED TO GET AUTO DEFINITION! Defaulting to Cross.");
+            return  AutoModeDefinition.AUTOLINE;
+        }
     }
+
+    public static AutoDisableDefinition getDisabledAuto(){
+        return sendableChooserAutoDisable.getSelected();
+    }
+
+    public static double getWaitTime(){
+        try {
+            return sendableChooserWaitTime.getSelected().WaitTime;
+        } catch (Exception exc) {
+            System.out.println("FAILED TO GET WAIT TIME! Defaulting to 0.");
+            return  0;
+        }
+    }
+
     public enum AutoModeDefinition { //Auto mode options for drive team to choose
         DONT_MOVE("Don't Move", DontMove.class),
+        CENTER("Start in center, go to switch", Center.class),
+        AUTOLINE("Start left or right, cross Autoline", AutoLine.class),
         LSTARTONLYSCALE("Start left, go only to scale",LStartOnlyScale.class),
         LSTARTPERFERSCALE("Start left, prefer to go to scale",LStartPreferScale.class),
         LSTARTPREFERSWITCH("Start left, prefer to go to switch", LStartPreferSwitch.class),
         RSTARTONLYSCALE("Start right, go only to scale", RStartOnlyScale.class),
         RSTARTPREFERSCALE("Start right, prefer to go to scale", RStartPreferScale.class),
         RSTARTPREFERSWITCH("Start right, prefer to go to switch", RStartPreferSwitch.class),
-        CENTER("Start in center, go to switch", Center.class),
-        AUTOLINEWITHTIMER("Start left or right, cross Autoline with timer", AutolineWithTimer.class),
+        AUTOSYSTEMTEST("SYSTEM TEST", AutoTest.class),
+
+        //THESE ARE ONLY FOR TESTING - remove for competition
         AUTOLINEWITHTIMERCCENTERRIGHT("Start center, cross autoline to right with timer", AutolineWithTimerCenterRight.class),
         AUTOLINEWITHTIMERCCENTERLEFT("Start center, cross autoline to left with timer", AutolineWithTimerCenterLeft.class),
+        AUTOLINEWITHTIMER("Start left or right, cross Autoline with timer", AutolineWithTimer.class),
         TURNINPLACEAUTOTEST("Turn in place test", TurnInPlaceActionTest.class);
-
-
 
         private final Class<? extends AutoMode> clazz; //checks if the Class extends AutoMode, and then stores it in clazz
         private final String name;
@@ -100,10 +128,16 @@ public class AutoModeSelector {
             WaitTime = waitTime;
             name = Name;
         }
+    }
 
-        public double getWaitTime(){ //returns the wait time we want
-            SelectedWaitTime = WaitTime;
-            return SelectedWaitTime;
+    public enum AutoDisableDefinition {
+        NOTHING("Disable Nothing"),
+        LEFTSCALE("Disable Left Scale"),
+        RIGHTSCALE("Disable Right Scale");
+        private final String name;
+
+        AutoDisableDefinition(String Name){
+            name = Name;
         }
     }
     public static double getTrimY(){

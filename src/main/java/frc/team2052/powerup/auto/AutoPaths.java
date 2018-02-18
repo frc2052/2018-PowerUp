@@ -18,7 +18,7 @@ public class AutoPaths {
     public static List<Path.Waypoint> RLScale;
     public static List<Path.Waypoint> RRScale;
     public static List<Path.Waypoint> RRSwitch;
-    public static List<Path.Waypoint> TestRun;
+    public static List<Path.Waypoint> AutoLine;
     public static List<Path.Waypoint> ReverseRScale;
     public static List<Path.Waypoint> ReverseLScale;
 
@@ -32,12 +32,12 @@ public class AutoPaths {
         RLScale = new ArrayList();
         RRScale = new ArrayList();
         RRSwitch = new ArrayList();
-        TestRun = new ArrayList();
+        AutoLine = new ArrayList();
         ReverseLScale = new ArrayList();
         ReverseRScale = new ArrayList();
 
-        TestRun.add(new Path.Waypoint(new Translation2d(0, 0), Constants.kPathFollowingMaxVel));
-        TestRun.add(new Path.Waypoint(new Translation2d(50, 0), Constants.kPathFollowingMaxVel, "RaiseElevator"));
+        AutoLine.add(new Path.Waypoint(new Translation2d(0, 0), Constants.kPathFollowingMaxVel));
+        AutoLine.add(new Path.Waypoint(new Translation2d(132, 0), Constants.kPathFollowingMaxVel, "RaiseElevator"));
 
         //start left go to left switch
         LLSwitch.add(new Path.Waypoint(new Translation2d(0, 0), Constants.kPathFollowingMaxVel));

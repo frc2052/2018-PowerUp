@@ -5,7 +5,7 @@ import com.first.team2052.lib.RevRoboticsPressureSensor;
 import com.first.team2052.lib.vec.RigidTransform2d;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.team2052.powerup.auto.modes.TestPath;
+import frc.team2052.powerup.auto.modes.AutoLine;
 import frc.team2052.powerup.subsystems.*;
 import frc.team2052.powerup.auto.*;
 import frc.team2052.powerup.subsystems.drive.DriveSignal;
@@ -16,6 +16,7 @@ public class Robot extends IterativeRobot {
     private ControlLoop controlLoop = null;
     private ControlLoop logLooper = null;
     private ControlLoop slowerLooper = null;
+    private ControlLoop fieldLooper = null;
 
     private static DriveTrain driveTrain = null;
     private Pickup intake = null;
@@ -60,13 +61,13 @@ public class Robot extends IterativeRobot {
         //Control loops for auto and teleop
         controlLoop = new ControlLoop(Constants.kControlLoopPeriod);
         slowerLooper = new ControlLoop(Constants.kSlowControlLoopPeriod);
+        fieldLooper = new ControlLoop(Constants.kSlowControlLoopPeriod);
 
         robotState = RobotState.getInstance();
         stateEstimator = RobotStateEstimator.getInstance();
 
         controlLoop.addLoopable(driveTrain.getLoopable());
         controlLoop.addLoopable(stateEstimator);
-
 
         if (elevator != null) {
             elevator.zeroSensor();
@@ -78,6 +79,8 @@ public class Robot extends IterativeRobot {
         }
 
         //slowerLooper.addLoopable(VisionProcessor.getInstance());
+
+        fieldLooper.addLoopable(new FieldConfig()); //FMS is not gaurenteed to give us the game data on first try, so loop until you get it
 
         //Logging for auto
         logLooper = new ControlLoop(1.0);
@@ -94,6 +97,7 @@ public class Robot extends IterativeRobot {
         controlLoop.stop();
         logLooper.stop();
         slowerLooper.stop();
+        fieldLooper.stop();
         autoModeRunner.stop();
         zeroAllSensors();
     }
@@ -117,13 +121,25 @@ public class Robot extends IterativeRobot {
         driveTrain.setOpenLoop(DriveSignal.NEUTRAL);  //put robot into don't move, no looper mode
         driveTrain.setBrakeMode(false);
 
-        AutoPaths.Init();
         robotState.reset(Timer.getFPGATimestamp(), new RigidTransform2d());
+        fieldLooper.start();
         logLooper.start();
         controlLoop.start();
         slowerLooper.start();
 
         AutoModeSelector.AutoModeDefinition currentAutoMode = AutoModeSelector.getAutoDefinition(); //creates a variable we can change
+        boolean gameDataHasArrived = FieldConfig.hasGameData();
+        double startGameDataCheck = Timer.getFPGATimestamp();
+        while (!FieldConfig.hasGameData() && (Timer.getFPGATimestamp() - startGameDataCheck) < 3) { //wait upto 3 seconds to get the game data
+            System.out.println("No Game Data in wait loop. " + FieldConfig.getGameData());
+            Timer.delay(.25);
+        }
+
+        System.out.println("GAME DATA: " + FieldConfig.getGameData());
+        System.out.println("Selected Auto Mode: " + AutoModeSelector.getAutoDefinition().name());
+        System.out.println("Wait Time: " + AutoModeSelector.getWaitTime());
+        System.out.println("Disabled Auto Position: " + AutoModeSelector.getDisabledAuto().name());
+
         if (!DriveTrain.getInstance().CheckGyro() ){ //if gyro does not work, set auto path to a path with timer
             switch (AutoModeSelector.getAutoDefinition()) {
                 case LSTARTONLYSCALE:
@@ -143,10 +159,15 @@ public class Robot extends IterativeRobot {
                     break;
                 }
             }
+        } else if (!FieldConfig.hasGameData()) {
+            System.out.println("WARNING GAME DATA NEVER ARRIVED!");
+            autoModeRunner.setAutoMode( new AutoLine());
+        } else {
+            autoModeRunner.setAutoMode(currentAutoMode.getInstance());
         }
 
-        autoModeRunner.setAutoMode(currentAutoMode.getInstance());
-        //autoModeRunner.setAutoMode(new TestPath());
+        fieldLooper.stop(); //no reason to keep running this
+        //autoModeRunner.setAutoMode(new AutoLine());
         autoModeRunner.start();
     }
     @Override
@@ -168,6 +189,7 @@ public class Robot extends IterativeRobot {
         zeroAllSensors();
 
         autoModeRunner.stop();
+        fieldLooper.stop();
 
         controlLoop.start();
         slowerLooper.start();

@@ -10,11 +10,11 @@ import java.util.Arrays;
 public class LStartOnlyScale extends AutoMode {
     @Override
     protected void init() throws AutoModeEndedException {
-
-        runAction(new SeriesAction(Arrays.asList(new WaitAction(AutoModeSelector.SelectedWaitTime))));
-
+        System.out.println("RUNNING LL SCALE ONLY");
         if(FieldConfig.isMyScaleLeft()) { //if left scale is ours
+            System.out.println("HEADING TO L SCALE");
             runAction(new SeriesAction(Arrays.asList(
+                    new WaitAction(AutoModeSelector.getWaitTime()),
                     new ParallelAction(Arrays.asList(
                         new TimeoutAction(new FollowPathAction(new Path(AutoPaths.LLScale), false), 10), //pathing to left scale
                         new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
@@ -23,9 +23,10 @@ public class LStartOnlyScale extends AutoMode {
                     new WantOutakeAction(),//pushes cube out
                     new MoveArmAction(MoveArmAction.ArmPositionEnum.START)
             )));
-        }
-        else {
+        } else if(AutoModeSelector.getDisabledAuto() != AutoModeSelector.AutoDisableDefinition.RIGHTSCALE){
+            System.out.println("HEADING TO R SCALE");
             runAction(new SeriesAction(Arrays.asList(
+                    new WaitAction(AutoModeSelector.getWaitTime()),
                     new ParallelAction(Arrays.asList(
                         new TimeoutAction(new FollowPathAction(new Path(AutoPaths.LRScale), false), 10),  //pathing to right scale
                         new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
@@ -34,6 +35,12 @@ public class LStartOnlyScale extends AutoMode {
                     new WantOutakeAction(),//pushes cube out
                     new MoveArmAction(MoveArmAction.ArmPositionEnum.START)
             )));
-        }
+        } else {
+            System.out.println("HEADING TO AUTO LINE");
+            runAction(new SeriesAction(Arrays.asList(
+                new WaitAction(AutoModeSelector.getWaitTime()),
+                new FollowPathAction(new Path(AutoPaths.AutoLine), false))));
     }
+
+}
 }

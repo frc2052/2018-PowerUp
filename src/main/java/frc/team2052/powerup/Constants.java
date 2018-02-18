@@ -38,7 +38,7 @@ public class Constants {public static int intakeSolenoid =1;
     public static double intakeInSpeedLeft = 1;
     public static double intakeInSpeedRight = intakeInSpeedLeft * .8;
     public static double intakeOutSpeed = -.35;
-    public static double intakeStopSpeed = .1;
+    public static double intakeStopSpeed = .2;
 
     /////////// Ramp ////////////
     public static int kRampRightServoReleaseAngle = 150;
@@ -82,7 +82,7 @@ public class Constants {public static int intakeSolenoid =1;
     public static int kElevatorSwitchHeight = 32;
     public static int kElevatorScaleBalancedHeight = 64;
     public static int kElevatorRampSeconds = 0;
-    public static double kElevatorPeakUpPower = .7;
+    public static double kElevatorPeakUpPower = .9;
     public static double kElevatorPeakDownPower = .1;
 
     /////////// Control Loops ////////////
