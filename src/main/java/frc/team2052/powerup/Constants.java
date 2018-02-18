@@ -17,7 +17,7 @@ public class Constants {public static int intakeSolenoid =1;
     public static int pickupRightMotorId =8;
     public static int pickupLeftMotorId =9;
 
-    public static int kRampLeftServoId = 0;//todo: find values
+    public static int kRampLeftServoId = 0;
     public static int kRampRightServoId = 1;
 
 

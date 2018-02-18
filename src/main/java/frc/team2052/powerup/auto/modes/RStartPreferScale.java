@@ -33,7 +33,7 @@ public class RStartPreferScale extends AutoMode {
                 new WantOutakeAction(), //pushes cube out
                 new MoveArmAction(MoveArmAction.ArmPositionEnum.START)
             )));
-        } /*else {
+        } else {
             runAction(new SeriesAction(Arrays.asList(
                     new ParallelAction(Arrays.asList(
                         new TimeoutAction(new FollowPathAction(new Path(AutoPaths.RLScale), false), 10), //pathing to the left scale
@@ -43,6 +43,6 @@ public class RStartPreferScale extends AutoMode {
                 new WantOutakeAction(), //pushes cube out
                 new MoveArmAction(MoveArmAction.ArmPositionEnum.START)
             )));
-        }*/
+        }
     }
 }

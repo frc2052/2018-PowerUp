@@ -35,7 +35,7 @@ public class LStartPreferSwitch extends AutoMode {
                     new MoveArmAction(MoveArmAction.ArmPositionEnum.START)
             )));
         }
-        /* else {
+         else {
             runAction(new SeriesAction(Arrays.asList(
                     new ParallelAction(Arrays.asList(
                         new TimeoutAction(new FollowPathAction(new Path(AutoPaths.LRScale), false), 10), //pathing to the right scale
@@ -45,7 +45,7 @@ public class LStartPreferSwitch extends AutoMode {
                     new WantOutakeAction(), //pushes cube out
                     new MoveArmAction(MoveArmAction.ArmPositionEnum.START)
             )));
-        }*/
+        }
     }
 }
 
