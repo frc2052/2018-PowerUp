@@ -10,11 +10,11 @@ import java.util.Arrays;
 public class Center extends AutoMode {
     @Override
     protected void init() throws AutoModeEndedException {
-
-        double waitTime = AutoModeSelector.SelectedWaitTime;
-        runAction(new SeriesAction(Arrays.asList(new WaitAction(AutoModeSelector.SelectedWaitTime))));
+        System.out.println("RUNNING CENTER");
         if(FieldConfig.isMySwitchLeft()) { //if left switch is ours
+            System.out.println("HEADING TO L SWITCH");
             runAction(new SeriesAction(Arrays.asList(
+                    new WaitAction(AutoModeSelector.getWaitTime()),
                     new ParallelAction(Arrays.asList(
                             new TimeoutAction(new FollowPathAction(new Path(AutoPaths.CLSwitch), false), 6), //pathing to left switch
                             new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
@@ -25,7 +25,9 @@ public class Center extends AutoMode {
             )));
         }
         else { //if right switch is ours
+            System.out.println("HEADING TO R SWITCH");
             runAction(new SeriesAction(Arrays.asList(
+                    new WaitAction(AutoModeSelector.getWaitTime()),
                     new ParallelAction(Arrays.asList(
                             new TimeoutAction(new FollowPathAction(new Path(AutoPaths.CRSwitch), false), 6), //pathing to left switch
                             new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),

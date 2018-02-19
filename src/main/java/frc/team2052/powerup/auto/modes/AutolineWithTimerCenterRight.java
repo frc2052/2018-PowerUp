@@ -13,8 +13,8 @@ import java.util.Arrays;
 public class AutolineWithTimerCenterRight extends AutoMode{
     @Override
     protected void init() throws AutoModeEndedException {
-        runAction(new SeriesAction(Arrays.asList(new WaitAction(AutoModeSelector.SelectedWaitTime))));
         runAction(new SeriesAction(Arrays.asList(
+                new WaitAction(AutoModeSelector.getWaitTime()),
                 new MoveUntilTimeAction(1, new DriveSignal(.2, .2)),
                 new MoveUntilTimeAction(1.3, new DriveSignal(0, .2)),
                 new MoveUntilTimeAction(2, new DriveSignal(.2, .2)),

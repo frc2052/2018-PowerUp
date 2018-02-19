@@ -13,8 +13,9 @@ import java.util.Arrays;
 public class AutolineWithTimer extends AutoMode{
     @Override
     protected void init() throws AutoModeEndedException {
-        runAction(new SeriesAction(Arrays.asList(new WaitAction(AutoModeSelector.SelectedWaitTime))));
-        runAction(new SeriesAction(Arrays.asList(new MoveUntilTimeAction(4, new DriveSignal(.2, .2)))));
+        runAction(new SeriesAction(Arrays.asList(
+                new WaitAction(AutoModeSelector.getWaitTime()),
+                new MoveUntilTimeAction(4.5, new DriveSignal(.2, .2)))));
     }
 }
 //when starting on left or right side, crosses auto line using a timer

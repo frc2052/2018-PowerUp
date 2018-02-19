@@ -106,7 +106,7 @@ public class DriveTrain extends DriveTrainHardware {
      */
     public void setOpenLoop(DriveSignal signal) {
 //        System.out.println("ENCODERS LEFT: " + getLeftDistanceInches() + "   RIGHT: " + getRightDistanceInches());
-      // System.out.println("GYRO DEGREES: " + getGyroAngleDegrees() + "  LEFT : " + leftMaster.getSelectedSensorPosition(kVelocityControlSlot) + "  RIGHT : " + rightMaster.getSelectedSensorPosition(kVelocityControlSlot));
+        System.out.println("GYRO DEGREES: " + getGyroAngleDegrees() + "  LEFT : " + leftMaster.getSelectedSensorPosition(kVelocityControlSlot) + "  RIGHT : " + rightMaster.getSelectedSensorPosition(kVelocityControlSlot));
         driveControlState = DriveControlState.OPEN_LOOP;
         leftMaster.set(ControlMode.PercentOutput, signal.leftMotorSpeedPercent);
         rightMaster.set(ControlMode.PercentOutput, signal.rightMotorSpeedPercent);
@@ -188,9 +188,13 @@ public class DriveTrain extends DriveTrainHardware {
             double leftSpeed = inchesPerSecondToTicksPer100Ms(left_inches_per_sec);
             double rightSpeed = inchesPerSecondToTicksPer100Ms(right_inches_per_sec);
 
+            SmartDashboard.putNumber("LeftVelocityTicksPer100ms", leftSpeed);
+            SmartDashboard.putNumber("RightVelocityTicksPer100ms", rightSpeed);
+            SmartDashboard.putNumber("LeftVelocityInchesPerSec", left_inches_per_sec);
+            SmartDashboard.putNumber("RightVelocityInchesPerSec", right_inches_per_sec);
             leftMaster.set(ControlMode.Velocity, leftSpeed);
             rightMaster.set(ControlMode.Velocity, rightSpeed);
-//            System.out.println("UPDATE VELOCITY SETTING  -----  Angle: " + getGyroAngleDegrees() + "   LEFT: " + leftSpeed + "    RIGHT: " + rightSpeed);
+            System.out.println("UPDATE VELOCITY SETTING  -----  Angle: " + getGyroAngleDegrees() + "   LEFT SPEED FROM CHEESY: " + leftSpeed + "    RIGHT SPEED FROM CHEESY: " + rightSpeed);
 
 
             //determine a turn direction and what "rate"
@@ -235,7 +239,6 @@ public class DriveTrain extends DriveTrainHardware {
 //        System.out.println("COMMAND---  dx: " + command.dx + "  dy: "+ command.dy);
         Kinematics.DriveVelocity setpoint = Kinematics.inverseKinematics(command);
 
-
         // Scale the command to respect the max velocity limits
         // We don't want our robot setpoints for turning, etc over it's limits, so we scale our outputs
         double max_vel = 0.0;
@@ -243,11 +246,13 @@ public class DriveTrain extends DriveTrainHardware {
         max_vel = Math.max(max_vel, Math.abs(setpoint.right));
 
         if (max_vel > Constants.kPathFollowingMaxVel) {
+            System.out.println("Path velocity too HIGH. Adjusting.");
             double scaling = Constants.kPathFollowingMaxVel / max_vel;
             setpoint = new Kinematics.DriveVelocity(setpoint.left * scaling, setpoint.right * scaling);
         } else if (max_vel < Constants.kPathFollowingMinVel) {
-            double scaling = max_vel / Constants.kPathFollowingMinVel;
+            double scaling = Constants.kPathFollowingMinVel / max_vel;
             setpoint = new Kinematics.DriveVelocity(setpoint.left * scaling, setpoint.right * scaling);
+            System.out.println("Path velocity too LOW. Adjusting. OldMaxVel = " + max_vel + "  Scaled by: " + scaling + "  New Left: " + setpoint.left + "  New Right: " + setpoint.right);
         }
 
         updateVelocitySetpoint(setpoint.left, setpoint.right);
