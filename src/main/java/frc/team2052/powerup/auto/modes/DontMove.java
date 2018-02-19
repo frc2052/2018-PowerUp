@@ -2,15 +2,12 @@ package frc.team2052.powerup.auto.modes;
 
 import frc.team2052.powerup.auto.AutoMode;
 import frc.team2052.powerup.auto.AutoModeEndedException;
-import frc.team2052.powerup.auto.AutoModeSelector;
-import frc.team2052.powerup.auto.actions.SeriesAction;
-import frc.team2052.powerup.auto.actions.WaitAction;
 
 import java.util.Arrays;
 
 public class DontMove extends AutoMode{
     @Override
     protected void init() throws AutoModeEndedException { //Robot does not move
-        runAction(new SeriesAction(Arrays.asList(new WaitAction(AutoModeSelector.SelectedWaitTime))));
+        System.out.println("RUNNING DON'T MOVE");
     }
 }

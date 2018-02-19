@@ -25,23 +25,38 @@ public class AutoTest extends AutoMode{
         TestPath.add(new Path.Waypoint(new Translation2d(0, 0), 40));
         TestPath.add(new Path.Waypoint(new Translation2d(12, 0), 40)); //moving backward
 
-        new SeriesAction(Arrays.asList(
+        runAction(new SeriesAction(Arrays.asList(
+                new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN),
+                new WaitAction(2),
                 new FollowPathAction(new Path(TestPath), false), //moving forward, left, right
                 new FollowPathAction(new Path(TestPathBack), true), //moving backward
 
                 new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING), //Going to each state for elevator
+                new WaitAction(1),
                 new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH),
+                new WaitAction(1),
                 new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_BALANCED),
+                new WaitAction(1),
                 new ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH),
+                new WaitAction(1),
                 new ElevatorAction(Elevator.ElevatorPresetEnum.PICKUP),
-                
+
                 new WantIntakeAction(), //pickup Intake
+                new WaitAction(2),
                 new WantOffAction(), //pickup off
+                new WaitAction(1),
                 new WantOutakeAction(), //pickup outtake
+                new WaitAction(2),
                 new WantOffAction(), //pickup off
 
-                new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN)  //Test lowering the Pickup
-        ));
+                new MoveArmAction(MoveArmAction.ArmPositionEnum.START),
+                new WaitAction(2),
+                new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN),
+                new WaitAction(2),
+                new MoveArmAction(MoveArmAction.ArmPositionEnum.UP),
+                new WaitAction(2),
+                new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN)
+        )));
 
     }
 }
