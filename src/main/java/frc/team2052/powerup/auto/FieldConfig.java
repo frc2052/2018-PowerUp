@@ -1,7 +1,6 @@
 package frc.team2052.powerup.auto;
 
 import com.first.team2052.lib.Loopable;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 
 /**
@@ -68,13 +67,10 @@ public class FieldConfig implements Loopable {
     @Override
     public void update() {
         String newValue = DriverStation.getInstance().getGameSpecificMessage();
-        System.out.println("GAME DATA 1: " + newValue);
         if (newValue != null)
         {
             newValue = newValue.trim();
         }
-        System.out.println("GAME DATA 2: " + newValue);
-
         if (gameData == null || !gameData.equals(newValue)) {
             if (newValue != null && newValue.length() > 0 && newValue.length() < 4) {
                 if (gameData != null) {

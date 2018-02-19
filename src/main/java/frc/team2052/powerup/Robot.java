@@ -5,9 +5,14 @@ import com.first.team2052.lib.RevRoboticsPressureSensor;
 import com.first.team2052.lib.vec.RigidTransform2d;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.team2052.powerup.auto.modes.AutoLine;
-import frc.team2052.powerup.subsystems.*;
-import frc.team2052.powerup.auto.*;
+import frc.team2052.powerup.auto.AutoModeRunner;
+import frc.team2052.powerup.auto.AutoModeSelector;
+import frc.team2052.powerup.auto.AutoPaths;
+import frc.team2052.powerup.auto.FieldConfig;
+import frc.team2052.powerup.subsystems.Controls;
+import frc.team2052.powerup.subsystems.Elevator;
+import frc.team2052.powerup.subsystems.Pickup;
+import frc.team2052.powerup.subsystems.Ramp;
 import frc.team2052.powerup.subsystems.drive.DriveSignal;
 import frc.team2052.powerup.subsystems.drive.DriveTrain;
 
@@ -64,6 +69,7 @@ public class Robot extends IterativeRobot {
         fieldLooper = new ControlLoop(Constants.kSlowControlLoopPeriod);
 
         robotState = RobotState.getInstance();
+        robotState.reset(Timer.getFPGATimestamp(), new RigidTransform2d());
         stateEstimator = RobotStateEstimator.getInstance();
 
         controlLoop.addLoopable(driveTrain.getLoopable());
@@ -140,7 +146,28 @@ public class Robot extends IterativeRobot {
         System.out.println("Wait Time: " + AutoModeSelector.getWaitTime());
         System.out.println("Disabled Auto Position: " + AutoModeSelector.getDisabledAuto().name());
 
-        if (!DriveTrain.getInstance().CheckGyro() ){ //if gyro does not work, set auto path to a path with timer
+        if (!FieldConfig.hasGameData()) {
+            System.out.println("WARNING GAME DATA NEVER ARRIVED!");
+
+            switch (AutoModeSelector.getAutoDefinition()) {
+                case LSTARTONLYSCALE:
+                case LSTARTPERFERSCALE:
+                case LSTARTPREFERSWITCH:
+                case RSTARTONLYSCALE:
+                case RSTARTPREFERSCALE:
+                case RSTARTPREFERSWITCH:
+                    currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINE;
+                    System.out.println("GAME DATA FAILURE: AUTOLINE RUNNING");
+                    break;
+                case CENTER:
+                    System.out.println("GAME DATA FAILURE: GOING TO RIGHT SWITCH");
+                    currentAutoMode = AutoModeSelector.AutoModeDefinition.CENTERRIGHT;
+                    break;
+            }
+        }
+
+        if (!DriveTrain.getInstance().CheckGyro()){ //if gyro does not work, set auto path to a path with timer
+            System.out.println("GYRO HAS FAILED DECIDING AUTO");
             switch (AutoModeSelector.getAutoDefinition()) {
                 case LSTARTONLYSCALE:
                 case LSTARTPERFERSCALE:
@@ -150,21 +177,20 @@ public class Robot extends IterativeRobot {
                 case RSTARTPREFERSWITCH:
                     currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMER;
                     break;
-                case CENTER: {
-                    if (FieldConfig.isMySwitchLeft()) { //see what switch is ours and change path to a timer path that goes to out switch
-                        currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMERCCENTERLEFT;
-                    } else {
-                        currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMERCCENTERRIGHT;
+                case CENTER:
+                    if (FieldConfig.hasGameData()) {
+                        if (FieldConfig.isMySwitchLeft()) { //see what switch is ours and change path to a timer path that goes to out switch
+                            currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMERCCENTERLEFT;
+                        } else {
+                            currentAutoMode = AutoModeSelector.AutoModeDefinition.AUTOLINEWITHTIMERCCENTERRIGHT;
+                        }
+                    }else{
+                        currentAutoMode = AutoModeSelector.AutoModeDefinition.CENTERRIGHT;
                     }
                     break;
-                }
             }
-        } else if (!FieldConfig.hasGameData()) {
-            System.out.println("WARNING GAME DATA NEVER ARRIVED!");
-            autoModeRunner.setAutoMode( new AutoLine());
-        } else {
-            autoModeRunner.setAutoMode(currentAutoMode.getInstance());
         }
+        autoModeRunner.setAutoMode(currentAutoMode.getInstance());
 
         fieldLooper.stop(); //no reason to keep running this
         //autoModeRunner.setAutoMode(new AutoLine());

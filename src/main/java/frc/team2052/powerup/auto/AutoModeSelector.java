@@ -19,7 +19,16 @@ public class AutoModeSelector {
             if (i == 0) {
                 sendableChooserAutoMode.addDefault(mode.name, mode); //a sendeble Chooser is a list
             } else {
-                sendableChooserAutoMode.addObject(mode.name, mode);
+                switch (AutoModeDefinition.values()[i]){ //this is to make sure test or failure autos cannot be choosen during compititions
+                    case AUTOLINEWITHTIMER:
+                    case AUTOLINEWITHTIMERCCENTERLEFT:
+                    case AUTOLINEWITHTIMERCCENTERRIGHT:
+                    case CENTERRIGHT:
+                    case TURNINPLACEAUTOTEST:
+//                        break; //uncomment this for competitions
+                    default:
+                        sendableChooserAutoMode.addObject(mode.name, mode);
+                }
             }
         }
         SmartDashboard.putData("auto_modes", sendableChooserAutoMode);  //allows driver to choose auto modes in Smart Dashboard
@@ -88,6 +97,7 @@ public class AutoModeSelector {
         AUTOLINEWITHTIMERCCENTERRIGHT("Start center, cross autoline to right with timer", AutolineWithTimerCenterRight.class),
         AUTOLINEWITHTIMERCCENTERLEFT("Start center, cross autoline to left with timer", AutolineWithTimerCenterLeft.class),
         AUTOLINEWITHTIMER("Start left or right, cross Autoline with timer", AutolineWithTimer.class),
+        CENTERRIGHT("Start center go right", CenterRight.class),
         TURNINPLACEAUTOTEST("Turn in place test", TurnInPlaceActionTest.class);
 
         private final Class<? extends AutoMode> clazz; //checks if the Class extends AutoMode, and then stores it in clazz
