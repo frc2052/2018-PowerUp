@@ -64,6 +64,7 @@ public class Robot extends IterativeRobot {
         fieldLooper = new ControlLoop(Constants.kSlowControlLoopPeriod);
 
         robotState = RobotState.getInstance();
+        robotState.reset(Timer.getFPGATimestamp(), new RigidTransform2d());
         stateEstimator = RobotStateEstimator.getInstance();
 
         controlLoop.addLoopable(driveTrain.getLoopable());
