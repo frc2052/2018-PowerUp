@@ -53,6 +53,7 @@ public class FieldConfig implements Loopable {
     }
 
     public static boolean hasGameData() { return gameData != null && gameData.length() > 0; }
+    public static void reset() { gameData = null; }
 
     public static String getGameData() {
         if (gameData == null)

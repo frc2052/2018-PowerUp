@@ -41,10 +41,10 @@ public class Constants {public static int intakeSolenoid =1;
     public static double intakeStopSpeed = .2;
 
     /////////// Ramp ////////////
-    public static int kRampRightServoReleaseAngle = 150;
+    public static int kRampRightServoReleaseAngle = 105;
     public static int kRampRightServoClosedAngle = 0;
-    public static int kRampLeftServoReleaseAngle = 90;
-    public static int kRampLeftServoClosedAngle = 0;
+    public static int kRampLeftServoReleaseAngle = 0;
+    public static int kRampLeftServoClosedAngle = 105;
 
     /////////// Buttons ////////////
     //SECONDARY
@@ -55,8 +55,8 @@ public class Constants {public static int intakeSolenoid =1;
     public static int kElevatorScale_ThreeHeightButton = 5;
     public static int kElevatorScale_TrimUpButton =  6;
     public static int kElevatorScale_TrimDownButton =  7;
-    public static int kManualElevator_RaiseButton = 11; //emergency manual elevator control
-    public static int kManualElevator_LowerButton = 12; //-Find manual elevator buttons
+    public static int kManualElevator_RaiseButton = 12; //emergency manual elevator control
+    public static int kManualElevator_HoldButton = 11; //-Find manual elevator buttons
 
     public static int kJoystickDropLeftPin = 9;
     public static int kJoystickDropRightPin = 9;
@@ -83,7 +83,9 @@ public class Constants {public static int intakeSolenoid =1;
     public static int kElevatorScaleBalancedHeight = 64;
     public static int kElevatorRampSeconds = 0;
     public static double kElevatorPeakUpPower = .9;
-    public static double kElevatorPeakDownPower = .1;
+    public static double kElevatorPeakDownPower = -.1;
+    public static double kElevatorEmergencyUpPower = .55;
+    public static double kElevatorEmergencyHoldPower = .2;
 
     /////////// Control Loops ////////////
     public static final double kControlLoopPeriod = 1.0 / 100.0;
@@ -101,7 +103,7 @@ public class Constants {public static int intakeSolenoid =1;
     public static double kDriveVelocityRampRate = 0.0;
     public static int kDriveVelocityAllowableError = 0;
     public static double kPathFollowingLookahead = 24;
-    public static double kPathFollowingMinVel = 50;
+    public static double kPathFollowingMinVel = 10;
     public static double kPathFollowingMaxAccel = 150;
     public static double kPathFollowingMaxVel = 250;
     public static double kDriveHeadingVelocityKp = 5.0;

@@ -9,10 +9,7 @@ import frc.team2052.powerup.auto.AutoModeRunner;
 import frc.team2052.powerup.auto.AutoModeSelector;
 import frc.team2052.powerup.auto.AutoPaths;
 import frc.team2052.powerup.auto.FieldConfig;
-import frc.team2052.powerup.subsystems.Controls;
-import frc.team2052.powerup.subsystems.Elevator;
-import frc.team2052.powerup.subsystems.Pickup;
-import frc.team2052.powerup.subsystems.Ramp;
+import frc.team2052.powerup.subsystems.*;
 import frc.team2052.powerup.subsystems.drive.DriveSignal;
 import frc.team2052.powerup.subsystems.drive.DriveTrain;
 
@@ -45,7 +42,7 @@ public class Robot extends IterativeRobot {
         driveTrain = DriveTrain.getInstance();
         driveHelper = new DriveHelper();
         controls = Controls.getInstance();
-        //Camera.getInstance().init();
+        Camera.getInstance().init();
 
         //////THESE SUBSYSTEMS ARE FAULT TOLERANT/////
         /////// they will return null if they fail to create themselves////////
@@ -117,6 +114,7 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void autonomousInit() {
+        FieldConfig.reset();
         AutoPaths.Init();
         zeroAllSensors();
         Timer.delay(.25);
@@ -285,7 +283,7 @@ public class Robot extends IterativeRobot {
             elevator.setElevatorAdjustmentUp(controls.getElevatorAdjustmentUp());
             elevator.setElevatorAdjustmentDown(controls.getElevatorAdjustmentDown());
 
-            elevator.setEmergencyDown(controls.getElevatorEmergencyDown());
+            elevator.setEmergencyHold(controls.getElevatorEmergencyHold());
             elevator.setEmergencyUp(controls.getElevatorEmergencyUp());
         }
 

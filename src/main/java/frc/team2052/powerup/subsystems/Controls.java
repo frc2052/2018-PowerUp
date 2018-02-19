@@ -33,7 +33,7 @@ public class Controls {
         {
             val = 0;
         }
-        return val;
+        return val * .7;
     }
 
     public boolean getQuickTurn() {
@@ -65,7 +65,7 @@ public class Controls {
     public boolean getElevatorAdjustmentDown(){ return secondaryJoystick.getRawButton(Constants.kElevatorScale_TrimDownButton); }
 
     public boolean getElevatorEmergencyUp() { return secondaryJoystick.getRawButton(Constants.kManualElevator_RaiseButton);}
-    public boolean getElevatorEmergencyDown() {return secondaryJoystick.getRawButton(Constants.kManualElevator_LowerButton);}
+    public boolean getElevatorEmergencyHold() {return secondaryJoystick.getRawButton(Constants.kManualElevator_HoldButton);}
 
 
    /* public Pickup.PickupState getIntakeState() {
