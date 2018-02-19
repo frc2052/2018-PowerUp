@@ -113,7 +113,8 @@ public class Elevator implements Loopable{
     private boolean lastUpPressedState = false; //declares that the button isn't pressed at the start of the match
     public void setElevatorAdjustmentUp(boolean isPressed) //if the button state has changed, it will add an extra inch
     {
-        if (isPressed){//switched back to closed loop mode
+        if (isPressed && runningInOpenLoop){//switched back to closed loop mode
+            goalElevatorInches = (int)getHeightInches(); //set the target position to the current position so we don't jerk around
             runningInOpenLoop = false;
         }
         if(isPressed != lastUpPressedState) //if switching between pressed and not pressed && going up
@@ -126,7 +127,8 @@ public class Elevator implements Loopable{
 
     public void setElevatorAdjustmentDown(boolean isPressed)//if the button state has changed, it will remove an inch
     {
-        if (isPressed){//switched back to closed loop mode
+        if (isPressed && runningInOpenLoop){//switched back to closed loop mode
+            goalElevatorInches = (int)getHeightInches(); //set the target position to the current position so we don't jerk around
             runningInOpenLoop = false;
         }
         if(isPressed != lastDownPressedState) //if switching between pressed and not pressed && going up

@@ -41,10 +41,10 @@ public class Constants {public static int intakeSolenoid =1;
     public static double intakeStopSpeed = .2;
 
     /////////// Ramp ////////////
-    public static int kRampRightServoReleaseAngle = 150;
+    public static int kRampRightServoReleaseAngle = 90;
     public static int kRampRightServoClosedAngle = 0;
-    public static int kRampLeftServoReleaseAngle = 90;
-    public static int kRampLeftServoClosedAngle = 0;
+    public static int kRampLeftServoReleaseAngle = 0;
+    public static int kRampLeftServoClosedAngle = 90;
 
     /////////// Buttons ////////////
     //SECONDARY
