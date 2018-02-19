@@ -10,6 +10,7 @@ import frc.team2052.powerup.Constants;
 public class Elevator implements Loopable{
 
     private TalonSRX elevatorTalon;
+    private boolean runningInOpenLoop = false;
 
     //SINGLETON
     private static Elevator instance = null;
@@ -34,7 +35,7 @@ public class Elevator implements Loopable{
         elevatorTalon.setSensorPhase(true);
         elevatorTalon.configClosedloopRamp(Constants.kElevatorRampSeconds, 10);
         elevatorTalon.configPeakOutputForward(Constants.kElevatorPeakUpPower, 10);
-        elevatorTalon.configPeakOutputReverse(-Constants.kElevatorPeakDownPower, 10);
+        elevatorTalon.configPeakOutputReverse(Constants.kElevatorPeakDownPower, 10);
         elevatorTalon.setNeutralMode(NeutralMode.Brake);
         elevatorTalon.config_kP(0, Constants.kElevatorVelocityKp, 10);
         elevatorTalon.config_kI(0, Constants.kElevatorVelocityKi, 10);
@@ -75,9 +76,10 @@ public class Elevator implements Loopable{
     }
     //Emergency manual control
     private boolean emergencyDownWasPressed = false; // variable makes it able to stop the motor only one time once it is let go
-    public void setEmergencyDown(boolean isPressed) {
+    public void setEmergencyHold(boolean isPressed) {
         if (isPressed == true) { // if true, it will go up and set the was pressed to true
-            elevatorTalon.set(ControlMode.PercentOutput, Constants.kElevatorPeakDownPower);
+            runningInOpenLoop = true;//switching to open loop
+            elevatorTalon.set(ControlMode.PercentOutput, Constants.kElevatorEmergencyHoldPower);
             emergencyDownWasPressed = true;
         } else { //if false, it will stop once and set the was pressed to false
             if (emergencyDownWasPressed == true) {
@@ -90,7 +92,8 @@ public class Elevator implements Loopable{
     private boolean emergencyUpWasPresesed = false; //able to stop motor only once after pressed
     public void setEmergencyUp (boolean isPressed) {
         if (isPressed == true) {
-            elevatorTalon.set(ControlMode.PercentOutput,Constants.kElevatorPeakUpPower);
+            runningInOpenLoop = true;//switching to open loop
+            elevatorTalon.set(ControlMode.PercentOutput,Constants.kElevatorEmergencyUpPower);
             emergencyUpWasPresesed = true;
         } else {
             if (emergencyUpWasPresesed == true) {
@@ -110,6 +113,9 @@ public class Elevator implements Loopable{
     private boolean lastUpPressedState = false; //declares that the button isn't pressed at the start of the match
     public void setElevatorAdjustmentUp(boolean isPressed) //if the button state has changed, it will add an extra inch
     {
+        if (isPressed){//switched back to closed loop mode
+            runningInOpenLoop = false;
+        }
         if(isPressed != lastUpPressedState) //if switching between pressed and not pressed && going up
         {
             setAndVerifyGoalInches(goalElevatorInches + 1);
@@ -119,8 +125,10 @@ public class Elevator implements Loopable{
     private boolean lastDownPressedState = false;
 
     public void setElevatorAdjustmentDown(boolean isPressed)//if the button state has changed, it will remove an inch
-
     {
+        if (isPressed){//switched back to closed loop mode
+            runningInOpenLoop = false;
+        }
         if(isPressed != lastDownPressedState) //if switching between pressed and not pressed && going up
         {
             setAndVerifyGoalInches(goalElevatorInches - 1);
@@ -131,11 +139,13 @@ public class Elevator implements Loopable{
     //public void setHeightFromPreset()
     @Override
     public void update(){
-        double rotation = goalElevatorInches / Constants.kElevatorInchesPerRotation;
-        int pos = (int)(rotation * Constants.kElevatorTicksPerRot);
-        //Sets the Carriage at a set height, see https://github.com/CrossTheRoadElec/Phoenix-Documentation/blob/master/Talon%20SRX%20Victor%20SPX%20-%20Software%20Reference%20Manual.pdf
-        // in 3.1.2.1, recommended timeout is zero while in robot loop
-        elevatorTalon.set(ControlMode.Position, pos);
+        if(!runningInOpenLoop) {//we are running in closed loop
+            double rotation = goalElevatorInches / Constants.kElevatorInchesPerRotation;
+            int pos = (int) (rotation * Constants.kElevatorTicksPerRot);
+            //Sets the Carriage at a set height, see https://github.com/CrossTheRoadElec/Phoenix-Documentation/blob/master/Talon%20SRX%20Victor%20SPX%20-%20Software%20Reference%20Manual.pdf
+            // in 3.1.2.1, recommended timeout is zero while in robot loop
+            elevatorTalon.set(ControlMode.Position, pos);
+        }
     }
     @Override
     public void onStart(){

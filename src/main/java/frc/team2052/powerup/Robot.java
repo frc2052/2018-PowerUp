@@ -286,7 +286,7 @@ public class Robot extends IterativeRobot {
             elevator.setElevatorAdjustmentUp(controls.getElevatorAdjustmentUp());
             elevator.setElevatorAdjustmentDown(controls.getElevatorAdjustmentDown());
 
-            elevator.setEmergencyDown(controls.getElevatorEmergencyDown());
+            elevator.setEmergencyHold(controls.getElevatorEmergencyHold());
             elevator.setEmergencyUp(controls.getElevatorEmergencyUp());
         }
 
