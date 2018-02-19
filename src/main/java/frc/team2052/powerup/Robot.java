@@ -217,7 +217,6 @@ public class Robot extends IterativeRobot {
         driveTrain.setOpenLoop(driveHelper.drive(controls.getTank(), controls.getTurn(), controls.getQuickTurn()));
           //  visionTurn = false;
         //}
-        double time = DriverStation.getInstance().getMatchTime();
 
         if (intake != null) {
 
@@ -264,7 +263,7 @@ public class Robot extends IterativeRobot {
             elevator.setEmergencyUp(controls.getElevatorEmergencyUp());
         }
 
-        if (ramp != null /*&& time < 30*/)
+        if (ramp != null)
         {
             ramp.dropRampPinLeft(controls.getDropLeftRamp());
 
