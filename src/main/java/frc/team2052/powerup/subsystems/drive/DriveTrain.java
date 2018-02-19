@@ -249,7 +249,7 @@ public class DriveTrain extends DriveTrainHardware {
             System.out.println("Path velocity too HIGH. Adjusting.");
             double scaling = Constants.kPathFollowingMaxVel / max_vel;
             setpoint = new Kinematics.DriveVelocity(setpoint.left * scaling, setpoint.right * scaling);
-        } else if (max_vel < Constants.kPathFollowingMinVel) {
+        } else if (max_vel < Constants.kPathFollowingMinVel && max_vel != 0) {
             double scaling = Constants.kPathFollowingMinVel / max_vel;
             setpoint = new Kinematics.DriveVelocity(setpoint.left * scaling, setpoint.right * scaling);
             System.out.println("Path velocity too LOW. Adjusting. OldMaxVel = " + max_vel + "  Scaled by: " + scaling + "  New Left: " + setpoint.left + "  New Right: " + setpoint.right);

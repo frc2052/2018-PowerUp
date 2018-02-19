@@ -82,7 +82,7 @@ public class Elevator implements Loopable{
         } else { //if false, it will stop once and set the was pressed to false
             if (emergencyDownWasPressed == true) {
                 elevatorTalon.set(ControlMode.PercentOutput, 0);
-                emergencyDownWasPressed = false;
+                emergencyDownWasPressed = false; //Only stop the motor the moment it's let go.
             }
         }
 
@@ -95,7 +95,7 @@ public class Elevator implements Loopable{
         } else {
             if (emergencyUpWasPresesed == true) {
                 elevatorTalon.set(ControlMode.PercentOutput, 0);
-                emergencyUpWasPresesed = false;
+                emergencyUpWasPresesed = false; //Exactly the same as EmergencyDown, except for up.
             }
         }
     }

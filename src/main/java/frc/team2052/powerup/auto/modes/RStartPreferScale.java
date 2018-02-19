@@ -43,7 +43,7 @@ public class RStartPreferScale extends AutoMode {
                 new ParallelAction(Arrays.asList(
                     new TimeoutAction(new FollowPathAction(new Path(AutoPaths.RLScale), false), 10), //pathing to the left scale
                     new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
-                        new  ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH), //Elevator raises to place on balanced scale
+                        new  ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING), //Elevator raises to place on balanced scale
                         new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN))))),
                 new WantOutakeAction(), //pushes cube out
                 new MoveArmAction(MoveArmAction.ArmPositionEnum.START)

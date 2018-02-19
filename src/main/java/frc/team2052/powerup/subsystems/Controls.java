@@ -33,7 +33,7 @@ public class Controls {
         {
             val = 0;
         }
-        return val;
+        return val * .7;
     }
 
     public boolean getQuickTurn() {

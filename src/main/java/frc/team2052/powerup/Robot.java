@@ -117,6 +117,7 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void autonomousInit() {
+        FieldConfig.reset();
         AutoPaths.Init();
         zeroAllSensors();
         Timer.delay(.25);
