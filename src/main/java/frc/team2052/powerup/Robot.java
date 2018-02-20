@@ -192,6 +192,7 @@ public class Robot extends IterativeRobot {
 
         fieldLooper.stop(); //no reason to keep running this
         //autoModeRunner.setAutoMode(new AutoLine());
+        System.out.println("STARTING AUTOMODE");
         autoModeRunner.start();
     }
     @Override
