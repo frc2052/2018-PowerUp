@@ -219,7 +219,7 @@ public class DriveTrain extends DriveTrainHardware {
             SmartDashboard.putNumber("RightVelocityInchesPerSec", right_inches_per_sec);
             leftMaster.set(ControlMode.Velocity, leftSpeed);
             rightMaster.set(ControlMode.Velocity, rightSpeed);
-            System.out.println("UPDATE VELOCITY SETTING  -----  Angle: " + getGyroAngleDegrees() + "   LEFT SPEED FROM CHEESY: " + leftSpeed + "    RIGHT SPEED FROM CHEESY: " + rightSpeed + pathFollowingController.getStatusText());
+            System.out.println("UPDATE VELOCITY SETTING  -----  Angle: " + getGyroAngleDegrees() + "   LEFT SPEED FROM CHEESY: " + leftSpeed + "    RIGHT SPEED FROM CHEESY: " + rightSpeed + "  " + pathFollowingController.getStatusText());
 
             //determine a turn direction and what "rate"
             //negative is turn left, positive right, 0 straight ahead
