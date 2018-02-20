@@ -53,7 +53,10 @@ public class FieldConfig implements Loopable {
     }
 
     public static boolean hasGameData() { return gameData != null && gameData.length() > 0; }
-    public static void reset() { gameData = null; }
+    public static void reset() {
+        gameData = null;
+        checkForGameData();
+    }
 
     public static String getGameData() {
         if (gameData == null)
@@ -64,9 +67,7 @@ public class FieldConfig implements Loopable {
         }
     }
 
-    //FMS is not gaurenteed to give us the game data on first try, so loop until you get it
-    @Override
-    public void update() {
+    private static void checkForGameData(){
         String newValue = DriverStation.getInstance().getGameSpecificMessage();
         if (newValue != null)
         {
@@ -84,6 +85,12 @@ public class FieldConfig implements Loopable {
                 System.out.println("DRIVER STATION VALUE FOR GAME DATA WAS INVALID: [" + newValue + "]");
             }
         }
+    }
+
+    //FMS is not gaurenteed to give us the game data on first try, so loop until you get it
+    @Override
+    public void update() {
+        checkForGameData();
     }
 
     @Override

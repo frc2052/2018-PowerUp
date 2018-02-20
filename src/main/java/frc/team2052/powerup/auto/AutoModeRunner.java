@@ -1,19 +1,32 @@
 package frc.team2052.powerup.auto;
 
+import javax.xml.crypto.dsig.spec.ExcC14NParameterSpec;
+
 public class AutoModeRunner {
     Thread autoThread;
     AutoModeBase autoMode;
 
-    public void start() {//Initializes auto mode
-        if (autoMode == null)
+    public void start(AutoModeBase newMode) {//Initializes auto mode
+        if (this.autoMode != null) { //there is already a auto mode, should only happen in testing
+            try {
+                System.out.println("Existing Automode already in AutomodeRunner");
+                System.out.println(this.autoMode.getClass().getName());
+                this.autoMode.stop();
+            }
+            catch (Exception e)
+            {
+                System.out.println("Failed to stop existing Automode");
+                System.out.println(e.getMessage());
+                e.printStackTrace();
+            }
+        }
+        this.autoMode = newMode;
+        if (this.autoMode == null) {
             return;
-        autoThread = new Thread(() -> autoMode.start());
+        }
+        System.out.print("Starting new automode " + this.autoMode.getClass().getName());
+        autoThread = new Thread(() -> this.autoMode.start());
         autoThread.start();
-    }
-
-    public void setAutoMode(AutoModeBase autoMode) {//Runs auto mode selector
-        System.out.println(autoMode);
-        this.autoMode = autoMode;
     }
 
     public void stop() {//Stops auto mode
@@ -22,7 +35,4 @@ public class AutoModeRunner {
         autoThread = null;
     }
 
-
 }
-
-

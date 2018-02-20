@@ -31,6 +31,7 @@ public class ControlLoop {
 
         for (Loopable loopable : loopables) {
             loopable.onStart();
+            System.out.println("Loopable Started: " + loopable.getClass().getName());
         }
 
         notifier.startPeriodic(period);
@@ -40,12 +41,13 @@ public class ControlLoop {
         running = false;
         for (Loopable loopable : loopables) {
             loopable.onStop();
+            System.out.println("Loopable Stopped: " + loopable.getClass().getName());
         }
         System.out.println("Stopped Control Loop");
     }
 
     public void addLoopable(Loopable loopable) {
-        System.out.println(loopable);
+        System.out.println("Loopable Added: " + loopable.getClass().getName() + "  Period: " + period);
         loopables.add(loopable);
     }
 }

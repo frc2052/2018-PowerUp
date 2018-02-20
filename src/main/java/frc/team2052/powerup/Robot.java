@@ -39,6 +39,7 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void robotInit() {
+        System.out.println("STARTING ROBOT INIT");
         driveTrain = DriveTrain.getInstance();
         driveHelper = new DriveHelper();
         controls = Controls.getInstance();
@@ -93,16 +94,19 @@ public class Robot extends IterativeRobot {
 
         AutoModeSelector.putToSmartDashboard();
         autoModeRunner = new AutoModeRunner();
+        System.out.println("COMPLETED ROBOT INIT");
     }
 
     @Override
     public void disabledInit() {
+        System.out.println("STARTING DISABLED INIT");
         controlLoop.stop();
         logLooper.stop();
         slowerLooper.stop();
         fieldLooper.stop();
         autoModeRunner.stop();
         zeroAllSensors();
+        System.out.println("COMPLETED DISABLED INIT");
     }
 
     @Override
@@ -114,6 +118,8 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void autonomousInit() {
+        System.out.println("STARTING AUTO INIT");
+        robotState.reset(Timer.getFPGATimestamp(), new RigidTransform2d());
         FieldConfig.reset();
         AutoPaths.Init();
         zeroAllSensors();
@@ -125,14 +131,12 @@ public class Robot extends IterativeRobot {
         driveTrain.setOpenLoop(DriveSignal.NEUTRAL);  //put robot into don't move, no looper mode
         driveTrain.setBrakeMode(false);
 
-        robotState.reset(Timer.getFPGATimestamp(), new RigidTransform2d());
         fieldLooper.start();
         logLooper.start();
         controlLoop.start();
         slowerLooper.start();
 
         AutoModeSelector.AutoModeDefinition currentAutoMode = AutoModeSelector.getAutoDefinition(); //creates a variable we can change
-        boolean gameDataHasArrived = FieldConfig.hasGameData();
         double startGameDataCheck = Timer.getFPGATimestamp();
         while (!FieldConfig.hasGameData() && (Timer.getFPGATimestamp() - startGameDataCheck) < 3) { //wait upto 3 seconds to get the game data
             System.out.println("No Game Data in wait loop. " + FieldConfig.getGameData());
@@ -188,12 +192,12 @@ public class Robot extends IterativeRobot {
                     break;
             }
         }
-        autoModeRunner.setAutoMode(currentAutoMode.getInstance());
 
         fieldLooper.stop(); //no reason to keep running this
         //autoModeRunner.setAutoMode(new AutoLine());
-        System.out.println("STARTING AUTOMODE");
-        autoModeRunner.start();
+        System.out.println("STARTING AUTOMODE " + currentAutoMode.name());
+        autoModeRunner.start(currentAutoMode.getInstance());
+        System.out.println("COMPLETED AUTO INIT");
     }
     @Override
     public void autonomousPeriodic() {
@@ -209,6 +213,7 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void teleopInit() {
+        System.out.println("STARTING TELEOP INIT");
         robotState.reset(Timer.getFPGATimestamp(), new RigidTransform2d());
 
         zeroAllSensors();
@@ -224,6 +229,7 @@ public class Robot extends IterativeRobot {
         if (elevator != null){
             elevator.setCurrentPosAsTarget(); //if elevator is coasting down, tell it to stay right where it is, otherwise it will go back up
         }
+        System.out.println("COMPLETED TELEOP INIT");
     }
 
     @Override
@@ -297,19 +303,19 @@ public class Robot extends IterativeRobot {
 
             ramp.dropRampPinRight(controls.getDropRightRamp());
 
-
             if (controls.getLowerLeftRamp()){
                 System.out.println("LOWER LEFT RAMP");
                 ramp.lowerLeftRamp();
             }else if(controls.getRaiseLeftRamp()){
-                System.out.println("RAISE LEFT RAMP________");
+                System.out.println("RAISE LEFT RAMP");
                 ramp.raiseLeftRamp();
             }
 
             if (controls.getLowerRightRamp()){
                 ramp.lowerRightRamp();
+                System.out.println("LOWER RIGHT RAMP");
             }else if(controls.getRaiseRightRamp()){
-                System.out.println("RAISING RIGHT RAMP");
+                System.out.println("RAISe RIGHT RAMP");
                 ramp.raiseRightRamp();
             }
         }

@@ -29,6 +29,7 @@ public class AdaptivePurePursuitController {
     double mDt;
     boolean mReversed;
     double mPathCompletionTolerance;
+    boolean forceComplete = false;
 
     public AdaptivePurePursuitController(double fixed_lookahead, double max_accel, double nominal_dt, Path path,
                                          boolean reversed, double path_completion_tolerance) {
@@ -41,9 +42,17 @@ public class AdaptivePurePursuitController {
         mPathCompletionTolerance = path_completion_tolerance;
     }
 
+    public void forcePathIsComplete() {
+        this.forceComplete = true;
+    }
+
     public boolean isDone() {
         double remainingLength = mPath.getRemainingLength();
-        return remainingLength <= mPathCompletionTolerance;
+        return forceComplete || remainingLength <= mPathCompletionTolerance;
+    }
+
+    public String getStatusText() {
+        return "Remaining Distance: " + mPath.getRemainingLength() + "  Starting Segments: " + mPath.getStartingSegments() + "  Segments Left: " + mPath.getSegmentsRemaining();
     }
 
     public RigidTransform2d.Delta update(RigidTransform2d robot_pose, double now) {
@@ -58,6 +67,7 @@ public class AdaptivePurePursuitController {
         SmartDashboard.putNumber("OffPathInchesInActivePursuit", distance_from_path);
 
         if (this.isDone()) {
+            System.out.println("Path is done! Remaining distance: " + mPath.getRemainingLength() + " End Tolerance: " + mPathCompletionTolerance + "  Force Complete: " + forceComplete);
             return new RigidTransform2d.Delta(0, 0, 0);
         }
 

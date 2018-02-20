@@ -19,7 +19,7 @@ public class Ramp {
         }
         return instance;
     }
-  
+
     //Ramp pins for each side and extending/collapsing ramp on each side
     private Servo rightRampServo;
     private Servo leftRampServo;
@@ -41,37 +41,49 @@ public class Ramp {
         leftRampOut = new Solenoid(Constants.kLeftRampOutId);
     }
 
+    private boolean dropLeftRampIsPressed = false;
     /**
      *
      * @param release if true release Left ramp
      */
-
     public void dropRampPinLeft(boolean release)  {
         double time = DriverStation.getInstance().getMatchTime();
-        leftDropRampCount++;
+        if (release && !dropLeftRampIsPressed) { //button was just pressed, because it wasn't pressed, and now it is
+            leftDropRampCount++; //do this to track how many times the button goes up and down
+        }
+        dropLeftRampIsPressed = release; //this will keep track of the last known button state (up or down)
         if(time < 30 || leftDropRampCount > 4){
             if(release){
                 leftRampServo.setAngle(Constants.kRampLeftServoReleaseAngle);
             }else{
                 leftRampServo.setAngle(Constants.kRampLeftServoClosedAngle);
             }
+        } else {
+            System.out.println("DON'T DROP LEFT RAMP! Time remaining = " + time + "  Buttom pressed " + rightDropRampCount + " times");
         }
     }
 
+    private boolean dropRightRampIsPressed = false;
     /**
      *
      * @param release if true release Right ramp
      */
     public void dropRampPinRight(boolean release) {
         double time = DriverStation.getInstance().getMatchTime();
-        rightDropRampCount++;
+        if (release && !dropRightRampIsPressed) { //button was just pressed, because it wasn't pressed, and now it is
+            rightDropRampCount++; //do this to track how many times the button goes up and down
+        }
+        dropRightRampIsPressed = release; //this will keep track of the last known button state (up or down)
         if(time < 30 || rightDropRampCount > 4){
             if(release){
                 rightRampServo.setAngle(Constants.kRampRightServoReleaseAngle);
             }else{
                 rightRampServo.setAngle(Constants.kRampRightServoClosedAngle);
             }
+        } else {
+            System.out.println("DON'T DROP RIGHT RAMP! Time remaining = " + time + "  Buttom pressed " + rightDropRampCount + " times");
         }
+
     }
 
     public void raiseRightRamp() {
