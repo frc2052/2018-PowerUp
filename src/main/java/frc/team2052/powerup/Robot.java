@@ -220,6 +220,9 @@ public class Robot extends IterativeRobot {
 
         driveTrain.setOpenLoop(DriveSignal.NEUTRAL);
         driveTrain.setBrakeMode(true);
+        if (elevator != null){
+            elevator.setCurrentPosAsTarget(); //if elevator is coasting down, tell it to stay right where it is, otherwise it will go back up
+        }
     }
 
     @Override

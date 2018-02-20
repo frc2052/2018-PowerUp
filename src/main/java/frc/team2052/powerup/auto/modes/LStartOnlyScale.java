@@ -21,7 +21,8 @@ public class LStartOnlyScale extends AutoMode {
                             new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING), //Elevator raises to place on switch
                             new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN))))), //lowers pickup to position pointing out
                     new WantOutakeAction(),//pushes cube out
-                    new MoveArmAction(MoveArmAction.ArmPositionEnum.START)
+                    new MoveArmAction(MoveArmAction.ArmPositionEnum.START),
+                    new TimeoutAction(new FollowPathAction(new Path(AutoPaths.ReverseLScale), true), 2)
             )));
         } else if(AutoModeSelector.getDisabledAuto() != AutoModeSelector.AutoDisableDefinition.RIGHTSCALE){
             System.out.println("HEADING TO R SCALE");
@@ -40,7 +41,6 @@ public class LStartOnlyScale extends AutoMode {
             runAction(new SeriesAction(Arrays.asList(
                 new WaitAction(AutoModeSelector.getWaitTime()),
                 new FollowPathAction(new Path(AutoPaths.AutoLine), false))));
+        }
     }
-
-}
 }

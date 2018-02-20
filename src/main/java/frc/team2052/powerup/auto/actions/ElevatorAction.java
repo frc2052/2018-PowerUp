@@ -11,7 +11,14 @@ public class ElevatorAction implements Action{
     }
 
     public ElevatorAction(Elevator.ElevatorPresetEnum ElevatorState){
-        this.ElevatorState = ElevatorState;
+        //TODO: Remove before Duluth
+        if (ElevatorState == Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING
+                || ElevatorState == Elevator.ElevatorPresetEnum.SCALE_HIGH
+                || ElevatorState == Elevator.ElevatorPresetEnum.SCALE_BALANCED) {
+            this.ElevatorState = Elevator.ElevatorPresetEnum.SWITCH;
+        } else {
+            this.ElevatorState = ElevatorState;
+        }
     }
 
     private Elevator.ElevatorPresetEnum ElevatorState;
