@@ -232,23 +232,7 @@ public class Robot extends IterativeRobot {
         System.err.println("Vision Error" + visionProcessor.getError());
         SmartDashboard.putNumber("Vision Error", visionProcessor.getError());
 
-        /*
-        if (controls.wantVisionAlign()) {
-            if(!visionTurn) {
-                VisionTrackingTurnAngleResult latestTargetResult = VisionProcessor.getInstance().getLatestTargetResult();
-                if (latestTargetResult.isValid) {
-                    visionTurn = true;
-                    visionTurnAngle = Rotation2d.fromDegrees(driveTrain.getGyroAngleDegrees() + latestTargetResult.turnAngle);
-                }
-                if(visionTurn) {
-                    driveTrain.setVelocityHeadingSetpoint(10 * controls.getTank(), visionTurnAngle);
-                }
-            }
-        } else {*/
-
         driveTrain.setOpenLoop(driveHelper.drive(controls.getTank(), controls.getTurn(), controls.getQuickTurn()));
-          //  visionTurn = false;
-        //}
 
         if (intake != null) {
 

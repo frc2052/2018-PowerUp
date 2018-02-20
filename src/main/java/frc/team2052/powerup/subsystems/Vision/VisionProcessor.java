@@ -33,6 +33,8 @@ public class VisionProcessor implements Loopable {
     private int targetElement = 0;
     private int xRange = 570;
     double error = 0;
+    double loopsWithNoTarget;
+
 
     public VisionProcessor() {
         networkInstance = NetworkTableInstance.getDefault();
@@ -63,18 +65,23 @@ public class VisionProcessor implements Loopable {
         double largestArea = 0.0;
 
         if(rawArea.length != 0){
-
+            loopsWithNoTarget = 0;
             for (int i = 0; i < rawArea.length; i++) {
                 System.out.println("Element " + i + " equals " + rawArea[i]);
+
                 if (rawArea[i] > largestArea) {
                     largestArea = rawArea[i];
                     targetElement = i;
+
                     System.out.println("TargetElement: " + targetElement);
                     targetArea = rawArea[targetElement];
+
                     System.out.println("Target Area: " + targetArea);
                     targetX = rawX[targetElement];
                 }
             }
+        }else{
+            loopsWithNoTarget = loopsWithNoTarget++;
         }
     }
 
@@ -86,5 +93,13 @@ public class VisionProcessor implements Loopable {
 
     public double getArea(){
         return targetArea;
+    }
+
+    public double getXRange(){
+        return xRange;
+    }
+
+    public boolean checkLostTarget(){
+        return loopsWithNoTarget > 300;
     }
 }
