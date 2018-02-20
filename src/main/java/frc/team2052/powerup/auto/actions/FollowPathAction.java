@@ -33,13 +33,13 @@ public class FollowPathAction implements Action {
     public void update()
     {
         mHasStarted = true;
-        try {
-            System.out.println("GYRO  " + mDrive.getGyroAngleDegrees() + "  REMAINING: " + mPath.getRemainingLength() + "  LEFT: " + mDrive.getLeftDistanceInches() + "  RIGHT: " + mDrive.getRightDistanceInches());
-            System.out.println("controlMode: " + mDrive.leftMaster.getControlMode() +" , " + mDrive.leftMaster.getMotorOutputVoltage());
-        } catch (Exception exc)
-        {
-            System.out.println("FAILURE: " + exc.getMessage());
-        }
+//        try {
+//            System.out.println("GYRO  " + mDrive.getGyroAngleDegrees() + "  REMAINING: " + mPath.getRemainingLength() + "  LEFT: " + mDrive.getLeftDistanceInches() + "  RIGHT: " + mDrive.getRightDistanceInches());
+//            System.out.println("controlMode: " + mDrive.leftMaster.getControlMode() +" , " + mDrive.leftMaster.getMotorOutputVoltage());
+//        } catch (Exception exc)
+//        {
+//            System.out.println("FAILURE: " + exc.getMessage());
+//        }
     }
 
     @Override

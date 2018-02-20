@@ -39,6 +39,7 @@ public class DriveTrain extends DriveTrainHardware {
         public void update() {
 
             if (getDriveControlState() == DriveControlState.OPEN_LOOP) {
+                System.out.println("DriveTrain Looper in Open Loop");
                 //ignore all looper requests while in teleop mode
                 return;
             }
@@ -48,15 +49,20 @@ public class DriveTrain extends DriveTrainHardware {
                 case PATH_FOLLOWING_CONTROL:
                     updatePathFollower();
                     if (isFinishedPath()) {
+                        System.out.println("Path is finished. Switching to open loop");
                         setOpenLoop(DriveSignal.NEUTRAL);
                     }
                     return;
                 case VELOCITY_HEADING_CONTROL:
+                    System.out.println("DriveTrain Looper in Vision looper");
                     updateVelocityHeadingSetpoint();
                     return;
                 //case VISION_FOLLOW:
                   //  updateVisionFollow();
                     //break;
+                default:
+                    System.out.println("DriveTrain Looper in Unknown State");
+                    return;
             }
         }
 
@@ -112,6 +118,14 @@ public class DriveTrain extends DriveTrainHardware {
         rightMaster.set(ControlMode.PercentOutput, signal.rightMotorSpeedPercent);
     }
 
+    public void abortCurrentPath()
+    {
+        if (pathFollowingController != null && !pathFollowingController.isDone()) {
+            System.out.println("WARNING: Path was not complete! Requested Abort.");
+            pathFollowingController.forcePathIsComplete();
+        }
+    }
+
     /**
      * Drives a desired path
      *
@@ -124,6 +138,17 @@ public class DriveTrain extends DriveTrainHardware {
             driveControlState = DriveControlState.PATH_FOLLOWING_CONTROL;
             velocityHeadingPid.reset();
         }
+
+        if (pathFollowingController != null)
+        {
+            System.out.println("Path following controller already exists. Removing.");
+            if (!pathFollowingController.isDone()) {
+                System.out.println("WARNING: Path was not complete! Forcing Done.");
+                pathFollowingController.forcePathIsComplete();
+            }
+        }
+
+        System.out.println("Following new path.  Starting segments: " + path.getStartingSegments());
         //Make a new path following controller under the constraints of the drive train.
         pathFollowingController = new AdaptivePurePursuitController(Constants.kPathFollowingLookahead,
                 Constants.kPathFollowingMaxAccel, Constants.kControlLoopPeriod, path, reversed, 1.5);
@@ -194,8 +219,7 @@ public class DriveTrain extends DriveTrainHardware {
             SmartDashboard.putNumber("RightVelocityInchesPerSec", right_inches_per_sec);
             leftMaster.set(ControlMode.Velocity, leftSpeed);
             rightMaster.set(ControlMode.Velocity, rightSpeed);
-            System.out.println("UPDATE VELOCITY SETTING  -----  Angle: " + getGyroAngleDegrees() + "   LEFT SPEED FROM CHEESY: " + leftSpeed + "    RIGHT SPEED FROM CHEESY: " + rightSpeed);
-
+            System.out.println("UPDATE VELOCITY SETTING  -----  Angle: " + getGyroAngleDegrees() + "   LEFT SPEED FROM CHEESY: " + leftSpeed + "    RIGHT SPEED FROM CHEESY: " + rightSpeed + pathFollowingController.getStatusText());
 
             //determine a turn direction and what "rate"
             //negative is turn left, positive right, 0 straight ahead
@@ -204,9 +228,8 @@ public class DriveTrain extends DriveTrainHardware {
             //number should be between -1 and 1
             double turn = (leftSpeed - rightSpeed) / (Math.max(Math.abs(leftSpeed), Math.abs(rightSpeed)) * 2);
             SmartDashboard.putNumber("DriveTurnRate", turn);
-
         } else {
-            System.out.println("Hit a bad velocity control state");
+            System.out.println("WARNING: Hit a bad velocity control state");
             leftMaster.set(ControlMode.PercentOutput,0);
             rightMaster.set(ControlMode.PercentOutput,0);
         }

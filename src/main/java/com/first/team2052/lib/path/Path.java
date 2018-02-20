@@ -23,6 +23,8 @@ public class Path {
     protected List<PathSegment> mSegments;
     protected Set<String> mMarkersCrossed;
 
+    private int startingSegments = 0;
+
     /**
      * A point along the Path, which consists of the location, the speed, and a
      * string marker (that future code can identify). Paths consist of a List of
@@ -54,6 +56,8 @@ public class Path {
             mSegments.add(
                     new PathSegment(waypoints.get(i).position, waypoints.get(i + 1).position, waypoints.get(i).speed));
         }
+        this.startingSegments = mSegments.size();
+
         // The first waypoint is already complete
         if (mWaypoints.size() > 0) {
             Waypoint first_waypoint = mWaypoints.get(0);
@@ -126,6 +130,9 @@ public class Path {
         }
         return length;
     }
+
+    public int getStartingSegments() { return startingSegments; }
+    public int getSegmentsRemaining() { return mSegments.size(); }
 
     /**
      * @param position The robot's current position
