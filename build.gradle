@@ -17,6 +17,10 @@ compileJava {
 def TEAM = 2052
 def ROBOT_CLASS = "frc.team2052.powerup.Robot"
 
+wpi {
+    shuffleboardVersion = '1.2.1'
+}
+
 // Define my targets (RoboRIO) and artifacts (deployable files)
 // This is added by GradleRIO's backing project EmbeddedTools.
 deploy {
