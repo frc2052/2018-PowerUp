@@ -29,10 +29,10 @@ public class Constants {public static int intakeSolenoid =1;
     public static int jawsSolenoidOut =21;
     public static int jawsSolenoidIn =22;
 
-    public static int kRightRampInId = 7;
-    public static int kRightRampOutId = 5;
-    public static int kLeftRampInId = 6;
-    public static int kLeftRampOutId = 4;
+    public static int kLeftRampInId = 7;
+    public static int kLeftRampOutId = 5;
+    public static int kRightRampInId = 6;
+    public static int kRightRampOutId = 4;
 
     /////////// Intake ////////////
     public static double intakeInSpeedLeft = 1;
@@ -41,10 +41,10 @@ public class Constants {public static int intakeSolenoid =1;
     public static double intakeStopSpeed = .2;
 
     /////////// Ramp ////////////
-    public static int kRampRightServoReleaseAngle = 105;
+    public static int kRampRightServoReleaseAngle = 115;
     public static int kRampRightServoClosedAngle = 0;
     public static int kRampLeftServoReleaseAngle = 0;
-    public static int kRampLeftServoClosedAngle = 105;
+    public static int kRampLeftServoClosedAngle = 115;
 
     /////////// Buttons ////////////
     //SECONDARY
