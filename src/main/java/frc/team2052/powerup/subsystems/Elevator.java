@@ -63,6 +63,11 @@ public class Elevator implements Loopable{
         setAndVerifyGoalInches(calcTarget);
     }
 
+    public void setCurrentPosAsTarget(){
+        goalElevatorInches = (int)getHeightInches();
+    }
+
+
     private void setAndVerifyGoalInches(int newGoalInches){
         if (newGoalInches >  Constants.kElevatorMaxHeight) {
             goalElevatorInches = Constants.kElevatorMaxHeight;
@@ -114,7 +119,7 @@ public class Elevator implements Loopable{
     public void setElevatorAdjustmentUp(boolean isPressed) //if the button state has changed, it will add an extra inch
     {
         if (isPressed && runningInOpenLoop){//switched back to closed loop mode
-            goalElevatorInches = (int)getHeightInches(); //set the target position to the current position so we don't jerk around
+            setCurrentPosAsTarget(); //set the target position to the current position so we don't jerk around
             runningInOpenLoop = false;
         }
         if(isPressed != lastUpPressedState) //if switching between pressed and not pressed && going up
@@ -128,7 +133,7 @@ public class Elevator implements Loopable{
     public void setElevatorAdjustmentDown(boolean isPressed)//if the button state has changed, it will remove an inch
     {
         if (isPressed && runningInOpenLoop){//switched back to closed loop mode
-            goalElevatorInches = (int)getHeightInches(); //set the target position to the current position so we don't jerk around
+            setCurrentPosAsTarget(); //set the target position to the current position so we don't jerk around
             runningInOpenLoop = false;
         }
         if(isPressed != lastDownPressedState) //if switching between pressed and not pressed && going up

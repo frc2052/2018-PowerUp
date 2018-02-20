@@ -21,7 +21,8 @@ public class LStartPreferScale extends AutoMode {
                             new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING), //Elevator raises to place on balanced scale
                             new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN))))),
                     new WantOutakeAction(), //pushes cube out
-                    new MoveArmAction(MoveArmAction.ArmPositionEnum.START)
+                    new MoveArmAction(MoveArmAction.ArmPositionEnum.START),
+                    new TimeoutAction(new FollowPathAction(new Path(AutoPaths.ReverseLScale), true), 2)
             )));
         } else if(FieldConfig.isMySwitchLeft()){ // if left switch is ours
             System.out.println("HEADING TO L SWITCH");

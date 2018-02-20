@@ -15,8 +15,8 @@ import frc.team2052.powerup.Constants;
 class DriveTrainHardware {
     protected static final int kVelocityControlSlot = 0;
 
-    final TalonSRX rightMaster;
-    final TalonSRX leftMaster;
+    public final TalonSRX rightMaster;
+    public final TalonSRX leftMaster;
     private final TalonSRX rightSlave;
     private final TalonSRX leftSlave;
 
