@@ -28,6 +28,7 @@ public class VisionProcessor implements Loopable {
 
     double[] rawX;
     double[] rawArea;
+    double targetX;
     double targetArea;
     private int targetElement = 0;
     private int xRange = 570;
@@ -62,21 +63,24 @@ public class VisionProcessor implements Loopable {
         double largestArea = 0.0;
 
         if(rawArea.length != 0){
+
             for (int i = 0; i < rawArea.length; i++) {
+                System.out.println("Element " + i + " equals " + rawArea[i]);
                 if (rawArea[i] > largestArea) {
                     largestArea = rawArea[i];
                     targetElement = i;
-                    System.out.println("TargetElement------------: " + targetElement);
+                    System.out.println("TargetElement: " + targetElement);
+                    targetArea = rawArea[targetElement];
+                    System.out.println("Target Area: " + targetArea);
+                    targetX = rawX[targetElement];
                 }
             }
-            targetArea = rawArea[targetElement];
-            System.out.println("Target Area----------: " + targetArea);
-            error = rawX[targetElement] - xRange/2;
-            System.out.println("Vision Error-----------: " + error);
         }
     }
 
     public double getError(){
+        error = targetX - xRange/2;
+        System.out.println("Vision Error: " + error);
         return error;
     }
 
