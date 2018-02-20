@@ -10,6 +10,7 @@ import frc.team2052.powerup.auto.AutoModeSelector;
 import frc.team2052.powerup.auto.AutoPaths;
 import frc.team2052.powerup.auto.FieldConfig;
 import frc.team2052.powerup.subsystems.*;
+import frc.team2052.powerup.subsystems.Vision.VisionProcessor;
 import frc.team2052.powerup.subsystems.drive.DriveSignal;
 import frc.team2052.powerup.subsystems.drive.DriveTrain;
 
@@ -25,6 +26,7 @@ public class Robot extends IterativeRobot {
     private Controls controls = null;
     private Ramp ramp = null;
     private Elevator elevator = null;
+    private VisionProcessor visionProcessor = null;
 
     private AutoModeRunner autoModeRunner = null;
     private RobotState robotState = null;
@@ -49,6 +51,7 @@ public class Robot extends IterativeRobot {
         intake = Pickup.getInstance();
         ramp = Ramp.getInstance();
         elevator = Elevator.getInstance();
+        visionProcessor = VisionProcessor.getInstance();
         //////////////////////////////////////////////
 
         try {
@@ -80,6 +83,8 @@ public class Robot extends IterativeRobot {
         {
             intake.pickupPositionStartingConfig();
         }
+
+        controlLoop.addLoopable(visionProcessor);
 
         //slowerLooper.addLoopable(VisionProcessor.getInstance());
 
@@ -224,6 +229,9 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void teleopPeriodic() {
+        System.err.println("Vision Error" + visionProcessor.getError());
+        SmartDashboard.putNumber("Vision Error", visionProcessor.getError());
+
         /*
         if (controls.wantVisionAlign()) {
             if(!visionTurn) {
@@ -322,7 +330,8 @@ public class Robot extends IterativeRobot {
     public void testInit() { }
 
     @Override
-    public void testPeriodic() { }
+    public void testPeriodic() {
+    }
 
     public void zeroAllSensors() {
         driveTrain.resetEncoders();
