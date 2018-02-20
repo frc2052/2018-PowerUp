@@ -54,6 +54,8 @@ public class Robot extends IterativeRobot {
         visionProcessor = VisionProcessor.getInstance();
         //////////////////////////////////////////////
 
+        CameraServer.getInstance().startAutomaticCapture();
+
         try {
             compressor = new Compressor();
             compressor.setClosedLoopControl(true);
