@@ -43,10 +43,12 @@ public class LStartPreferScale extends AutoMode {
                     new ParallelAction(Arrays.asList(
                         new TimeoutAction(new FollowPathAction(new Path(AutoPaths.LRScale), false),8), //pathing to the right scale
                         new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
-                            new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH), //Elevator raises to place on balanced scale
+                            new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING), //Elevator raises to place on balanced scale
                             new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN))))), //lowers pickup to position pointing out
                     new WantOutakeAction(), //pushes cube out
-                    new MoveArmAction(MoveArmAction.ArmPositionEnum.START)
+                    new MoveArmAction(MoveArmAction.ArmPositionEnum.START),
+                    new WaitAction(.5),
+                    new TimeoutAction(new FollowPathAction(new Path(AutoPaths.ReverseLRScale), true), 2)
             )));
         } else {
             System.out.println("HEADING TO AUTO LINE");

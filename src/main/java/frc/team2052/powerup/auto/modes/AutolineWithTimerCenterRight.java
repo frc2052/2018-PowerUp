@@ -13,6 +13,7 @@ import java.util.Arrays;
 public class AutolineWithTimerCenterRight extends AutoMode{
     @Override
     protected void init() throws AutoModeEndedException {
+        System.out.println("RUNNING AUTO LINE WITH TIMER RIGHT");
         runAction(new SeriesAction(Arrays.asList(
                 new WaitAction(AutoModeSelector.getWaitTime()),
                 new MoveUntilTimeAction(1, new DriveSignal(.2, .2)),

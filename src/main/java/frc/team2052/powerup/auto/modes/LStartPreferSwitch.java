@@ -37,16 +37,17 @@ public class LStartPreferSwitch extends AutoMode {
                     new TimeoutAction(new FollowPathAction(new Path(AutoPaths.ReverseLScale), true), 2)
             )));
         } else if(AutoModeSelector.getDisabledAuto() != AutoModeSelector.AutoDisableDefinition.RIGHTSCALE){
-            System.out.println("HEADING TO R SWITCH");
+            System.out.println("HEADING TO R SCALE");
             runAction(new SeriesAction(Arrays.asList(
                     new WaitAction(AutoModeSelector.getWaitTime()),
                     new ParallelAction(Arrays.asList(
                         new TimeoutAction(new FollowPathAction(new Path(AutoPaths.LRScale), false), 10), //pathing to the right scale
                         new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
-                            new  ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH), //Elevator raises to place on balanced scale
+                            new  ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING), //Elevator raises to place on balanced scale
                             new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN))))),
                     new WantOutakeAction(), //pushes cube out
-                    new MoveArmAction(MoveArmAction.ArmPositionEnum.START)
+                    new MoveArmAction(MoveArmAction.ArmPositionEnum.START),
+                    new TimeoutAction(new FollowPathAction(new Path(AutoPaths.ReverseRScale), true), 2)
             )));
         } else {
             System.out.println("HEADING TO AUTO LINE");

@@ -111,8 +111,8 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void disabledPeriodic() {
-        driveTrain.resetEncoders();
-        robotState.reset(Timer.getFPGATimestamp(), new RigidTransform2d());
+//        driveTrain.resetEncoders();
+//        robotState.reset(Timer.getFPGATimestamp(), new RigidTransform2d());
         System.gc();
     }
 
