@@ -312,7 +312,7 @@ public class DriveTrain extends DriveTrainHardware {
     public boolean isFinishedPath() {
         if (getDriveControlState() == DriveControlState.PATH_FOLLOWING_CONTROL) {
             if (pathFollowingController == null) {
-                System.out.println("WARNING: FOLLOWING PATH WITH NOW PATH FOLLOWER!!!");
+                System.out.println("WARNING: FOLLOWING PATH WITH NO PATH FOLLOWER!!!");
                 return false;
             } else {
                 return pathFollowingController.isDone();

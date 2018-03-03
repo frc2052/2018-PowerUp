@@ -11,7 +11,7 @@ public class ElevatorAction implements Action{
     }
 
     public ElevatorAction(Elevator.ElevatorPresetEnum ElevatorState){
-//        //TODO: Remove before Duluth
+//        //Add the if statement to avoid breaking lights while testing in caddy shack
 //        if (ElevatorState == Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING
 //                || ElevatorState == Elevator.ElevatorPresetEnum.SCALE_HIGH
 //                || ElevatorState == Elevator.ElevatorPresetEnum.SCALE_BALANCED) {
