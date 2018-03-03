@@ -98,7 +98,9 @@ public class AutoModeSelector {
         AUTOLINEWITHTIMERCCENTERLEFT("Start center, cross autoline to left with timer", AutolineWithTimerCenterLeft.class),
         AUTOLINEWITHTIMER("Start left or right, cross Autoline with timer", AutolineWithTimer.class),
         CENTERRIGHT("Start center go right", CenterRight.class),
-        TURNINPLACEAUTOTEST("Turn in place test", TurnInPlaceActionTest.class);
+        TURNINPLACEAUTOTEST("Turn in place test", TurnInPlaceActionTest.class),
+        VISIONCUBE("Test Vision Cube", VisionTest.class);
+
 
         private final Class<? extends AutoMode> clazz; //checks if the Class extends AutoMode, and then stores it in clazz
         private final String name;

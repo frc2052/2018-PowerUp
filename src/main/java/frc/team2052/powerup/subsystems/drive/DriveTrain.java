@@ -39,7 +39,7 @@ public class DriveTrain extends DriveTrainHardware {
         public void update() {
 
             if (getDriveControlState() == DriveControlState.OPEN_LOOP) {
-                System.out.println("DriveTrain Looper in Open Loop");
+//                System.out.println("DriveTrain Looper in Open Loop");
                 //ignore all looper requests while in teleop mode
                 return;
             }

@@ -43,18 +43,18 @@ public class Robot extends IterativeRobot {
         driveTrain = DriveTrain.getInstance();
         driveHelper = new DriveHelper();
         controls = Controls.getInstance();
-        Camera.getInstance().init();
+//        Camera.getInstance().init();
 
         //////THESE SUBSYSTEMS ARE FAULT TOLERANT/////
         /////// they will return null if they fail to create themselves////////
-        intake = Pickup.getInstance();
-        ramp = Ramp.getInstance();
-        elevator = Elevator.getInstance();
+//        intake = Pickup.getInstance();
+//        ramp = Ramp.getInstance();
+//        elevator = Elevator.getInstance();
         //////////////////////////////////////////////
 
         try {
-            compressor = new Compressor();
-            compressor.setClosedLoopControl(true);
+//            compressor = new Compressor();
+//            compressor.setClosedLoopControl(true);
         } catch (Exception exc) {
             System.out.println("DANGER: No compressor!");
         }
