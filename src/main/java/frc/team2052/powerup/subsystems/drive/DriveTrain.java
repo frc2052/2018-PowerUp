@@ -120,8 +120,8 @@ public class DriveTrain extends DriveTrainHardware {
      * Sets the motor speeds in percent mode and disables all controllers
      */
     public void setOpenLoop(DriveSignal signal) {
-        StackTraceElement[] stack = Thread.currentThread().getStackTrace();
-        System.out.print("setting open loop\n\t" + stack[1].toString() + "\n\t\t" + stack[2].toString());
+       // StackTraceElement[] stack = Thread.currentThread().getStackTrace();
+       // System.out.print("setting open loop\n\t" + stack[1].toString() + "\n\t\t" + stack[2].toString());
 
 //        System.out.println("ENCODERS LEFT: " + getLeftDistanceInches() + "   RIGHT: " + getRightDistanceInches());
 //        System.out.println("GYRO : " + getGyroAngleDegrees() + "  LEFT : " + leftMaster.getSelectedSensorPosition(kVelocityControlSlot) + "  RIGHT : " + rightMaster.getSelectedSensorPosition(kVelocityControlSlot));
@@ -362,14 +362,15 @@ public class DriveTrain extends DriveTrainHardware {
                 System.out.println("DANGER: Failed to reset Gyro" + exc.getMessage() + " ---- ");
                 exc.printStackTrace();
             }
+            if (navXGyro.isCalibrating())
+            {
+                System.out.println("Gyro still calibrating");
+            }
+            System.out.println("Gyro Reset");
         } else {
             System.out.println("DANGER: NO GYRO!!!!");
         }
-        if (navXGyro.isCalibrating())
-        {
-            System.out.println("Gyro still calibrating");
-        }
-        System.out.println("Gyro Reset");
+
     }
 
     /**
