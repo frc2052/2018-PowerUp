@@ -32,7 +32,6 @@ public class Robot extends IterativeRobot {
     private RobotStateEstimator stateEstimator = null;
 
     private PowerDistributionPanel pdp = null;
-    private RevRoboticsPressureSensor revRoboticsPressureSensor = null;
     private Compressor compressor;
 
     private boolean firstIntakeButtonPressed;
@@ -89,8 +88,6 @@ public class Robot extends IterativeRobot {
         //Logging for auto
         logLooper = new ControlLoop(1.0);
         logLooper.addLoopable(PositionLoggerLoopable.getInstance());
-
-        revRoboticsPressureSensor = new RevRoboticsPressureSensor(0);
 
         AutoModeSelector.putToSmartDashboard();
         autoModeRunner = new AutoModeRunner();
@@ -203,7 +200,6 @@ public class Robot extends IterativeRobot {
     public void autonomousPeriodic() {
         SmartDashboard.putNumber("gyro", driveTrain.getGyroAngleDegrees());
         SmartDashboard.putNumber("gyroRate", driveTrain.getGyroRateDegrees());
-        SmartDashboard.putNumber("psi", revRoboticsPressureSensor.getAirPressurePsi());
         SmartDashboard.putNumber("LeftInches", driveTrain.getLeftDistanceInches());
         SmartDashboard.putNumber("RightInches", driveTrain.getRightDistanceInches());
         SmartDashboard.putNumber("LeftRaw", driveTrain.getLeftRawTicks());
@@ -322,7 +318,6 @@ public class Robot extends IterativeRobot {
 
         SmartDashboard.putNumber("gyroAngle", driveTrain.getGyroAngleDegrees());
         SmartDashboard.putNumber("gyroRate", driveTrain.getGyroRateDegrees());
-        SmartDashboard.putNumber("psi", revRoboticsPressureSensor.getAirPressurePsi());
         SmartDashboard.putNumber("LeftInches", driveTrain.getLeftDistanceInches());
         SmartDashboard.putNumber("RightInches", driveTrain.getRightDistanceInches());
         robotState.outputToSmartDashboard();

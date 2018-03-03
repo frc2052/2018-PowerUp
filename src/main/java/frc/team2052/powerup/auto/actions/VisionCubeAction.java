@@ -20,7 +20,6 @@ public class VisionCubeAction implements Action {
     public VisionCubeAction(){
         drive = DriveTrain.getInstance();
         pixyCam = PixyCam.getInstance();
-        detectCube = new DigitalInput(0);
     }
 
     @Override
@@ -34,6 +33,7 @@ public class VisionCubeAction implements Action {
 
     @Override
     public void start() {
+        pixyCam.init();
     }
 
     @Override
@@ -55,7 +55,7 @@ public class VisionCubeAction implements Action {
                 DriveHelper dh = new DriveHelper();
                 drive.setOpenLoop(dh.drive(.15, turn, false));
                 RigidTransform2d robot_pose = RobotState.getInstance().getLatestFieldToVehicle().getValue();
-                System.out.println("ROBOT POSE ----   DEGREES: " + robot_pose.getRotation().getDegrees() + " X: " + robot_pose.getTranslation().getX() + " Y:" + robot_pose.getTranslation().getY());
+                System.out.println("VISION ROBOT POSE ----   DEGREES: " + robot_pose.getRotation().getDegrees() + " X: " + robot_pose.getTranslation().getX() + " Y:" + robot_pose.getTranslation().getY());
             }
             else
             {
@@ -67,8 +67,11 @@ public class VisionCubeAction implements Action {
             System.out.println("Error getting vision inputs " + exc.getMessage());
             exc.printStackTrace();
         }
-
-        isFinished = detectCube.get();
+        if(!pixyCam.getIsTouchingCube()){
+            System.out.println("CUBE WAS TOUCHED");
+            isFinished = true;
+            drive.setOpenLoop(DriveSignal.NEUTRAL);
+        }
     }
 
 }
