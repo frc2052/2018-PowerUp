@@ -33,8 +33,10 @@ public class LStartOnlyScale extends AutoMode {
                         new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
                             new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING), //Elevator raises to place on balanced scale
                             new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN))))), //lowers pickup to position pointing out
+                    new WaitAction(.5), //todo: review
                     new WantOutakeAction(),//pushes cube out
-                    new MoveArmAction(MoveArmAction.ArmPositionEnum.START)
+                    new MoveArmAction(MoveArmAction.ArmPositionEnum.START),
+                    new TimeoutAction(new FollowPathAction(new Path(AutoPaths.ReverseRScale), true), 2)
             )));
         } else {
             System.out.println("HEADING TO AUTO LINE");
