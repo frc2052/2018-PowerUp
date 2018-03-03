@@ -45,9 +45,9 @@ public abstract class AutoModeBase {
                 Thread.sleep((long) ((1.0 / 50.0) * 1000.0));
             } catch (InterruptedException e) {
                 if (e.getMessage() != null) {
-                    System.out.print("Error in AutoMode.runAction " + e.getMessage());
+                    System.out.println("Error in AutoMode.runAction " + e.getMessage());
                 } else {
-                    System.out.print("Error in AutoMode.runAction - No Message");
+                    System.out.println("Error in AutoMode.runAction - No Message");
                 }
                 e.printStackTrace();
             }
@@ -60,7 +60,7 @@ public abstract class AutoModeBase {
         timer.reset();
         timer.start();
         try {
-            System.out.println("Calling init on AutoMode");
+            System.out.println("Calling init on AutoMode " + this.getClass().getName());
             init();
         } catch (AutoModeEndedException e) {
             System.out.println("Auto Ended Early");

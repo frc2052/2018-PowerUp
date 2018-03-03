@@ -15,6 +15,7 @@ import java.util.List;
 public class AutoTest extends AutoMode{
     @Override
     protected void init() throws AutoModeEndedException {
+        System.out.println("RUNNING AUTO TEST");
 
 //        List<Path.Waypoint> TestPath = new ArrayList();
 //        TestPath.add(new Path.Waypoint(new Translation2d(0, 0), 40));

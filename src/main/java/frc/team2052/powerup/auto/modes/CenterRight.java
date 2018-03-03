@@ -13,6 +13,7 @@ public class CenterRight extends AutoMode {
     @Override
     protected void init() throws AutoModeEndedException {
     //if right switch is ours
+        System.out.println("RUNNING AUTO LINE CENTER RIGHT");
         System.out.println("NO DATA: HEADING TO R SWITCH");
         runAction(new SeriesAction(Arrays.asList(
                 new WaitAction(AutoModeSelector.getWaitTime()),

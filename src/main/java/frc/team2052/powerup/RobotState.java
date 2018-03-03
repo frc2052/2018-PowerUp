@@ -29,6 +29,7 @@ public class RobotState {
      * @param initial_field_to_vehicle the initial position of the robot (usually just zeroed)
      */
     public synchronized void reset(double start_time, RigidTransform2d initial_field_to_vehicle) {
+        System.out.println("Robot State Reset");
         field_to_vehicle_map = new InterpolatingTreeMap<>(100);
         field_to_vehicle_map.put(new InterpolatingDouble(start_time), initial_field_to_vehicle);
     }

@@ -52,7 +52,7 @@ public class AdaptivePurePursuitController {
     }
 
     public String getStatusText() {
-        return "Remaining Distance: " + mPath.getRemainingLength() + "  Starting Segments: " + mPath.getStartingSegments() + "  Segments Left: " + mPath.getSegmentsRemaining();
+        return "Rem Dist: " + mPath.getRemainingLength() + "  Start Seg: " + mPath.getStartingSegments() + "  Seg Rem: " + mPath.getSegmentsRemaining();
     }
 
     public RigidTransform2d.Delta update(RigidTransform2d robot_pose, double now) {

@@ -11,6 +11,7 @@ import java.util.Arrays;
 public class TurnInPlaceActionTest extends AutoMode {
     @Override
     protected void init() throws AutoModeEndedException {
+        System.out.println("RUNNING TURN IN PLACE");
         runAction(new SeriesAction(Arrays.asList(new TurnInPlaceAction(-90.0))));
     }
 }

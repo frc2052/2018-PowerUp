@@ -24,14 +24,16 @@ public class AutoModeRunner {
         if (this.autoMode == null) {
             return;
         }
-        System.out.print("Starting new automode " + this.autoMode.getClass().getName());
+        System.out.println("Starting new automode " + this.autoMode.getClass().getName());
         autoThread = new Thread(() -> this.autoMode.start());
         autoThread.start();
     }
 
     public void stop() {//Stops auto mode
-        if (autoMode != null)
+        if (autoMode != null) {
             autoMode.stop();
+            autoMode = null;
+        }
         autoThread = null;
     }
 
