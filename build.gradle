@@ -19,6 +19,8 @@ def ROBOT_CLASS = "frc.team2052.powerup.Robot"
 
 wpi {
     shuffleboardVersion = '1.2.1'
+    wpilibVersion = '2018.3.3'
+    ctreVersion = '5.2.2.0'
 }
 
 // Define my targets (RoboRIO) and artifacts (deployable files)
