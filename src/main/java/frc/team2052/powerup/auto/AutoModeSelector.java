@@ -100,7 +100,8 @@ public class AutoModeSelector {
         CENTERRIGHT("Start center go right", CenterRight.class),
         TURNINPLACEAUTOTEST("Turn in place test", TurnInPlaceActionTest.class),
         VISIONCUBE("Test Vision Cube", VisionTest.class),
-        VISIONCUBEPATH("Test Vision Pathing", VisionPathTest.class);
+        CENTERTWOCUBE("Two Cube Center", CenterTwoCube.class),
+        RIGHTPREFERSCALETWOCUBE("Two Cube, Start right, prefer to go to scale", RStartPreferScaleTwoCube.class);
 
 
         private final Class<? extends AutoMode> clazz; //checks if the Class extends AutoMode, and then stores it in clazz

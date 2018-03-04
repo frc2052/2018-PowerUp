@@ -3,6 +3,7 @@ package frc.team2052.powerup.auto.actions;
 import com.first.team2052.lib.vec.RigidTransform2d;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
+import frc.team2052.powerup.Constants;
 import frc.team2052.powerup.DriveHelper;
 import frc.team2052.powerup.RobotState;
 import frc.team2052.powerup.subsystems.Pickup;
@@ -52,7 +53,7 @@ public class VisionCubeAction implements Action {
                 turn = turn / maxVal; //get a value between -1 and 1 for turn velocity
 
                 DriveHelper dh = new DriveHelper();
-                drive.setOpenLoop(dh.drive(.3, -turn, false));
+                drive.setOpenLoop(dh.drive(Constants.kVisionDrivePercent, -turn, false));
                 RigidTransform2d robot_pose = RobotState.getInstance().getLatestFieldToVehicle().getValue();
 //                System.out.println("VISION ROBOT POSE ----   DEGREES: " + robot_pose.getRotation().getDegrees() + " X: " + robot_pose.getTranslation().getX() + " Y:" + robot_pose.getTranslation().getY());
             }
