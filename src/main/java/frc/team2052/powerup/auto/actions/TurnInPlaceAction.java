@@ -4,7 +4,7 @@ import frc.team2052.powerup.subsystems.drive.DriveTrain;
 
 public class TurnInPlaceAction implements Action {
 
-    double baseSpeedConstant = .05; //the slowest we want the robot to move
+    double baseSpeedConstant = .20;
     double baseSpeed; //holds the current base speed
     double error; //the angle the robot is off
     double angle; //the angle the robot is currently

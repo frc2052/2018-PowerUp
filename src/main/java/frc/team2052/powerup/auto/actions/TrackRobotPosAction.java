@@ -13,15 +13,12 @@ public class TrackRobotPosAction implements Action{
 
     private boolean isFinished;
     private TrackRobotEnum state;
-    private double startTheta;
-    private Translation2d startTranslation;
+    private static double startTheta;
+    private static Translation2d startTranslation;
 
-    private RigidTransform2d robotPos;
-
-    public static List<Path.Waypoint> ReverseVisionPath;
+    private static List<Path.Waypoint> ReverseVisionPath;
 
     public TrackRobotPosAction(TrackRobotEnum state){
-        ReverseVisionPath = new ArrayList();
         this.state = state;
     }
     @Override
@@ -36,16 +33,21 @@ public class TrackRobotPosAction implements Action{
 
     @Override
     public void start() {
+        RigidTransform2d robotPos;
         switch (state) {
             case START:
                 robotPos = RobotState.getInstance().getLatestFieldToVehicle().getValue();
                 startTheta = robotPos.getRotation().getDegrees();
                 startTranslation = robotPos.getTranslation();
+                System.out.println("XXXXXXXX --- VISION saving return point " + startTranslation.getX() + "  " + startTranslation.getY());
                 break;
             case END:
                 robotPos = RobotState.getInstance().getLatestFieldToVehicle().getValue();
-                ReverseVisionPath.add(new Path.Waypoint(robotPos.getTranslation(), Constants.kPathFollowingMaxVel));
+                ReverseVisionPath = new ArrayList();
+                ReverseVisionPath.add(new Path.Waypoint(new Translation2d(-robotPos.getTranslation().getX(), robotPos.getTranslation().getY()), Constants.kPathFollowingMaxVel));
                 ReverseVisionPath.add(new Path.Waypoint(startTranslation, Constants.kPathFollowingMaxVel));
+                System.out.println("XXXXXXXX --- VISION  Robot CUBE: x: " + robotPos.getTranslation().getX() + "  y: " + robotPos.getTranslation().getY());
+                System.out.println("XXXXXXXX --- VISION  Robot START: x: " + startTranslation.getX() + "  y: " + startTranslation.getY());
                 break;
             case RESET:
                 ReverseVisionPath.clear();
@@ -57,6 +59,16 @@ public class TrackRobotPosAction implements Action{
     @Override
     public void update() {
 
+    }
+
+    public static List<Path.Waypoint> getReverseVisionPathFromCurrentPos() {
+        RigidTransform2d robotPos = RobotState.getInstance().getLatestFieldToVehicle().getValue();
+        List<Path.Waypoint> reverseVisionPath = new ArrayList();
+        reverseVisionPath.add(new Path.Waypoint(new Translation2d(-robotPos.getTranslation().getX(), robotPos.getTranslation().getY()), Constants.kPathFollowingMaxVel));
+        reverseVisionPath.add(new Path.Waypoint(startTranslation, Constants.kPathFollowingMaxVel));
+        System.out.println("XXXXXXXX --- VISION  Robot CUBE: x: " + robotPos.getTranslation().getX() + "  y: " + robotPos.getTranslation().getY());
+        System.out.println("XXXXXXXX --- VISION  Robot START: x: " + startTranslation.getX() + "  y: " + startTranslation.getY());
+        return reverseVisionPath;
     }
 
     public enum TrackRobotEnum{
