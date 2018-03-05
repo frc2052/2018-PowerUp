@@ -16,7 +16,7 @@ public class TestVelocity extends AutoMode {
     protected  void init() throws AutoModeEndedException {
         System.out.println("RUNNING VELOCITY PATH TEST");
         runAction(new SeriesAction(Arrays.asList(
-            new DriveVelocityHeadingAction(10,5)
+            new DriveVelocityHeadingAction(200,5)
         )));
     }
 }

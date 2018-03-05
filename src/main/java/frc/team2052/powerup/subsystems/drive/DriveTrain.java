@@ -124,7 +124,7 @@ public class DriveTrain extends DriveTrainHardware {
        // System.out.print("setting open loop\n\t" + stack[1].toString() + "\n\t\t" + stack[2].toString());
 
 //        System.out.println("ENCODERS LEFT: " + getLeftDistanceInches() + "   RIGHT: " + getRightDistanceInches());
-//        System.out.println("GYRO : " + getGyroAngleDegrees() + "  LEFT : " + leftMaster.getSelectedSensorPosition(kVelocityControlSlot) + "  RIGHT : " + rightMaster.getSelectedSensorPosition(kVelocityControlSlot));
+        System.out.println("GYRO : " + getGyroAngleDegrees() + "  LEFT : " + leftMaster.getSelectedSensorPosition(kVelocityControlSlot) + "  RIGHT : " + rightMaster.getSelectedSensorPosition(kVelocityControlSlot));
         driveControlState = DriveControlState.OPEN_LOOP;
         leftMaster.set(ControlMode.PercentOutput, signal.leftMotorSpeedPercent);
         rightMaster.set(ControlMode.PercentOutput, signal.rightMotorSpeedPercent);
@@ -225,16 +225,17 @@ public class DriveTrain extends DriveTrainHardware {
             double leftSpeed = inchesPerSecondToTicksPer100Ms(left_inches_per_sec);
             double rightSpeed = inchesPerSecondToTicksPer100Ms(right_inches_per_sec);
 
+            System.out.println("Rotations Per Second: " + inchesToRotations(left_inches_per_sec));
+
             SmartDashboard.putNumber("LeftVelocityTicksPer100ms", leftSpeed);
             SmartDashboard.putNumber("RightVelocityTicksPer100ms", rightSpeed);
             SmartDashboard.putNumber("LeftVelocityInchesPerSec", left_inches_per_sec);
             SmartDashboard.putNumber("RightVelocityInchesPerSec", right_inches_per_sec);
             leftMaster.set(ControlMode.Velocity, leftSpeed);
             rightMaster.set(ControlMode.Velocity, rightSpeed);
-//            System.out.println("Left ips: " + left_inches_per_sec + "\t right ips: " + right_inches_per_sec);
+            System.out.println("Left ips: " + left_inches_per_sec + "\t right ips: " + right_inches_per_sec);
 
-//            System.out.println("VEL CLOSED - Deg: " + getGyroAngleDegrees() + " LVel: " + leftSpeed + " RVel: " + rightSpeed + " LDist: " + leftMaster.getSelectedSensorPosition(0) + " RDist: " + rightMaster.getSelectedSensorPosition(0) + pathFollowingController.getStatusText());
-//            System.out.println("VEL CLOSED - Deg: " + getGyroAngleDegrees() + " LVel: " + leftSpeed + " RVel: " + rightSpeed + " LDist: " + leftMaster.getSelectedSensorPosition(0) + " RDist: " + rightMaster.getSelectedSensorPosition(0) + pathFollowingController.getStatusText());
+            System.out.println("VEL CLOSED - Deg: " + getGyroAngleDegrees() + " LVel: " + leftSpeed + " RVel: " + rightSpeed + " LDist: " + leftMaster.getSelectedSensorPosition(0) + " RDist: " + rightMaster.getSelectedSensorPosition(0));
 
             //determine a turn direction and what "rate"
             //negative is turn left, positive right, 0 straight ahead

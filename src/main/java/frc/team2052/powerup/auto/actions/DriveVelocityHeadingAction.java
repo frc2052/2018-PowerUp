@@ -35,14 +35,14 @@ public class DriveVelocityHeadingAction implements Action {
     @Override
     public void start() {
         startTimeSeconds = Timer.getFPGATimestamp();
+        drive.setVelocityHeadingSetpoint(this.inchesPerSecond, Rotation2d.fromDegrees(0));
     }
 
     @Override
     public void update() {
         if (Timer.getFPGATimestamp() - driveTimeSeconds > startTimeSeconds) {
+            drive.setOpenLoop(DriveSignal.NEUTRAL);
             isFinished = true;
-        } else {
-            drive.setVelocityHeadingSetpoint(this.inchesPerSecond, Rotation2d.fromDegrees(0));
         }
     }
 }
