@@ -18,11 +18,17 @@ public class CenterTwoCube extends AutoMode {
     @Override
     protected  void init() throws AutoModeEndedException {
 
+        ArrayList<Action> actions = new ArrayList<>();
 
         System.out.println("RUNNING TWO CUBE CENTER");
 
         if(FieldConfig.isMySwitchLeft()) { //if left switch is ours
             System.out.println("HEADING TO L SWITCH");
+            actions.addAll(super.rightSwitch());
+            actions.add(new MoveArmAction(MoveArmAction.ArmPositionEnum.START));
+
+            runAction(new SeriesAction(actions));
+
             runAction(new SeriesAction(Arrays.asList(
                     new WaitAction(AutoModeSelector.getWaitTime()),
                     new ParallelAction(Arrays.asList(
