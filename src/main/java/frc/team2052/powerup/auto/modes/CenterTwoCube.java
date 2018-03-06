@@ -25,9 +25,16 @@ public class CenterTwoCube extends AutoMode {
             System.out.println("HEADING TO L SWITCH");
             runAction(new SeriesAction(Arrays.asList(
                     new WaitAction(AutoModeSelector.getWaitTime()),
-                    new TimeoutAction(new FollowPathAction(new Path(AutoPaths.CLSwitch), false), 6),
-                    new WaitAction(1.5),
-                    new TimeoutAction(new FollowPathAction(new Path(AutoPaths.ReverseLSwitch), true), 6),
+                    new ParallelAction(Arrays.asList(
+                            new TimeoutAction(new FollowPathAction(new Path(AutoPaths.CLSwitch), false), 6),
+                            new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
+                                    new ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH),
+                                    new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN))))), //lowers pickup to position pointing out
+                    new WantOutakeAction(),//pushes cube out
+                    new ParallelAction(Arrays.asList(
+                            new TimeoutAction(new FollowPathAction(new Path(AutoPaths.ReverseLSwitch), true), 6),
+                            new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("LowerElevator"),
+                                    new ElevatorAction(Elevator.ElevatorPresetEnum.PICKUP))))), //lowers pickup to position pointing out
                     new VisionCubeAction(),
                     new PrintAction("Finished Vision"),
                     new TimeoutAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(50, -60)), 6),
