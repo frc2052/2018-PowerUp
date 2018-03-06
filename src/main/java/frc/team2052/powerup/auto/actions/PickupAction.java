@@ -1,6 +1,7 @@
 package frc.team2052.powerup.auto.actions;
 
 import edu.wpi.first.wpilibj.Timer;
+import frc.team2052.powerup.auto.AutoMode;
 import frc.team2052.powerup.subsystems.Pickup;
 
 public class PickupAction implements Action {
@@ -12,11 +13,17 @@ public class PickupAction implements Action {
 
     public PickupAction(PickupStateEnum state){
         this.state = state;
+        this.seconds = 1; //magic number for default seconds
     }
-
-    public PickupAction(PickupStateEnum state, double seconds){
+    
+    /**
+     * 
+     * @param state 
+     * @param waitTimeOverRide Only for Intake/Outtake
+     */
+    public PickupAction(PickupStateEnum state, double waitTimeOverRide){
         this.state = state;
-        this.seconds = seconds;
+        this.seconds = waitTimeOverRide;
     }
 
     @Override
@@ -28,8 +35,6 @@ public class PickupAction implements Action {
     public boolean isFinished() {
         switch (state){
             case OFF:
-            case INTAKE:
-            case OUTTAKE:
                 isDone = true;
                 break;
         }
@@ -42,11 +47,8 @@ public class PickupAction implements Action {
             case OFF:
                 Pickup.getInstance().stopped();
                 break;
-            case OUTTAKE:
-                Pickup.getInstance().outtake();
-                break;
-            case INTAKE:
-                Pickup.getInstance().intake();
+            case INTAKETILLCUBED:
+
                 break;
             case TIMEDOUTTAKE:
             case TIMEDINTAKE:
@@ -62,12 +64,14 @@ public class PickupAction implements Action {
         switch (state) {
             case TIMEDOUTTAKE:
             case TIMEDINTAKE:
-                if ((Timer.getFPGATimestamp() - startTimeSec) < 1.5) {
+                if ((Timer.getFPGATimestamp() - startTimeSec) < seconds) {
                     Pickup.getInstance().outtake();
                 } else {
                     Pickup.getInstance().stopped();
                     isDone = true;
                 }
+                break;
+            case INTAKETILLCUBED:
                 break;
         }
 
@@ -75,8 +79,7 @@ public class PickupAction implements Action {
 
     public enum PickupStateEnum {
         OFF,
-        OUTTAKE,
-        INTAKE,
+        INTAKETILLCUBED,
         TIMEDOUTTAKE,
         TIMEDINTAKE
     }

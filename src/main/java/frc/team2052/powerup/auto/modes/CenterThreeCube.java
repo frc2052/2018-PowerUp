@@ -5,24 +5,28 @@ import frc.team2052.powerup.auto.actions.*;
 
 import java.util.ArrayList;
 
-public class Center extends AutoMode {
+public class CenterThreeCube extends AutoMode {
+
     @Override
-    protected void init() throws AutoModeEndedException {
+    protected  void init() throws AutoModeEndedException {
+
         ArrayList<Action> actions = new ArrayList<>();
-        System.out.println("RUNNING CENTER");
+
+        System.out.println("RUNNING TWO CUBE CENTER");
+
         if(FieldConfig.isMySwitchLeft()) { //if left switch is ours
             System.out.println("HEADING TO L SWITCH");
-            actions.add(new WaitAction(AutoModeSelector.getWaitTime()));
-            actions.addAll(super.centerLeftSwitch());
-            actions.add(new MoveArmAction(MoveArmAction.ArmPositionEnum.START));
+            actions.addAll(super.centerRightSwitch());
+            actions.addAll(super.anotherCubeCenterLeftSwitch());
+            actions.addAll(super.anotherCubeCenterLeftSwitch());
 
             runAction(new SeriesAction(actions));
-        }
-        else { //if right switch is ours
+
+        }else{
             System.out.println("HEADING TO R SWITCH");
-            actions.add(new WaitAction(AutoModeSelector.getWaitTime()));
             actions.addAll(super.centerRightSwitch());
-            actions.add(new MoveArmAction(MoveArmAction.ArmPositionEnum.START));
+            actions.addAll(super.anotherCubeCenterRightSwitch());
+            actions.addAll(super.anotherCubeCenterRightSwitch());
 
             runAction(new SeriesAction(actions));
         }

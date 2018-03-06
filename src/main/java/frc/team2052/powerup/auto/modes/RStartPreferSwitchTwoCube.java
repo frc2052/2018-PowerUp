@@ -5,6 +5,7 @@ import com.first.team2052.lib.vec.Translation2d;
 import frc.team2052.powerup.auto.*;
 import frc.team2052.powerup.auto.actions.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class RStartPreferSwitchTwoCube extends AutoMode {
@@ -12,6 +13,7 @@ public class RStartPreferSwitchTwoCube extends AutoMode {
     @Override
     protected  void init() throws AutoModeEndedException {
 
+        ArrayList<Action> actions = new ArrayList<>();
 
         System.out.println("RUNNING TWO CUBE RIGHT SWITCH");
 

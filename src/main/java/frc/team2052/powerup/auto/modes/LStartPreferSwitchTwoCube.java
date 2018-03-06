@@ -5,6 +5,7 @@ import com.first.team2052.lib.vec.Translation2d;
 import frc.team2052.powerup.auto.*;
 import frc.team2052.powerup.auto.actions.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class LStartPreferSwitchTwoCube extends AutoMode {
@@ -12,14 +13,14 @@ public class LStartPreferSwitchTwoCube extends AutoMode {
     @Override
     protected  void init() throws AutoModeEndedException {
 
+        ArrayList<Action> actions = new ArrayList<>();
 
         System.out.println("RUNNING TWO CUBE PREFER RIGHT SWITCH");
 
         if(FieldConfig.isMySwitchLeft()) { //if right scale is ours
             System.out.println("HEADING TO L SWITCH");
             runAction(new SeriesAction(Arrays.asList(
-                    new WaitAction(AutoModeSelector.getWaitTime()),
-                    new TimeoutAction(new FollowPathAction(new Path(AutoPaths.LLSwitch), false), 8),
+
                     new TimeoutAction(new FollowPathAction(new Path(AutoPaths.ReverseLLSwitch), true), 8),
                     new VisionCubeAction(),
                     new PrintAction("Finished Vision"),
