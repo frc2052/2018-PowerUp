@@ -16,13 +16,7 @@ public class RStartPreferScale extends AutoMode {
             System.out.println("HEADING TO R SCALE");
             runAction(new SeriesAction(Arrays.asList(
                 new WaitAction(AutoModeSelector.getWaitTime()),
-                new ParallelAction(Arrays.asList(
-                    new TimeoutAction(new FollowPathAction(new Path(AutoPaths.RRScale), false), 10), //pathing to the right scale
-                    new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
-                        new  ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING), //Elevator raises to place on balanced scale
-                        new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN))))), //lowers pickup to position pointing out
-                new WantOutakeAction(), //pushes cube out
-                new MoveArmAction(MoveArmAction.ArmPositionEnum.START),
+
                     new TimeoutAction(new FollowPathAction(new Path(AutoPaths.ReverseRScale), true), 2)
             )));
         } else if(!FieldConfig.isMySwitchLeft()){ // if right switch is ours

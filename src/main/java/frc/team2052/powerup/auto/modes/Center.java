@@ -12,7 +12,7 @@ public class Center extends AutoMode {
         System.out.println("RUNNING CENTER");
         if(FieldConfig.isMySwitchLeft()) { //if left switch is ours
             System.out.println("HEADING TO L SWITCH");
-
+            actions.add(new WaitAction(AutoModeSelector.getWaitTime()));
             actions.addAll(super.leftSwitch());
             actions.add(new MoveArmAction(MoveArmAction.ArmPositionEnum.START));
 
@@ -20,6 +20,7 @@ public class Center extends AutoMode {
         }
         else { //if right switch is ours
             System.out.println("HEADING TO R SWITCH");
+            actions.add(new WaitAction(AutoModeSelector.getWaitTime()));
             actions.addAll(super.rightSwitch());
             actions.add(new MoveArmAction(MoveArmAction.ArmPositionEnum.START));
 

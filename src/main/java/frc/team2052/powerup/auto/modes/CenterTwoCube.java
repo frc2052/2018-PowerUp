@@ -24,40 +24,21 @@ public class CenterTwoCube extends AutoMode {
 
         if(FieldConfig.isMySwitchLeft()) { //if left switch is ours
             System.out.println("HEADING TO L SWITCH");
+            actions.add(new WaitAction(AutoModeSelector.getWaitTime()));
             actions.addAll(super.rightSwitch());
-            actions.add(new MoveArmAction(MoveArmAction.ArmPositionEnum.START));
+            actions.addAll(super.anotherCubeLeftSwitch());
+            actions.addAll(super.anotherCubeLeftSwitch());
 
             runAction(new SeriesAction(actions));
 
-            runAction(new SeriesAction(Arrays.asList(
-                    new WaitAction(AutoModeSelector.getWaitTime()),
-                    new ParallelAction(Arrays.asList(
-                            new TimeoutAction(new FollowPathAction(new Path(AutoPaths.CLSwitch), false), 6),
-                            new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
-                                    new ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH),
-                                    new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN))))), //lowers pickup to position pointing out
-                    new WantOutakeAction(),//pushes cube out
-                    new ParallelAction(Arrays.asList(
-                            new TimeoutAction(new FollowPathAction(new Path(AutoPaths.ReverseLSwitch), true), 6),
-                            new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("LowerElevator"),
-                                    new ElevatorAction(Elevator.ElevatorPresetEnum.PICKUP))))), //lowers pickup to position pointing out
-                    new VisionCubeAction(),
-                    new PrintAction("Finished Vision"),
-                    new TimeoutAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(50, -60)), 6),
-                    new TimeoutAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(AutoPaths.CLSwitch.get(AutoPaths.CLSwitch.size() - 1).position)), 6)
-            )));
         }else{
             System.out.println("HEADING TO R SWITCH");
-            runAction(new SeriesAction(Arrays.asList(
-                    new WaitAction(AutoModeSelector.getWaitTime()),
-                    new TimeoutAction(new FollowPathAction(new Path(AutoPaths.CRSwitch), false), 6),
-                    new WaitAction(1.5),
-                    new TimeoutAction(new FollowPathAction(new Path(AutoPaths.ReverseRSwitch), true), 6),
-                    new VisionCubeAction(),
-                    new PrintAction("Finished Vision"),
-                    new TimeoutAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(50, 46)), 6),
-                    new TimeoutAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(AutoPaths.CRSwitch.get(AutoPaths.CRSwitch.size() - 1).position)), 6)
-            )));
+            actions.add(new WaitAction(AutoModeSelector.getWaitTime()));
+            actions.addAll(super.rightSwitch());
+            actions.addAll(super.anotherCubeRightSwitch());
+            actions.addAll(super.anotherCubeRightSwitch());
+
+            runAction(new SeriesAction(actions));
         }
     }
 }
