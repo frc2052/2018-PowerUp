@@ -3,18 +3,18 @@ package frc.team2052.powerup.auto.actions;
 import edu.wpi.first.wpilibj.Timer;
 import frc.team2052.powerup.subsystems.Pickup;
 
-public class IntakeAction implements Action {
+public class PickupAction implements Action {
 
     private boolean isDone = false;
-    private IntakeStateEnum state;
+    private PickupStateEnum state;
     private double startTimeSec = 0;
     private double seconds;
 
-    public IntakeAction(IntakeStateEnum state){
+    public PickupAction(PickupStateEnum state){
         this.state = state;
     }
 
-    public IntakeAction(IntakeStateEnum state, double seconds){
+    public PickupAction(PickupStateEnum state, double seconds){
         this.state = state;
         this.seconds = seconds;
     }
@@ -73,7 +73,7 @@ public class IntakeAction implements Action {
 
     }
 
-    public enum IntakeStateEnum{
+    public enum PickupStateEnum {
         OFF,
         OUTTAKE,
         INTAKE,
