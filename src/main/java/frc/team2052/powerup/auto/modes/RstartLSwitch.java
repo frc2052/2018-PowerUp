@@ -5,11 +5,15 @@ import frc.team2052.powerup.auto.*;
 import frc.team2052.powerup.auto.actions.*;
 import frc.team2052.powerup.subsystems.Elevator;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class RstartLSwitch extends AutoMode {
     @Override
     protected void init() throws AutoModeEndedException {
+
+        ArrayList<Action> actions = new ArrayList<>();
+
         System.out.println("RUNNING RIGHT START LEFT SWITCH");
         if(FieldConfig.isMySwitchLeft()) { //if left switch is ours
             System.out.println("HEADING TO L SWITCH");
@@ -17,11 +21,11 @@ public class RstartLSwitch extends AutoMode {
                     new WaitAction(AutoModeSelector.getWaitTime()),
                     new ParallelAction(Arrays.asList(
                             new TimeoutAction(new FollowPathAction(new Path(AutoPaths.RLSwitch), false), 16), //pathing to the right switch
-                            new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator")//,
-                                    //new  ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH), //Elevator raises to place on balanced scale
-                                    /*new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN)*/))))//,
-                    //new WantOutakeAction(), //pushes cube out
-                    //new MoveArmAction(MoveArmAction.ArmPositionEnum.START)
+                            new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
+                                    new  ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH), //Elevator raises to place on balanced scale
+                                    new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN))))),
+                    new PickupAction(PickupAction.PickupStateEnum.TIMEDOUTTAKE), //pushes cube out
+                    new MoveArmAction(MoveArmAction.ArmPositionEnum.START)
             )));
         }
         else { //if right switch is ours
@@ -33,7 +37,7 @@ public class RstartLSwitch extends AutoMode {
                             new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
                                     new  ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH), //Elevator raises to place on balanced scale
                                     new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN))))),
-                    new WantOutakeAction(), //pushes cube out
+                    new PickupAction(PickupAction.PickupStateEnum.TIMEDOUTTAKE), //pushes cube out
                     new MoveArmAction(MoveArmAction.ArmPositionEnum.START)
             )));
         }

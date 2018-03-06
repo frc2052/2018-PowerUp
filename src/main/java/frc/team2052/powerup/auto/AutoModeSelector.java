@@ -93,7 +93,7 @@ public class AutoModeSelector {
         RSTARTONLYSCALE("Start right, go only to scale", RStartOnlyScale.class),
         RSTARTPREFERSCALE("Start right, prefer to go to scale", RStartPreferScale.class),
         RSTARTPREFERSWITCH("Start right, prefer to go to switch", RStartPreferSwitch.class),
-        CENTERTWOCUBE("Two Cube Center", CenterTwoCube.class),
+        CENTERTWOCUBE("Two Cube Center", CenterThreeCube.class),
         RIGHTPREFERSCALETWOCUBE("Two Cube, Start right, prefer to go to scale", RStartPreferScaleTwoCube.class),
         LEFTPREFERSCALETWOCUBE("Two Cube, Start left, prefer to go to scale", LStartPreferScaleTwoCube.class),
         RIGHTPREFERSWITCHTWOCUBE("Two Cube, Start right, prefer to go to switch", RStartPreferSwitchTwoCube.class),

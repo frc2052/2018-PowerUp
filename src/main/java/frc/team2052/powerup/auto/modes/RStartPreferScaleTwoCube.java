@@ -5,6 +5,7 @@ import com.first.team2052.lib.vec.Translation2d;
 import frc.team2052.powerup.auto.*;
 import frc.team2052.powerup.auto.actions.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class RStartPreferScaleTwoCube extends AutoMode {
@@ -12,6 +13,7 @@ public class RStartPreferScaleTwoCube extends AutoMode {
     @Override
     protected  void init() throws AutoModeEndedException {
 
+        ArrayList<Action> actions = new ArrayList<>();
 
         System.out.println("RUNNING TWO CUBE RIGHT SCALE");
 
@@ -35,14 +37,8 @@ public class RStartPreferScaleTwoCube extends AutoMode {
                 runAction(new SeriesAction(Arrays.asList(
                         new WaitAction(AutoModeSelector.getWaitTime()),
                         new TimeoutAction(new FollowPathAction(new Path(AutoPaths.RRScale), false), 10),
-                        new WaitAction(1.5),
-                        new TimeoutAction(new FollowPathAction(new Path(AutoPaths.ReverseRRScale), true), 6),
-                        new TimeoutAction(new FollowPathAction(new Path(AutoPaths.RScaleToRSwitchCube), false), 6),
-                        new VisionCubeAction(),
-                        new PrintAction("Finished Vision"),
-                        new TimeoutAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(220, AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getY() -20)), 6),
-                        new TimeoutAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(200, AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getY() -20)), 6)
-                        )));
+                        new WaitAction(1.5)
+                         )));
             }
         }else{
             System.out.println("HEADING TO R SWITCH");
