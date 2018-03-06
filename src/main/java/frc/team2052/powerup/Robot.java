@@ -32,7 +32,6 @@ public class Robot extends IterativeRobot {
     private RobotStateEstimator stateEstimator = null;
 
     private PowerDistributionPanel pdp = null;
-    private RevRoboticsPressureSensor revRoboticsPressureSensor = null;
     private Compressor compressor;
 
     private boolean firstIntakeButtonPressed;
@@ -43,18 +42,18 @@ public class Robot extends IterativeRobot {
         driveTrain = DriveTrain.getInstance();
         driveHelper = new DriveHelper();
         controls = Controls.getInstance();
-        Camera.getInstance().init();
+//        Camera.getInstance().init();
 
         //////THESE SUBSYSTEMS ARE FAULT TOLERANT/////
         /////// they will return null if they fail to create themselves////////
-        intake = Pickup.getInstance();
-        ramp = Ramp.getInstance();
-        elevator = Elevator.getInstance();
+//        intake = Pickup.getInstance();
+//        ramp = Ramp.getInstance();
+//        elevator = Elevator.getInstance();
         //////////////////////////////////////////////
 
         try {
-            compressor = new Compressor();
-            compressor.setClosedLoopControl(true);
+//            compressor = new Compressor();
+//            compressor.setClosedLoopControl(true);
         } catch (Exception exc) {
             System.out.println("DANGER: No compressor!");
         }
@@ -89,8 +88,6 @@ public class Robot extends IterativeRobot {
         //Logging for auto
         logLooper = new ControlLoop(1.0);
         logLooper.addLoopable(PositionLoggerLoopable.getInstance());
-
-        revRoboticsPressureSensor = new RevRoboticsPressureSensor(0);
 
         AutoModeSelector.putToSmartDashboard();
         autoModeRunner = new AutoModeRunner();
@@ -201,7 +198,6 @@ public class Robot extends IterativeRobot {
     public void autonomousPeriodic() {
         SmartDashboard.putNumber("gyro", driveTrain.getGyroAngleDegrees());
         SmartDashboard.putNumber("gyroRate", driveTrain.getGyroRateDegrees());
-        SmartDashboard.putNumber("psi", revRoboticsPressureSensor.getAirPressurePsi());
         SmartDashboard.putNumber("LeftInches", driveTrain.getLeftDistanceInches());
         SmartDashboard.putNumber("RightInches", driveTrain.getRightDistanceInches());
         SmartDashboard.putNumber("LeftRaw", driveTrain.getLeftRawTicks());
@@ -305,7 +301,6 @@ public class Robot extends IterativeRobot {
 
         SmartDashboard.putNumber("gyroAngle", driveTrain.getGyroAngleDegrees());
         SmartDashboard.putNumber("gyroRate", driveTrain.getGyroRateDegrees());
-        SmartDashboard.putNumber("psi", revRoboticsPressureSensor.getAirPressurePsi());
         SmartDashboard.putNumber("LeftInches", driveTrain.getLeftDistanceInches());
         SmartDashboard.putNumber("RightInches", driveTrain.getRightDistanceInches());
         robotState.outputToSmartDashboard();

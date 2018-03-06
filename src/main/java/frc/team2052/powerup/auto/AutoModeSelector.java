@@ -86,11 +86,18 @@ public class AutoModeSelector {
         CENTER("Start in center, go to switch", Center.class),
         AUTOLINE("Start left or right, cross Autoline", AutoLine.class),
         LSTARTONLYSCALE("Start left, go only to scale",LStartOnlyScale.class),
+        LSTARTRSWITCH("Start left, go only to R switch",LstartRSwitch.class),
+        RSTARTLSWITCH("Start right, go only to L switch",LstartRSwitch.class),
         LSTARTPERFERSCALE("Start left, prefer to go to scale",LStartPreferScale.class),
         LSTARTPREFERSWITCH("Start left, prefer to go to switch", LStartPreferSwitch.class),
         RSTARTONLYSCALE("Start right, go only to scale", RStartOnlyScale.class),
         RSTARTPREFERSCALE("Start right, prefer to go to scale", RStartPreferScale.class),
         RSTARTPREFERSWITCH("Start right, prefer to go to switch", RStartPreferSwitch.class),
+        CENTERTWOCUBE("Two Cube Center", CenterTwoCube.class),
+        RIGHTPREFERSCALETWOCUBE("Two Cube, Start right, prefer to go to scale", RStartPreferScaleTwoCube.class),
+        LEFTPREFERSCALETWOCUBE("Two Cube, Start left, prefer to go to scale", LStartPreferScaleTwoCube.class),
+        RIGHTPREFERSWITCHTWOCUBE("Two Cube, Start right, prefer to go to switch", RStartPreferSwitchTwoCube.class),
+        LEFTPREFERSWITCHTWOCUBE("Two Cube, Start left, prefer to go to switch", LStartPreferSwitchTwoCube.class),
         AUTOSYSTEMTEST("SYSTEM TEST", AutoTest.class),
 
         //THESE ARE ONLY FOR TESTING - remove for competition
@@ -98,7 +105,11 @@ public class AutoModeSelector {
         AUTOLINEWITHTIMERCCENTERLEFT("Start center, cross autoline to left with timer", AutolineWithTimerCenterLeft.class),
         AUTOLINEWITHTIMER("Start left or right, cross Autoline with timer", AutolineWithTimer.class),
         CENTERRIGHT("Start center go right", CenterRight.class),
-        TURNINPLACEAUTOTEST("Turn in place test", TurnInPlaceActionTest.class);
+        TURNINPLACEAUTOTEST("Turn in place test", TurnInPlaceActionTest.class),
+        TESTVELOCITY("Test Velocity", TestVelocity.class),
+        VISIONCUBE("Test Vision Cube", VisionTest.class);
+
+
 
         private final Class<? extends AutoMode> clazz; //checks if the Class extends AutoMode, and then stores it in clazz
         private final String name;

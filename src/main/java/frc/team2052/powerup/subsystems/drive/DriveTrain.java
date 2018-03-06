@@ -124,7 +124,7 @@ public class DriveTrain extends DriveTrainHardware {
        // System.out.print("setting open loop\n\t" + stack[1].toString() + "\n\t\t" + stack[2].toString());
 
 //        System.out.println("ENCODERS LEFT: " + getLeftDistanceInches() + "   RIGHT: " + getRightDistanceInches());
-//        System.out.println("GYRO : " + getGyroAngleDegrees() + "  LEFT : " + leftMaster.getSelectedSensorPosition(kVelocityControlSlot) + "  RIGHT : " + rightMaster.getSelectedSensorPosition(kVelocityControlSlot));
+        System.out.println("GYRO : " + getGyroAngleDegrees() + "  LEFT : " + leftMaster.getSelectedSensorPosition(kVelocityControlSlot) + "  RIGHT : " + rightMaster.getSelectedSensorPosition(kVelocityControlSlot));
         driveControlState = DriveControlState.OPEN_LOOP;
         leftMaster.set(ControlMode.PercentOutput, signal.leftMotorSpeedPercent);
         rightMaster.set(ControlMode.PercentOutput, signal.rightMotorSpeedPercent);
@@ -225,6 +225,8 @@ public class DriveTrain extends DriveTrainHardware {
             double leftSpeed = inchesPerSecondToTicksPer100Ms(left_inches_per_sec);
             double rightSpeed = inchesPerSecondToTicksPer100Ms(right_inches_per_sec);
 
+            System.out.println("Rotations Per Second: " + inchesToRotations(left_inches_per_sec));
+
             SmartDashboard.putNumber("LeftVelocityTicksPer100ms", leftSpeed);
             SmartDashboard.putNumber("RightVelocityTicksPer100ms", rightSpeed);
             SmartDashboard.putNumber("LeftVelocityInchesPerSec", left_inches_per_sec);
@@ -233,8 +235,7 @@ public class DriveTrain extends DriveTrainHardware {
             rightMaster.set(ControlMode.Velocity, rightSpeed);
             System.out.println("Left ips: " + left_inches_per_sec + "\t right ips: " + right_inches_per_sec);
 
-            System.out.println("VEL CLOSED - Deg: " + getGyroAngleDegrees() + " LVel: " + leftSpeed + " RVel: " + rightSpeed + " LDist: " + leftMaster.getSelectedSensorPosition(0) + " RDist: " + rightMaster.getSelectedSensorPosition(0) + pathFollowingController.getStatusText());
-//            System.out.println("VEL CLOSED - Deg: " + getGyroAngleDegrees() + " LVel: " + leftSpeed + " RVel: " + rightSpeed + " LDist: " + leftMaster.getSelectedSensorPosition(0) + " RDist: " + rightMaster.getSelectedSensorPosition(0) + pathFollowingController.getStatusText());
+            System.out.println("VEL CLOSED - Deg: " + getGyroAngleDegrees() + " LVel: " + leftSpeed + " RVel: " + rightSpeed + " LDist: " + leftMaster.getSelectedSensorPosition(0) + " RDist: " + rightMaster.getSelectedSensorPosition(0));
 
             //determine a turn direction and what "rate"
             //negative is turn left, positive right, 0 straight ahead
@@ -294,13 +295,13 @@ public class DriveTrain extends DriveTrainHardware {
         double avg_vel = (Math.abs(setpoint.left) + Math.abs(setpoint.right))/2.0;
 
         if (max_vel > Constants.kPathFollowingMaxVel) {
-            System.out.println("Path velocity too HIGH. Adjusting.");
+//            System.out.println("Path velocity too HIGH. Adjusting.");
             double scaling = Constants.kPathFollowingMaxVel / max_vel;
             setpoint = new Kinematics.DriveVelocity(setpoint.left * scaling, setpoint.right * scaling);
         } else if (avg_vel < Constants.kPathFollowingMinVel && avg_vel != 0) {
             double scaling = Constants.kPathFollowingMinVel / avg_vel;
             setpoint = new Kinematics.DriveVelocity(setpoint.left * scaling, setpoint.right * scaling);
-            System.out.println("Path velocity too LOW. Adjusting. OldMaxVel = " + max_vel + "  Scaled by: " + scaling + "  New Left: " + setpoint.left + "  New Right: " + setpoint.right);
+//            System.out.println("Path velocity too LOW. Adjusting. OldMaxVel = " + max_vel + "  Scaled by: " + scaling + "  New Left: " + setpoint.left + "  New Right: " + setpoint.right);
         }
 
         updateVelocitySetpoint(setpoint.left, setpoint.right);
@@ -318,7 +319,9 @@ public class DriveTrain extends DriveTrainHardware {
                 return pathFollowingController.isDone();
             }
         } else {
+            System.out.println("PATH IS COMPLETE AS MODE IS NOT CORRECT");
             return true;
+
         }
     }
 

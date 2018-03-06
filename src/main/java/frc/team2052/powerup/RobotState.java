@@ -16,6 +16,7 @@ public class RobotState {
     protected InterpolatingTreeMap<InterpolatingDouble, RigidTransform2d> field_to_vehicle_map;
 
     private RobotState() {
+        System.out.println("NOOOOOOOOOOOOOOOOO Created a new RobotState");
         reset(0, new RigidTransform2d());
     }
 
