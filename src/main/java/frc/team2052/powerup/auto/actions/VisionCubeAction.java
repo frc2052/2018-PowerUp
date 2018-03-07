@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import frc.team2052.powerup.Constants;
 import frc.team2052.powerup.DriveHelper;
 import frc.team2052.powerup.RobotState;
+import frc.team2052.powerup.subsystems.AmpGetter;
 import frc.team2052.powerup.subsystems.Pickup;
 import frc.team2052.powerup.subsystems.PixyCam;
 import frc.team2052.powerup.subsystems.drive.DriveSignal;
@@ -69,6 +70,12 @@ public class VisionCubeAction implements Action {
         }
         if(!pixyCam.getIsTouchingCube()){
             System.out.println("CUBE WAS TOUCHED");
+            isFinished = true;
+            drive.setOpenLoop(DriveSignal.NEUTRAL);
+        }
+
+        if(AmpGetter.getCurrentIntake1(0) >= 30 || AmpGetter.getCurrentIntake2(2) >= 30){
+            System.out.println("CUBE WAS PICKED UP");
             isFinished = true;
             drive.setOpenLoop(DriveSignal.NEUTRAL);
         }

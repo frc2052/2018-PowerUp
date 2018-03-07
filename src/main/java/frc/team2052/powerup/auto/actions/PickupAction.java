@@ -2,6 +2,7 @@ package frc.team2052.powerup.auto.actions;
 
 import edu.wpi.first.wpilibj.Timer;
 import frc.team2052.powerup.auto.AutoMode;
+import frc.team2052.powerup.subsystems.AmpGetter;
 import frc.team2052.powerup.subsystems.Pickup;
 
 public class PickupAction implements Action {
@@ -47,9 +48,6 @@ public class PickupAction implements Action {
             case OFF:
                 Pickup.getInstance().stopped();
                 break;
-            case INTAKETILLCUBED:
-
-                break;
             case TIMEDOUTTAKE:
             case TIMEDINTAKE:
                 startTimeSec = Timer.getFPGATimestamp();
@@ -72,6 +70,12 @@ public class PickupAction implements Action {
                 }
                 break;
             case INTAKETILLCUBED:
+                if (AmpGetter.getCurrentIntake1(0) >= 30 || AmpGetter.getCurrentIntake2(2) >= 30) {
+                    Pickup.getInstance().stopped();
+                    isDone = true;
+                }else{
+                    Pickup.getInstance().intake();
+                }
                 break;
         }
 
