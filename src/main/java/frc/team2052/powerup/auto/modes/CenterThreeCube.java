@@ -16,25 +16,21 @@ public class CenterThreeCube extends AutoMode {
 
         if(FieldConfig.isMySwitchLeft()) { //if left switch is ours
             System.out.println("HEADING TO L SWITCH");
-            actions.addAll(super.centerRightSwitch());
-            System.out.println("length of list: " + actions.size());
+            actions.addAll(super.centerLeftSwitch());
             actions.add(new PrintAction("DONE WITH 1 Cube"));
-            System.out.println("length of list: " + actions.size());
             actions.addAll(super.anotherCubeCenterLeftSwitch());
-            System.out.println("length of list: " + actions.size());
+            actions.add(new PickupAction(PickupAction.PickupStateEnum.RESETCUBEPICKUPTIMEOUT, 4));
+            actions.add(new PrintAction("STARTING 3rd CUBE"));
             actions.addAll(super.anotherCubeCenterLeftSwitch());
-            System.out.println("length of list: " + actions.size());
-
             runAction(new SeriesAction(actions));
 
         }else{
             System.out.println("HEADING TO R SWITCH");
             actions.addAll(super.centerRightSwitch());
-            System.out.println("length of list 1: " + actions.size());
             actions.addAll(super.anotherCubeCenterRightSwitch());
-            System.out.println("length of list 2: " + actions.size());
+            actions.add(new PickupAction(PickupAction.PickupStateEnum.RESETCUBEPICKUPTIMEOUT, 4));
+            actions.add(new PrintAction("STARTING 3rd CUBE"));
             actions.addAll(super.anotherCubeCenterRightSwitch());
-            System.out.println("length of list 3: " + actions.size());
 
             runAction(new SeriesAction(actions));
         }

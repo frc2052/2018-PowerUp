@@ -15,4 +15,6 @@ package frc.team2052.powerup.subsystems.Interfaces;
         void pickupPositionStartingConfig();
 
         boolean isCubePickedUp();
+
+        void ResetCubePickupTimeoutSeconds(double newTimeout);
     }

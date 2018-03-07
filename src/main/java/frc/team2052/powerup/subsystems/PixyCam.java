@@ -33,7 +33,13 @@ public class PixyCam {
     }
 
     public boolean getCubeInput(){
-        return detectCubeInput.get();
+        try {
+            return detectCubeInput.get();
+        } catch (Exception e) {
+            System.out.println("ERROR: Failed PixyCam.getCubeInput - Defaulting to true: " + e.getMessage() );
+            e.printStackTrace();
+            return  true;
+        }
     }
 
     public double getPositionVoltage(){

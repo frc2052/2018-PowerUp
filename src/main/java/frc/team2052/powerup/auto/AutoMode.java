@@ -43,31 +43,63 @@ public abstract class AutoMode extends AutoModeBase {
         );
     }
 
+//    protected List<Action> anotherCubeCenterLeftSwitch(){
+//        System.out.println("EATING ANOTHER CUBE AT LEFT SWITCH");
+//        return Arrays.asList(
+//                new PrintAction("STARTING ANOTHER CUBE"),
+//                new ParallelAction(Arrays.asList(
+//                        new TimeoutAction(new FollowPathAction(new Path(AutoPaths.ReverseLSwitch), true), 6),
+//                        new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("LowerElevator"),
+//                                new PrintAction("Starting Lowering Elevator"),
+//                                new ElevatorAction(Elevator.ElevatorPresetEnum.PICKUP))))), //lowers pickup to position pointing out
+//                new PrintAction("Starting vision"),
+//                new ParallelAction(Arrays.asList(
+//                        new PickupAction(PickupAction.PickupStateEnum.INTAKETILLCUBED),
+//                        new VisionCubeAction())),
+//                new PickupAction(PickupAction.PickupStateEnum.OFF),
+//                new PrintAction("Finished Vision"),
+//                 new ParallelAction(Arrays.asList(
+//                         new TimeoutAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(50, -60)), 6),
+//                         new ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH))),
+//                new TimeoutAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(AutoPaths.CLSwitch.get(AutoPaths.CLSwitch.size() - 1).position)), 6),
+//                new PickupAction(PickupAction.PickupStateEnum.TIMEDOUTTAKE),//pushes cube out
+//                new PrintAction("Dropped off cube")
+//        );
+//    }
+
     protected List<Action> anotherCubeCenterLeftSwitch(){
-        System.out.println("EATING ANOTHER CUBE AT LEFT SWITCH");
+        System.out.println("ANOTHER RIGHT SWITCH CUBE IS YUMMY");
         return Arrays.asList(
+                new PrintAction("STARTING ANOTHER CUBE"),
                 new ParallelAction(Arrays.asList(
                         new TimeoutAction(new FollowPathAction(new Path(AutoPaths.ReverseLSwitch), true), 6),
-                        new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("LowerElevator"),
-                                new PrintAction("Starting Lowering Elevator"),
-                                new ElevatorAction(Elevator.ElevatorPresetEnum.PICKUP))))), //lowers pickup to position pointing out
+                        new PrintAction("In parrallel action"),
+                        new SeriesAction(Arrays.asList(
+                                new WaitAction(.5),
+                                new PrintAction("starting Lowering Elevator"),
+                                new ElevatorAction(Elevator.ElevatorPresetEnum.PICKUP),
+                                new PrintAction("done Lowering Elevator")))
+                )), //lowers pickup to position pointing out
                 new PrintAction("Starting vision"),
                 new ParallelAction(Arrays.asList(
                         new PickupAction(PickupAction.PickupStateEnum.INTAKETILLCUBED),
                         new VisionCubeAction())),
-                new PickupAction(PickupAction.PickupStateEnum.OFF),
                 new PrintAction("Finished Vision"),
-                 new ParallelAction(Arrays.asList(
-                         new TimeoutAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(50, -60)), 6),
-                         new ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH))),
+                new ParallelAction(Arrays.asList(
+                        new PrintAction("Path back after vision running"),
+                        new TimeoutAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(50, -60)), 6),
+                        new ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH))),
+                new PrintAction("STARTING BACK TO SWITCH"),
                 new TimeoutAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(AutoPaths.CLSwitch.get(AutoPaths.CLSwitch.size() - 1).position)), 6),
-                new PickupAction(PickupAction.PickupStateEnum.TIMEDOUTTAKE)//pushes cube out
+                new PickupAction(PickupAction.PickupStateEnum.TIMEDOUTTAKE),
+                new PrintAction("Dropped off cube.")
         );
     }
 
     protected List<Action> anotherCubeCenterRightSwitch(){
         System.out.println("ANOTHER RIGHT SWITCH CUBE IS YUMMY");
         return Arrays.asList(
+                new PrintAction("STARTING ANOTHER CUBE"),
                 new ParallelAction(Arrays.asList(
                         new TimeoutAction(new FollowPathAction(new Path(AutoPaths.ReverseRSwitch), true), 6),
                         new PrintAction("In parrallel action"),
@@ -88,7 +120,8 @@ public abstract class AutoMode extends AutoModeBase {
                          new ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH))),
                 new PrintAction("STARTING BACK TO SWITCH"),
                 new TimeoutAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(AutoPaths.CRSwitch.get(AutoPaths.CRSwitch.size() - 1).position)), 6),
-                new PickupAction(PickupAction.PickupStateEnum.TIMEDOUTTAKE)
+                new PickupAction(PickupAction.PickupStateEnum.TIMEDOUTTAKE),
+                new PrintAction("Dropped off cube.")
         );
     }
 

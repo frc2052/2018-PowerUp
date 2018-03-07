@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import frc.team2052.powerup.Constants;
 import frc.team2052.powerup.DriveHelper;
 import frc.team2052.powerup.RobotState;
+import frc.team2052.powerup.subsystems.Interfaces.PickupSubsystem;
 import frc.team2052.powerup.subsystems.PixyCam;
 import frc.team2052.powerup.subsystems.SubsystemFactory;
 import frc.team2052.powerup.subsystems.drive.DriveSignal;
@@ -15,9 +16,10 @@ public class VisionCubeAction implements Action {
     private DriveTrain drive = null;
     private PixyCam pixyCam = null;
     private DigitalInput detectCube = null;
-//    private Pickup intake = null;
+    private PickupSubsystem pickup = null;
 
     public VisionCubeAction(){
+        this.pickup = SubsystemFactory.getPickup();
         drive = DriveTrain.getInstance();
         pixyCam = PixyCam.getInstance();
     }
@@ -63,13 +65,19 @@ public class VisionCubeAction implements Action {
                     isDone = true;
                 }
             } catch (Exception exc) {
-                System.out.println("Error getting vision inputs " + exc.getMessage());
+                System.out.println("ERROR: getting vision inputs " + exc.getMessage());
                 exc.printStackTrace();
             }
-            if (SubsystemFactory.getPickup().isCubePickedUp()) {
-                System.out.println("CUBE WAS TOUCHED");
+            try {
+                if (this.pickup.isCubePickedUp()) {
+                    System.out.println("CUBE WAS TOUCHED");
+                    isDone = true;
+                    drive.setOpenLoop(DriveSignal.NEUTRAL);
+                }
+            } catch (Exception e) {
+                System.out.println("ERROR: Failed to check if pickup has cube. ENDING VISION " + e.getMessage());
+                e.printStackTrace();
                 isDone = true;
-                drive.setOpenLoop(DriveSignal.NEUTRAL);
             }
         }
     }

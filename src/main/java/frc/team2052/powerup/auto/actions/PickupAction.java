@@ -1,9 +1,7 @@
 package frc.team2052.powerup.auto.actions;
 
 import edu.wpi.first.wpilibj.Timer;
-import frc.team2052.powerup.auto.AutoMode;
-import frc.team2052.powerup.subsystems.AmpGetter;
-import frc.team2052.powerup.subsystems.Pickup;
+import frc.team2052.powerup.subsystems.Interfaces.PickupSubsystem;
 import frc.team2052.powerup.subsystems.SubsystemFactory;
 
 public class PickupAction implements Action {
@@ -12,8 +10,10 @@ public class PickupAction implements Action {
     private PickupStateEnum state;
     private double startTimeSec = 0;
     private double seconds;
+    private PickupSubsystem pickup = null;
 
     public PickupAction(PickupStateEnum state){
+        this.pickup = SubsystemFactory.getPickup();
         this.state = state;
         this.seconds = 1; //magic number for default seconds
     }
@@ -24,6 +24,7 @@ public class PickupAction implements Action {
      * @param waitTimeOverRide Only for Intake/Outtake
      */
     public PickupAction(PickupStateEnum state, double waitTimeOverRide){
+        this.pickup = SubsystemFactory.getPickup();
         this.state = state;
         this.seconds = waitTimeOverRide;
     }
@@ -47,15 +48,16 @@ public class PickupAction implements Action {
     public void start() {
         switch (state){
             case OFF:
-                SubsystemFactory.getPickup().stopped();
+                this.pickup.stopped();
+                break;
+            case RESETCUBEPICKUPTIMEOUT:
+                this.pickup.ResetCubePickupTimeoutSeconds(seconds);
                 break;
             case TIMEDOUTTAKE:
             case TIMEDINTAKE:
                 startTimeSec = Timer.getFPGATimestamp();
                 break;
         }
-
-
     }
 
     @Override
@@ -63,36 +65,39 @@ public class PickupAction implements Action {
         switch (state) {
             case TIMEDOUTTAKE:
                 if ((Timer.getFPGATimestamp() - startTimeSec) < seconds) {
-                    SubsystemFactory.getPickup().outtake();
+                    this.pickup.outtake();
                 } else {
-                    SubsystemFactory.getPickup().stopped();
+                    this.pickup.stopped();
                     isDone = true;
                 }
                 break;
             case TIMEDINTAKE:
                 if ((Timer.getFPGATimestamp() - startTimeSec) < seconds) {
-                    SubsystemFactory.getPickup().intake();
+                    this.pickup.intake();
                 } else {
-                    SubsystemFactory.getPickup().stopped();
+                    this.pickup.stopped();
                     isDone = true;
                 }
                 break;
             case INTAKETILLCUBED:
-                if (SubsystemFactory.getPickup().isCubePickedUp()) {
-                    SubsystemFactory.getPickup().stopped();
+                if (this.pickup.isCubePickedUp()) {
+                    this.pickup.stopped();
                     isDone = true;
                 }else{
-                    SubsystemFactory.getPickup().intake();
+                    this.pickup.intake();
                 }
                 break;
+            case RESETCUBEPICKUPTIMEOUT:
+                isDone = true;
+                break;
         }
-
     }
 
     public enum PickupStateEnum {
         OFF,
         INTAKETILLCUBED,
         TIMEDOUTTAKE,
-        TIMEDINTAKE
+        TIMEDINTAKE,
+        RESETCUBEPICKUPTIMEOUT
     }
 }

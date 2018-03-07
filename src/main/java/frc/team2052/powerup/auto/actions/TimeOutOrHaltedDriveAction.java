@@ -2,7 +2,6 @@ package frc.team2052.powerup.auto.actions;
 
 import edu.wpi.first.wpilibj.Timer;
 import frc.team2052.powerup.Constants;
-import frc.team2052.powerup.auto.AutoModeEndedException;
 import frc.team2052.powerup.subsystems.drive.DriveTrain;
 
 //Sets amount of time delay before auto mode deploys. 
@@ -93,9 +92,5 @@ public class TimeOutOrHaltedDriveAction implements Action {
         mStartTime = Timer.getFPGATimestamp();
         lastRobotMovement = mStartTime;
         action.start();
-    }
-
-    private void forceException() throws AutoModeEndedException{
-        throw new AutoModeEndedException();
     }
 }
