@@ -6,8 +6,9 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.first.team2052.lib.Loopable;
 import frc.team2052.powerup.Constants;
+import frc.team2052.powerup.subsystems.Interfaces.ElevatorSubsystem;
 
-public class Elevator implements Loopable{
+public class Elevator implements Loopable,ElevatorSubsystem{
 
     private TalonSRX elevatorTalon;
     private boolean runningInOpenLoop = false;
