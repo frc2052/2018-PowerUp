@@ -56,16 +56,15 @@ public class TimeOutOrHaltedDriveAction implements Action {
         deltaLeftEncoder = DriveTrain.getInstance().getLeftRawTicks() - lastLeftTicks;
         deltaRightEncoder = DriveTrain.getInstance().getRightRawTicks() - lastRightTicks;
 
-        System.out.println("============LEFT CHANGE: " + deltaLeftEncoder + "===========RIGHT CHANGE: " + deltaRightEncoder);
         if (deltaLeftEncoder >= -10 && deltaLeftEncoder <= 10){
-            System.out.println("LEFT WHEEL DIDN'T MOVE, TIme is:" + Timer.getFPGATimestamp());
+            System.out.println("WARNING: LEFT WHEEL DIDN'T MOVE, TIme is:" + Timer.getFPGATimestamp());
         }else{
             lastRobotMovement = Timer.getFPGATimestamp();
             lastLeftTicks = DriveTrain.getInstance().getLeftRawTicks();
         }
 
         if (deltaRightEncoder >= -10 && deltaRightEncoder <= 10){
-            System.out.println("RIGHT WHEEL DIDN'T MOVE, TIme is:" + Timer.getFPGATimestamp());
+            System.out.println("WARNING: RIGHT WHEEL DIDN'T MOVE, TIme is:" + Timer.getFPGATimestamp());
         }else{
             lastRobotMovement = Timer.getFPGATimestamp();
             lastRightTicks = DriveTrain.getInstance().getRightRawTicks();

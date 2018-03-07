@@ -36,17 +36,16 @@ public class FakeElevator implements Loopable, ElevatorSubsystem {
 
     @Override
     public void setEmergencyHold(boolean isPressed) {
-        System.out.println("FAKE ELEVATOR: Setting the fake to emergency stop");
+
     }
 
     @Override
     public void setEmergencyUp(boolean isPressed) {
-        System.out.println("FAKE ELEVATOR: Setting the fake to emergency up");
+
     }
 
     @Override
     public boolean getCarriageIsMoving() {
-        System.out.println("FAKE ELEVATOR: Carriage isn't moving");
         return false;
     }
 

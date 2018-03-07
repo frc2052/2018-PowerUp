@@ -52,7 +52,7 @@ public class Robot extends IterativeRobot {
         //////THESE SUBSYSTEMS ARE FAULT TOLERANT/////
         /////// they will return null if they fail to create themselves////////
         intake = SubsystemFactory.getPickup();
-        ramp = Ramp.getInstance();
+        //ramp = Ramp.getInstance();
         elevator = SubsystemFactory.getElevator();
         //////////////////////////////////////////////
 
