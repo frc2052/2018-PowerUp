@@ -43,12 +43,12 @@ public class AutoTest extends AutoMode{
                 new WaitAction(1),
                 new ElevatorAction(Elevator.ElevatorPresetEnum.PICKUP),
 
-                new TimeoutAction(new WantIntakeAction(), 2), //pickup Intake
-                new WantOffAction(), //pickup off
+                new TimeoutAction(new PickupAction(PickupAction.PickupStateEnum.TIMEDINTAKE, 2), 2), //pickup Intake
+                new PickupAction(PickupAction.PickupStateEnum.OFF), //pickup off
                 new WaitAction(1),
-                new WantOutakeAction(), //pickup outtake
+                new PickupAction(PickupAction.PickupStateEnum.TIMEDOUTTAKE, 2), //pickup outtake
                 new WaitAction(2),
-                new WantOffAction(), //pickup off
+                new PickupAction(PickupAction.PickupStateEnum.OFF), //pickup off
 
                 new MoveArmAction(MoveArmAction.ArmPositionEnum.START),
                 new WaitAction(2),

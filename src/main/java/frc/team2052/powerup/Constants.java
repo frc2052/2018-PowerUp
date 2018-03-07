@@ -118,4 +118,5 @@ public class Constants {public static int intakeSolenoid =1;
     public static double kDriveOpenLoopRampRate = .5; // this many seconds from 0 to full power
     public static double kDriveClosedLoopRampRate = 0.0;
     public static double kVisionDrivePercent = 0.4;
+    public static int kEncoderFailureTicks = 6000;
 }

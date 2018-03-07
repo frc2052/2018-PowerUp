@@ -4,7 +4,6 @@ import com.first.team2052.lib.path.Path;
 import com.first.team2052.lib.vec.Translation2d;
 import frc.team2052.powerup.auto.actions.*;
 import frc.team2052.powerup.subsystems.Elevator;
-import frc.team2052.powerup.subsystems.Pickup;
 
 import java.util.Arrays;
 import java.util.List;
@@ -36,7 +35,7 @@ public abstract class AutoMode extends AutoModeBase {
         return Arrays.asList(
                 new WaitAction(AutoModeSelector.getWaitTime()),
                 new ParallelAction(Arrays.asList(
-                        new TimeoutAction(new FollowPathAction(new Path(AutoPaths.CRSwitch), false), 6), //pathing to left switcha
+                        new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.CRSwitch), false), 6), //pathing to right switch
                         new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
                                 new ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH),
                                 new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN))))), //lowers pickup to position pointing out

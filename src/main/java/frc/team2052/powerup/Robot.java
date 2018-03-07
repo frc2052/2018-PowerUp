@@ -1,14 +1,17 @@
 package frc.team2052.powerup;
 
 import com.first.team2052.lib.ControlLoop;
-import com.first.team2052.lib.RevRoboticsPressureSensor;
 import com.first.team2052.lib.vec.RigidTransform2d;
-import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2052.powerup.auto.AutoModeRunner;
 import frc.team2052.powerup.auto.AutoModeSelector;
 import frc.team2052.powerup.auto.AutoPaths;
 import frc.team2052.powerup.auto.FieldConfig;
+import frc.team2052.powerup.auto.actions.TimeOutOrHaltedDriveAction;
 import frc.team2052.powerup.subsystems.*;
 import frc.team2052.powerup.subsystems.Interfaces.ElevatorSubsystem;
 import frc.team2052.powerup.subsystems.Interfaces.PickupSubsystem;
@@ -115,6 +118,7 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void autonomousInit() {
+        TimeOutOrHaltedDriveAction.resetCriticalFailure();
         System.out.println("STARTING AUTO INIT");
         robotState.reset(Timer.getFPGATimestamp(), new RigidTransform2d());
         FieldConfig.reset();
@@ -198,6 +202,10 @@ public class Robot extends IterativeRobot {
     }
     @Override
     public void autonomousPeriodic() {
+        if(TimeOutOrHaltedDriveAction.getEncoderFailureDetected()){
+            System.out.println("CRITICAL AUTONOMOUS STOP");
+            autoModeRunner.stop();
+        }
         SmartDashboard.putNumber("gyro", driveTrain.getGyroAngleDegrees());
         SmartDashboard.putNumber("gyroRate", driveTrain.getGyroRateDegrees());
         SmartDashboard.putNumber("LeftInches", driveTrain.getLeftDistanceInches());
