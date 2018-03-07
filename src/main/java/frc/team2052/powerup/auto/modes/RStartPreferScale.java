@@ -28,6 +28,7 @@ public class RStartPreferScale extends AutoMode {
         } else if(!FieldConfig.isMySwitchLeft()){ // if right switch is ours
 
             actions.addAll(super.rightToRightSwitch());
+            actions.add(new MoveArmAction(MoveArmAction.ArmPositionEnum.START));
             runAction(new SeriesAction(actions));
 
         } else if(AutoModeSelector.getDisabledAuto() != AutoModeSelector.AutoDisableDefinition.LEFTSCALE){

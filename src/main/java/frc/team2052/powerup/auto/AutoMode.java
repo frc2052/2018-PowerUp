@@ -142,6 +142,26 @@ public abstract class AutoMode extends AutoModeBase {
                 new PickupAction(PickupAction.PickupStateEnum.TIMEDOUTTAKE)
         );
     }
+
+    protected List<Action> anotherCubeRightSwitchToScale(){
+        System.out.println("SWITCH: PUT ANOTHER CUBE ON RIGHT SWITCH");
+        return Arrays.asList(
+                new ParallelAction(Arrays.asList(
+                        new TimeoutAction(new FollowPathAction(new Path(AutoPaths.ReverseRRSwitch), true), 8),
+                        new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("LowerElevator"),
+                                new ElevatorAction(Elevator.ElevatorPresetEnum.PICKUP))))),
+                new ParallelAction(Arrays.asList(
+                        new PickupAction(PickupAction.PickupStateEnum.INTAKETILLCUBED),
+                        new VisionCubeAction())),
+                new PrintAction("Finished Vision"),
+                new ParallelAction(Arrays.asList(
+                        new TimeoutAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getX() - 30, AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getY() + 30)), 6),
+                        new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING))),
+                new TimeoutAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position)), 6),
+                new PickupAction(PickupAction.PickupStateEnum.TIMEDINTAKE)
+        );
+    }
+
     protected List<Action> anotherCubeRightScaleToScale(){
         System.out.println("ANOTHER CUBE ON RIGHT SCALE");
         return Arrays.asList(
@@ -241,6 +261,25 @@ public abstract class AutoMode extends AutoModeBase {
                         new TimeoutAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(220,  50)), 6),
                         new ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH))),
                 new TimeoutAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(200,  50)), 6),
+                new PickupAction(PickupAction.PickupStateEnum.TIMEDOUTTAKE)
+        );
+    }
+
+    protected List<Action> anotherCubeLeftSwitchToScale(){
+        System.out.println("ANOTHER CUBE TO LEFT SWITCH");
+        return Arrays.asList(
+                new ParallelAction(Arrays.asList(
+                        new TimeoutAction(new FollowPathAction(new Path(AutoPaths.ReverseLLSwitch), true), 8),
+                        new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("LowerElevator"),
+                                new ElevatorAction(Elevator.ElevatorPresetEnum.PICKUP))))),
+                new ParallelAction(Arrays.asList(
+                        new PickupAction(PickupAction.PickupStateEnum.INTAKETILLCUBED),
+                        new VisionCubeAction())),
+                new PrintAction("Finished Vision"),
+                new ParallelAction(Arrays.asList(
+                        new TimeoutAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position.getX() - 30, AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position.getY() - 30)), 6),
+                        new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING))),
+                new TimeoutAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position)), 6),
                 new PickupAction(PickupAction.PickupStateEnum.TIMEDOUTTAKE)
         );
     }

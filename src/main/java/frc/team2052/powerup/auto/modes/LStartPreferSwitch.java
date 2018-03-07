@@ -18,6 +18,7 @@ public class LStartPreferSwitch extends AutoMode {
         if(FieldConfig.isMySwitchLeft()) { //if left switch is ours
 
             actions.addAll(super.leftToLeftSwitch());
+            actions.add(new MoveArmAction(MoveArmAction.ArmPositionEnum.START));
             runAction(new SeriesAction(actions));
 
         } else if(FieldConfig.isMyScaleLeft()){ // if left Scale is ours
@@ -27,6 +28,7 @@ public class LStartPreferSwitch extends AutoMode {
                     new MoveArmAction(MoveArmAction.ArmPositionEnum.START),
                     new TimeoutAction(new FollowPathAction(new Path(AutoPaths.ReverseLScale), true), 2)
             ));
+            actions.add(new MoveArmAction(MoveArmAction.ArmPositionEnum.START));
             runAction(new SeriesAction(actions));
 
         } else if(AutoModeSelector.getDisabledAuto() != AutoModeSelector.AutoDisableDefinition.RIGHTSCALE){
@@ -36,6 +38,7 @@ public class LStartPreferSwitch extends AutoMode {
                     new MoveArmAction(MoveArmAction.ArmPositionEnum.START),
                     new TimeoutAction(new FollowPathAction(new Path(AutoPaths.ReverseRScale), true), 2)
             ));
+            actions.add(new MoveArmAction(MoveArmAction.ArmPositionEnum.START));
             runAction(new SeriesAction(actions));
 
         } else {
