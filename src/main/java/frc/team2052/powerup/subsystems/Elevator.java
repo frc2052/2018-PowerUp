@@ -13,6 +13,8 @@ public class Elevator implements Loopable,ElevatorSubsystem{
     private TalonSRX elevatorTalon;
     private boolean runningInOpenLoop = false;
 
+    private int goalElevatorInches;
+
     //SINGLETON
     private static Elevator instance = null;
     public static Elevator getInstance() {
@@ -55,8 +57,6 @@ public class Elevator implements Loopable,ElevatorSubsystem{
         double inches = revolutions * Constants.kElevatorInchesPerRotation;
         return inches;
     }
-
-    private int goalElevatorInches;
 
     public void setTarget(ElevatorPresetEnum posEnum) {
         //sets goal to the correct inches according to the preset
@@ -153,6 +153,21 @@ public class Elevator implements Loopable,ElevatorSubsystem{
             //Sets the Carriage at a set height, see https://github.com/CrossTheRoadElec/Phoenix-Documentation/blob/master/Talon%20SRX%20Victor%20SPX%20-%20Software%20Reference%20Manual.pdf
             // in 3.1.2.1, recommended timeout is zero while in robot loop
             elevatorTalon.set(ControlMode.Position, pos);
+
+            if(getHeightInches() < 0){
+               zeroSensor();
+            }
+
+            if(!getCarriageIsMoving() && getHeightInches() < goalElevatorInches ){ //todo add amps as well
+                System.out.println("THE ELEVATOR IS AT THE TOP AND TRYING TO GO HIGHER");
+                setCurrentPosAsTarget();
+            }
+
+            if(!getCarriageIsMoving() && getHeightInches() > goalElevatorInches ){//todo same as above
+                System.out.println("THE ELEVATOR IS AT THE BOTTOM AND TRYING TO GO LOWER...ZEROING");
+                zeroSensor();
+                setCurrentPosAsTarget();
+            }
         }
     }
     @Override

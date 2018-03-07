@@ -1,8 +1,9 @@
 package frc.team2052.powerup.subsystems.Interfaces;
 
+import com.first.team2052.lib.Loopable;
 import frc.team2052.powerup.subsystems.Elevator;
 
- public interface ElevatorSubsystem {
+ public interface ElevatorSubsystem extends Loopable {
     void zeroSensor();
 
     double getHeightInches();

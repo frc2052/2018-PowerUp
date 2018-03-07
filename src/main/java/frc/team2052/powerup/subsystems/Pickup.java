@@ -71,4 +71,9 @@ public class Pickup implements PickupSubsystem {
         armShortSolenoidIn.set(false);
         armShortSolenoidOut.set(true);
     }
+
+    @Override
+    public boolean isCubePickedUp() {
+        return AmpGetter.getCurrentIntake1(0) >= 30 || AmpGetter.getCurrentIntake2(2) >= 30;
+    }
 }

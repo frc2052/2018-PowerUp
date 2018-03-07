@@ -1,6 +1,7 @@
 package frc.team2052.powerup.auto.actions;
 
 import frc.team2052.powerup.subsystems.Pickup;
+import frc.team2052.powerup.subsystems.SubsystemFactory;
 
 public class MoveArmAction implements Action{
     private boolean isDone = false;
@@ -23,13 +24,13 @@ public class MoveArmAction implements Action{
     public void start() {
         switch (armPosition){
             case START:
-                Pickup.getInstance().pickupPositionStartingConfig();
+                SubsystemFactory.getPickup().pickupPositionStartingConfig();
                 break;
             case UP:
-                Pickup.getInstance().pickupPositionRaised();
+                SubsystemFactory.getPickup().pickupPositionRaised();
                 break;
             case DOWN:
-                Pickup.getInstance().pickupPositionDown();
+                SubsystemFactory.getPickup().pickupPositionDown();
                 break;
         }
         isDone = true;

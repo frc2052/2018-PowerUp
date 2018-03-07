@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Timer;
 import frc.team2052.powerup.auto.AutoMode;
 import frc.team2052.powerup.subsystems.AmpGetter;
 import frc.team2052.powerup.subsystems.Pickup;
+import frc.team2052.powerup.subsystems.SubsystemFactory;
 
 public class PickupAction implements Action {
 
@@ -46,7 +47,7 @@ public class PickupAction implements Action {
     public void start() {
         switch (state){
             case OFF:
-                Pickup.getInstance().stopped();
+                SubsystemFactory.getPickup().stopped();
                 break;
             case TIMEDOUTTAKE:
             case TIMEDINTAKE:
@@ -61,20 +62,27 @@ public class PickupAction implements Action {
     public void update() {
         switch (state) {
             case TIMEDOUTTAKE:
+                if ((Timer.getFPGATimestamp() - startTimeSec) < seconds) {
+                    SubsystemFactory.getPickup().outtake();
+                } else {
+                    SubsystemFactory.getPickup().stopped();
+                    isDone = true;
+                }
+                break;
             case TIMEDINTAKE:
                 if ((Timer.getFPGATimestamp() - startTimeSec) < seconds) {
-                    Pickup.getInstance().outtake();
+                    SubsystemFactory.getPickup().intake();
                 } else {
-                    Pickup.getInstance().stopped();
+                    SubsystemFactory.getPickup().stopped();
                     isDone = true;
                 }
                 break;
             case INTAKETILLCUBED:
-                if (AmpGetter.getCurrentIntake1(0) >= 30 || AmpGetter.getCurrentIntake2(2) >= 30) {
-                    Pickup.getInstance().stopped();
+                if (SubsystemFactory.getPickup().isCubePickedUp()) {
+                    SubsystemFactory.getPickup().stopped();
                     isDone = true;
                 }else{
-                    Pickup.getInstance().intake();
+                    SubsystemFactory.getPickup().intake();
                 }
                 break;
         }

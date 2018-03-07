@@ -10,6 +10,8 @@ import frc.team2052.powerup.auto.AutoModeSelector;
 import frc.team2052.powerup.auto.AutoPaths;
 import frc.team2052.powerup.auto.FieldConfig;
 import frc.team2052.powerup.subsystems.*;
+import frc.team2052.powerup.subsystems.Interfaces.ElevatorSubsystem;
+import frc.team2052.powerup.subsystems.Interfaces.PickupSubsystem;
 import frc.team2052.powerup.subsystems.drive.DriveSignal;
 import frc.team2052.powerup.subsystems.drive.DriveTrain;
 
@@ -21,10 +23,10 @@ public class Robot extends IterativeRobot {
     private ControlLoop fieldLooper = null;
 
     private static DriveTrain driveTrain = null;
-    private Pickup intake = null;
+    private PickupSubsystem intake = null;
     private Controls controls = null;
     private Ramp ramp = null;
-    private Elevator elevator = null;
+    private ElevatorSubsystem elevator = null;
 
     private AutoModeRunner autoModeRunner = null;
     private RobotState robotState = null;
@@ -46,9 +48,9 @@ public class Robot extends IterativeRobot {
 
         //////THESE SUBSYSTEMS ARE FAULT TOLERANT/////
         /////// they will return null if they fail to create themselves////////
-//        intake = Pickup.getInstance();
-//        ramp = Ramp.getInstance();
-//        elevator = Elevator.getInstance();
+        intake = SubsystemFactory.getPickup();
+        ramp = Ramp.getInstance();
+        elevator = SubsystemFactory.getElevator();
         //////////////////////////////////////////////
 
         try {

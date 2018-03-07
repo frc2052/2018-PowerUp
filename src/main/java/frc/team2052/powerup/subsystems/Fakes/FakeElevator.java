@@ -5,7 +5,7 @@ import frc.team2052.powerup.Constants;
 import frc.team2052.powerup.subsystems.Elevator;
 import frc.team2052.powerup.subsystems.Interfaces.ElevatorSubsystem;
 
-public class FakeElevator implements ElevatorSubsystem, Loopable {
+public class FakeElevator implements Loopable, ElevatorSubsystem {
     private static FakeElevator instance = new FakeElevator();
     public static FakeElevator getInstance(){
         return instance;

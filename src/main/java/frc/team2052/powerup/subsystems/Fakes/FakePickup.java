@@ -1,6 +1,7 @@
 package frc.team2052.powerup.subsystems.Fakes;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import edu.wpi.first.wpilibj.DigitalInput;
 import frc.team2052.powerup.subsystems.Interfaces.PickupSubsystem;
 
 public class FakePickup implements PickupSubsystem {
@@ -9,6 +10,17 @@ public class FakePickup implements PickupSubsystem {
         return instance;
     }
 
+    private DigitalInput touchingCubeInput = null;
+
+    private FakePickup(){
+        if (touchingCubeInput == null) {
+            try {
+                touchingCubeInput = new DigitalInput(1);
+            }catch (Exception exe){
+
+            }
+        }
+    }
     @Override
     public void intake() {
 
@@ -37,5 +49,10 @@ public class FakePickup implements PickupSubsystem {
     @Override
     public void pickupPositionStartingConfig() {
 
+    }
+
+    @Override
+    public boolean isCubePickedUp() {
+        return !touchingCubeInput.get(); //todo?????? CHECK THIS
     }
 }

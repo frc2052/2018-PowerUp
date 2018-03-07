@@ -18,7 +18,6 @@ public class PixyCam {
         return instance;
     }
 
-    private DigitalInput touchingCubeInput = null;
     private AnalogInput positionAnalog = null;
     private DigitalInput detectCubeInput = null;
 
@@ -30,10 +29,7 @@ public class PixyCam {
         if(detectCubeInput == null) {
             detectCubeInput = new DigitalInput(0);
         }
-        if (touchingCubeInput == null)
-        {
-            touchingCubeInput = new DigitalInput(1);
-        }
+
     }
 
     public boolean getCubeInput(){
@@ -42,9 +38,5 @@ public class PixyCam {
 
     public double getPositionVoltage(){
         return positionAnalog.getVoltage();
-    }
-
-    public boolean getIsTouchingCube(){
-        return touchingCubeInput.get();
     }
 }

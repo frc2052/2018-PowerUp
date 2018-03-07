@@ -9,6 +9,7 @@ import frc.team2052.powerup.RobotState;
 import frc.team2052.powerup.subsystems.AmpGetter;
 import frc.team2052.powerup.subsystems.Pickup;
 import frc.team2052.powerup.subsystems.PixyCam;
+import frc.team2052.powerup.subsystems.SubsystemFactory;
 import frc.team2052.powerup.subsystems.drive.DriveSignal;
 import frc.team2052.powerup.subsystems.drive.DriveTrain;
 
@@ -68,14 +69,8 @@ public class VisionCubeAction implements Action {
             System.out.println("Error getting vision inputs " + exc.getMessage());
             exc.printStackTrace();
         }
-        if(!pixyCam.getIsTouchingCube()){
+        if(SubsystemFactory.getPickup().isCubePickedUp()){
             System.out.println("CUBE WAS TOUCHED");
-            isFinished = true;
-            drive.setOpenLoop(DriveSignal.NEUTRAL);
-        }
-
-        if(AmpGetter.getCurrentIntake1(0) >= 30 || AmpGetter.getCurrentIntake2(2) >= 30){
-            System.out.println("CUBE WAS PICKED UP");
             isFinished = true;
             drive.setOpenLoop(DriveSignal.NEUTRAL);
         }
