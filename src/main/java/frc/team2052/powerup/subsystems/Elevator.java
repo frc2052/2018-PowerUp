@@ -111,7 +111,8 @@ public class Elevator implements Loopable,ElevatorSubsystem{
 
 
     public boolean getCarriageIsMoving (){//finds out if the elevator is moving
-         boolean accel = elevatorTalon.getSelectedSensorVelocity(0) != 0;
+         boolean accel = elevatorTalon.getSelectedSensorVelocity(0) != 0
+                 && AmpGetter.getCurrentElevator(Constants.kElevatorMotorID) > 30;
          return accel;
     }
 
@@ -147,6 +148,11 @@ public class Elevator implements Loopable,ElevatorSubsystem{
     //public void setHeightFromPreset()
     @Override
     public void update(){
+
+        if(getHeightInches() < 0){
+            zeroSensor();
+        }
+
         if(!runningInOpenLoop) {//we are running in closed loop
             double rotation = goalElevatorInches / Constants.kElevatorInchesPerRotation;
             int pos = (int) (rotation * Constants.kElevatorTicksPerRot);
@@ -154,21 +160,19 @@ public class Elevator implements Loopable,ElevatorSubsystem{
             // in 3.1.2.1, recommended timeout is zero while in robot loop
             elevatorTalon.set(ControlMode.Position, pos);
 
-            if(getHeightInches() < 0){
-               zeroSensor();
-            }
 
-            if(!getCarriageIsMoving() && getHeightInches() < goalElevatorInches ){ //todo add amps as well
-                System.out.println("THE ELEVATOR IS AT THE TOP AND TRYING TO GO HIGHER");
-                setCurrentPosAsTarget();
-            }
+//            if(!getCarriageIsMoving() && getHeightInches() < goalElevatorInches ){ //todo add amps as well
+//                System.out.println("THE ELEVATOR IS AT THE TOP AND TRYING TO GO HIGHER");
+//                setCurrentPosAsTarget();
+//            }
 
-            if(!getCarriageIsMoving() && getHeightInches() > goalElevatorInches ){//todo same as above
-                System.out.println("THE ELEVATOR IS AT THE BOTTOM AND TRYING TO GO LOWER...ZEROING");
-                zeroSensor();
-                setCurrentPosAsTarget();
-            }
+//            if(!getCarriageIsMoving() && getHeightInches() > goalElevatorInches ){//todo same as above
+//                System.out.println("THE ELEVATOR IS AT THE BOTTOM AND TRYING TO GO LOWER...ZEROING");
+//                zeroSensor();
+//                setCurrentPosAsTarget();
+//            }
         }
+
     }
     @Override
     public void onStart(){

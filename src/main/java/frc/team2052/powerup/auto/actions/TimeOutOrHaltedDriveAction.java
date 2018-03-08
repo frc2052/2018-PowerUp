@@ -17,7 +17,7 @@ public class TimeOutOrHaltedDriveAction implements Action {
         encoderFailureDetected = false;
     }
 
-    private FollowPathAction action;
+    private Action action;
     private double mTimeOut;
     private double mStartTime;
     private boolean hitAWall;
@@ -32,6 +32,11 @@ public class TimeOutOrHaltedDriveAction implements Action {
 
 
     public TimeOutOrHaltedDriveAction(FollowPathAction action, double timeOut) {
+        mTimeOut = timeOut;
+        this.action = action;
+    }
+
+    public TimeOutOrHaltedDriveAction(FollowDynamicPathAction action, double timeOut) {
         mTimeOut = timeOut;
         this.action = action;
     }

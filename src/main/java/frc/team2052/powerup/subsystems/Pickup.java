@@ -54,6 +54,11 @@ public class Pickup implements PickupSubsystem {
         setLeftMotorSpeed(Constants.intakeOutSpeed);
     } //activating outtake and setting speed
 
+    public void shoot() {
+        setRightMotorSpeed(Constants.intakeShootSpeed);
+        setLeftMotorSpeed(Constants.intakeShootSpeed);
+    } //activating shoot and setting speed
+
     public void stopped() {
         setRightMotorSpeed(Constants.intakeStopSpeed);
         setLeftMotorSpeed(Constants.intakeStopSpeed);

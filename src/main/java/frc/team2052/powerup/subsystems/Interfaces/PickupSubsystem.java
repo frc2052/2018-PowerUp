@@ -8,6 +8,8 @@ package frc.team2052.powerup.subsystems.Interfaces;
 
         void stopped();
 
+        void shoot();
+
         void pickupPositionDown();
 
         void pickupPositionRaised();

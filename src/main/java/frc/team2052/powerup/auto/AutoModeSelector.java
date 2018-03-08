@@ -11,6 +11,8 @@ public class AutoModeSelector {
 
     private static double trimFactorX =0;
     private static double trimFactorY =0;
+    private static int trimFactorMaxSpeed =0;
+    private static int trimFactorMinSpeed =0;
 
     public static void putToSmartDashboard() { //puts the auto modes and delay options to the smart dashboard
         sendableChooserAutoMode = new SendableChooser<AutoModeDefinition>();
@@ -62,6 +64,9 @@ public class AutoModeSelector {
 
         SmartDashboard.putNumber("trim_forward", trimFactorX);
         SmartDashboard.putNumber("trim_right", trimFactorY);
+
+        SmartDashboard.putNumber("trim_MaxSpeed", trimFactorMaxSpeed);
+        SmartDashboard.putNumber("trim_MinSpeed", trimFactorMinSpeed);
     }
 
     public static AutoModeDefinition getAutoDefinition(){
@@ -173,5 +178,14 @@ public class AutoModeSelector {
 
     public static double getTrimX(){
         return SmartDashboard.getNumber("trim_forward", trimFactorX);
+    }
+
+
+    public static int getTrimMaxSpeed(){
+        return (int) SmartDashboard.getNumber("trim_MaxSpeed", trimFactorMaxSpeed);
+    }
+
+    public static int getTrimMinSpeed(){
+        return (int)SmartDashboard.getNumber("trim_MinSpeed", trimFactorMinSpeed);
     }
 }

@@ -48,6 +48,11 @@ public class FakePickup implements PickupSubsystem {
     }
 
     @Override
+    public void shoot() {
+
+    }
+
+    @Override
     public void pickupPositionDown() {
         System.out.println("Fake Pickup: Arm Down");
     }

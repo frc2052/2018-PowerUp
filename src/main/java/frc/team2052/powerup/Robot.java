@@ -246,7 +246,12 @@ public class Robot extends IterativeRobot {
             if (controls.getIntake()) {
                 intake.intake();
             } else if (controls.getOuttake()) {
-                intake.outtake();
+                if (controls.getShoot()){
+                    intake.shoot();
+                }else{
+                    intake.outtake();
+                }
+
             } else {
                 intake.stopped();
             }

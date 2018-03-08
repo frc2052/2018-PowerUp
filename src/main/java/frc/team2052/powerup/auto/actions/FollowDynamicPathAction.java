@@ -6,6 +6,7 @@ import com.first.team2052.lib.vec.Translation2d;
 import edu.wpi.first.wpilibj.Timer;
 import frc.team2052.powerup.Constants;
 import frc.team2052.powerup.RobotState;
+import frc.team2052.powerup.auto.AutoModeSelector;
 import frc.team2052.powerup.subsystems.drive.DriveSignal;
 import frc.team2052.powerup.subsystems.drive.DriveTrain;
 
@@ -86,8 +87,8 @@ public class FollowDynamicPathAction implements Action {
             }
             RigidTransform2d robotPos = RobotState.getInstance().getLatestFieldToVehicle().getValue();
             List<Path.Waypoint> reverseVisionPath = new ArrayList();
-            reverseVisionPath.add(new Path.Waypoint(new Translation2d(robotPos.getTranslation().getX(), robotPos.getTranslation().getY()), Constants.kPathFollowingMaxVel));
-            reverseVisionPath.add(new Path.Waypoint(mTargetPos, Constants.kPathFollowingMaxVel));
+            reverseVisionPath.add(new Path.Waypoint(new Translation2d(robotPos.getTranslation().getX(), robotPos.getTranslation().getY()), Constants.kPathFollowingMaxVel + AutoModeSelector.getTrimMaxSpeed()));
+            reverseVisionPath.add(new Path.Waypoint(mTargetPos, Constants.kPathFollowingMaxVel + AutoModeSelector.getTrimMaxSpeed()));
             System.out.println("XXXXXXXX --- VISION  Robot RUN FROM: x: " + robotPos.getTranslation().getX() + "  y: " + robotPos.getTranslation().getY());
             System.out.println("XXXXXXXX --- VISION  Robot RUN TO: x: " + mTargetPos.getX() + "  y: " + mTargetPos.getY());
             mPath = new Path(reverseVisionPath);

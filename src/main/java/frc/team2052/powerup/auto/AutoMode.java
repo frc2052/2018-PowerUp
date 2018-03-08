@@ -22,7 +22,7 @@ public abstract class AutoMode extends AutoModeBase {
         return Arrays.asList(
                 new WaitAction(AutoModeSelector.getWaitTime()),
                 new ParallelAction(Arrays.asList(
-                        new TimeoutAction(new FollowPathAction(new Path(AutoPaths.CLSwitch), false), 6), //pathing to left switch
+                        new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.CLSwitch), false), 6), //pathing to left switch
                         new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
                                 new ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH),
                                 new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN))))), //lowers pickup to position pointing out
@@ -72,7 +72,7 @@ public abstract class AutoMode extends AutoModeBase {
         return Arrays.asList(
                 new PrintAction("STARTING ANOTHER CUBE"),
                 new ParallelAction(Arrays.asList(
-                        new TimeoutAction(new FollowPathAction(new Path(AutoPaths.ReverseLSwitch), true), 6),
+                        new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.ReverseLSwitch), true), 6),
                         new PrintAction("In parrallel action"),
                         new SeriesAction(Arrays.asList(
                                 new WaitAction(.5),
@@ -87,10 +87,10 @@ public abstract class AutoMode extends AutoModeBase {
                 new PrintAction("Finished Vision"),
                 new ParallelAction(Arrays.asList(
                         new PrintAction("Path back after vision running"),
-                        new TimeoutAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(50, -60)), 6),
+                        new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(50, -60)), 6),
                         new ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH))),
                 new PrintAction("STARTING BACK TO SWITCH"),
-                new TimeoutAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(AutoPaths.CLSwitch.get(AutoPaths.CLSwitch.size() - 1).position)), 6),
+                new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(AutoPaths.CLSwitch.get(AutoPaths.CLSwitch.size() - 1).position)), 6),
                 new PickupAction(PickupAction.PickupStateEnum.TIMEDOUTTAKE),
                 new PrintAction("Dropped off cube.")
         );
@@ -101,7 +101,7 @@ public abstract class AutoMode extends AutoModeBase {
         return Arrays.asList(
                 new PrintAction("STARTING ANOTHER CUBE"),
                 new ParallelAction(Arrays.asList(
-                        new TimeoutAction(new FollowPathAction(new Path(AutoPaths.ReverseRSwitch), true), 6),
+                        new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.ReverseRSwitch), true), 6),
                         new PrintAction("In parrallel action"),
                         new SeriesAction(Arrays.asList(
                                 new WaitAction(.5),
@@ -116,10 +116,10 @@ public abstract class AutoMode extends AutoModeBase {
                 new PrintAction("Finished Vision"),
                 new ParallelAction(Arrays.asList(
                          new PrintAction("Path back after vision running"),
-                         new TimeoutAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(50, 46)), 6),
+                         new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(50, 46)), 6),
                          new ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH))),
                 new PrintAction("STARTING BACK TO SWITCH"),
-                new TimeoutAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(AutoPaths.CRSwitch.get(AutoPaths.CRSwitch.size() - 1).position)), 6),
+                new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(AutoPaths.CRSwitch.get(AutoPaths.CRSwitch.size() - 1).position)), 6),
                 new PickupAction(PickupAction.PickupStateEnum.TIMEDOUTTAKE),
                 new PrintAction("Dropped off cube.")
         );
