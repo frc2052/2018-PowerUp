@@ -47,18 +47,18 @@ public class Robot extends IterativeRobot {
         driveTrain = DriveTrain.getInstance();
         driveHelper = new DriveHelper();
         controls = Controls.getInstance();
-//        Camera.getInstance().init();
+        //Camera.getInstance().init();
 
         //////THESE SUBSYSTEMS ARE FAULT TOLERANT/////
         /////// they will return null if they fail to create themselves////////
         intake = SubsystemFactory.getPickup();
-        //ramp = Ramp.getInstance();
+        ramp = Ramp.getInstance();
         elevator = SubsystemFactory.getElevator();
         //////////////////////////////////////////////
 
         try {
-//            compressor = new Compressor();
-//            compressor.setClosedLoopControl(true);
+            compressor = new Compressor();
+            compressor.setClosedLoopControl(true);
         } catch (Exception exc) {
             System.out.println("DANGER: No compressor!");
         }
@@ -85,8 +85,6 @@ public class Robot extends IterativeRobot {
         {
             intake.pickupPositionStartingConfig();
         }
-
-        //slowerLooper.addLoopable(VisionProcessor.getInstance());
 
         fieldLooper.addLoopable(new FieldConfig()); //FMS is not gaurenteed to give us the game data on first try, so loop until you get it
 

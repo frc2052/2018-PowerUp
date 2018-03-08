@@ -94,8 +94,12 @@ public class Pickup implements PickupSubsystem {
         }
         //see if we have exceeded the timeout
         boolean timedOut = Timer.getFPGATimestamp() - pickupTimeoutSeconds > startTime;
+
+        if(timedOut){
+            System.out.println("I HAVE TIMED OUT");
+        }
         try {
-            boolean ampsExceeded= AmpGetter.getCurrentIntake1(0) >= 30 || AmpGetter.getCurrentIntake2(2) >= 30;
+            boolean ampsExceeded= AmpGetter.getCurrentIntake1(0) >= 20 || AmpGetter.getCurrentIntake2(2) >= 20;
             if (ampsExceeded)
             {
                 System.out.println("Pickup: I have the cube!");

@@ -33,6 +33,9 @@ public class Controls {
         {
             val = 0;
         }
+//        if (getTank() < 0){
+//            val = -val;
+//        }
         return val * .7;
     }
 

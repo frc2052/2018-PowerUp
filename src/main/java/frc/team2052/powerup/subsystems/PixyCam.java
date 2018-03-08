@@ -24,10 +24,10 @@ public class PixyCam {
 
     public void init(){
         if(positionAnalog == null){
-            positionAnalog = new AnalogInput(1);
+            positionAnalog = new AnalogInput(3);
         }
         if(detectCubeInput == null) {
-            detectCubeInput = new DigitalInput(0);
+            detectCubeInput = new DigitalInput(9);
         }
 
     }
