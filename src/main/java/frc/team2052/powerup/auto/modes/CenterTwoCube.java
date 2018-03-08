@@ -5,7 +5,7 @@ import frc.team2052.powerup.auto.actions.*;
 
 import java.util.ArrayList;
 
-public class CenterThreeCube extends AutoMode {
+public class CenterTwoCube extends AutoMode {
 
     @Override
     protected  void init() throws AutoModeEndedException {
@@ -20,8 +20,7 @@ public class CenterThreeCube extends AutoMode {
             actions.add(new PrintAction("DONE WITH 1 Cube"));
             actions.addAll(super.anotherCubeCenterLeftSwitch());
             actions.add(new PickupAction(PickupAction.PickupStateEnum.RESETCUBEPICKUPTIMEOUT, 4));
-            actions.add(new PrintAction("STARTING 3rd CUBE"));
-            actions.addAll(super.anotherCubeCenterLeftSwitch());
+
             runAction(new SeriesAction(actions));
 
         }else{
@@ -29,8 +28,6 @@ public class CenterThreeCube extends AutoMode {
             actions.addAll(super.centerRightSwitch());
             actions.addAll(super.anotherCubeCenterRightSwitch());
             actions.add(new PickupAction(PickupAction.PickupStateEnum.RESETCUBEPICKUPTIMEOUT, 4));
-            actions.add(new PrintAction("STARTING 3rd CUBE"));
-            actions.addAll(super.anotherCubeCenterRightSwitch());
 
             runAction(new SeriesAction(actions));
         }
