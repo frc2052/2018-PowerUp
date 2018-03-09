@@ -1,11 +1,12 @@
 package frc.team2052.powerup.auto.actions;
 
-import frc.team2052.powerup.subsystems.Pickup;
+import edu.wpi.first.wpilibj.Timer;
 import frc.team2052.powerup.subsystems.SubsystemFactory;
 
 public class MoveArmAction implements Action{
     private boolean isDone = false;
     private ArmPositionEnum armPosition;
+    private double startTime;
 
     public MoveArmAction(ArmPositionEnum armPosition){
         this.armPosition = armPosition;
@@ -25,19 +26,25 @@ public class MoveArmAction implements Action{
         switch (armPosition){
             case START:
                 SubsystemFactory.getPickup().pickupPositionStartingConfig();
+                isDone = true;
                 break;
             case UP:
                 SubsystemFactory.getPickup().pickupPositionRaised();
+                isDone = true;
                 break;
             case DOWN:
                 SubsystemFactory.getPickup().pickupPositionDown();
+                startTime = Timer.getFPGATimestamp();
                 break;
         }
-        isDone = true;
+
     }
 
     @Override
     public void update() {
+        if (Timer.getFPGATimestamp() - startTime> 1){
+            isDone = true;
+        }
     }
 
     public enum ArmPositionEnum {

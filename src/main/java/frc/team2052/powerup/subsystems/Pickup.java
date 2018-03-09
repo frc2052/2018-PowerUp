@@ -92,7 +92,7 @@ public class Pickup implements PickupSubsystem {
     @Override
     public boolean isCubePickedUp() {
         if (!firstCheckComplete) {
-            System.out.println("FAKE PICKUP: First check for cube!");
+            System.out.println("REAL PICKUP: First check for cube!");
             firstCheckComplete = true;
             startTime = Timer.getFPGATimestamp();
         }
@@ -103,7 +103,7 @@ public class Pickup implements PickupSubsystem {
             System.out.println("I HAVE TIMED OUT");
         }
         try {
-            boolean ampsExceeded= AmpGetter.getCurrentIntake1(0) >= 20 || AmpGetter.getCurrentIntake2(2) >= 20;
+            boolean ampsExceeded= AmpGetter.getCurrentIntake1(0) >= 30 || AmpGetter.getCurrentIntake2(2) >= 30;
             if (ampsExceeded)
             {
                 if (!firstTimeTouchedCube){

@@ -88,6 +88,10 @@ public class Robot extends IterativeRobot {
             intake.pickupPositionStartingConfig();
         }
 
+        if(ramp != null){
+            ramp.lowerLeftRamp();
+            ramp.lowerRightRamp();
+        }
         fieldLooper.addLoopable(new FieldConfig()); //FMS is not gaurenteed to give us the game data on first try, so loop until you get it
 
         //Logging for auto

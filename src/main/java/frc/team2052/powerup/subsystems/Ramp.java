@@ -61,7 +61,9 @@ public class Ramp {
             }
         } else {
             leftRampServo.setAngle(Constants.kRampLeftServoClosedAngle);
-            //System.out.println("DON'T DROP LEFT RAMP! Time remaining = " + time + "  Buttom pressed " + rightDropRampCount + " times");
+            if(release) {
+                System.out.println("DON'T DROP LEFT RAMP! Time remaining = " + time + "  Buttom pressed " + rightDropRampCount + " times");
+            }
         }
     }
 
@@ -85,9 +87,10 @@ public class Ramp {
             }
         } else {
             rightRampServo.setAngle(Constants.kRampRightServoClosedAngle);
-            //System.out.println("DON'T DROP RIGHT RAMP! Time remaining = " + time + "  Buttom pressed " + rightDropRampCount + " times");
+            if (release) {
+                System.out.println("DON'T DROP RIGHT RAMP! Time remaining = " + time + "  Buttom pressed " + rightDropRampCount + " times");
+            }
         }
-
     }
 
     public void raiseRightRamp() {
