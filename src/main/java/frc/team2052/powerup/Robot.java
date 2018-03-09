@@ -54,6 +54,8 @@ public class Robot extends IterativeRobot {
         intake = SubsystemFactory.getPickup();
         ramp = Ramp.getInstance();
         elevator = SubsystemFactory.getElevator();
+        PickupSubsystem pickup = SubsystemFactory.getPickup();  //force the instance to be creared
+        ElevatorSubsystem elevator = SubsystemFactory.getElevator(); //force the instance to be created
         //////////////////////////////////////////////
 
         try {
@@ -112,6 +114,7 @@ public class Robot extends IterativeRobot {
     @Override
     public void disabledPeriodic() {
         System.gc();
+
     }
 
     @Override
@@ -121,12 +124,14 @@ public class Robot extends IterativeRobot {
         robotState.reset(Timer.getFPGATimestamp(), new RigidTransform2d());
         FieldConfig.reset();
         AutoPaths.Init();
+        System.out.println("Auto Paths Initialized");
         zeroAllSensors();
         Timer.delay(.25);
 
         if (elevator != null) {
             elevator.zeroSensor();
         }
+        System.out.println("Sensored Zeros");
         driveTrain.setOpenLoop(DriveSignal.NEUTRAL);  //put robot into don't move, no looper mode
         driveTrain.setBrakeMode(false);
 
@@ -134,6 +139,7 @@ public class Robot extends IterativeRobot {
         logLooper.start();
         controlLoop.start();
         slowerLooper.start();
+        System.out.println("Loopers started");
 
         AutoModeSelector.AutoModeDefinition currentAutoMode = AutoModeSelector.getAutoDefinition(); //creates a variable we can change
         double startGameDataCheck = Timer.getFPGATimestamp();
@@ -167,6 +173,7 @@ public class Robot extends IterativeRobot {
             }
         }
 
+        System.out.println("Starting Gyro check");
         if (!DriveTrain.getInstance().CheckGyro()){ //if gyro does not work, set auto path to a path with timer
             System.out.println("GYRO HAS FAILED DECIDING AUTO");
             switch (AutoModeSelector.getAutoDefinition()) {
@@ -193,8 +200,10 @@ public class Robot extends IterativeRobot {
         }
 
         fieldLooper.stop(); //no reason to keep running this
+        System.out.println("Stopped Field Looper");
         //autoModeRunner.setAutoMode(new AutoLine());
         System.out.println("STARTING AUTOMODE " + currentAutoMode.name());
+        System.out.println("----------------CREATE AUTO ACTIONS--------------");
         autoModeRunner.start(currentAutoMode.getInstance());
         System.out.println("COMPLETED AUTO INIT");
     }

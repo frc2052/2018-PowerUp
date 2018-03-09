@@ -85,11 +85,9 @@ public abstract class AutoMode extends AutoModeBase {
                         new PickupAction(PickupAction.PickupStateEnum.INTAKETILLCUBED),
                         new VisionCubeAction())),
                 new PrintAction("Finished Vision"),
-                new ParallelAction(Arrays.asList(
-                        new PrintAction("Path back after vision running"),
-                        new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(50, -60)), 6),
-                        new ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH))),
+                new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(50, -60)), 6),
                 new PrintAction("STARTING BACK TO SWITCH"),
+                new ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH),
                 new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(AutoPaths.CLSwitch.get(AutoPaths.CLSwitch.size() - 1).position)), 6),
                 new PickupAction(PickupAction.PickupStateEnum.TIMEDOUTTAKE),
                 new PrintAction("Dropped off cube.")
@@ -114,10 +112,8 @@ public abstract class AutoMode extends AutoModeBase {
                         new PickupAction(PickupAction.PickupStateEnum.INTAKETILLCUBED),
                         new VisionCubeAction())),
                 new PrintAction("Finished Vision"),
-                new ParallelAction(Arrays.asList(
-                         new PrintAction("Path back after vision running"),
-                         new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(50, 46)), 6),
-                         new ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH))),
+                new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(50, 46)), 6),
+                new ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH),
                 new PrintAction("STARTING BACK TO SWITCH"),
                 new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(AutoPaths.CRSwitch.get(AutoPaths.CRSwitch.size() - 1).position)), 6),
                 new PickupAction(PickupAction.PickupStateEnum.TIMEDOUTTAKE),

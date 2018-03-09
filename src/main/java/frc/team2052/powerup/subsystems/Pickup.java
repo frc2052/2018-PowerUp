@@ -20,9 +20,13 @@ public class Pickup implements PickupSubsystem {
     private boolean firstCheckComplete = false;
     private double startTime = 0;
     private double pickupTimeoutSeconds = 4;
+    private double timeForAmps;
+    private boolean firstTimeTouchedCube = false;
+
     public void ResetCubePickupTimeoutSeconds(double newTimeout) {
         pickupTimeoutSeconds = newTimeout;
         firstCheckComplete = false;
+        firstTimeTouchedCube = false;
     }
 
     private Pickup() { //getting solenoids and talons from constants and setting the right motor to be inverted
@@ -102,9 +106,19 @@ public class Pickup implements PickupSubsystem {
             boolean ampsExceeded= AmpGetter.getCurrentIntake1(0) >= 20 || AmpGetter.getCurrentIntake2(2) >= 20;
             if (ampsExceeded)
             {
-                System.out.println("Pickup: I have the cube!");
-                return true;
+                if (!firstTimeTouchedCube){
+                    firstTimeTouchedCube = true;
+                    timeForAmps = Timer.getFPGATimestamp();
+                    System.out.println("I touched a cube!");
+                }else{
+                    if(Timer.getFPGATimestamp() - timeForAmps > 1) {
+                        System.out.println("Pickup: I have the cube!");
+                        return true;
+                    }
+                }
+                return false;
             } else {
+                firstTimeTouchedCube = false;
                 return timedOut;
             }
         } catch (Exception e) {

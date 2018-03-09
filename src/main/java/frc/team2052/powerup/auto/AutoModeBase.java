@@ -41,6 +41,7 @@ public abstract class AutoModeBase {
     }
 
     protected void runAction(SeriesAction action) throws AutoModeEndedException {
+        System.out.println("*****Starting to run auto action*****");
         isRunningWithThrow(); //checks to see if running
         action.start(); //begins something
         while (!action.isFinished() && isRunningWithThrow()) { //update while action is not done, but still is running
