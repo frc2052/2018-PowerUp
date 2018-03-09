@@ -25,7 +25,7 @@ public class Camera {
     public void init() {
         visionThread = new Thread(() -> {
 
-//            AxisCamera camera = CameraServer.getInstance().addAxisCamera("10.20.52.11");
+           // AxisCamera camera = CameraServer.getInstance().addAxisCamera("10.20.52.11");
             AxisCamera camera = CameraServer.getInstance().addAxisCamera("axis-camera.local");
             //SmartDashboard.putStringArray("/CameraPublisher/AxisCamera/streams", axisArray);
            // NetworkTableInstance.getDefault().getEntry("/CameraPublisher/AxisCamera/streams").setStringArray(axisArray);

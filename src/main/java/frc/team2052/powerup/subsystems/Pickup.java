@@ -111,7 +111,7 @@ public class Pickup implements PickupSubsystem {
                     timeForAmps = Timer.getFPGATimestamp();
                     System.out.println("I touched a cube!");
                 }else{
-                    if(Timer.getFPGATimestamp() - timeForAmps > 1) {
+                    if(Timer.getFPGATimestamp() - timeForAmps > .5) {
                         System.out.println("Pickup: I have the cube!");
                         return true;
                     }
