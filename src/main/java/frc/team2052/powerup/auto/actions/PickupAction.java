@@ -11,6 +11,7 @@ public class PickupAction implements Action {
     private double startTimeSec = 0;
     private double seconds;
     private PickupSubsystem pickup = null;
+    private double delayTime;
 
     public PickupAction(PickupStateEnum state){
         this.pickup = SubsystemFactory.getPickup();
@@ -54,6 +55,9 @@ public class PickupAction implements Action {
                 this.pickup.ResetCubePickupTimeoutSeconds(seconds);
                 break;
             case TIMEDOUTTAKE:
+                startTimeSec = Timer.getFPGATimestamp();
+                delayTime = Timer.getFPGATimestamp();
+                break;
             case TIMEDINTAKE:
                 startTimeSec = Timer.getFPGATimestamp();
                 break;
@@ -64,11 +68,13 @@ public class PickupAction implements Action {
     public void update() {
         switch (state) {
             case TIMEDOUTTAKE:
-                if ((Timer.getFPGATimestamp() - startTimeSec) < seconds) {
-                    this.pickup.outtake();
-                } else {
-                    this.pickup.stopped();
-                    isDone = true;
+                if(Timer.getFPGATimestamp() - delayTime > .5) {
+                    if ((Timer.getFPGATimestamp() - startTimeSec) < seconds + .5) {
+                        this.pickup.outtake();
+                    } else {
+                        this.pickup.stopped();
+                        isDone = true;
+                    }
                 }
                 break;
             case TIMEDINTAKE:

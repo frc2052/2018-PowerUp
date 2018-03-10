@@ -38,7 +38,7 @@ public class Constants {public static int intakeSolenoid =1;
     public static double intakeInSpeedLeft = 1;
     public static double intakeInSpeedRight = intakeInSpeedLeft * .8;
     public static double intakeOutSpeed = -.35;
-    public static double intakeStopSpeed = .2;
+    public static double intakeStopSpeed = .25;
     public static double intakeShootSpeed = -0.7;
 
     /////////// Ramp ////////////
