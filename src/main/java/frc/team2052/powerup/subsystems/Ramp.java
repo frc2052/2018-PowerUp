@@ -55,11 +55,15 @@ public class Ramp {
         if(time < 30 || leftDropRampCount > 4){
             if(release){
                 leftRampServo.setAngle(Constants.kRampLeftServoReleaseAngle);
+                System.out.println("DROPPING LEFT RAMP!!! GameTime: " + time);
             }else{
                 leftRampServo.setAngle(Constants.kRampLeftServoClosedAngle);
             }
         } else {
-            System.out.println("DON'T DROP LEFT RAMP! Time remaining = " + time + "  Buttom pressed " + rightDropRampCount + " times");
+            leftRampServo.setAngle(Constants.kRampLeftServoClosedAngle);
+            if(release) {
+                System.out.println("DON'T DROP LEFT RAMP! Time remaining = " + time + "  Buttom pressed " + rightDropRampCount + " times");
+            }
         }
     }
 
@@ -77,13 +81,16 @@ public class Ramp {
         if(time < 30 || rightDropRampCount > 4){
             if(release){
                 rightRampServo.setAngle(Constants.kRampRightServoReleaseAngle);
+                System.out.println("DROPPING RIGHT RAMP!!! GameTime: " + time);
             }else{
                 rightRampServo.setAngle(Constants.kRampRightServoClosedAngle);
             }
         } else {
-            System.out.println("DON'T DROP RIGHT RAMP! Time remaining = " + time + "  Buttom pressed " + rightDropRampCount + " times");
+            rightRampServo.setAngle(Constants.kRampRightServoClosedAngle);
+            if (release) {
+                System.out.println("DON'T DROP RIGHT RAMP! Time remaining = " + time + "  Buttom pressed " + rightDropRampCount + " times");
+            }
         }
-
     }
 
     public void raiseRightRamp() {

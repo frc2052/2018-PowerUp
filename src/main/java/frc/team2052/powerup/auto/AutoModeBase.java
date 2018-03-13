@@ -14,7 +14,10 @@ public abstract class AutoModeBase {
     }
 
     public void errorStop(String message) throws AutoModeEndedException { //sends a message to SD if they'res an error
-        System.out.println(message);
+        if (message == null) {
+            message = "[NO MESSAGE]";
+        }
+        System.out.println("AutoModeBase: ErrorStop Ended " + message);
         //stop();
         throw new AutoModeEndedException();
     }
@@ -31,12 +34,14 @@ public abstract class AutoModeBase {
 
     public boolean isRunningWithThrow() throws AutoModeEndedException { //if the robot stops running it throws an exception
         if (!isRunning()) {
+            System.out.println("AutoModeBase: isRunningWithThrow was not Running. Throwing Exception");
             throw new AutoModeEndedException();
         }
         return isRunning();
     }
 
     protected void runAction(SeriesAction action) throws AutoModeEndedException {
+        System.out.println("*****Starting to run auto action*****");
         isRunningWithThrow(); //checks to see if running
         action.start(); //begins something
         while (!action.isFinished() && isRunningWithThrow()) { //update while action is not done, but still is running
@@ -71,7 +76,7 @@ public abstract class AutoModeBase {
 
     public void stop() { //stopping auto
         running = false;
-        System.out.println("Stopping Auto");
+        System.out.println("Stopping Auto because Stop was called");
         timer.stop();
     }
 }

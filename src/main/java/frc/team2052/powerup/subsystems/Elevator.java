@@ -6,11 +6,14 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.first.team2052.lib.Loopable;
 import frc.team2052.powerup.Constants;
+import frc.team2052.powerup.subsystems.Interfaces.ElevatorSubsystem;
 
-public class Elevator implements Loopable{
+public class Elevator implements Loopable,ElevatorSubsystem{
 
     private TalonSRX elevatorTalon;
     private boolean runningInOpenLoop = false;
+
+    private int goalElevatorInches;
 
     //SINGLETON
     private static Elevator instance = null;
@@ -54,8 +57,6 @@ public class Elevator implements Loopable{
         double inches = revolutions * Constants.kElevatorInchesPerRotation;
         return inches;
     }
-
-    private int goalElevatorInches;
 
     public void setTarget(ElevatorPresetEnum posEnum) {
         //sets goal to the correct inches according to the preset
@@ -110,7 +111,8 @@ public class Elevator implements Loopable{
 
 
     public boolean getCarriageIsMoving (){//finds out if the elevator is moving
-         boolean accel = elevatorTalon.getSelectedSensorVelocity(0) != 0;
+         boolean accel = elevatorTalon.getSelectedSensorVelocity(0) != 0
+                 && AmpGetter.getCurrentElevator(Constants.kElevatorMotorID) > 30;
          return accel;
     }
 
@@ -146,13 +148,31 @@ public class Elevator implements Loopable{
     //public void setHeightFromPreset()
     @Override
     public void update(){
+
+        if(getHeightInches() < 0){
+            zeroSensor();
+        }
+
         if(!runningInOpenLoop) {//we are running in closed loop
             double rotation = goalElevatorInches / Constants.kElevatorInchesPerRotation;
             int pos = (int) (rotation * Constants.kElevatorTicksPerRot);
             //Sets the Carriage at a set height, see https://github.com/CrossTheRoadElec/Phoenix-Documentation/blob/master/Talon%20SRX%20Victor%20SPX%20-%20Software%20Reference%20Manual.pdf
             // in 3.1.2.1, recommended timeout is zero while in robot loop
             elevatorTalon.set(ControlMode.Position, pos);
+
+
+//            if(!getCarriageIsMoving() && getHeightInches() < goalElevatorInches ){ //todo add amps as well
+//                System.out.println("THE ELEVATOR IS AT THE TOP AND TRYING TO GO HIGHER");
+//                setCurrentPosAsTarget();
+//            }
+
+//            if(!getCarriageIsMoving() && getHeightInches() > goalElevatorInches ){//todo same as above
+//                System.out.println("THE ELEVATOR IS AT THE BOTTOM AND TRYING TO GO LOWER...ZEROING");
+//                zeroSensor();
+//                setCurrentPosAsTarget();
+//            }
         }
+
     }
     @Override
     public void onStart(){

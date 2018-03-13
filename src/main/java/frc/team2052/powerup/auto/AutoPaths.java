@@ -59,6 +59,8 @@ public class AutoPaths {
         LScaleToLSwitchCube = new ArrayList();
         ReverseLLSwitch = new ArrayList();
 
+        int maxSpeedTrim = AutoModeSelector.getTrimMaxSpeed();
+
         AutoLine.add(new Path.Waypoint(new Translation2d(0, 0), Constants.kPathFollowingMaxVel));
         AutoLine.add(new Path.Waypoint(new Translation2d(132, 0), Constants.kPathFollowingMaxVel, "RaiseElevator"));
 
@@ -74,35 +76,37 @@ public class AutoPaths {
         LLScale.add(new Path.Waypoint(new Translation2d(150, 0), Constants.kPathFollowingMaxVel, "RaiseElevator"));
         LLScale.add(new Path.Waypoint(new Translation2d(225, 0), Constants.kPathFollowingMaxVel));
         LLScale.add(new Path.Waypoint(new Translation2d(241, 0), Constants.kPathFollowingMaxVel));
-        LLScale.add(new Path.Waypoint(new Translation2d(264 + AutoModeSelector.getTrimX(), 22 + AutoModeSelector.getTrimY()), Constants.kPathFollowingMaxVel));
+        LLScale.add(new Path.Waypoint(new Translation2d(265 + AutoModeSelector.getTrimX(), 10 + AutoModeSelector.getTrimY()), Constants.kPathFollowingMaxVel));
 
         //start left go to right scale
         LRScale.add(new Path.Waypoint(new Translation2d(0, 0), Constants.kPathFollowingMaxVel));
         LRScale.add(new Path.Waypoint(new Translation2d(200, 0), Constants.kPathFollowingMaxVel));
         LRScale.add(new Path.Waypoint(new Translation2d(225, 25), Constants.kPathFollowingMaxVel, "RaiseElevator"));
-        LRScale.add(new Path.Waypoint(new Translation2d(225, 160), Constants.kPathFollowingMaxVel/2));
-        LRScale.add(new Path.Waypoint(new Translation2d(238, 195), Constants.kPathFollowingMaxVel/2));
-        LRScale.add(new Path.Waypoint(new Translation2d(284 + AutoModeSelector.getTrimX(), 195 + AutoModeSelector.getTrimY()), Constants.kPathFollowingMaxVel/2));
+        RLScale.add(new Path.Waypoint(new Translation2d(225, 190 + AutoModeSelector.getTrimY()), Constants.kPathFollowingMaxVel/2));
+        LRScale.add(new Path.Waypoint(new Translation2d(225, 204), Constants.kPathFollowingMaxVel/2));
+        LRScale.add(new Path.Waypoint(new Translation2d(240, 215), Constants.kPathFollowingMaxVel/2));
+        LRScale.add(new Path.Waypoint(new Translation2d(265 + AutoModeSelector.getTrimX(), 204 + AutoModeSelector.getTrimY()), Constants.kPathFollowingMaxVel/2));
 
         //start center go to left switch
-        CLSwitch.add(new Path.Waypoint(new Translation2d(0, 0), Constants.kPathFollowingMaxVel));
-        CLSwitch.add(new Path.Waypoint(new Translation2d(30, 0), Constants.kPathFollowingMaxVel, "RaiseElevator"));
-        CLSwitch.add(new Path.Waypoint(new Translation2d(80, -60 + AutoModeSelector.getTrimY()), Constants.kPathFollowingMaxVel));
-        CLSwitch.add(new Path.Waypoint(new Translation2d(100 + AutoModeSelector.getTrimX(), -60 + AutoModeSelector.getTrimY()), Constants.kPathFollowingMaxVel));
+        CLSwitch.add(new Path.Waypoint(new Translation2d(0, 0), Constants.kPathFollowingMaxVel + maxSpeedTrim));
+        CLSwitch.add(new Path.Waypoint(new Translation2d(30, 0), Constants.kPathFollowingMaxVel + maxSpeedTrim, "RaiseElevator"));
+        CLSwitch.add(new Path.Waypoint(new Translation2d(80, -60 + AutoModeSelector.getTrimY()), Constants.kPathFollowingMaxVel + maxSpeedTrim));
+        CLSwitch.add(new Path.Waypoint(new Translation2d(100 + AutoModeSelector.getTrimX(), -60 + AutoModeSelector.getTrimY()), Constants.kPathFollowingMaxVel + maxSpeedTrim));
 
         //start center go to right switch
-        CRSwitch.add(new Path.Waypoint(new Translation2d(0, 0), Constants.kPathFollowingMaxVel));
-        CRSwitch.add(new Path.Waypoint(new Translation2d(30, 0), Constants.kPathFollowingMaxVel, "RaiseElevator"));
-        CRSwitch.add(new Path.Waypoint(new Translation2d(80, 46 + AutoModeSelector.getTrimY()), Constants.kPathFollowingMaxVel));
-        CRSwitch.add(new Path.Waypoint(new Translation2d(100 + AutoModeSelector.getTrimX(), 46 + AutoModeSelector.getTrimY()), Constants.kPathFollowingMaxVel));
+        CRSwitch.add(new Path.Waypoint(new Translation2d(0, 0), Constants.kPathFollowingMaxVel + maxSpeedTrim));
+        CRSwitch.add(new Path.Waypoint(new Translation2d(30, 0), Constants.kPathFollowingMaxVel + maxSpeedTrim, "RaiseElevator"));
+        CRSwitch.add(new Path.Waypoint(new Translation2d(80, 46 + AutoModeSelector.getTrimY()), Constants.kPathFollowingMaxVel + maxSpeedTrim));
+        CRSwitch.add(new Path.Waypoint(new Translation2d(100 + AutoModeSelector.getTrimX(), 46 + AutoModeSelector.getTrimY()), Constants.kPathFollowingMaxVel + maxSpeedTrim));
 
         //start right go to left scale
         RLScale.add(new Path.Waypoint(new Translation2d(0, 0), Constants.kPathFollowingMaxVel));
         RLScale.add(new Path.Waypoint(new Translation2d(200, 0), Constants.kPathFollowingMaxVel));
         RLScale.add(new Path.Waypoint(new Translation2d(225, -25), Constants.kPathFollowingMaxVel, "RaiseElevator"));
-        RLScale.add(new Path.Waypoint(new Translation2d(225, -160 + AutoModeSelector.getTrimY()), Constants.kPathFollowingMaxVel/2));
-        RLScale.add(new Path.Waypoint(new Translation2d(238, -185), Constants.kPathFollowingMaxVel/2));
-        RLScale.add(new Path.Waypoint(new Translation2d(271 + AutoModeSelector.getTrimX(), -185 + AutoModeSelector.getTrimY()), Constants.kPathFollowingMaxVel/2));
+        RLScale.add(new Path.Waypoint(new Translation2d(225, -190 + AutoModeSelector.getTrimY()), Constants.kPathFollowingMaxVel/2));
+        RLScale.add(new Path.Waypoint(new Translation2d(225, -204 + AutoModeSelector.getTrimY()), Constants.kPathFollowingMaxVel/2));
+        RLScale.add(new Path.Waypoint(new Translation2d(240, -215), Constants.kPathFollowingMaxVel/2));
+        RLScale.add(new Path.Waypoint(new Translation2d(265 + AutoModeSelector.getTrimX(), -204 + AutoModeSelector.getTrimY()), Constants.kPathFollowingMaxVel/2));
 
         //start right go to right scale
         RRScale.add(new Path.Waypoint(new Translation2d(0, 0), Constants.kPathFollowingMaxVel));
@@ -110,7 +114,7 @@ public class AutoPaths {
         RRScale.add(new Path.Waypoint(new Translation2d(150, 0), Constants.kPathFollowingMaxVel, "RaiseElevator"));
         RRScale.add(new Path.Waypoint(new Translation2d(225, 0), Constants.kPathFollowingMaxVel));
         RRScale.add(new Path.Waypoint(new Translation2d(241, 0), Constants.kPathFollowingMaxVel));
-        RRScale.add(new Path.Waypoint(new Translation2d(266 + AutoModeSelector.getTrimX(), -20 + AutoModeSelector.getTrimY()), Constants.kPathFollowingMaxVel));
+        RRScale.add(new Path.Waypoint(new Translation2d(265 + AutoModeSelector.getTrimX(), -10 + AutoModeSelector.getTrimY()), Constants.kPathFollowingMaxVel));
 
         //start right go to right switch
         RRSwitch.add(new Path.Waypoint(new Translation2d(0, 0), Constants.kPathFollowingMaxVel));
@@ -147,15 +151,15 @@ public class AutoPaths {
         }
 
         ReverseRSwitch.add(CRSwitch.get(AutoPaths.CRSwitch.size()-1));
-        ReverseRSwitch.add(new Path.Waypoint(new Translation2d(CRSwitch.get(AutoPaths.CRSwitch.size()-1).position.getX() - 20, CRSwitch.get(AutoPaths.CRSwitch.size()-1).position.getY()), Constants.kPathFollowingMaxVel));
-        ReverseRSwitch.add(new Path.Waypoint(new Translation2d(CRSwitch.get(AutoPaths.CRSwitch.size()-1).position.getX() - 40, CRSwitch.get(AutoPaths.CRSwitch.size()-1).position.getY() + 20), Constants.kPathFollowingMaxVel));
+        ReverseRSwitch.add(new Path.Waypoint(new Translation2d(CRSwitch.get(AutoPaths.CRSwitch.size()-1).position.getX() - 20, CRSwitch.get(AutoPaths.CRSwitch.size()-1).position.getY()), Constants.kPathFollowingMaxVel + maxSpeedTrim, "LowerElevator"));
+        ReverseRSwitch.add(new Path.Waypoint(new Translation2d(CRSwitch.get(AutoPaths.CRSwitch.size()-1).position.getX() - 30, CRSwitch.get(AutoPaths.CRSwitch.size()-1).position.getY() + 20), Constants.kPathFollowingMaxVel + maxSpeedTrim));
 
         ReverseLSwitch.add(CLSwitch.get(AutoPaths.CLSwitch.size()-1));
-        ReverseLSwitch.add(new Path.Waypoint(new Translation2d(CLSwitch.get(AutoPaths.CLSwitch.size()-1).position.getX() - 20, CLSwitch.get(AutoPaths.CLSwitch.size()-1).position.getY()), Constants.kPathFollowingMaxVel));
-        ReverseLSwitch.add(new Path.Waypoint(new Translation2d(CLSwitch.get(AutoPaths.CLSwitch.size()-1).position.getX() - 40, CLSwitch.get(AutoPaths.CLSwitch.size()-1).position.getY() - 20), Constants.kPathFollowingMaxVel));
+        ReverseLSwitch.add(new Path.Waypoint(new Translation2d(CLSwitch.get(AutoPaths.CLSwitch.size()-1).position.getX() - 20, CLSwitch.get(AutoPaths.CLSwitch.size()-1).position.getY()), Constants.kPathFollowingMaxVel + maxSpeedTrim, "LowerElevator"));
+        ReverseLSwitch.add(new Path.Waypoint(new Translation2d(CLSwitch.get(AutoPaths.CLSwitch.size()-1).position.getX() - 30, CLSwitch.get(AutoPaths.CLSwitch.size()-1).position.getY() - 20), Constants.kPathFollowingMaxVel + maxSpeedTrim));
 
         ReverseRRScale.add(RRScale.get(AutoPaths.RRScale.size()-1));
-        ReverseRRScale.add(new Path.Waypoint(new Translation2d(RRScale.get(AutoPaths.RRScale.size()-1).position.getX() - 25, RRScale.get(AutoPaths.RRScale.size()-1).position.getY()+15), Constants.kPathFollowingMaxVel));
+        ReverseRRScale.add(new Path.Waypoint(new Translation2d(RRScale.get(AutoPaths.RRScale.size()-1).position.getX() - 25, RRScale.get(AutoPaths.RRScale.size()-1).position.getY()+15), Constants.kPathFollowingMaxVel, "LowerElevator"));
         ReverseRRScale.add(new Path.Waypoint(new Translation2d(RRScale.get(AutoPaths.RRScale.size()-1).position.getX() - 30, RRScale.get(AutoPaths.RRScale.size()-1).position.getY() + 30), Constants.kPathFollowingMaxVel));
 
         RScaleToRSwitchCube.add(new Path.Waypoint(new Translation2d(RRScale.get(AutoPaths.RRScale.size()-1).position.getX() - 30, RRScale.get(AutoPaths.RRScale.size()-1).position.getY() + 30), Constants.kPathFollowingMaxVel));
@@ -163,13 +167,13 @@ public class AutoPaths {
         RScaleToRSwitchCube.add(new Path.Waypoint(new Translation2d(RRScale.get(AutoPaths.RRScale.size()-1).position.getX() - 60, RRScale.get(AutoPaths.RRScale.size()-1).position.getY() - 20), Constants.kPathFollowingMaxVel));
 
         ReverseRRSwitch.add(RRSwitch.get(AutoPaths.RRSwitch.size()-1));
-        ReverseRRSwitch.add(new Path.Waypoint(new Translation2d(RRSwitch.get(AutoPaths.RRSwitch.size()-1).position.getX(), RRSwitch.get(AutoPaths.RRSwitch.size()-1).position.getY() + 20), Constants.kPathFollowingMaxVel));
+        ReverseRRSwitch.add(new Path.Waypoint(new Translation2d(RRSwitch.get(AutoPaths.RRSwitch.size()-1).position.getX(), RRSwitch.get(AutoPaths.RRSwitch.size()-1).position.getY() + 20), Constants.kPathFollowingMaxVel, "LowerElevator"));
         ReverseRRSwitch.add(new Path.Waypoint(new Translation2d(RRSwitch.get(AutoPaths.RRSwitch.size()-1).position.getX() + 50, RRSwitch.get(AutoPaths.RRSwitch.size()-1).position.getY() + 20), Constants.kPathFollowingMaxVel));
         ReverseRRSwitch.add(new Path.Waypoint(new Translation2d(RRSwitch.get(AutoPaths.RRSwitch.size()-1).position.getX() + 70, RRSwitch.get(AutoPaths.RRSwitch.size()-1).position.getY() - 10), Constants.kPathFollowingMaxVel));
         ReverseRRSwitch.add(new Path.Waypoint(new Translation2d(RRSwitch.get(AutoPaths.RRSwitch.size()-1).position.getX() + 80, RRSwitch.get(AutoPaths.RRSwitch.size()-1).position.getY() - 10), Constants.kPathFollowingMaxVel));
 
         ReverseLLScale.add(LLScale.get(AutoPaths.LLScale.size()-1));
-        ReverseLLScale.add(new Path.Waypoint(new Translation2d(LLScale.get(AutoPaths.LLScale.size()-1).position.getX() - 25, LLScale.get(AutoPaths.LLScale.size()-1).position.getY()-15), Constants.kPathFollowingMaxVel));
+        ReverseLLScale.add(new Path.Waypoint(new Translation2d(LLScale.get(AutoPaths.LLScale.size()-1).position.getX() - 25, LLScale.get(AutoPaths.LLScale.size()-1).position.getY()-15), Constants.kPathFollowingMaxVel, "LowerElevator"));
         ReverseLLScale.add(new Path.Waypoint(new Translation2d(LLScale.get(AutoPaths.LLScale.size()-1).position.getX() - 30, LLScale.get(AutoPaths.LLScale.size()-1).position.getY() - 30), Constants.kPathFollowingMaxVel));
 
         LScaleToLSwitchCube.add(new Path.Waypoint(new Translation2d(LLScale.get(AutoPaths.LLScale.size()-1).position.getX() - 30, LLScale.get(AutoPaths.LLScale.size()-1).position.getY() - 30), Constants.kPathFollowingMaxVel));
@@ -177,7 +181,7 @@ public class AutoPaths {
         LScaleToLSwitchCube.add(new Path.Waypoint(new Translation2d(LLScale.get(AutoPaths.LLScale.size()-1).position.getX() - 60, LLScale.get(AutoPaths.LLScale.size()-1).position.getY() + 20), Constants.kPathFollowingMaxVel));
 
         ReverseLLSwitch.add(LLSwitch.get(AutoPaths.LLSwitch.size()-1));
-        ReverseLLSwitch.add(new Path.Waypoint(new Translation2d(LLSwitch.get(AutoPaths.LLSwitch.size()-1).position.getX(), LLSwitch.get(AutoPaths.LLSwitch.size()-1).position.getY() - 20), Constants.kPathFollowingMaxVel));
+        ReverseLLSwitch.add(new Path.Waypoint(new Translation2d(LLSwitch.get(AutoPaths.LLSwitch.size()-1).position.getX(), LLSwitch.get(AutoPaths.LLSwitch.size()-1).position.getY() - 20), Constants.kPathFollowingMaxVel, "LowerElevator"));
         ReverseLLSwitch.add(new Path.Waypoint(new Translation2d(LLSwitch.get(AutoPaths.LLSwitch.size()-1).position.getX() + 50, LLSwitch.get(AutoPaths.LLSwitch.size()-1).position.getY() - 20), Constants.kPathFollowingMaxVel));
         ReverseLLSwitch.add(new Path.Waypoint(new Translation2d(LLSwitch.get(AutoPaths.LLSwitch.size()-1).position.getX() + 70, LLSwitch.get(AutoPaths.LLSwitch.size()-1).position.getY() + 10), Constants.kPathFollowingMaxVel));
         ReverseLLSwitch.add(new Path.Waypoint(new Translation2d(LLSwitch.get(AutoPaths.LLSwitch.size()-1).position.getX() + 80, LLSwitch.get(AutoPaths.LLSwitch.size()-1).position.getY() + 10), Constants.kPathFollowingMaxVel));

@@ -62,6 +62,7 @@ public class Path {
         if (mWaypoints.size() > 0) {
             Waypoint first_waypoint = mWaypoints.get(0);
             if (first_waypoint.marker.isPresent()) {
+                System.out.println("XXX___MARKERCROSSED___XXXXXXX: " + first_waypoint.marker.get());
                 mMarkersCrossed.add(first_waypoint.marker.get());
             }
             mWaypoints.remove(0);
@@ -84,6 +85,7 @@ public class Path {
                     Waypoint waypoint = mWaypoints.get(0);
                     if (waypoint.marker.isPresent()) {
                         mMarkersCrossed.add(waypoint.marker.get());
+                        System.out.println("XXX___MARKERCROSSED___XXXXXXX: " + waypoint.marker.get());
                     }
                     mWaypoints.remove(0);
                 }
@@ -108,6 +110,7 @@ public class Path {
                             Waypoint waypoint = mWaypoints.get(0);
                             if (waypoint.marker.isPresent()) {
                                 mMarkersCrossed.add(waypoint.marker.get());
+                                System.out.println("XXX___MARKERCROSSED___XXXXXXX: " + waypoint.marker.get());
                             }
                             mWaypoints.remove(0);
                         }

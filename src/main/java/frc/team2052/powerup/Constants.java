@@ -38,7 +38,8 @@ public class Constants {public static int intakeSolenoid =1;
     public static double intakeInSpeedLeft = 1;
     public static double intakeInSpeedRight = intakeInSpeedLeft * .8;
     public static double intakeOutSpeed = -.35;
-    public static double intakeStopSpeed = .2;
+    public static double intakeStopSpeed = .25;
+    public static double intakeShootSpeed = -0.7;
 
     /////////// Ramp ////////////
     public static int kRampRightServoReleaseAngle = 115;
@@ -57,7 +58,7 @@ public class Constants {public static int intakeSolenoid =1;
     public static int kElevatorScale_TrimDownButton =  7;
     public static int kManualElevator_RaiseButton = 12; //emergency manual elevator control
     public static int kManualElevator_HoldButton = 11; //-Find manual elevator buttons
-
+//primary
     public static int kJoystickDropLeftPin = 9;
     public static int kJoystickDropRightPin = 9;
     public static int kJoystickRaiseRightRamp = 5;
@@ -118,4 +119,5 @@ public class Constants {public static int intakeSolenoid =1;
     public static double kDriveOpenLoopRampRate = .5; // this many seconds from 0 to full power
     public static double kDriveClosedLoopRampRate = 0.0;
     public static double kVisionDrivePercent = 0.4;
+    public static int kEncoderFailureTicks = 6000;
 }

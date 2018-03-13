@@ -1,15 +1,20 @@
 package frc.team2052.powerup;
 
 import com.first.team2052.lib.ControlLoop;
-import com.first.team2052.lib.RevRoboticsPressureSensor;
 import com.first.team2052.lib.vec.RigidTransform2d;
-import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2052.powerup.auto.AutoModeRunner;
 import frc.team2052.powerup.auto.AutoModeSelector;
 import frc.team2052.powerup.auto.AutoPaths;
 import frc.team2052.powerup.auto.FieldConfig;
+import frc.team2052.powerup.auto.actions.TimeOutOrHaltedDriveAction;
 import frc.team2052.powerup.subsystems.*;
+import frc.team2052.powerup.subsystems.Interfaces.ElevatorSubsystem;
+import frc.team2052.powerup.subsystems.Interfaces.PickupSubsystem;
 import frc.team2052.powerup.subsystems.drive.DriveSignal;
 import frc.team2052.powerup.subsystems.drive.DriveTrain;
 
@@ -21,10 +26,10 @@ public class Robot extends IterativeRobot {
     private ControlLoop fieldLooper = null;
 
     private static DriveTrain driveTrain = null;
-    private Pickup intake = null;
+    private PickupSubsystem intake = null;
     private Controls controls = null;
     private Ramp ramp = null;
-    private Elevator elevator = null;
+    private ElevatorSubsystem elevator = null;
 
     private AutoModeRunner autoModeRunner = null;
     private RobotState robotState = null;
@@ -42,18 +47,20 @@ public class Robot extends IterativeRobot {
         driveTrain = DriveTrain.getInstance();
         driveHelper = new DriveHelper();
         controls = Controls.getInstance();
-//        Camera.getInstance().init();
+        //Camera.getInstance().init();
 
         //////THESE SUBSYSTEMS ARE FAULT TOLERANT/////
         /////// they will return null if they fail to create themselves////////
-//        intake = Pickup.getInstance();
-//        ramp = Ramp.getInstance();
-//        elevator = Elevator.getInstance();
+        intake = SubsystemFactory.getPickup();
+        ramp = Ramp.getInstance();
+        elevator = SubsystemFactory.getElevator();
+        PickupSubsystem pickup = SubsystemFactory.getPickup();  //force the instance to be creared
+        ElevatorSubsystem elevator = SubsystemFactory.getElevator(); //force the instance to be created
         //////////////////////////////////////////////
 
         try {
-//            compressor = new Compressor();
-//            compressor.setClosedLoopControl(true);
+            compressor = new Compressor();
+            compressor.setClosedLoopControl(true);
         } catch (Exception exc) {
             System.out.println("DANGER: No compressor!");
         }
@@ -81,8 +88,10 @@ public class Robot extends IterativeRobot {
             intake.pickupPositionStartingConfig();
         }
 
-        //slowerLooper.addLoopable(VisionProcessor.getInstance());
-
+        if(ramp != null){
+            ramp.lowerLeftRamp();
+            ramp.lowerRightRamp();
+        }
         fieldLooper.addLoopable(new FieldConfig()); //FMS is not gaurenteed to give us the game data on first try, so loop until you get it
 
         //Logging for auto
@@ -109,20 +118,24 @@ public class Robot extends IterativeRobot {
     @Override
     public void disabledPeriodic() {
         System.gc();
+
     }
 
     @Override
     public void autonomousInit() {
+        TimeOutOrHaltedDriveAction.resetCriticalFailure();
         System.out.println("STARTING AUTO INIT");
         robotState.reset(Timer.getFPGATimestamp(), new RigidTransform2d());
         FieldConfig.reset();
         AutoPaths.Init();
+        System.out.println("Auto Paths Initialized");
         zeroAllSensors();
         Timer.delay(.25);
 
         if (elevator != null) {
             elevator.zeroSensor();
         }
+        System.out.println("Sensored Zeros");
         driveTrain.setOpenLoop(DriveSignal.NEUTRAL);  //put robot into don't move, no looper mode
         driveTrain.setBrakeMode(false);
 
@@ -130,6 +143,7 @@ public class Robot extends IterativeRobot {
         logLooper.start();
         controlLoop.start();
         slowerLooper.start();
+        System.out.println("Loopers started");
 
         AutoModeSelector.AutoModeDefinition currentAutoMode = AutoModeSelector.getAutoDefinition(); //creates a variable we can change
         double startGameDataCheck = Timer.getFPGATimestamp();
@@ -163,6 +177,7 @@ public class Robot extends IterativeRobot {
             }
         }
 
+        System.out.println("Starting Gyro check");
         if (!DriveTrain.getInstance().CheckGyro()){ //if gyro does not work, set auto path to a path with timer
             System.out.println("GYRO HAS FAILED DECIDING AUTO");
             switch (AutoModeSelector.getAutoDefinition()) {
@@ -189,13 +204,19 @@ public class Robot extends IterativeRobot {
         }
 
         fieldLooper.stop(); //no reason to keep running this
+        System.out.println("Stopped Field Looper");
         //autoModeRunner.setAutoMode(new AutoLine());
         System.out.println("STARTING AUTOMODE " + currentAutoMode.name());
+        System.out.println("----------------CREATE AUTO ACTIONS--------------");
         autoModeRunner.start(currentAutoMode.getInstance());
         System.out.println("COMPLETED AUTO INIT");
     }
     @Override
     public void autonomousPeriodic() {
+        if(TimeOutOrHaltedDriveAction.getEncoderFailureDetected()){
+            System.out.println("CRITICAL AUTONOMOUS STOP");
+            autoModeRunner.stop();
+        }
         SmartDashboard.putNumber("gyro", driveTrain.getGyroAngleDegrees());
         SmartDashboard.putNumber("gyroRate", driveTrain.getGyroRateDegrees());
         SmartDashboard.putNumber("LeftInches", driveTrain.getLeftDistanceInches());
@@ -236,7 +257,12 @@ public class Robot extends IterativeRobot {
             if (controls.getIntake()) {
                 intake.intake();
             } else if (controls.getOuttake()) {
-                intake.outtake();
+                if (controls.getShoot()){
+                    intake.shoot();
+                }else{
+                    intake.outtake();
+                }
+
             } else {
                 intake.stopped();
             }

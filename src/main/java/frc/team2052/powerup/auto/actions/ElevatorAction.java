@@ -2,6 +2,7 @@ package frc.team2052.powerup.auto.actions;
 
 import frc.team2052.powerup.subsystems.AmpGetter;
 import frc.team2052.powerup.subsystems.Elevator;
+import frc.team2052.powerup.subsystems.SubsystemFactory;
 
 public class ElevatorAction implements Action{
     private boolean isStuck = false;
@@ -25,8 +26,8 @@ public class ElevatorAction implements Action{
 
     @Override
     public boolean isFinished() {
-        int target = Elevator.getInstance().getHeightInchesForPreset(ElevatorState);
-        double current = Elevator.getInstance().getHeightInches();
+        int target = SubsystemFactory.getElevator().getHeightInchesForPreset(ElevatorState);
+        double current = SubsystemFactory.getElevator().getHeightInches();
         System.out.println("ELEVATOR DELTA: " + (target - current) + "+++++++++++++++++");
 
         return isStuck || (target - 1 < current && target + 1 > current);
@@ -34,7 +35,7 @@ public class ElevatorAction implements Action{
 
     @Override
     public void start() {
-        Elevator.getInstance().setTarget(ElevatorState);
+        SubsystemFactory.getElevator().setTarget(ElevatorState);
     }
 
     @Override

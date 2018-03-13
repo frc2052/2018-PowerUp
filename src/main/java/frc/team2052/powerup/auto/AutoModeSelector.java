@@ -11,6 +11,8 @@ public class AutoModeSelector {
 
     private static double trimFactorX =0;
     private static double trimFactorY =0;
+    private static int trimFactorMaxSpeed =0;
+    private static int trimFactorMinSpeed =0;
 
     public static void putToSmartDashboard() { //puts the auto modes and delay options to the smart dashboard
         sendableChooserAutoMode = new SendableChooser<AutoModeDefinition>();
@@ -25,7 +27,12 @@ public class AutoModeSelector {
                     case AUTOLINEWITHTIMERCCENTERRIGHT:
                     case CENTERRIGHT:
                     case TURNINPLACEAUTOTEST:
-//                        break; //uncomment this for competitions
+                    case LSTARTRSWITCH:
+                    case RSTARTLSWITCH:
+                    case TESTINTAKE:
+                    case TESTVELOCITY:
+                    case VISIONCUBE:
+//                        break; //todo uncomment this for competitions
                     default:
                         sendableChooserAutoMode.addObject(mode.name, mode);
                 }
@@ -57,6 +64,9 @@ public class AutoModeSelector {
 
         SmartDashboard.putNumber("trim_forward", trimFactorX);
         SmartDashboard.putNumber("trim_right", trimFactorY);
+
+        SmartDashboard.putNumber("trim_MaxSpeed", trimFactorMaxSpeed);
+        SmartDashboard.putNumber("trim_MinSpeed", trimFactorMinSpeed);
     }
 
     public static AutoModeDefinition getAutoDefinition(){
@@ -84,20 +94,18 @@ public class AutoModeSelector {
     public enum AutoModeDefinition { //Auto mode options for drive team to choose
         DONT_MOVE("Don't Move", DontMove.class),
         CENTER("Start in center, go to switch", Center.class),
+        CENTERTWOCUBE("Two Cube Center", CenterTwoCube.class),
         AUTOLINE("Start left or right, cross Autoline", AutoLine.class),
         LSTARTONLYSCALE("Start left, go only to scale",LStartOnlyScale.class),
-        LSTARTRSWITCH("Start left, go only to R switch",LstartRSwitch.class),
-        RSTARTLSWITCH("Start right, go only to L switch",LstartRSwitch.class),
         LSTARTPERFERSCALE("Start left, prefer to go to scale",LStartPreferScale.class),
         LSTARTPREFERSWITCH("Start left, prefer to go to switch", LStartPreferSwitch.class),
+        LEFTPREFERSCALETWOCUBE("Two Cube, Start left, prefer to go to scale", LStartPreferScaleTwoCube.class),
+        LEFTPREFERSWITCHTWOCUBE("Two Cube, Start left, prefer to go to switch", LStartPreferSwitchTwoCube.class),
         RSTARTONLYSCALE("Start right, go only to scale", RStartOnlyScale.class),
         RSTARTPREFERSCALE("Start right, prefer to go to scale", RStartPreferScale.class),
         RSTARTPREFERSWITCH("Start right, prefer to go to switch", RStartPreferSwitch.class),
-        CENTERTWOCUBE("Two Cube Center", CenterTwoCube.class),
         RIGHTPREFERSCALETWOCUBE("Two Cube, Start right, prefer to go to scale", RStartPreferScaleTwoCube.class),
-        LEFTPREFERSCALETWOCUBE("Two Cube, Start left, prefer to go to scale", LStartPreferScaleTwoCube.class),
         RIGHTPREFERSWITCHTWOCUBE("Two Cube, Start right, prefer to go to switch", RStartPreferSwitchTwoCube.class),
-        LEFTPREFERSWITCHTWOCUBE("Two Cube, Start left, prefer to go to switch", LStartPreferSwitchTwoCube.class),
         AUTOSYSTEMTEST("SYSTEM TEST", AutoTest.class),
 
         //THESE ARE ONLY FOR TESTING - remove for competition
@@ -106,8 +114,11 @@ public class AutoModeSelector {
         AUTOLINEWITHTIMER("Start left or right, cross Autoline with timer", AutolineWithTimer.class),
         CENTERRIGHT("Start center go right", CenterRight.class),
         TURNINPLACEAUTOTEST("Turn in place test", TurnInPlaceActionTest.class),
+        LSTARTRSWITCH("Start left, go only to R switch",LstartRSwitch.class),
+        RSTARTLSWITCH("Start right, go only to L switch",LstartRSwitch.class),
         TESTVELOCITY("Test Velocity", TestVelocity.class),
-        VISIONCUBE("Test Vision Cube", VisionTest.class);
+        VISIONCUBE("Test Vision Cube", VisionTest.class),
+        TESTINTAKE("Test if the intake will detect a picked up cube", TestIntake.class);
 
 
 
@@ -167,5 +178,14 @@ public class AutoModeSelector {
 
     public static double getTrimX(){
         return SmartDashboard.getNumber("trim_forward", trimFactorX);
+    }
+
+
+    public static int getTrimMaxSpeed(){
+        return (int) SmartDashboard.getNumber("trim_MaxSpeed", trimFactorMaxSpeed);
+    }
+
+    public static int getTrimMinSpeed(){
+        return (int)SmartDashboard.getNumber("trim_MinSpeed", trimFactorMinSpeed);
     }
 }

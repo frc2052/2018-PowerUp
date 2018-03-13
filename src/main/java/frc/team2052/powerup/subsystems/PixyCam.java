@@ -18,33 +18,31 @@ public class PixyCam {
         return instance;
     }
 
-    private DigitalInput touchingCubeInput = null;
     private AnalogInput positionAnalog = null;
     private DigitalInput detectCubeInput = null;
 
 
     public void init(){
         if(positionAnalog == null){
-            positionAnalog = new AnalogInput(1);
+            positionAnalog = new AnalogInput(3);
         }
         if(detectCubeInput == null) {
-            detectCubeInput = new DigitalInput(0);
+            detectCubeInput = new DigitalInput(9);
         }
-        if (touchingCubeInput == null)
-        {
-            touchingCubeInput = new DigitalInput(1);
-        }
+
     }
 
     public boolean getCubeInput(){
-        return detectCubeInput.get();
+        try {
+            return detectCubeInput.get();
+        } catch (Exception e) {
+            System.out.println("ERROR: Failed PixyCam.getCubeInput - Defaulting to true: " + e.getMessage() );
+            e.printStackTrace();
+            return  true;
+        }
     }
 
     public double getPositionVoltage(){
         return positionAnalog.getVoltage();
-    }
-
-    public boolean getIsTouchingCube(){
-        return touchingCubeInput.get();
     }
 }

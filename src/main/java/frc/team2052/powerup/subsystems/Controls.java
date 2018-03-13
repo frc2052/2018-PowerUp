@@ -9,8 +9,8 @@ public class Controls {
         return instance;
     }
 //Initiates joysticks
-    private Joystick leftPrimaryJoystick = new Joystick(0);
-    private Joystick rightPrimaryJoystick = new Joystick(1);
+    private Joystick tankPrimaryJoystick = new Joystick(0);
+    private Joystick turnPrimaryJoystick = new Joystick(1);
     private Joystick secondaryJoystick = new Joystick(2);
 
 
@@ -19,7 +19,7 @@ public class Controls {
 
 //Tank drive for joysticks
     public double getTank() {
-        double val = -leftPrimaryJoystick.getY();
+        double val = -tankPrimaryJoystick.getY();
         if (val < .15 && val > -.15)
         {
             val = 0;
@@ -28,32 +28,36 @@ public class Controls {
     }
 
     public double getTurn() {
-        double val = -rightPrimaryJoystick.getX();
+        double val = -turnPrimaryJoystick.getX();
         if (val < .1 && val > -.1)
         {
             val = 0;
         }
+//        if (getTank() < 0){
+//            val = -val;
+//        }
         return val * .7;
     }
 
     public boolean getQuickTurn() {
-        return rightPrimaryJoystick.getRawButton(3);
+        return turnPrimaryJoystick.getRawButton(3);
     }
 //Ramp classes
-    public boolean getDropLeftRamp() {return leftPrimaryJoystick.getRawButton(Constants.kJoystickDropLeftPin);}
-    public boolean getRaiseLeftRamp() {return leftPrimaryJoystick.getRawButton(Constants.kJoystickRaiseLeftRamp);}
-    public boolean getLowerLeftRamp() {return leftPrimaryJoystick.getRawButton(Constants.kJoystickLowerLeftRamp);}
+    public boolean getDropLeftRamp() {return tankPrimaryJoystick.getRawButton(Constants.kJoystickDropLeftPin);}
+    public boolean getRaiseLeftRamp() {return tankPrimaryJoystick.getRawButton(Constants.kJoystickRaiseLeftRamp);}
+    public boolean getLowerLeftRamp() {return tankPrimaryJoystick.getRawButton(Constants.kJoystickLowerLeftRamp);}
 
     public boolean getDropRightRamp() {
-        return rightPrimaryJoystick.getRawButton(Constants.kJoystickDropRightPin);
+        return turnPrimaryJoystick.getRawButton(Constants.kJoystickDropRightPin);
     }
-    public boolean getRaiseRightRamp() {return rightPrimaryJoystick.getRawButton(Constants.kJoystickRaiseRightRamp);}
-    public boolean getLowerRightRamp() {return rightPrimaryJoystick.getRawButton(Constants.kJoystickLowerRightRamp);}
+    public boolean getRaiseRightRamp() {return turnPrimaryJoystick.getRawButton(Constants.kJoystickRaiseRightRamp);}
+    public boolean getLowerRightRamp() {return turnPrimaryJoystick.getRawButton(Constants.kJoystickLowerRightRamp);}
 
     //Intake classes
     public boolean getIntakeUp() {return secondaryJoystick.getRawButton(Constants.kJoystickIntakeUp);}
     public boolean getIntake () {return secondaryJoystick.getTrigger();}
-    public boolean getOuttake () {return leftPrimaryJoystick.getTrigger();}
+    public boolean getOuttake () {return tankPrimaryJoystick.getTrigger();}
+    public boolean getShoot(){return turnPrimaryJoystick.getTrigger();}
     public boolean getStartConfig () {return secondaryJoystick.getRawButton(Constants.kJoystickIntakeStartConfig);}
 
     //buttons for different stages of elevator
