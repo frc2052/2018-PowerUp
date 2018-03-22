@@ -2,6 +2,7 @@ package frc.team2052.powerup.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
 import frc.team2052.powerup.Constants;
@@ -16,12 +17,14 @@ public class Pickup implements PickupSubsystem {
     private Solenoid armLongSolenoidIn, armLongSolenoidOut;
     private Solenoid armShortSolenoidIn, armShortSolenoidOut;
     private TalonSRX leftMotor, rightMotor;
-
+//for amperage checker
     private boolean firstCheckComplete = false;
     private double startTime = 0;
     private double pickupTimeoutSeconds = 4;
     private double timeForAmps;
     private boolean firstTimeTouchedCube = false;
+//for color sensor
+    private static DigitalInput colorSensor = null;
 
     public void ResetCubePickupTimeoutSeconds(double newTimeout) {
         pickupTimeoutSeconds = newTimeout;
@@ -38,6 +41,14 @@ public class Pickup implements PickupSubsystem {
         rightMotor = new TalonSRX(Constants.pickupRightMotorId);
         leftMotor.setInverted(false);
         rightMotor.setInverted(false);
+
+        if (colorSensor == null) {
+            try {
+                colorSensor = new DigitalInput(Constants.kColorSensorId);
+            }catch (Exception exe){
+                System.out.println("Failed to create the color sensor on channel " + Constants.kColorSensorId);
+            }
+        }
     }
 
     private void setRightMotorSpeed(double speedPercent) { //setting the speed in which the motors spin at
@@ -92,6 +103,30 @@ public class Pickup implements PickupSubsystem {
     @Override
     public boolean isCubePickedUp() {
         if (!firstCheckComplete) {
+            System.out.println("PICKUP: First check for cube!");
+            firstCheckComplete = true;
+            startTime = Timer.getFPGATimestamp();
+        }
+        //just in case the toggle on the front of the test robot stops working, or isn't connected
+        //only return true if it has been more than 2 seconds since first check for cube
+        boolean failover = Timer.getFPGATimestamp() - pickupTimeoutSeconds > startTime;
+        if (colorSensor == null) {
+            try {
+                return colorSensor.get();
+            } catch (Exception e) {
+                System.out.println("ERROR: exception in color sensor " + failover + ": " + e.getMessage());
+//                e.printStackTrace();
+                return failover;
+            }
+        } else {
+            System.out.println("Color sensor failed " + failover);
+            return failover;
+        }
+    }
+    /*
+    @Override
+    public boolean isCubePickedUp() {
+        if (!firstCheckComplete) {
             System.out.println("REAL PICKUP: First check for cube!");
             firstCheckComplete = true;
             startTime = Timer.getFPGATimestamp();
@@ -126,4 +161,5 @@ public class Pickup implements PickupSubsystem {
             return timedOut;
         }
     }
+    */
 }

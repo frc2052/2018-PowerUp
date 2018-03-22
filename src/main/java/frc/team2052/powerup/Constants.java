@@ -20,6 +20,7 @@ public class Constants {public static int intakeSolenoid =1;
     public static int kRampLeftServoId = 0;
     public static int kRampRightServoId = 1;
 
+    public static int kColorSensorId = 1;
 
     /////////// Solenoids ////////////
     public static int armLongSolenoidOut = 3;
