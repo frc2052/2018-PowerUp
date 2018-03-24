@@ -110,7 +110,7 @@ public class Pickup implements PickupSubsystem {
         //just in case the toggle on the front of the test robot stops working, or isn't connected
         //only return true if it has been more than 2 seconds since first check for cube
         boolean failover = Timer.getFPGATimestamp() - pickupTimeoutSeconds > startTime;
-        if (colorSensor == null) {
+        if (colorSensor != null) {
             try {
                 return colorSensor.get();
             } catch (Exception e) {

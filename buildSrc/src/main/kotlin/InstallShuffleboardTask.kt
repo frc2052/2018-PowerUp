@@ -30,7 +30,7 @@ open class InstallShuffleboardTask : DefaultTask() {
             if (jar != null) {
                 val destination = getDestinationFile()
                 logger.quiet("Copying ${jar.name} to ${destination.absolutePath}")
-                jar?.copyTo(target = destination, overwrite = true)
+                jar?.copyTo(destination)
             } else {
                 throw IllegalStateException("Unable to find Shuffleboard JAR")
             }
