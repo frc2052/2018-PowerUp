@@ -2,6 +2,7 @@ package frc.team2052.powerup.auto.actions;
 
 import com.first.team2052.lib.vec.RigidTransform2d;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Timer;
 import frc.team2052.powerup.Constants;
 import frc.team2052.powerup.DriveHelper;
 import frc.team2052.powerup.RobotState;
@@ -17,6 +18,9 @@ public class VisionCubeAction implements Action {
     private PixyCam pixyCam = null;
     private DigitalInput detectCube = null;
     private PickupSubsystem pickup = null;
+
+    private double startTime;
+    private double timeOut = 4;
 
     public VisionCubeAction(){
         this.pickup = SubsystemFactory.getPickup();
@@ -36,6 +40,7 @@ public class VisionCubeAction implements Action {
     @Override
     public void start() {
         pixyCam.init();
+        startTime = Timer.getFPGATimestamp();
     }
 
     @Override
@@ -59,10 +64,12 @@ public class VisionCubeAction implements Action {
                     drive.setOpenLoop(dh.drive(Constants.kVisionDrivePercent, -turn / 2, false));
                     RigidTransform2d robot_pose = RobotState.getInstance().getLatestFieldToVehicle().getValue();
 //                System.out.println("VISION ROBOT POSE ----   DEGREES: " + robot_pose.getRotation().getDegrees() + " X: " + robot_pose.getTranslation().getX() + " Y:" + robot_pose.getTranslation().getY());
-                } else {
-                    System.out.println("NO CUBE. VISION DONE");
-                    drive.setOpenLoop(DriveSignal.NEUTRAL);
+                } else if (timeOut <
+                        Timer.getFPGATimestamp() - startTime){
                     isDone = true;
+                    System.out.println("NO CUBE. VISION DONE");
+                    System.out.println("PixyCam timed out at time " + Timer.getFPGATimestamp() + " Timeout = " + timeOut + " Timepassed " + (Timer.getFPGATimestamp() - startTime));
+                    drive.setOpenLoop(DriveSignal.NEUTRAL);
                 }
             } catch (Exception exc) {
                 System.out.println("ERROR: getting vision inputs " + exc.getMessage());

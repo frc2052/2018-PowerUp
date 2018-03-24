@@ -77,7 +77,7 @@ public class FakePickup implements PickupSubsystem {
         //just in case the toggle on the front of the test robot stops working, or isn't connected
         //only return true if it has been more than 2 seconds since first check for cube
         boolean failover = Timer.getFPGATimestamp() - pickupTimeoutSeconds > startTime;
-        if (touchingCubeInput == null) {
+        if (touchingCubeInput != null) {
             try {
                 return !touchingCubeInput.get();
             } catch (Exception e) {

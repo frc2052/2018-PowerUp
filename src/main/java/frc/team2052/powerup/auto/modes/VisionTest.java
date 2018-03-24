@@ -13,7 +13,10 @@ public class VisionTest extends AutoMode {
     protected  void init() throws AutoModeEndedException {
         System.out.println("RUNNING VISION TEST");
         runAction(new SeriesAction(Arrays.asList(
-                new VisionCubeAction()
+                new ParallelAction(Arrays.asList(
+                        new PickupAction(PickupAction.PickupStateEnum.INTAKETILLCUBED),
+                        new VisionCubeAction()
+                ))
         )));
     }
 }
