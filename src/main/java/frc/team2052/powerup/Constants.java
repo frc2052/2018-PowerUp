@@ -3,7 +3,7 @@ package frc.team2052.powerup;
 /**
  * Created by KnightKrawler on 2/9/2018.
  */
-public class Constants {public static int intakeSolenoid =1;
+public class Constants {
 
     public final static int kCANBusConfigTimeoutMS = 10;
 
@@ -27,8 +27,6 @@ public class Constants {public static int intakeSolenoid =1;
     public static int armLongSolenoidIn = 2;
     public static int armShortSolenoidOut =0;
     public static int armShortSolenoidIn = 1;
-    public static int jawsSolenoidOut =21;
-    public static int jawsSolenoidIn =22;
 
     public static int kLeftRampInId = 7;
     public static int kLeftRampOutId = 5;
