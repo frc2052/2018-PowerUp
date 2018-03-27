@@ -47,11 +47,18 @@ open class InstallShuffleboardTask : DefaultTask() {
     }
 
     private fun getDestinationFile(): File {
+        logger.quiet("getting destination")
         val destination = File(wpiToolsDir, "Shuffleboard.jar")
+        logger.quiet("retrieved destination")
         destination.mkdirs()
+        logger.quiet("made destination dirs")
         if (destination.exists()) {
+
+            logger.quiet("delete destination")
             destination.delete()
         }
+
+        logger.quiet("done")
 
         return destination
     }
