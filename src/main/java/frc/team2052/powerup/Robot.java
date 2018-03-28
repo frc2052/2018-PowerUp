@@ -301,7 +301,7 @@ public class Robot extends IterativeRobot {
                 intake.stopped();
             }
 
-            if (!controls.getIntake() || !controls.getIntakePrimary()) { //this is to reset the timer that checks if the cube is stuck in the intake
+            if (!controls.getIntake() && !controls.getIntakePrimary()) { //this is to reset the timer that checks if the cube is stuck in the intake
                 intake.resetAmpTimer();
             }
 
