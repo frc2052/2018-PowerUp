@@ -32,6 +32,12 @@ public class FakePickup implements PickupSubsystem {
             }
         }
     }
+
+    @Override
+    public void resetAmpTimer() {
+
+    }
+
     @Override
     public void intake() {
         System.out.println("Fake Pickup: Intake");

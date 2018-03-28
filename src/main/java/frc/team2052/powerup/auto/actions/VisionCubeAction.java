@@ -62,10 +62,7 @@ public class VisionCubeAction implements Action {
 
                     DriveHelper dh = new DriveHelper();
                     drive.setOpenLoop(dh.drive(Constants.kVisionDrivePercent, -turn / 2, false));
-                    RigidTransform2d robot_pose = RobotState.getInstance().getLatestFieldToVehicle().getValue();
-//                System.out.println("VISION ROBOT POSE ----   DEGREES: " + robot_pose.getRotation().getDegrees() + " X: " + robot_pose.getTranslation().getX() + " Y:" + robot_pose.getTranslation().getY());
-                } else if (timeOut <
-                        Timer.getFPGATimestamp() - startTime){
+                    } else if (timeOut < Timer.getFPGATimestamp() - startTime){
                     isDone = true;
                     System.out.println("NO CUBE. VISION DONE");
                     System.out.println("PixyCam timed out at time " + Timer.getFPGATimestamp() + " Timeout = " + timeOut + " Timepassed " + (Timer.getFPGATimestamp() - startTime));

@@ -34,11 +34,12 @@ public class Constants {
     public static int kRightRampOutId = 4;
 
     /////////// Intake ////////////
-    public static double intakeInSpeedLeft = 1;
-    public static double intakeInSpeedRight = intakeInSpeedLeft * .8;
-    public static double intakeOutSpeed = -.35;
+    public static double intakeInSpeedLeft = .8;
+    public static double intakeInSpeedRight = intakeInSpeedLeft * .65;
+    public static double intakeOutSpeed = -.175;
     public static double intakeStopSpeed = .25;
     public static double intakeShootSpeed = -0.7;
+    public static double intakeInSpeedOverride = 1;
 
     /////////// Ramp ////////////
     public static int kRampRightServoReleaseAngle = 115;
@@ -57,6 +58,9 @@ public class Constants {
     public static int kElevatorScale_TrimDownButton =  7;
     public static int kManualElevator_RaiseButton = 12; //emergency manual elevator control
     public static int kManualElevator_HoldButton = 11; //-Find manual elevator buttons
+    public static int kJoystickIntakeUp = 9;
+    public static int  kJoystickIntakeStartConfig = 10;
+
 //primary
     public static int kJoystickDropLeftPin = 9;
     public static int kJoystickDropRightPin = 9;
@@ -64,9 +68,9 @@ public class Constants {
     public static int kJoystickRaiseLeftRamp = 5;
     public static int kJoystickLowerLeftRamp = 2;
     public static int kJoystickLowerRightRamp = 2;
+    public static int kIntakeShootSpeed = 3;
+    public static int kVisionTrackTeleop = 4;
 
-    public static int kJoystickIntakeUp = 9;
-    public static int  kJoystickIntakeStartConfig = 10;
 
     /////////// Elevator ////////////
     public static int kElevatorMaxHeight = 74; //50 for testing 74 for real

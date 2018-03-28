@@ -196,7 +196,8 @@ public abstract class AutoMode extends AutoModeBase {
                         new TimeoutAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getX() - 40, AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getY() + 15)), 6),
                         new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING))),
                 new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(AutoPaths.RRScale.get(AutoPaths.LLScale.size() - 1).position.getX() - 0, AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getY() - 10)), 6),
-                new PickupAction(PickupAction.PickupStateEnum.TIMEDOUTTAKE)
+                new PickupAction(PickupAction.PickupStateEnum.TIMEDOUTTAKE),
+                new TimeoutAction(new FollowPathAction(new Path(AutoPaths.ReverseRScale), true), 6)
         );
     }
 
@@ -218,7 +219,8 @@ public abstract class AutoMode extends AutoModeBase {
                         new TimeoutAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getX() - 40, AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getY() + 20)), 6),
                         new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING))),
                 new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position)), 6),
-                new PickupAction(PickupAction.PickupStateEnum.TIMEDOUTTAKE)
+                new PickupAction(PickupAction.PickupStateEnum.TIMEDOUTTAKE),
+                new TimeoutAction(new FollowPathAction(new Path(AutoPaths.ReverseRScale), true), 6)
         );
     }
 
@@ -317,7 +319,8 @@ public abstract class AutoMode extends AutoModeBase {
                         new TimeoutAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position.getX() - 40, AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position.getY() - 15)), 6),
                         new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING))),
                 new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position.getX() - 0, AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position.getY() + 10)), 6),
-                new PickupAction(PickupAction.PickupStateEnum.TIMEDOUTTAKE)
+                new PickupAction(PickupAction.PickupStateEnum.TIMEDOUTTAKE),
+                new TimeoutAction(new FollowPathAction(new Path(AutoPaths.ReverseLScale), true), 6)
         );
     }
 

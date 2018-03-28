@@ -30,6 +30,7 @@ public class Robot extends IterativeRobot {
     private Controls controls = null;
     private Ramp ramp = null;
     private ElevatorSubsystem elevator = null;
+    private PixyCam pixyCam = null;
 
     private AutoModeRunner autoModeRunner = null;
     private RobotState robotState = null;
@@ -56,6 +57,7 @@ public class Robot extends IterativeRobot {
         elevator = SubsystemFactory.getElevator();
         PickupSubsystem pickup = SubsystemFactory.getPickup();  //force the instance to be creared
         ElevatorSubsystem elevator = SubsystemFactory.getElevator(); //force the instance to be created
+        pixyCam = PixyCam.getInstance();
         //////////////////////////////////////////////
 
         try {
@@ -92,6 +94,11 @@ public class Robot extends IterativeRobot {
             ramp.lowerLeftRamp();
             ramp.lowerRightRamp();
         }
+
+        if(pixyCam != null){
+            pixyCam.init();
+        }
+
         fieldLooper.addLoopable(new FieldConfig()); //FMS is not gaurenteed to give us the game data on first try, so loop until you get it
 
         //Logging for auto
@@ -250,11 +257,39 @@ public class Robot extends IterativeRobot {
     @Override
     public void teleopPeriodic() {
 
-        driveTrain.setOpenLoop(driveHelper.drive(controls.getTank(), controls.getTurn(), controls.getQuickTurn()));
+        if (controls.getVisionTrack()) {
+
+            double maxVal = (3.3 / 2);
+            try {
+                if (pixyCam.getCubeInput()) {
+                    System.out.println("I see a cube in teleop");
+                    double turn = pixyCam.getPositionVoltage();
+                    if (turn > 3.3) //should never happen
+                    {
+                        System.out.println("Vision: Voltage was off the charts!");
+                        turn = 3.3;
+                    }
+                    turn = turn - maxVal; //shift the voltage so that instead of 0 to 3.3 it is -1.65 to 1.65
+                    turn = turn / maxVal; //get a value between -1 and 1 for turn velocity
+
+                    System.out.println("TURN: " + turn);
+
+                    driveTrain.setOpenLoop(driveHelper.drive(controls.getTank(), -3 * turn / 4, false));
+                } else {
+                    System.out.println("no cube");
+                    driveTrain.setOpenLoop(driveHelper.drive(controls.getTank(), controls.getTurn(), controls.getQuickTurn()));
+                }
+            } catch (Exception exc) {
+                System.out.println("ERROR: getting vision inputs " + exc.getMessage());
+                exc.printStackTrace();
+            }
+        }else {
+            driveTrain.setOpenLoop(driveHelper.drive(controls.getTank(), controls.getTurn(), controls.getQuickTurn()));
+        }
 
         if (intake != null) {
 
-            if (controls.getIntake()) {
+            if (controls.getIntake() || controls.getIntakePrimary()) {
                 intake.intake();
             } else if (controls.getOuttake()) {
                 if (controls.getShoot()){
@@ -262,9 +297,12 @@ public class Robot extends IterativeRobot {
                 }else{
                     intake.outtake();
                 }
-
             } else {
                 intake.stopped();
+            }
+
+            if (!controls.getIntake() || controls.getIntakePrimary()) {
+                intake.resetAmpTimer();
             }
 
             firstIntakeButtonPressed = firstIntakeButtonPressed || controls.getIntakeUp();
