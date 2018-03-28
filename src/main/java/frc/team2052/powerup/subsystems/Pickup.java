@@ -21,10 +21,10 @@ public class Pickup implements PickupSubsystem {
     private boolean firstCheckComplete = false;
     private double startTime = 0;
     private double pickupTimeoutSeconds = 4;
-    private double timeForAmps;
+    private double startAmpTime;
     private boolean firstTimeTouchedCube = false;
 //for color sensor
-    private static DigitalInput colorSensor = null;
+    private static DigitalInput colorSensor;
 
     public void ResetCubePickupTimeoutSeconds(double newTimeout) {
         pickupTimeoutSeconds = newTimeout;
@@ -45,6 +45,7 @@ public class Pickup implements PickupSubsystem {
         if (colorSensor == null) {
             try {
                 colorSensor = new DigitalInput(Constants.kColorSensorId);
+                System.out.println("Created color sensor");
             }catch (Exception exe){
                 System.out.println("Failed to create the color sensor on channel " + Constants.kColorSensorId);
             }
@@ -60,14 +61,29 @@ public class Pickup implements PickupSubsystem {
     }
 
     public void intake(){
-        setRightMotorSpeed(Constants.intakeInSpeedRight);
-        setLeftMotorSpeed(Constants.intakeInSpeedLeft);
+        if(AmpGetter.getCurrentIntake1(0) >= 30 || AmpGetter.getCurrentIntake2(2) >= 30){ //todo CHANNALS 1 AND 14 on practice bot
+            if(Timer.getFPGATimestamp() - startAmpTime > .5){
+                setRightMotorSpeed(Constants.intakeInSpeedOverride);
+                setLeftMotorSpeed(Constants.intakeInSpeedOverride);
+            }
+        }else{
+            setRightMotorSpeed(Constants.intakeInSpeedRight);
+            setLeftMotorSpeed(Constants.intakeInSpeedLeft);
+        }
     } //activating intake and setting speed
 
+    public void resetAmpTimer(){
+        startAmpTime = 0;
+    }
     public void outtake() {
         setRightMotorSpeed(Constants.intakeOutSpeed);
         setLeftMotorSpeed(Constants.intakeOutSpeed);
     } //activating outtake and setting speed
+
+    public void autoOuttake() {
+        setRightMotorSpeed(Constants.intakeAutoOutSpeed);
+        setLeftMotorSpeed(Constants.intakeAutoOutSpeed);
+    } //activating fast outtake and setting speed
 
     public void shoot() {
         setRightMotorSpeed(Constants.intakeShootSpeed);
@@ -112,6 +128,7 @@ public class Pickup implements PickupSubsystem {
         boolean failover = Timer.getFPGATimestamp() - pickupTimeoutSeconds > startTime;
         if (colorSensor != null) {
             try {
+                System.out.println("Color Sensor sees" + colorSensor.get());
                 return colorSensor.get();
             } catch (Exception e) {
                 System.out.println("ERROR: exception in color sensor " + failover + ": " + e.getMessage());
@@ -119,7 +136,7 @@ public class Pickup implements PickupSubsystem {
                 return failover;
             }
         } else {
-            System.out.println("Color sensor failed " + failover);
+            System.out.println("Color sensor failed - was NULL " + failover);
             return failover;
         }
     }

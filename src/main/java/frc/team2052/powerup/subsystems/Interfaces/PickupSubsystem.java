@@ -2,9 +2,13 @@ package frc.team2052.powerup.subsystems.Interfaces;
 
     public interface PickupSubsystem {
 
+        void resetAmpTimer();
+
         void intake();
 
         void outtake();
+
+        void autoOuttake();
 
         void stopped();
 
