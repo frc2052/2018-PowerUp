@@ -8,6 +8,8 @@ package frc.team2052.powerup.subsystems.Interfaces;
 
         void outtake();
 
+        void autoOuttake();
+
         void stopped();
 
         void shoot();

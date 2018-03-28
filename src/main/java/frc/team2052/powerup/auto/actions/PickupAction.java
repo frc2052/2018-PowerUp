@@ -70,7 +70,7 @@ public class PickupAction implements Action {
             case TIMEDOUTTAKE:
                 if(Timer.getFPGATimestamp() - delayTime > .5) {
                     if ((Timer.getFPGATimestamp() - startTimeSec) < seconds + .5) {
-                        this.pickup.shoot(); //todo: fast speed bad
+                        this.pickup.autoOuttake();
                     } else {
                         this.pickup.stopped();
                         isDone = true;

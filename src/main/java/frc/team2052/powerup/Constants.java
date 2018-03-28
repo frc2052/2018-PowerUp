@@ -38,6 +38,7 @@ public class Constants {
     public static double intakeInSpeedRight = intakeInSpeedLeft * .65;
     public static double intakeOutSpeed = -.175;
     public static double intakeStopSpeed = .25;
+    public static double intakeAutoOutSpeed = -0.35;
     public static double intakeShootSpeed = -0.7;
     public static double intakeInSpeedOverride = 1;
 

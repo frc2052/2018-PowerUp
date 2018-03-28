@@ -49,6 +49,11 @@ public class FakePickup implements PickupSubsystem {
     }
 
     @Override
+    public void autoOuttake() {
+
+    }
+
+    @Override
     public void stopped() {
         System.out.println("Fake Pickup: Stop");
     }
