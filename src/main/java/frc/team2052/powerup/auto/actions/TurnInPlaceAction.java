@@ -5,12 +5,14 @@ import frc.team2052.powerup.subsystems.drive.DriveTrain;
 public class TurnInPlaceAction implements Action {
 
     double baseSpeedConstant = .20;
+    double turnAngle;
     double baseSpeed; //holds the current base speed
     double error; //the angle the robot is off
     double angle; //the angle the robot is currently
     double target; //the angle we want to go to
     double output; //the output to the wheels
     double P = 1.0; //SpeedCurveMultiplier. this will increase the speed that we start at and increase the acceleration
+    TurnMode mode;
 
     private boolean isFinished = false;
     /**
@@ -18,8 +20,9 @@ public class TurnInPlaceAction implements Action {
      * @param turnDegrees the change in rotation in degrees
      */
 
-    public TurnInPlaceAction(double turnDegrees){
-        this.target = DriveTrain.getInstance().getGyroAngleDegrees() + turnDegrees; //turns a displacemen value to a set degree value
+    public TurnInPlaceAction(TurnMode mode, double turnDegrees){
+        this.mode = mode;
+        turnAngle = turnDegrees;
     }
 
     @Override
@@ -33,6 +36,11 @@ public class TurnInPlaceAction implements Action {
 
     @Override
     public void start() {
+        if (mode == TurnMode.ROBOTCENTRIC){
+            this.target = DriveTrain.getInstance().getGyroAngleDegrees() + turnAngle; //turns a displacemen value to a set degree value
+        }else {
+            this.target = turnAngle;
+        }
     }
 
     @Override
@@ -56,5 +64,10 @@ public class TurnInPlaceAction implements Action {
 
             System.out.println("Current Angle: " + angle + "  Target: " + target + "   Error: " + error + "   Output: " + output);
         }
+    }
+
+    public enum TurnMode{
+        ROBOTCENTRIC,
+        FIELDCENTRIC
     }
 }

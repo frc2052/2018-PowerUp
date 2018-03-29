@@ -369,4 +369,26 @@ public abstract class AutoMode extends AutoModeBase {
                 new TimeoutAction(new FollowPathAction(new Path(AutoPaths.ReverseLScale), true), 6)
                 );
     }
+
+    protected List<Action> anotherCubeLeftScaleToScaleTURNING(){
+        System.out.println("ANOTHER TO LEFT SCALE");
+        return Arrays.asList(
+                new MoveArmAction(MoveArmAction.ArmPositionEnum.START),
+                new ParallelAction(Arrays.asList(
+                        new TimeoutAction(new FollowPathAction(new Path(AutoPaths.ReverseLLScale), true), 6),
+                        new ElevatorAction(Elevator.ElevatorPresetEnum.PICKUP))),
+                new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN),
+                new TurnInPlaceAction(TurnInPlaceAction.TurnMode.FIELDCENTRIC, 90),
+                new ParallelAction(Arrays.asList(
+                        new PickupAction(PickupAction.PickupStateEnum.INTAKETILLCUBED),
+                        new VisionCubeAction())),
+                new PrintAction("Finished Vision"),
+                new ParallelAction(Arrays.asList(
+                        new TimeoutAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position.getX() - 40, AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position.getY() - 20)), 6),
+                        new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING))),
+                new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position.getX() - 0, AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position.getY() + 10)), 6),
+                new PickupAction(PickupAction.PickupStateEnum.TIMEDOUTTAKE),
+                new TimeoutAction(new FollowPathAction(new Path(AutoPaths.ReverseLScale), true), 6)
+        );
+    }
 }
