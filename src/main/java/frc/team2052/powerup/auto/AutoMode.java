@@ -159,8 +159,9 @@ public abstract class AutoMode extends AutoModeBase {
                         new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
                                 new  ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING), //Elevator raises to place on balanced scale
                                 new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN))))),
-                new WaitAction(.5), //todo: review
-                new PickupAction(PickupAction.PickupStateEnum.TIMEDOUTTAKE) //pushes cube out
+                new WaitAction(.5),
+                new PickupAction(PickupAction.PickupStateEnum.TIMEDOUTTAKE), //pushes cube out
+                new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.ReverseRLScale), true), 5)
         );
     }
 
@@ -204,10 +205,11 @@ public abstract class AutoMode extends AutoModeBase {
     protected List<Action> anotherCubeRightScaleToScale(){
         System.out.println("ANOTHER CUBE ON RIGHT SCALE");
         return Arrays.asList(
+                new MoveArmAction(MoveArmAction.ArmPositionEnum.START),
                 new ParallelAction(Arrays.asList(
                         new TimeoutAction(new FollowPathAction(new Path(AutoPaths.ReverseRRScale), true), 6),
-                        new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("LowerElevator"),
-                                new ElevatorAction(Elevator.ElevatorPresetEnum.PICKUP))))),
+                        new ElevatorAction(Elevator.ElevatorPresetEnum.PICKUP))),
+                new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN),
                 new ParallelAction(Arrays.asList(
                         new TimeoutAction(new FollowPathAction(new Path(AutoPaths.RScaleToRSwitchCube), false), 6),
                         new ElevatorAction(Elevator.ElevatorPresetEnum.PICKUP))),
@@ -227,10 +229,11 @@ public abstract class AutoMode extends AutoModeBase {
     protected List<Action> anotherCubeRightScaleToSwitch(){
         System.out.println("ANOTHER CUBE ON RIGHT SWITCH");
         return Arrays.asList(
+                new MoveArmAction(MoveArmAction.ArmPositionEnum.START),
                 new ParallelAction(Arrays.asList(
                         new TimeoutAction(new FollowPathAction(new Path(AutoPaths.ReverseRRScale), true), 6),
-                        new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("LowerElevator"),
-                                new ElevatorAction(Elevator.ElevatorPresetEnum.PICKUP))))),
+                        new ElevatorAction(Elevator.ElevatorPresetEnum.PICKUP))),
+                new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN),
                 new ParallelAction(Arrays.asList(
                         new TimeoutAction(new FollowPathAction(new Path(AutoPaths.RScaleToRSwitchCube), false), 6),
                         new ElevatorAction(Elevator.ElevatorPresetEnum.PICKUP))),
@@ -281,9 +284,10 @@ public abstract class AutoMode extends AutoModeBase {
                         new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
                                 new  ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING), //Elevator raises to place on balanced scale
                                 new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN))))),
-                new WaitAction(.5), //todo: review
+                new WaitAction(.5),
                 new PickupAction(PickupAction.PickupStateEnum.TIMEDOUTTAKE), //pushes cube out
-                new TimeoutAction(new FollowPathAction(new Path(AutoPaths.ReverseLRScale), true), 10)
+                new TimeoutAction(new FollowPathAction(new Path(AutoPaths.ReverseLRScale), true), 5)
+
         );
     }
 
@@ -327,10 +331,11 @@ public abstract class AutoMode extends AutoModeBase {
     protected List<Action> anotherCubeLeftScaleToSwitch(){
         System.out.println("ANOTHER CUBE TO SWITCH");
         return Arrays.asList(
+                new MoveArmAction(MoveArmAction.ArmPositionEnum.START),
                 new ParallelAction(Arrays.asList(
                         new TimeoutAction(new FollowPathAction(new Path(AutoPaths.ReverseLLScale), true), 6),
-                        new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("LowerElevator"),
-                                new ElevatorAction(Elevator.ElevatorPresetEnum.PICKUP))))),
+                        new ElevatorAction(Elevator.ElevatorPresetEnum.PICKUP))),
+                new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN),
                 new TimeoutAction(new FollowPathAction(new Path(AutoPaths.LScaleToLSwitchCube), false), 6),
                 new ParallelAction(Arrays.asList(
                         new PickupAction(PickupAction.PickupStateEnum.INTAKETILLCUBED),
@@ -346,10 +351,11 @@ public abstract class AutoMode extends AutoModeBase {
     protected List<Action> anotherCubeLeftScaleToScale(){
         System.out.println("ANOTHER TO LEFT SCALE");
         return Arrays.asList(
+                new MoveArmAction(MoveArmAction.ArmPositionEnum.START),
                 new ParallelAction(Arrays.asList(
                         new TimeoutAction(new FollowPathAction(new Path(AutoPaths.ReverseLLScale), true), 6),
-                        new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("LowerElevator"),
-                                new ElevatorAction(Elevator.ElevatorPresetEnum.PICKUP))))),
+                        new ElevatorAction(Elevator.ElevatorPresetEnum.PICKUP))),
+                new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN),
                 new TimeoutAction(new FollowPathAction(new Path(AutoPaths.LScaleToLSwitchCube), false), 6),
                 new ParallelAction(Arrays.asList(
                         new PickupAction(PickupAction.PickupStateEnum.INTAKETILLCUBED),
