@@ -36,7 +36,7 @@ public class Constants {
     /////////// Intake ////////////
     public static double intakeInSpeedLeft = .8;
     public static double intakeInSpeedRight = intakeInSpeedLeft * .65;
-    public static double intakeOutSpeed = -.2;
+    public static double intakeOutSpeed = -.25;
     public static double intakeStopSpeed = .25;
     public static double intakeAutoOutSpeed = -0.35;
     public static double intakeShootSpeed = -0.7;
@@ -88,7 +88,7 @@ public class Constants {
     public static int kElevatorScaleBalancedHeight = 64;
     public static int kElevatorRampSeconds = 0;
     public static double kElevatorPeakUpPower = .9;
-    public static double kElevatorPeakDownPower = -.1;
+    public static double kElevatorPeakDownPower = -.15;
     public static double kElevatorEmergencyUpPower = .55;
     public static double kElevatorEmergencyHoldPower = .2;
 
