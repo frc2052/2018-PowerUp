@@ -7,7 +7,7 @@ import frc.team2052.powerup.auto.actions.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class LStartOnlyScale extends AutoMode {
+public class LStartOnlyScaleTwoCube extends AutoMode {
     @Override
     protected void init() throws AutoModeEndedException {
 
@@ -17,11 +17,8 @@ public class LStartOnlyScale extends AutoMode {
         if(FieldConfig.isMyScaleLeft()) { //if left scale is ours
 
             actions.addAll(super.leftToLeftScale());
-            actions.addAll(Arrays.asList(
-                    new MoveArmAction(MoveArmAction.ArmPositionEnum.START),
-                    new TimeoutAction(new FollowPathAction(new Path(AutoPaths.ReverseLScale), true), 2),
-                    new MoveArmAction(MoveArmAction.ArmPositionEnum.START)
-            ));
+            actions.addAll(super.anotherCubeLeftScaleToScale());
+            actions.add(new MoveArmAction(MoveArmAction.ArmPositionEnum.START));
             runAction(new SeriesAction(actions));
 
         } else if(AutoModeSelector.getDisabledAuto() != AutoModeSelector.AutoDisableDefinition.RIGHTSCALE){

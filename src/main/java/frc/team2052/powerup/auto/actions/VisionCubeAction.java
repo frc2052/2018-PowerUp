@@ -1,11 +1,9 @@
 package frc.team2052.powerup.auto.actions;
 
-import com.first.team2052.lib.vec.RigidTransform2d;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Timer;
 import frc.team2052.powerup.Constants;
 import frc.team2052.powerup.DriveHelper;
-import frc.team2052.powerup.RobotState;
 import frc.team2052.powerup.subsystems.Interfaces.PickupSubsystem;
 import frc.team2052.powerup.subsystems.PixyCam;
 import frc.team2052.powerup.subsystems.SubsystemFactory;
@@ -62,11 +60,14 @@ public class VisionCubeAction implements Action {
 
                     DriveHelper dh = new DriveHelper();
                     drive.setOpenLoop(dh.drive(Constants.kVisionDrivePercent, -turn / 2, false));
-                    } else if (timeOut < Timer.getFPGATimestamp() - startTime){
+                } else if (timeOut < Timer.getFPGATimestamp() - startTime){
                     isDone = true;
                     System.out.println("NO CUBE. VISION DONE");
                     System.out.println("PixyCam timed out at time " + Timer.getFPGATimestamp() + " Timeout = " + timeOut + " Timepassed " + (Timer.getFPGATimestamp() - startTime));
                     drive.setOpenLoop(DriveSignal.NEUTRAL);
+                }else if (1 > Timer.getFPGATimestamp() - startTime){ //first second don't see a cube, drive forward and hope we see it
+                    DriveHelper dh = new DriveHelper();
+                    drive.setOpenLoop(dh.drive(Constants.kVisionDrivePercent, 0, false));
                 }
             } catch (Exception exc) {
                 System.out.println("ERROR: getting vision inputs " + exc.getMessage());
