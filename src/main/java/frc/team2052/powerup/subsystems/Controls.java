@@ -61,6 +61,13 @@ public class Controls {
     public boolean getStartConfig () {return secondaryJoystick.getRawButton(Constants.kJoystickIntakeStartConfig);}
     public boolean getIntakePrimary(){return turnPrimaryJoystick.getTrigger();}
     public boolean getVisionTrack () {return tankPrimaryJoystick.getRawButton(Constants.kVisionTrackTeleop);}
+    public boolean getOpenIntake () {
+        if (secondaryJoystick.getX() < -.5){
+            return true;
+        }else {
+            return false;
+        }
+    }
 
     //buttons for different stages of elevator
     public boolean getElevatorPickup(){return secondaryJoystick.getRawButton(Constants.kElevatorPickupHeightButton);}

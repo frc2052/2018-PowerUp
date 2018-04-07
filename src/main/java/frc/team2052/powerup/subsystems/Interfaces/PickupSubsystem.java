@@ -14,6 +14,8 @@ package frc.team2052.powerup.subsystems.Interfaces;
 
         void shoot();
 
+        void openIntake(boolean open);
+
         void pickupPositionDown();
 
         void pickupPositionRaised();

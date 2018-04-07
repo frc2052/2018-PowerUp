@@ -1,5 +1,119 @@
 package frc.team2052.powerup;
 
+
+
+/**
+ * Example demonstrating the motion magic control mode.
+ * Tested with Logitech F710 USB Gamepad inserted into Driver Station.
+ *
+ * Be sure to select the correct feedback sensor using configSelectedFeedbackSensor() below.
+ *
+ * After deploying/debugging this to your RIO, first use the left Y-stick
+ * to throttle the Talon manually.  This will confirm your hardware setup/sensors
+ * and will allow you to take initial measurements.
+ *
+ * Be sure to confirm that when the Talon is driving forward (green) the
+ * position sensor is moving in a positive direction.  If this is not the
+ * cause, flip the boolean input to the setSensorPhase() call below.
+ *
+ * Once you've ensured your feedback device is in-phase with the motor,
+ * and followed the walk-through in the Talon SRX Software Reference Manual,
+ * use button1 to motion-magic servo to target position specified by the gamepad stick.
+ */
+//import edu.wpi.first.wpilibj.IterativeRobot;
+//import edu.wpi.first.wpilibj.Joystick;
+//
+//import java.util.concurrent.TimeUnit;
+//
+//import com.ctre.phoenix.motorcontrol.ControlMode;
+//import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+//import com.ctre.phoenix.motorcontrol.StatusFrame;
+//import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
+//import com.ctre.phoenix.motorcontrol.can.*;
+//
+//public class Robot extends IterativeRobot {
+//    TalonSRX _talon = new TalonSRX(Constants.kElevatorMotorID);
+//    Joystick _joy = new Joystick(0);
+//    StringBuilder _sb = new StringBuilder();
+//
+//    public void robotInit() {
+//
+//        /* first choose the sensor */
+//        _talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
+//        _talon.setInverted(true);
+//        _talon.setSensorPhase(true);
+//
+//        /* Set relevant frame periods to be at least as fast as periodic rate */
+//        _talon.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, 10);
+//        _talon.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, 10);
+//
+//        /* set the peak and nominal outputs */
+//        _talon.configNominalOutputForward(0, 10);
+//        _talon.configNominalOutputReverse(0, 10);
+//        _talon.configPeakOutputForward(1, 10);
+//        _talon.configPeakOutputReverse(-1, 10);
+//
+//        /* set closed loop gains in slot0 - see documentation */
+//        _talon.selectProfileSlot(0, 0);
+//        _talon.config_kF(0, 0.1843, 10);
+//        _talon.config_kP(0, .8, 10);
+//        _talon.config_kI(0, 0, 10);
+//        _talon.config_kD(0, 0, 10);
+//        /* set acceleration and vcruise velocity - see documentation */
+//        _talon.configMotionCruiseVelocity((int)(5550 * .9), 10);
+//        _talon.configMotionAcceleration((int)(5550 * .9 * 2), 10);
+//        /* zero the sensor */
+//        _talon.setSelectedSensorPosition(0, 0, 10);
+//    }
+//
+//    /**
+//     * This function is called periodically during operator control
+//     */
+//    public void teleopPeriodic() {
+//        double targetPos = 0;
+//        /* get gamepad axis - forward stick is positive */
+//        double leftYstick = -1.0 * _joy.getY();
+//        /* calculate the percent motor output */
+//        double motorOutput = _talon.getMotorOutputPercent();
+//        /* prepare line to print */
+//        _sb.append("\tOut%:");
+//        _sb.append(motorOutput);
+//        _sb.append("\tVel:");
+//        _sb.append(_talon.getSelectedSensorVelocity(0));
+//
+//        //if (_joy.getRawButton(1)) {
+//            /* Motion Magic - 4096 ticks/rev * 10 Rotations in either direction */
+//            if (leftYstick > .1){
+//                double rotation = (Constants.kElevatorMaxHeight - 2) / Constants.kElevatorInchesPerRotation;
+//                targetPos = (int) (rotation * Constants.kElevatorTicksPerRot);
+//            }
+//
+//            _talon.set(ControlMode.MotionMagic, targetPos);
+//
+//            /* append more signals to print when in speed mode. */
+//            _sb.append("\terr:");
+//            _sb.append(_talon.getClosedLoopError(0));
+//            _sb.append("\ttrg:");
+//            _sb.append(targetPos);
+//        //} else {
+//            /* Percent voltage mode */
+//            //_talon.set(ControlMode.PercentOutput, leftYstick);
+//        //}
+//        /* instrumentation */
+//        Instrum.Process(_talon, _sb);
+//        try {
+//            TimeUnit.MILLISECONDS.sleep(10);
+//        } catch (Exception e) {
+//        }
+//    }
+//}
+
+
+
+
+
+
+
 import com.first.team2052.lib.ControlLoop;
 import com.first.team2052.lib.vec.RigidTransform2d;
 import edu.wpi.first.wpilibj.Compressor;
@@ -315,6 +429,7 @@ public class Robot extends IterativeRobot {
                     intake.pickupPositionDown();
                 }
             }
+            intake.openIntake(controls.getOpenIntake());
         }
 
         if (elevator != null) {

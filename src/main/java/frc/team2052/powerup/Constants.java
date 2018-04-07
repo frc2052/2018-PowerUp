@@ -87,8 +87,8 @@ public class Constants {
     public static int kElevatorSwitchHeight = 32;
     public static int kElevatorScaleBalancedHeight = 64;
     public static int kElevatorRampSeconds = 0;
-    public static double kElevatorPeakUpPower = .9;
-    public static double kElevatorPeakDownPower = -.1;
+    public static double kElevatorPeakUpPower = 1;
+    public static double kElevatorPeakDownPower = -.2;
     public static double kElevatorEmergencyUpPower = .55;
     public static double kElevatorEmergencyHoldPower = .2;
 
