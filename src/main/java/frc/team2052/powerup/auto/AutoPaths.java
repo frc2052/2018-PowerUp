@@ -89,7 +89,7 @@ public class AutoPaths {
         LRScale.add(new Path.Waypoint(new Translation2d(0, 0), Constants.kPathFollowingMaxVel));
         LRScale.add(new Path.Waypoint(new Translation2d(200, 0), Constants.kPathFollowingMaxVel));
         LRScale.add(new Path.Waypoint(new Translation2d(225, 25), Constants.kPathFollowingMaxVel, "RaiseElevator"));
-        RLScale.add(new Path.Waypoint(new Translation2d(225, 190 + AutoModeSelector.getTrimY()), Constants.kPathFollowingMaxVel/2));
+        LRScale.add(new Path.Waypoint(new Translation2d(225, 190 + AutoModeSelector.getTrimY()), Constants.kPathFollowingMaxVel/2));
         LRScale.add(new Path.Waypoint(new Translation2d(225, 204), Constants.kPathFollowingMaxVel/2));
         LRScale.add(new Path.Waypoint(new Translation2d(240, 215), Constants.kPathFollowingMaxVel/2));
         LRScale.add(new Path.Waypoint(new Translation2d(265 + AutoModeSelector.getTrimX(), 204 + AutoModeSelector.getTrimY()), Constants.kPathFollowingMaxVel/2));
@@ -158,7 +158,7 @@ public class AutoPaths {
         ReverseLSwitch.add(new Path.Waypoint(new Translation2d(CLSwitch.get(AutoPaths.CLSwitch.size()-1).position.getX() - 30, CLSwitch.get(AutoPaths.CLSwitch.size()-1).position.getY() - 20), Constants.kPathFollowingMaxVel + maxSpeedTrim));
 
         ReverseRRScale.add(RRScale.get(AutoPaths.RRScale.size()-1));
-        ReverseRRScale.add(new Path.Waypoint(new Translation2d(RRScale.get(AutoPaths.RRScale.size()-1).position.getX() - 15, RRScale.get(AutoPaths.RRScale.size()-1).position.getY() + 10), Constants.kPathFollowingMaxVel, "LowerElevator"));
+        ReverseRRScale.add(new Path.Waypoint(new Translation2d(RRScale.get(AutoPaths.RRScale.size()-1).position.getX() - 15, RRScale.get(AutoPaths.RRScale.size()-1).position.getY() + 10), Constants.kPathFollowingMaxVel));
         ReverseRRScale.add(new Path.Waypoint(new Translation2d(RRScale.get(AutoPaths.RRScale.size()-1).position.getX() - 30, RRScale.get(AutoPaths.RRScale.size()-1).position.getY() + 20), Constants.kPathFollowingMaxVel));
 
         RScaleToRSwitchCube.add(new Path.Waypoint(new Translation2d(RRScale.get(AutoPaths.RRScale.size()-1).position.getX() - 30, RRScale.get(AutoPaths.RRScale.size()-1).position.getY() + 20), Constants.kPathFollowingMaxVel));
