@@ -6,6 +6,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.first.team2052.lib.Loopable;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2052.powerup.Constants;
 import frc.team2052.powerup.subsystems.Interfaces.ElevatorSubsystem;
 
@@ -104,11 +105,15 @@ public class Elevator implements Loopable,ElevatorSubsystem{
             goalElevatorInches = Constants.kElevatorMaxHeight;
         }
         else if (newGoalInches < Constants.kElevatorMinHeight) {
+            System.out.println("INVALID ELEVATOR VALUE : " + newGoalInches);
             goalElevatorInches = Constants.kElevatorMinHeight;
         }
         else {
             goalElevatorInches = newGoalInches;
 
+        }
+        if (goalElevatorInches < 1) {
+            System.out.println("Elevator: GOING TO ZERO");
         }
     }
     //Emergency manual control
@@ -190,6 +195,8 @@ public class Elevator implements Loopable,ElevatorSubsystem{
             //Sets the Carriage at a set height, see https://github.com/CrossTheRoadElec/Phoenix-Documentation/blob/master/Talon%20SRX%20Victor%20SPX%20-%20Software%20Reference%20Manual.pdf
             // in 3.1.2.1, recommended timeout is zero while in robot loop
             elevatorTalon.set(ControlMode.MotionMagic, pos);
+            SmartDashboard.putNumber("ElevatorTargetPos", goalElevatorInches);
+            SmartDashboard.putNumber("ElevatorPos", getHeightInches());
 
 
 //            if(!getCarriageIsMoving() && getHeightInches() < goalElevatorInches ){ //todo add amps as well
