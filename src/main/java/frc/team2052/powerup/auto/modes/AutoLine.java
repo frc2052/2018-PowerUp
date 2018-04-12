@@ -1,6 +1,7 @@
 package frc.team2052.powerup.auto.modes;
 
 import com.first.team2052.lib.path.Path;
+import edu.wpi.first.wpilibj.Timer;
 import frc.team2052.powerup.auto.*;
 import frc.team2052.powerup.auto.actions.*;
 
@@ -12,6 +13,8 @@ public class AutoLine extends AutoMode {
         System.out.println("RUNNING AUTO LINE");
         runAction(new SeriesAction(Arrays.asList(
                 new WaitAction(AutoModeSelector.getWaitTime()),
-                new FollowPathAction(new Path(AutoPaths.AutoLine), false))));
+                new FollowPathAction(new Path(AutoPaths.AutoLine), false),
+                new PrintAction("AutoLine DONE: " + Timer.getFPGATimestamp())
+                )));
     }
 }

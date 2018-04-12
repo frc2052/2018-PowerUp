@@ -20,6 +20,8 @@ package frc.team2052.powerup.subsystems.Interfaces;
 
         void pickupPositionRaised();
 
+        boolean isPickupRaised();
+
         void pickupPositionStartingConfig();
 
         boolean isCubePickedUp();

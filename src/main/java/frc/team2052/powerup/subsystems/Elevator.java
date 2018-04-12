@@ -112,8 +112,12 @@ public class Elevator implements Loopable,ElevatorSubsystem{
             goalElevatorInches = newGoalInches;
 
         }
-        if (goalElevatorInches < 1) {
-            System.out.println("Elevator: GOING TO ZERO");
+        if (goalElevatorInches <= getHeightInches()) {
+            elevatorTalon.configMotionCruiseVelocity((int)(5550 * .5), 10);
+            elevatorTalon.configMotionAcceleration((int)(5550 * .5 * 2), 10);
+        }else{
+            elevatorTalon.configMotionCruiseVelocity((int)(5550 * .9), 10);
+            elevatorTalon.configMotionAcceleration((int)(5550 * .9 * 2), 10);
         }
     }
     //Emergency manual control

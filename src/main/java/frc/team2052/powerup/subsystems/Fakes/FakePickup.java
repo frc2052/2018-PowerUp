@@ -79,6 +79,11 @@ public class FakePickup implements PickupSubsystem {
     }
 
     @Override
+    public boolean isPickupRaised() {
+        return false;
+    }
+
+    @Override
     public void pickupPositionStartingConfig() {
         System.out.println("Fake Pickup: Arm Staring Pos");
     }

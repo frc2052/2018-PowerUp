@@ -36,9 +36,9 @@ public class Constants {
     /////////// Intake ////////////
     public static double intakeInSpeedLeft = .8;
     public static double intakeInSpeedRight = intakeInSpeedLeft * .65;
-    public static double intakeOutSpeed = -.25;
+    public static double intakeOutSpeed = -.20;
     public static double intakeStopSpeed = .25;
-    public static double intakeAutoOutSpeed = -0.35;
+    public static double intakeFastOutSpeed = -.35;
     public static double intakeShootSpeed = -0.7;
     public static double intakeInSpeedOverride = 1;
 
@@ -88,7 +88,7 @@ public class Constants {
     public static int kElevatorScaleBalancedHeight = 64;
     public static int kElevatorRampSeconds = 0;
     public static double kElevatorPeakUpPower = 1;
-    public static double kElevatorPeakDownPower = -.2;
+    public static double kElevatorPeakDownPower = -.6;
     public static double kElevatorEmergencyUpPower = .55;
     public static double kElevatorEmergencyHoldPower = .2;
 
@@ -109,8 +109,8 @@ public class Constants {
     public static int kDriveVelocityAllowableError = 0;
     public static double kPathFollowingLookahead = 24;
     public static double kPathFollowingMinVel = 150; //todo: on bag night it was 50
-    public static double kPathFollowingMaxAccel = 150;
-    public static double kPathFollowingMaxVel = 250;
+    public static double kPathFollowingMaxAccel = 300;
+    public static double kPathFollowingMaxVel = 300;
     public static double kDriveHeadingVelocityKp = 5.0;
     public static double kDriveHeadingVelocityKi = 0.1;
     public static double kDriveHeadingVelocityKd = 60.0;

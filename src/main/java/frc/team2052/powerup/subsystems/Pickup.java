@@ -27,6 +27,8 @@ public class Pickup implements PickupSubsystem {
 //for color sensor
     private static DigitalInput colorSensor;
 
+    private boolean raisedPickup = false;
+
     public void ResetCubePickupTimeoutSeconds(double newTimeout) {
         pickupTimeoutSeconds = newTimeout;
         firstCheckComplete = false;
@@ -84,8 +86,8 @@ public class Pickup implements PickupSubsystem {
     } //activating outtake and setting speed
 
     public void autoOuttake() {
-        setRightMotorSpeed(Constants.intakeAutoOutSpeed);
-        setLeftMotorSpeed(Constants.intakeAutoOutSpeed);
+        setRightMotorSpeed(Constants.intakeFastOutSpeed);
+        setLeftMotorSpeed(Constants.intakeFastOutSpeed);
     } //activating fast outtake and setting speed
 
     public void shoot() {
@@ -112,6 +114,7 @@ public class Pickup implements PickupSubsystem {
         armLongSolenoidOut.set(false);
         armShortSolenoidIn.set(true);
         armShortSolenoidOut.set(false);
+        raisedPickup = false;
     }
 
     public void pickupPositionRaised() { //Angled
@@ -119,6 +122,11 @@ public class Pickup implements PickupSubsystem {
         armLongSolenoidOut.set(true);
         armShortSolenoidIn.set(false);
         armShortSolenoidOut.set(false);
+        raisedPickup = true;
+    }
+
+    public boolean isPickupRaised(){
+        return raisedPickup;
     }
 
     public void pickupPositionStartingConfig() { //All the way up
@@ -126,6 +134,7 @@ public class Pickup implements PickupSubsystem {
         armLongSolenoidOut.set(true);
         armShortSolenoidIn.set(false);
         armShortSolenoidOut.set(true);
+        raisedPickup = false;
     }
 
     @Override

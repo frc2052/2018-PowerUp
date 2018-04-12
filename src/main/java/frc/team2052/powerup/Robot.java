@@ -403,13 +403,17 @@ public class Robot extends IterativeRobot {
 
         if (intake != null) {
 
-            if (controls.getIntake() || controls.getIntakePrimary()) {
+            if (controls.getIntake()) {
                 intake.intake();
             } else if (controls.getOuttake()) {
-                if (controls.getShoot()){
+                if (controls.getShoot()){ //if the shoot button is pressed then outtake
                     intake.shoot();
                 }else{
-                    intake.outtake();
+                    if(intake.isPickupRaised()){ //if the pickup is raised then set speed to faster
+                        intake.autoOuttake();
+                    } else{ //otherwise set the speed to slower
+                        intake.outtake();
+                    }
                 }
             } else {
                 intake.stopped();
@@ -429,7 +433,7 @@ public class Robot extends IterativeRobot {
                     intake.pickupPositionDown();
                 }
             }
-            intake.openIntake(controls.getOpenIntake());
+            intake.openIntake(controls.getIntakePrimary());
         }
 
         if (elevator != null) {
