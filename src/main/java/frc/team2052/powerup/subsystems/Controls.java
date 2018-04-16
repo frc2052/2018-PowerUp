@@ -32,11 +32,17 @@ public class Controls {
         if (val < .1 && val > -.1)
         {
             val = 0;
+        }else{
+            if (val > .1){
+                val = val - .1;
+            }else if (val < -.1){
+                val = val + .1;
+            }
+
+            val = (val / .9) * .7;
         }
-//        if (getTank() < 0){
-//            val = -val;
-//        }
-        return val * .7;
+        return val;
+        //return val * .7; // old code
     }
 
     public boolean getQuickTurn() {
