@@ -32,11 +32,17 @@ public class Controls {
         if (val < .1 && val > -.1)
         {
             val = 0;
+        }else{
+            if (val > .1){
+                val = val - .1;
+            }else if (val < -.1){
+                val = val + .1;
+            }
+
+            val = (val / .9) * .7;
         }
-//        if (getTank() < 0){
-//            val = -val;
-//        }
-        return val * .7;
+        return val;
+        //return val * .7; // old code
     }
 
     public boolean getQuickTurn() {
@@ -61,6 +67,13 @@ public class Controls {
     public boolean getStartConfig () {return secondaryJoystick.getRawButton(Constants.kJoystickIntakeStartConfig);}
     public boolean getIntakePrimary(){return turnPrimaryJoystick.getTrigger();}
     public boolean getVisionTrack () {return tankPrimaryJoystick.getRawButton(Constants.kVisionTrackTeleop);}
+    public boolean getOpenIntake () {
+        if (secondaryJoystick.getX() < -.5){
+            return true;
+        }else {
+            return false;
+        }
+    }
 
     //buttons for different stages of elevator
     public boolean getElevatorPickup(){return secondaryJoystick.getRawButton(Constants.kElevatorPickupHeightButton);}

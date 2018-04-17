@@ -173,7 +173,7 @@ public class AutoPaths {
 
         ReverseLLScale.add(LLScale.get(AutoPaths.LLScale.size()-1));
         ReverseLLScale.add(new Path.Waypoint(new Translation2d(LLScale.get(AutoPaths.LLScale.size()-1).position.getX() - 15, LLScale.get(AutoPaths.LLScale.size()-1).position.getY() - 10), Constants.kPathFollowingMaxVel, "LowerElevator"));
-        ReverseLLScale.add(new Path.Waypoint(new Translation2d(LLScale.get(AutoPaths.LLScale.size()-1).position.getX() - 30, LLScale.get(AutoPaths.LLScale.size()-1).position.getY() - 20), Constants.kPathFollowingMaxVel));
+        ReverseLLScale.add(new Path.Waypoint(new Translation2d(LLScale.get(AutoPaths.LLScale.size()-1).position.getX() - 20, LLScale.get(AutoPaths.LLScale.size()-1).position.getY() - 10), Constants.kPathFollowingMaxVel));
 
         LScaleToLSwitchCube.add(new Path.Waypoint(new Translation2d(LLScale.get(AutoPaths.LLScale.size()-1).position.getX() - 30, LLScale.get(AutoPaths.LLScale.size()-1).position.getY() - 20), Constants.kPathFollowingMaxVel));
         LScaleToLSwitchCube.add(new Path.Waypoint(new Translation2d(LLScale.get(AutoPaths.LLScale.size()-1).position.getX() - 45, LLScale.get(AutoPaths.LLScale.size()-1).position.getY() + 25), Constants.kPathFollowingMaxVel));

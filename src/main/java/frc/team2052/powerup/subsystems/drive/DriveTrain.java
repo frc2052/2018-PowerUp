@@ -292,6 +292,7 @@ public class DriveTrain extends DriveTrainHardware {
         max_vel = Math.max(max_vel, Math.abs(setpoint.right));
 
         double avg_vel = (Math.abs(setpoint.left) + Math.abs(setpoint.right))/2.0;
+        SmartDashboard.putNumber("AverageVelocityBMIN", avg_vel);
 
         if (max_vel > Constants.kPathFollowingMaxVel) {
 //            System.out.println("Path velocity too HIGH. Adjusting.");
@@ -302,7 +303,7 @@ public class DriveTrain extends DriveTrainHardware {
             setpoint = new Kinematics.DriveVelocity(setpoint.left * scaling, setpoint.right * scaling);
 //            System.out.println("Path velocity too LOW. Adjusting. OldMaxVel = " + max_vel + "  Scaled by: " + scaling + "  New Left: " + setpoint.left + "  New Right: " + setpoint.right);
         }
-
+        SmartDashboard.putNumber("AverageVelocityAMIN", avg_vel);
         updateVelocitySetpoint(setpoint.left, setpoint.right);
     }
 

@@ -64,6 +64,11 @@ public class FakePickup implements PickupSubsystem {
     }
 
     @Override
+    public void openIntake(boolean open) {
+
+    }
+
+    @Override
     public void pickupPositionDown() {
         System.out.println("Fake Pickup: Arm Down");
     }
@@ -71,6 +76,11 @@ public class FakePickup implements PickupSubsystem {
     @Override
     public void pickupPositionRaised() {
         System.out.println("Fake Pickup: Arm Raised");
+    }
+
+    @Override
+    public boolean isPickupRaised() {
+        return false;
     }
 
     @Override

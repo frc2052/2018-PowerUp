@@ -42,7 +42,7 @@ public class MoveArmAction implements Action{
 
     @Override
     public void update() {
-        if (Timer.getFPGATimestamp() - startTime> 1){
+        if (Timer.getFPGATimestamp() - startTime> 0){
             isDone = true;
         }
     }

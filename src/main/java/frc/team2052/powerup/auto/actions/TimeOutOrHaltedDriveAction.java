@@ -21,6 +21,7 @@ public class TimeOutOrHaltedDriveAction implements Action {
     private double mTimeOut;
     private double mStartTime;
     private boolean hitAWall;
+    private boolean isDone;
 
     private double lastLeftTicks = 0.0;
     private double lastRightTicks = 0.0;
@@ -43,49 +44,58 @@ public class TimeOutOrHaltedDriveAction implements Action {
 
     @Override
     public boolean isFinished() {
-        boolean quitEarly = Timer.getFPGATimestamp() - mStartTime >= mTimeOut
-                || encoderFailureDetected  //Robot hasn't moved in the last .5 seconds
-                || hitAWall;
-        if (quitEarly) {
-            DriveTrain.getInstance().abortCurrentPath();
-        }
+        if (!this.isDone) {
+            boolean overTime = Timer.getFPGATimestamp() - mStartTime >= mTimeOut;
+            boolean quitEarly = overTime
+                    || encoderFailureDetected  //Robot hasn't moved in the last .5 seconds
+                    || hitAWall;
+            if (quitEarly) {
+                System.out.println("TimeOutOrHalted QUIT EARLY : Hit a wall = " + hitAWall + "  TIMEOUT: " + overTime);
+                DriveTrain.getInstance().abortCurrentPath();
+            }
 
-        return action.isFinished()
-                || quitEarly;
+            this.isDone = action.isFinished() || quitEarly;
+        }
+        return isDone;
     }
 
     @Override
     public void update() {
-        action.update();
-        deltaLeftEncoder = DriveTrain.getInstance().getLeftRawTicks() - lastLeftTicks;
-        deltaRightEncoder = DriveTrain.getInstance().getRightRawTicks() - lastRightTicks;
+        if (!this.isDone) {
+            action.update();
+            deltaLeftEncoder = DriveTrain.getInstance().getLeftRawTicks() - lastLeftTicks;
+            deltaRightEncoder = DriveTrain.getInstance().getRightRawTicks() - lastRightTicks;
 
-        if (deltaLeftEncoder >= -10 && deltaLeftEncoder <= 10){
-            System.out.println("WARNING: LEFT WHEEL DIDN'T MOVE, TIme is:" + Timer.getFPGATimestamp());
-        }else{
-            lastRobotMovement = Timer.getFPGATimestamp();
-            lastLeftTicks = DriveTrain.getInstance().getLeftRawTicks();
+            if (deltaLeftEncoder >= -10 && deltaLeftEncoder <= 10) {
+                System.out.println("WARNING: LEFT WHEEL DIDN'T MOVE, TIme is:" + Timer.getFPGATimestamp());
+            } else {
+                lastRobotMovement = Timer.getFPGATimestamp();
+                lastLeftTicks = DriveTrain.getInstance().getLeftRawTicks();
+            }
+
+            if (deltaRightEncoder >= -10 && deltaRightEncoder <= 10) {
+                System.out.println("WARNING: RIGHT WHEEL DIDN'T MOVE, TIme is:" + Timer.getFPGATimestamp());
+            } else {
+                lastRobotMovement = Timer.getFPGATimestamp();
+                lastRightTicks = DriveTrain.getInstance().getRightRawTicks();
+            }
+
+            //if one wheel gets 5 rotations further than the other wheel, there's a problem
+            if (Math.abs(DriveTrain.getInstance().getLeftRawTicks()) + Constants.kEncoderFailureTicks < Math.abs(DriveTrain.getInstance().getRightRawTicks())
+                    || Math.abs(DriveTrain.getInstance().getRightRawTicks()) + Constants.kEncoderFailureTicks < Math.abs(DriveTrain.getInstance().getLeftRawTicks())) {
+                encoderFailureDetected = true;
+
+                System.out.println("ERROR: ENCODER IS NOT REPORTING");
+            }
+
+            if (Timer.getFPGATimestamp() - lastRobotMovement >= .5) {
+                hitAWall = true;
+            }
         }
-
-        if (deltaRightEncoder >= -10 && deltaRightEncoder <= 10){
-            System.out.println("WARNING: RIGHT WHEEL DIDN'T MOVE, TIme is:" + Timer.getFPGATimestamp());
-        }else{
-            lastRobotMovement = Timer.getFPGATimestamp();
-            lastRightTicks = DriveTrain.getInstance().getRightRawTicks();
+        else
+        {
+            System.out.println("TimeOutOrHaltedDriveAction : Update called but action is already done. " + Timer.getFPGATimestamp());
         }
-
-        //if one wheel gets 5 rotations further than the other wheel, there's a problem
-        if (Math.abs(DriveTrain.getInstance().getLeftRawTicks()) + Constants.kEncoderFailureTicks < Math.abs(DriveTrain.getInstance().getRightRawTicks())
-                || Math.abs(DriveTrain.getInstance().getRightRawTicks()) + Constants.kEncoderFailureTicks < Math.abs(DriveTrain.getInstance().getLeftRawTicks())){
-            encoderFailureDetected = true;
-
-            System.out.println("ERROR: ENCODER IS NOT REPORTING");
-        }
-
-        if (Timer.getFPGATimestamp() - lastRobotMovement >= .5) {
-            hitAWall = true;
-        }
-
     }
 
     @Override

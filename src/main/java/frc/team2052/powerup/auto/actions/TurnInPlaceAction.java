@@ -11,7 +11,7 @@ public class TurnInPlaceAction implements Action {
     double angle; //the angle the robot is currently
     double target; //the angle we want to go to
     double output; //the output to the wheels
-    double P = 2.0; //SpeedCurveMultiplier. this will increase the speed that we start at and increase the acceleration
+    double P = 2; //SpeedCurveMultiplier. this will increase the speed that we start at and increase the decceleration
     TurnMode mode;
 
     private boolean isFinished = false;
@@ -60,6 +60,10 @@ public class TurnInPlaceAction implements Action {
             }
 
             output = baseSpeed + (P * (error / 360)); //base speed is constant and error slowly goes down so the robot will slow down as it gets closer
+
+            if (baseSpeed > .5){
+                baseSpeed = .5;
+            }
             DriveTrain.getInstance().turnInPlace(-output, output); //setting the speeds for the left and right wheels for turning
 
             System.out.println("Current Angle: " + angle + "  Target: " + target + "   Error: " + error + "   Output: " + output);

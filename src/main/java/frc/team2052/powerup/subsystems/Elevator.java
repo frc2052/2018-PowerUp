@@ -3,8 +3,10 @@ package frc.team2052.powerup.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.first.team2052.lib.Loopable;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2052.powerup.Constants;
 import frc.team2052.powerup.subsystems.Interfaces.ElevatorSubsystem;
 
@@ -32,7 +34,7 @@ public class Elevator implements Loopable,ElevatorSubsystem{
 
     //Constructor
     private Elevator() {
-        elevatorTalon = new TalonSRX(Constants.kElevatorMotorID);
+        /*
         elevatorTalon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder,0,10);
         elevatorTalon.setInverted(true);
         elevatorTalon.setSensorPhase(true);
@@ -45,6 +47,35 @@ public class Elevator implements Loopable,ElevatorSubsystem{
         elevatorTalon.config_kD(0, Constants.kElevatorVelocityKd, 10);
         elevatorTalon.config_kF(0, Constants.kElevatorVelocityKf, 10);
         elevatorTalon.config_IntegralZone(0, Constants.kElevatorVelocityIZone, 10);
+        */
+        elevatorTalon = new TalonSRX(Constants.kElevatorMotorID);
+        elevatorTalon.setNeutralMode(NeutralMode.Brake);
+        elevatorTalon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
+        elevatorTalon.setInverted(true);
+        elevatorTalon.setSensorPhase(true);
+
+        /* Set relevant frame periods to be at least as fast as periodic rate */
+        elevatorTalon.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, 10);
+        elevatorTalon.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, 10);
+
+        /* set the peak and nominal outputs */
+        elevatorTalon.configNominalOutputForward(0, 10);
+        elevatorTalon.configNominalOutputReverse(0, 10);
+        elevatorTalon.configPeakOutputForward(Constants.kElevatorPeakUpPower, 10);
+        elevatorTalon.configPeakOutputReverse(Constants.kElevatorPeakDownPower, 10);
+
+        /* set closed loop gains in slot0 - see documentation */
+        elevatorTalon.selectProfileSlot(0, 0);
+        elevatorTalon.config_kF(0, 0.2, 10); //1843
+        elevatorTalon.config_kP(0, .8, 10);
+        elevatorTalon.config_kI(0, 0, 10);
+        elevatorTalon.config_kD(0, 0, 10);
+
+        /* set acceleration and vcruise velocity - see documentation */
+        elevatorTalon.configMotionCruiseVelocity((int)(5550 * .9), 10);
+        elevatorTalon.configMotionAcceleration((int)(5550 * .9 * 2), 10);
+        /* zero the sensor */
+        elevatorTalon.setSelectedSensorPosition(0, 0, 10);
     }
 
     public void zeroSensor(){
@@ -65,7 +96,7 @@ public class Elevator implements Loopable,ElevatorSubsystem{
     }
 
     public void setCurrentPosAsTarget(){
-        goalElevatorInches = (int)getHeightInches();
+        setAndVerifyGoalInches((int)getHeightInches());
     }
 
 
@@ -74,10 +105,19 @@ public class Elevator implements Loopable,ElevatorSubsystem{
             goalElevatorInches = Constants.kElevatorMaxHeight;
         }
         else if (newGoalInches < Constants.kElevatorMinHeight) {
+            System.out.println("INVALID ELEVATOR VALUE : " + newGoalInches);
             goalElevatorInches = Constants.kElevatorMinHeight;
         }
         else {
             goalElevatorInches = newGoalInches;
+
+        }
+        if (goalElevatorInches <= getHeightInches()) {
+            elevatorTalon.configMotionCruiseVelocity((int)(5550 * .5), 10);
+            elevatorTalon.configMotionAcceleration((int)(5550 * .5 * 2), 10);
+        }else{
+            elevatorTalon.configMotionCruiseVelocity((int)(5550 * .9), 10);
+            elevatorTalon.configMotionAcceleration((int)(5550 * .9 * 2), 10);
         }
     }
     //Emergency manual control
@@ -158,7 +198,9 @@ public class Elevator implements Loopable,ElevatorSubsystem{
             int pos = (int) (rotation * Constants.kElevatorTicksPerRot);
             //Sets the Carriage at a set height, see https://github.com/CrossTheRoadElec/Phoenix-Documentation/blob/master/Talon%20SRX%20Victor%20SPX%20-%20Software%20Reference%20Manual.pdf
             // in 3.1.2.1, recommended timeout is zero while in robot loop
-            elevatorTalon.set(ControlMode.Position, pos);
+            elevatorTalon.set(ControlMode.MotionMagic, pos);
+            SmartDashboard.putNumber("ElevatorTargetPos", goalElevatorInches);
+            SmartDashboard.putNumber("ElevatorPos", getHeightInches());
 
 
 //            if(!getCarriageIsMoving() && getHeightInches() < goalElevatorInches ){ //todo add amps as well
@@ -176,7 +218,6 @@ public class Elevator implements Loopable,ElevatorSubsystem{
     }
     @Override
     public void onStart(){
-
     }
     @Override
     public void onStop(){

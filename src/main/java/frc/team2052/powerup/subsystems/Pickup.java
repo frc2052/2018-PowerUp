@@ -16,6 +16,7 @@ public class Pickup implements PickupSubsystem {
     //setting solenoids and talons
     private Solenoid armLongSolenoidIn, armLongSolenoidOut;
     private Solenoid armShortSolenoidIn, armShortSolenoidOut;
+    private Solenoid openIntakeSolenoid;
     private TalonSRX leftMotor, rightMotor;
 //for amperage checker
     private boolean firstCheckComplete = false;
@@ -25,6 +26,8 @@ public class Pickup implements PickupSubsystem {
     private boolean firstTimeTouchedCube = false;
 //for color sensor
     private static DigitalInput colorSensor;
+
+    private boolean raisedPickup = false;
 
     public void ResetCubePickupTimeoutSeconds(double newTimeout) {
         pickupTimeoutSeconds = newTimeout;
@@ -37,6 +40,7 @@ public class Pickup implements PickupSubsystem {
         armLongSolenoidOut = new Solenoid(Constants.armLongSolenoidOut);
         armShortSolenoidIn = new Solenoid(Constants.armShortSolenoidIn);
         armShortSolenoidOut = new Solenoid(Constants.armShortSolenoidOut);
+        openIntakeSolenoid = new Solenoid(Constants.kRightRampOutId); //todo: test solenoid delete
         leftMotor = new TalonSRX(Constants.pickupLeftMotorId);
         rightMotor = new TalonSRX(Constants.pickupRightMotorId);
         leftMotor.setInverted(false);
@@ -75,20 +79,30 @@ public class Pickup implements PickupSubsystem {
     public void resetAmpTimer(){
         startAmpTime = 0;
     }
+
     public void outtake() {
         setRightMotorSpeed(Constants.intakeOutSpeed);
         setLeftMotorSpeed(Constants.intakeOutSpeed);
     } //activating outtake and setting speed
 
     public void autoOuttake() {
-        setRightMotorSpeed(Constants.intakeAutoOutSpeed);
-        setLeftMotorSpeed(Constants.intakeAutoOutSpeed);
+        setRightMotorSpeed(Constants.intakeFastOutSpeed);
+        setLeftMotorSpeed(Constants.intakeFastOutSpeed);
     } //activating fast outtake and setting speed
 
     public void shoot() {
         setRightMotorSpeed(Constants.intakeShootSpeed);
         setLeftMotorSpeed(Constants.intakeShootSpeed);
     } //activating shoot and setting speed
+
+    public void openIntake(boolean open) {
+        if (open){
+            openIntakeSolenoid.set(true);
+        }else{
+            openIntakeSolenoid.set(false);
+        }
+
+    }
 
     public void stopped() {
         setRightMotorSpeed(Constants.intakeStopSpeed);
@@ -100,6 +114,7 @@ public class Pickup implements PickupSubsystem {
         armLongSolenoidOut.set(false);
         armShortSolenoidIn.set(true);
         armShortSolenoidOut.set(false);
+        raisedPickup = false;
     }
 
     public void pickupPositionRaised() { //Angled
@@ -107,6 +122,11 @@ public class Pickup implements PickupSubsystem {
         armLongSolenoidOut.set(true);
         armShortSolenoidIn.set(false);
         armShortSolenoidOut.set(false);
+        raisedPickup = true;
+    }
+
+    public boolean isPickupRaised(){
+        return raisedPickup;
     }
 
     public void pickupPositionStartingConfig() { //All the way up
@@ -114,6 +134,7 @@ public class Pickup implements PickupSubsystem {
         armLongSolenoidOut.set(true);
         armShortSolenoidIn.set(false);
         armShortSolenoidOut.set(true);
+        raisedPickup = false;
     }
 
     @Override

@@ -16,7 +16,7 @@ public class PickupAction implements Action {
     public PickupAction(PickupStateEnum state){
         this.pickup = SubsystemFactory.getPickup();
         this.state = state;
-        this.seconds = 1; //magic number for default seconds
+        this.seconds = .7; //magic number for default seconds
     }
     
     /**
@@ -88,9 +88,11 @@ public class PickupAction implements Action {
             case INTAKETILLCUBED:
                 if (this.pickup.isCubePickedUp()) {
                     this.pickup.stopped();
+                    this.pickup.openIntake(false);
                     isDone = true;
                 }else{
                     this.pickup.intake();
+                    this.pickup.openIntake(true);
                 }
                 break;
             case RESETCUBEPICKUPTIMEOUT:
