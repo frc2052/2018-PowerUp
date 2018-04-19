@@ -4,14 +4,14 @@ import frc.team2052.powerup.subsystems.drive.DriveTrain;
 
 public class TurnInPlaceAction implements Action {
 
-    double baseSpeedConstant = .20;
+    double baseSpeedConstant = .10;
     double turnAngle;
     double baseSpeed; //holds the current base speed
     double error; //the angle the robot is off
     double angle; //the angle the robot is currently
     double target; //the angle we want to go to
     double output; //the output to the wheels
-    double P = 2; //SpeedCurveMultiplier. this will increase the speed that we start at and increase the decceleration
+    double P = 1; //SpeedCurveMultiplier. this will increase the speed that we start at and increase the decceleration
     TurnMode mode;
 
     private boolean isFinished = false;

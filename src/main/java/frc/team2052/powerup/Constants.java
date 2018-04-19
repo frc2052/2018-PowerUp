@@ -34,8 +34,8 @@ public class Constants {
     public static int kRightRampOutId = 4;
 
     /////////// Intake ////////////
-    public static double intakeInSpeedLeft = .8;
-    public static double intakeInSpeedRight = intakeInSpeedLeft * .65;
+    public static double intakeInSpeedLeft = .6; //.8
+    public static double intakeInSpeedRight = intakeInSpeedLeft * .8; //.65
     public static double intakeOutSpeed = -.20;
     public static double intakeStopSpeed = .25;
     public static double intakeFastOutSpeed = -.35;
@@ -74,7 +74,7 @@ public class Constants {
 
 
     /////////// Elevator ////////////
-    public static int kElevatorMaxHeight = 74; //50 for testing 74 for real
+    public static int kElevatorMaxHeight = 74 - 20; //50 for testing 74 for real
     public static int kElevatorMinHeight = 0;
     public static double kElevatorInchesPerRotation = 74/8; // total travel distance for elevator is 74 inches in 8 revolutions
     public static double kElevatorVelocityKp = 1;

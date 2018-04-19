@@ -360,7 +360,7 @@ public abstract class AutoMode extends AutoModeBase {
                         new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position.getX() - 20, AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position.getY() - 10)), 6),
                         new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING))),
                 new TurnInPlaceAction(TurnInPlaceAction.TurnMode.FIELDCENTRIC, 45),
-                new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position.getX() - 0, AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position.getY() + 5)), 6),
+                new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position.getX() - 0, AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position.getY())), 6),
                 new PickupAction(PickupAction.PickupStateEnum.TIMEDOUTTAKE),
                 new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.ReverseLScale), true), 6)
                 );

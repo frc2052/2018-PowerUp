@@ -61,11 +61,15 @@ public class PickupAction implements Action {
             case TIMEDINTAKE:
                 startTimeSec = Timer.getFPGATimestamp();
                 break;
+            case INTAKETILLCUBED:
+                this.pickup.openIntake(true);
+                break;
         }
     }
 
     @Override
     public void update() {
+        System.out.println("INTAKE UPDATE LOOP");
         switch (state) {
             case TIMEDOUTTAKE:
                 if(Timer.getFPGATimestamp() - delayTime > .5) {
@@ -89,10 +93,12 @@ public class PickupAction implements Action {
                 if (this.pickup.isCubePickedUp()) {
                     this.pickup.stopped();
                     this.pickup.openIntake(false);
+                    System.out.println("I AM DONE WITH INTAKING IN AUTO AHHHHHHH");
                     isDone = true;
                 }else{
                     this.pickup.intake();
                     this.pickup.openIntake(true);
+                    System.out.println("CURRENTLY INTAKING TILL CUBED");
                 }
                 break;
             case RESETCUBEPICKUPTIMEOUT:
