@@ -30,7 +30,7 @@ public class ElevatorAction implements Action{
         double current = SubsystemFactory.getElevator().getHeightInches();
         System.out.println("ELEVATOR DELTA: " + (target - current) + "+++++++++++++++++");
 
-        return isStuck || (target - 1 < current && target + 1 > current);
+        return isStuck || (target - 2 < current && target + 2 > current);
     }
 
     @Override

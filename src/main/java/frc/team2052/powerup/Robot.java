@@ -388,7 +388,7 @@ public class Robot extends IterativeRobot {
 
                     System.out.println("TURN: " + turn);
 
-                    driveTrain.setOpenLoop(driveHelper.drive(controls.getTank(), -3 * turn / 4, false));
+                    driveTrain.setOpenLoop(driveHelper.drive(controls.getTank(), -turn / 2, false));
                 } else {
                     System.out.println("no cube");
                     driveTrain.setOpenLoop(driveHelper.drive(controls.getTank(), controls.getTurn(), controls.getQuickTurn()));

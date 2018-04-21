@@ -74,7 +74,7 @@ public class Constants {
 
 
     /////////// Elevator ////////////
-    public static int kElevatorMaxHeight = 74 - 20; //50 for testing 74 for real
+    public static int kElevatorMaxHeight = 74; //50 for testing 74 for real
     public static int kElevatorMinHeight = 0;
     public static double kElevatorInchesPerRotation = 74/8; // total travel distance for elevator is 74 inches in 8 revolutions
     public static double kElevatorVelocityKp = 1;
@@ -123,5 +123,5 @@ public class Constants {
     public static double kDriveOpenLoopRampRate = .5; // this many seconds from 0 to full power
     public static double kDriveClosedLoopRampRate = 0.0;
     public static double kVisionDrivePercent = 0.4;
-    public static int kEncoderFailureTicks = 6000;
+    public static int kEncoderFailureTicks = 7000; //from 6 to 7
 }

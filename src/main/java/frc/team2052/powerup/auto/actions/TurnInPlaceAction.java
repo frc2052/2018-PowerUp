@@ -4,15 +4,15 @@ import frc.team2052.powerup.subsystems.drive.DriveTrain;
 
 public class TurnInPlaceAction implements Action {
 
-    double baseSpeedConstant = .10;
-    double turnAngle;
-    double baseSpeed; //holds the current base speed
-    double error; //the angle the robot is off
-    double angle; //the angle the robot is currently
-    double target; //the angle we want to go to
-    double output; //the output to the wheels
-    double P = 1; //SpeedCurveMultiplier. this will increase the speed that we start at and increase the decceleration
-    TurnMode mode;
+    private double baseSpeedConstant = .2;
+    private double turnAngle;
+    private double baseSpeed; //holds the current base speed
+    private double error; //the angle the robot is off
+    private double angle; //the angle the robot is currently
+    private double target; //the angle we want to go to
+    private double output; //the output to the wheels
+    private double P = 1.5; //SpeedCurveMultiplier. this will increase the speed that we start at and increase the decceleration
+    private TurnMode mode;
 
     private boolean isFinished = false;
     /**
@@ -23,6 +23,12 @@ public class TurnInPlaceAction implements Action {
     public TurnInPlaceAction(TurnMode mode, double turnDegrees){
         this.mode = mode;
         turnAngle = turnDegrees;
+    }
+
+    public TurnInPlaceAction(TurnMode mode, double turnDegrees, double baseSpeed){
+        this.mode = mode;
+        turnAngle = turnDegrees;
+        baseSpeedConstant = baseSpeed;
     }
 
     @Override
@@ -59,14 +65,23 @@ public class TurnInPlaceAction implements Action {
                 baseSpeed = baseSpeedConstant;
             }
 
-            output = baseSpeed + (P * (error / 360)); //base speed is constant and error slowly goes down so the robot will slow down as it gets closer
+            double proportional = Math.pow(1.5, (Math.abs(error)/18) - 10);
 
-            if (baseSpeed > .5){
-                baseSpeed = .5;
+            if (error < 0){
+                proportional = -proportional;
             }
+            output = baseSpeed + P * proportional; //(P * (error / 360)); //base speed is constant and error slowly goes down so the robot will slow down as it gets closer
+
+
+            if (output > .8){
+                output = .8;
+            }else if (output < -.8) {
+                output = -.8;
+            }
+
             DriveTrain.getInstance().turnInPlace(-output, output); //setting the speeds for the left and right wheels for turning
 
-            System.out.println("Current Angle: " + angle + "  Target: " + target + "   Error: " + error + "   Output: " + output);
+            System.out.println("Current Angle: " + angle + "  Target: " + target + "   prop: " + proportional + "   Error: " + error + "   Output: " + output);
         }
     }
 

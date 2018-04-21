@@ -81,11 +81,13 @@ public class TimeOutOrHaltedDriveAction implements Action {
             }
 
             //if one wheel gets 5 rotations further than the other wheel, there's a problem
-            if (Math.abs(DriveTrain.getInstance().getLeftRawTicks()) + Constants.kEncoderFailureTicks < Math.abs(DriveTrain.getInstance().getRightRawTicks())
-                    || Math.abs(DriveTrain.getInstance().getRightRawTicks()) + Constants.kEncoderFailureTicks < Math.abs(DriveTrain.getInstance().getLeftRawTicks())) {
-                encoderFailureDetected = true;
+            if (Timer.getFPGATimestamp() < 6) {
+                if (Math.abs(DriveTrain.getInstance().getLeftRawTicks()) + Constants.kEncoderFailureTicks < Math.abs(DriveTrain.getInstance().getRightRawTicks())
+                        || Math.abs(DriveTrain.getInstance().getRightRawTicks()) + Constants.kEncoderFailureTicks < Math.abs(DriveTrain.getInstance().getLeftRawTicks())) {
+                    encoderFailureDetected = true;
 
-                System.out.println("ERROR: ENCODER IS NOT REPORTING");
+                    System.out.println("ERROR: ENCODER IS NOT REPORTING");
+                }
             }
 
             if (Timer.getFPGATimestamp() - lastRobotMovement >= .5) {
