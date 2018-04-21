@@ -63,7 +63,7 @@ public class PickupAction implements Action {
                 startTimeSec = Timer.getFPGATimestamp();
                 break;
             case INTAKETILLCUBED:
-                this.pickup.openIntake(true);
+                //this.pickup.openIntake(true); //todo: test open or closed intake
                 break;
         }
     }
