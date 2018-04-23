@@ -186,9 +186,10 @@ public class AutoPaths {
 
         ReverseLLSwitch.add(LLSwitch.get(AutoPaths.LLSwitch.size()-1));
         ReverseLLSwitch.add(new Path.Waypoint(new Translation2d(LLSwitch.get(AutoPaths.LLSwitch.size()-1).position.getX(), LLSwitch.get(AutoPaths.LLSwitch.size()-1).position.getY() - 20), Constants.kPathFollowingMaxVel, "LowerElevator"));
-        ReverseLLSwitch.add(new Path.Waypoint(new Translation2d(LLSwitch.get(AutoPaths.LLSwitch.size()-1).position.getX() + 50, LLSwitch.get(AutoPaths.LLSwitch.size()-1).position.getY() - 20), Constants.kPathFollowingMaxVel));
-        ReverseLLSwitch.add(new Path.Waypoint(new Translation2d(LLSwitch.get(AutoPaths.LLSwitch.size()-1).position.getX() + 60, LLSwitch.get(AutoPaths.LLSwitch.size()-1).position.getY() + 15), Constants.kPathFollowingMaxVel));
-        ReverseLLSwitch.add(new Path.Waypoint(new Translation2d(LLSwitch.get(AutoPaths.LLSwitch.size()-1).position.getX() + 70, LLSwitch.get(AutoPaths.LLSwitch.size()-1).position.getY() + 10), Constants.kPathFollowingMaxVel));
+        ReverseLLSwitch.add(new Path.Waypoint(new Translation2d(LLSwitch.get(AutoPaths.LLSwitch.size()-1).position.getX() + 60, LLSwitch.get(AutoPaths.LLSwitch.size()-1).position.getY() - 20), Constants.kPathFollowingMaxVel));
+        ReverseLLSwitch.add(new Path.Waypoint(new Translation2d(LLSwitch.get(AutoPaths.LLSwitch.size()-1).position.getX() + 70, LLSwitch.get(AutoPaths.LLSwitch.size()-1).position.getY() + 25), Constants.kPathFollowingMaxVel));
+        ReverseLLSwitch.add(new Path.Waypoint(new Translation2d(LLSwitch.get(AutoPaths.LLSwitch.size()-1).position.getX() + 75, LLSwitch.get(AutoPaths.LLSwitch.size()-1).position.getY() + 20), Constants.kPathFollowingMaxVel));
+        ReverseLLSwitch.add(new Path.Waypoint(new Translation2d(LLSwitch.get(AutoPaths.LLSwitch.size()-1).position.getX() + 80, LLSwitch.get(AutoPaths.LLSwitch.size()-1).position.getY() + 20), Constants.kPathFollowingMaxVel));
 
         ReverseLRScale.add(LRScale.get(AutoPaths.LRScale.size()-1));
         ReverseLRScale.add(new Path.Waypoint(new Translation2d(LRScale.get(AutoPaths.LRScale.size()-1).position.getX() - 10, LRScale.get(AutoPaths.LRScale.size()-1).position.getY()), Constants.kPathFollowingMaxVel + maxSpeedTrim));

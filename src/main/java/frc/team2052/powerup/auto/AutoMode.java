@@ -290,15 +290,21 @@ public abstract class AutoMode extends AutoModeBase {
         System.out.println("ANOTHER CUBE TO LEFT SWITCH");
         return Arrays.asList(
                 new ParallelAction(Arrays.asList(
-                        new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.ReverseLLSwitch), true), 8),
+                        new SeriesAction(Arrays.asList(
+                            new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.ReverseLLSwitch), true), 8),
+                            new TurnInPlaceAction(TurnInPlaceAction.TurnMode.FIELDCENTRIC, 175)
+                        )),
                         new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("LowerElevator"),
                                 new ElevatorAction(Elevator.ElevatorPresetEnum.PICKUP))))),
                 new ParallelAction(Arrays.asList(
                         new PickupAction(PickupAction.PickupStateEnum.INTAKETILLCUBED),
                         new VisionCubeAction())),
                 new PrintAction("Finished Vision"),
-                new ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH),
-                new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(200,  50)), 6),
+                new ParallelAction(Arrays.asList(
+                        new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(220, AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position.getY() + 30)), 6),
+                        new ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH))),
+                new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(200, AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position.getY() + 30)), 6),
+                new TurnInPlaceAction(TurnInPlaceAction.TurnMode.FIELDCENTRIC, 170),
                 new PickupAction(PickupAction.PickupStateEnum.TIMEDOUTTAKE)
         );
     }
@@ -341,9 +347,10 @@ public abstract class AutoMode extends AutoModeBase {
                         new VisionCubeAction())),
                 new PrintAction("Finished Vision"),
                 new ParallelAction(Arrays.asList(
-                        new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(220, AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position.getY() + 40)), 6),
+                        new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(220, AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position.getY() + 30)), 6),
                         new ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH))),
-                new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(200, AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position.getY() + 40)), 6),
+                new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(200, AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position.getY() + 30)), 6),
+                new TurnInPlaceAction(TurnInPlaceAction.TurnMode.FIELDCENTRIC, 170),
                 new PickupAction(PickupAction.PickupStateEnum.TIMEDOUTTAKE)
         );
     }
