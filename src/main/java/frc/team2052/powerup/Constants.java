@@ -25,7 +25,7 @@ public class Constants {
     /////////// Solenoids ////////////
     public static int armLongSolenoidOut = 3;
     public static int armLongSolenoidIn = 2;
-    public static int armShortSolenoidOut =0;
+    public static int armShortSolenoidOut = 0;
     public static int armShortSolenoidIn = 1;
 
     public static int kLeftRampInId = 7;
@@ -108,7 +108,7 @@ public class Constants {
     public static double kDriveVelocityRampRate = 0.0;
     public static int kDriveVelocityAllowableError = 0;
     public static double kPathFollowingLookahead = 24;
-    public static double kPathFollowingMinVel = 150; //todo: on bag night it was 50
+    public static double kPathFollowingMinVel = 150;
     public static double kPathFollowingMaxAccel = 300;
     public static double kPathFollowingMaxVel = 300;
     public static double kDriveHeadingVelocityKp = 5.0;

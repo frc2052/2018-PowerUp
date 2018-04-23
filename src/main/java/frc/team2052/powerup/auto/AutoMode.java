@@ -157,15 +157,21 @@ public abstract class AutoMode extends AutoModeBase {
         System.out.println("SWITCH: PUT ANOTHER CUBE ON RIGHT SWITCH");
         return Arrays.asList(
                 new ParallelAction(Arrays.asList(
-                        new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.ReverseRRSwitch), true), 8),
+                        new SeriesAction(Arrays.asList(
+                                new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.ReverseRRSwitch), true), 8),
+                                new TurnInPlaceAction(TurnInPlaceAction.TurnMode.FIELDCENTRIC, -175)
+                        )),
                         new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("LowerElevator"),
                                 new ElevatorAction(Elevator.ElevatorPresetEnum.PICKUP))))),
                 new ParallelAction(Arrays.asList(
                         new PickupAction(PickupAction.PickupStateEnum.INTAKETILLCUBED),
                         new VisionCubeAction())),
                 new PrintAction("Finished Vision"),
-                new ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH),
-                new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(193,  -45)), 6),
+                new ParallelAction(Arrays.asList(
+                        new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(220, AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getY() - 30)), 6),
+                        new ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH))),
+                new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(200, AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getY() - 30)), 6),
+                new TurnInPlaceAction(TurnInPlaceAction.TurnMode.FIELDCENTRIC, -170),
                 new PickupAction(PickupAction.PickupStateEnum.TIMEDOUTTAKE)
         );
     }
@@ -175,7 +181,8 @@ public abstract class AutoMode extends AutoModeBase {
         return Arrays.asList(
                 new ParallelAction(Arrays.asList(
                         new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.ReverseRRSwitch), true), 8),
-                        new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("LowerElevator"),
+                        new SeriesAction(Arrays.asList(
+                                new WaitForPathMarkerAction("LowerElevator"),
                                 new ElevatorAction(Elevator.ElevatorPresetEnum.PICKUP))))),
                 new ParallelAction(Arrays.asList(
                         new PickupAction(PickupAction.PickupStateEnum.INTAKETILLCUBED),
@@ -184,7 +191,7 @@ public abstract class AutoMode extends AutoModeBase {
                 new ParallelAction(Arrays.asList(
                         new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getX() - 40, AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getY() + 15)), 6),
                         new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING))),
-                new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(AutoPaths.RRScale.get(AutoPaths.LLScale.size() - 1).position.getX() - 0, AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getY() - 10)), 6),
+                new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getX() - 0, AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getY() - 10)), 6),
                 new PickupAction(PickupAction.PickupStateEnum.TIMEDOUTTAKE),
                 new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.ReverseRScale), true), 6)
         );
@@ -193,26 +200,31 @@ public abstract class AutoMode extends AutoModeBase {
     protected List<Action> anotherCubeRightScaleToScale(){
         System.out.println("ANOTHER CUBE ON RIGHT SCALE");
         return Arrays.asList(
-                new MoveArmAction(MoveArmAction.ArmPositionEnum.START),
                 new ParallelAction(Arrays.asList(
                         new SeriesAction(Arrays.asList(
-                                new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.ReverseRRScale), true), 6),
-                                new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN),
-                                //new TimeoutAction(new FollowPathAction(new Path(AutoPaths.RScaleToRSwitchCube), false), 6),
-                                new TurnInPlaceAction(TurnInPlaceAction.TurnMode.FIELDCENTRIC, -130),
-                                new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getX() - 60, AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getY() - 25)), 6)
+                                new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getX() - 1, AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getY() + 1 )), 6),
+                                new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN)
                         )),
                         new ElevatorAction(Elevator.ElevatorPresetEnum.PICKUP)
                 )),
+                new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.RScaleToRSwitchCube), false), 10),
                 new ParallelAction(Arrays.asList(
                         new PickupAction(PickupAction.PickupStateEnum.INTAKETILLCUBED),
                         new VisionCubeAction())),
                 new PrintAction("Finished Vision"),
                 new ParallelAction(Arrays.asList(
-                        new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getX() - 20, AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getY() + 10)), 6),
-                        new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING))),
-                new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position)), 6),
-                new PickupAction(PickupAction.PickupStateEnum.TIMEDOUTTAKE),
+                        new SeriesAction(Arrays.asList(
+                                new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getX() -25, AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getY() - 20)), 6),
+                                new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.RCube2RScale), true),6),
+                                new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING))),
+                        new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING)
+                )),
+                new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getX() - 0, AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getY() )), 6),
+                new ParallelAction(Arrays.asList(
+                        new ActuateArmAction(ActuateArmAction.ArmState.OPEN),
+                        new PickupAction(PickupAction.PickupStateEnum.TIMEDOUTTAKE)
+                )),
+                new ActuateArmAction(ActuateArmAction.ArmState.CLOSED),
                 new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.ReverseRScale), true), 6)
         );
     }
@@ -223,22 +235,21 @@ public abstract class AutoMode extends AutoModeBase {
                 new MoveArmAction(MoveArmAction.ArmPositionEnum.START),
                 new ParallelAction(Arrays.asList(
                         new SeriesAction(Arrays.asList(
-                                new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.ReverseRRScale), true), 6),
-                                new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN),
-                                //new TimeoutAction(new FollowPathAction(new Path(AutoPaths.RScaleToRSwitchCube), false), 6),
-                                new TurnInPlaceAction(TurnInPlaceAction.TurnMode.FIELDCENTRIC, -130),
-                                new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getX() - 60, AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getY() - 25)), 6)
+                                new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getX() - 1, AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getY() + 1 )), 6),
+                                new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN)
                         )),
                         new ElevatorAction(Elevator.ElevatorPresetEnum.PICKUP)
                 )),
+                new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.RScaleToRSwitchCube), false), 10),
                 new ParallelAction(Arrays.asList(
                         new PickupAction(PickupAction.PickupStateEnum.INTAKETILLCUBED),
                         new VisionCubeAction())),
                 new PrintAction("Finished Vision"),
                 new ParallelAction(Arrays.asList(
-                        new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(220, AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getY() - 50)), 6),
+                        new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(220, AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getY() - 30)), 6),
                         new ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH))),
-                new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(200, AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getY() - 50)), 6),
+                new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(200, AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getY() - 30)), 6),
+                new TurnInPlaceAction(TurnInPlaceAction.TurnMode.FIELDCENTRIC, -170),
                 new PickupAction(PickupAction.PickupStateEnum.TIMEDOUTTAKE)
         );
     }

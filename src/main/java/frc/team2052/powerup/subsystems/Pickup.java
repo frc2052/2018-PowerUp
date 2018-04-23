@@ -40,7 +40,7 @@ public class Pickup implements PickupSubsystem {
         armLongSolenoidOut = new Solenoid(Constants.armLongSolenoidOut);
         armShortSolenoidIn = new Solenoid(Constants.armShortSolenoidIn);
         armShortSolenoidOut = new Solenoid(Constants.armShortSolenoidOut);
-        openIntakeSolenoid = new Solenoid(Constants.kRightRampOutId); //todo: test solenoid delete
+        openIntakeSolenoid = new Solenoid(Constants.kRightRampOutId);
         leftMotor = new TalonSRX(Constants.pickupLeftMotorId);
         rightMotor = new TalonSRX(Constants.pickupRightMotorId);
         leftMotor.setInverted(false);
