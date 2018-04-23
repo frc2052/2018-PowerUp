@@ -93,12 +93,12 @@ public class PickupAction implements Action {
             case INTAKETILLCUBED:
                 if (this.pickup.isCubePickedUp()) {
                     this.pickup.stopped();
-                    this.pickup.openIntake(false);
+                    //this.pickup.openIntake(false);
                     System.out.println("I AM DONE WITH INTAKING IN AUTO AHHHHHHH");
                     isDone = true;
                 }else{
                     this.pickup.intake();
-                    this.pickup.openIntake(true);
+                    //this.pickup.openIntake(true);
                     System.out.println("CURRENTLY INTAKING TILL CUBED");
                 }
                 break;
