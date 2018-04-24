@@ -14,10 +14,9 @@ public class TurnInPlaceActionTest extends AutoMode {
     protected void init() throws AutoModeEndedException {
         System.out.println("RUNNING TURN IN PLACE");
         runAction(new SeriesAction(Arrays.asList(
-                new TurnInPlaceAction(TurnInPlaceAction.TurnMode.ROBOTCENTRIC,-45.0),
-                new TurnInPlaceAction(TurnInPlaceAction.TurnMode.FIELDCENTRIC,90.0),
+                new TurnInPlaceAction(TurnInPlaceAction.TurnMode.FIELDCENTRIC,180.0),
                 new WaitAction(10),
-                new TurnInPlaceAction(TurnInPlaceAction.TurnMode.FIELDCENTRIC,90.0)
+                new TurnInPlaceAction(TurnInPlaceAction.TurnMode.FIELDCENTRIC,45.0)
 
                 )));
 

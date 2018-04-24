@@ -25,7 +25,7 @@ public class Constants {
     /////////// Solenoids ////////////
     public static int armLongSolenoidOut = 3;
     public static int armLongSolenoidIn = 2;
-    public static int armShortSolenoidOut =0;
+    public static int armShortSolenoidOut = 0;
     public static int armShortSolenoidIn = 1;
 
     public static int kLeftRampInId = 7;
@@ -34,8 +34,8 @@ public class Constants {
     public static int kRightRampOutId = 4;
 
     /////////// Intake ////////////
-    public static double intakeInSpeedLeft = .8;
-    public static double intakeInSpeedRight = intakeInSpeedLeft * .65;
+    public static double intakeInSpeedLeft = .6; //.8
+    public static double intakeInSpeedRight = intakeInSpeedLeft * .8; //.65
     public static double intakeOutSpeed = -.20;
     public static double intakeStopSpeed = .25;
     public static double intakeFastOutSpeed = -.35;
@@ -108,7 +108,7 @@ public class Constants {
     public static double kDriveVelocityRampRate = 0.0;
     public static int kDriveVelocityAllowableError = 0;
     public static double kPathFollowingLookahead = 24;
-    public static double kPathFollowingMinVel = 150; //todo: on bag night it was 50
+    public static double kPathFollowingMinVel = 150;
     public static double kPathFollowingMaxAccel = 300;
     public static double kPathFollowingMaxVel = 300;
     public static double kDriveHeadingVelocityKp = 5.0;
@@ -122,6 +122,6 @@ public class Constants {
     //Hornet    public final static double kTrackEffectiveDiameter = (27.25 * 27.25 + 13 * 13) / 27.25;  //33.45
     public static double kDriveOpenLoopRampRate = .5; // this many seconds from 0 to full power
     public static double kDriveClosedLoopRampRate = 0.0;
-    public static double kVisionDrivePercent = 0.4;
-    public static int kEncoderFailureTicks = 6000;
+    public static double kVisionDrivePercent = 0.25;
+    public static int kEncoderFailureTicks = 7000; //from 6 to 7
 }

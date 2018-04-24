@@ -28,9 +28,8 @@ public class ElevatorAction implements Action{
     public boolean isFinished() {
         int target = SubsystemFactory.getElevator().getHeightInchesForPreset(ElevatorState);
         double current = SubsystemFactory.getElevator().getHeightInches();
-        System.out.println("ELEVATOR DELTA: " + (target - current) + "+++++++++++++++++");
 
-        return isStuck || (target - 1 < current && target + 1 > current);
+        return isStuck || (target - 2 < current && target + 2 > current);
     }
 
     @Override
