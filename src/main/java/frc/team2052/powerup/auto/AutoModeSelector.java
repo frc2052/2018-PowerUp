@@ -32,7 +32,6 @@ public class AutoModeSelector {
                     case TESTINTAKE:
                     case TESTVELOCITY:
                     case VISIONCUBE:
-                    case TESTPATHIN:
 //                        break; //todo uncomment this for competitions
                     default:
                         sendableChooserAutoMode.addObject(mode.name, mode);
@@ -121,8 +120,7 @@ public class AutoModeSelector {
         RSTARTLSWITCH("Start right, go only to L switch",LstartRSwitch.class),
         TESTVELOCITY("Test Velocity", TestVelocity.class),
         VISIONCUBE("Test Vision Cube", VisionTest.class),
-        TESTINTAKE("Test if the intake will detect a picked up cube", TestIntake.class),
-        TESTPATHIN("Pathing TEst", PathingTest.class);
+        TESTINTAKE("Test if the intake will detect a picked up cube", TestIntake.class);
 
 
 
