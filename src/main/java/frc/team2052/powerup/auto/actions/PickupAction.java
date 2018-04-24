@@ -41,7 +41,6 @@ public class PickupAction implements Action {
             case OFF:
                 isDone = true;
                 break;
-            case TIMEDOUTTAKE:
         }
         return isDone;
     }
