@@ -49,7 +49,7 @@ public class FakePickup implements PickupSubsystem {
     }
 
     @Override
-    public void autoOuttake() {
+    public void mediumOuttake() {
 
     }
 

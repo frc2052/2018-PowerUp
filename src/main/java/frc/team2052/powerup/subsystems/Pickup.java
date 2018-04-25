@@ -84,7 +84,7 @@ public class Pickup implements PickupSubsystem {
         setLeftMotorSpeed(Constants.intakeOutSpeed);
     } //activating outtake and setting speed
 
-    public void autoOuttake() {
+    public void mediumOuttake() {
         setRightMotorSpeed(Constants.intakeFastOutSpeed);
         setLeftMotorSpeed(Constants.intakeFastOutSpeed);
     } //activating fast outtake and setting speed
@@ -118,7 +118,7 @@ public class Pickup implements PickupSubsystem {
     public void pickupPositionRaised() { //Angled
         armLongSolenoidIn.set(false);
         armLongSolenoidOut.set(true);
-        armShortSolenoidDown.set(false);
+        armShortSolenoidDown.set(true);
         raisedPickup = true;
     }
 

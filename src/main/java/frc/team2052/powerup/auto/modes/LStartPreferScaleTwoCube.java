@@ -1,7 +1,6 @@
 package frc.team2052.powerup.auto.modes;
 
 import com.first.team2052.lib.path.Path;
-import com.first.team2052.lib.vec.Translation2d;
 import frc.team2052.powerup.auto.*;
 import frc.team2052.powerup.auto.actions.*;
 
@@ -15,7 +14,7 @@ public class LStartPreferScaleTwoCube extends AutoMode {
 
         ArrayList<Action> actions = new ArrayList<>();
 
-        System.out.println("RUNNING TWO CUBE RIGHT SCALE");
+        System.out.println("RUNNING TWO CUBE LEFT SCALE");
 
         if(FieldConfig.isMyScaleLeft()) { //if right scale is ours
             System.out.println("HEADING TO L SCALE");

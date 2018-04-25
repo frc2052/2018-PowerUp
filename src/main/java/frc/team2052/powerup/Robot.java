@@ -410,7 +410,7 @@ public class Robot extends IterativeRobot {
                     intake.shoot();
                 }else{
                     if(intake.isPickupRaised()){ //if the pickup is raised then set speed to faster
-                        intake.autoOuttake();
+                        intake.mediumOuttake();
                     } else{ //otherwise set the speed to slower
                         intake.outtake();
                     }
