@@ -176,7 +176,7 @@ public abstract class AutoMode extends AutoModeBase {
     }
 
     protected List<Action> anotherCubeRightSwitchToScale(){
-        System.out.println("SWITCH: PUT ANOTHER CUBE ON RIGHT SWITCH");
+        System.out.println("SWITCH: PUT ANOTHER CUBE ON RIGHT SCALE");
         return Arrays.asList(
                 new ParallelAction(Arrays.asList(
                         new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.ReverseRRSwitch), true), 8),
@@ -191,6 +191,7 @@ public abstract class AutoMode extends AutoModeBase {
                         new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getX() - 40, AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getY() + 15)), 6),
                         new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING))),
                 new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getX() - 0, AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getY() - 10)), 6),
+                new ActuateArmAction(ActuateArmAction.ArmState.OPEN),
                 new PickupAction(PickupAction.PickupStateEnum.TIMEDOUTTAKE),
                 new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.ReverseRScale), true), 6)
         );
@@ -214,8 +215,8 @@ public abstract class AutoMode extends AutoModeBase {
                 new ParallelAction(Arrays.asList(
                         new SeriesAction(Arrays.asList(
                                 new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getX() -25, AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getY() - 20)), 6),
-                                new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.RCube2RScale), true),6),
-                                new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING))),
+                                new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.RCube2RScale), true),6)
+                                )),
                         new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING)
                 )),
                 new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getX() - 0, AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getY() )), 6),
@@ -344,6 +345,7 @@ public abstract class AutoMode extends AutoModeBase {
                         new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING)
                 )),
                 new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position.getX() - 0, AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position.getY() + 10)), 6),
+                new ActuateArmAction(ActuateArmAction.ArmState.OPEN),
                 new PickupAction(PickupAction.PickupStateEnum.TIMEDOUTTAKE),
                 new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.ReverseLScale), true), 6)
         );
