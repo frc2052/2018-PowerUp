@@ -15,7 +15,7 @@ public class Pickup implements PickupSubsystem {
 
     //setting solenoids and talons
     private Solenoid armLongSolenoidIn, armLongSolenoidOut;
-    private Solenoid armShortSolenoidIn, armShortSolenoidOut;
+    private Solenoid armShortSolenoidDown, armShortSolenoidOut;
     private Solenoid openIntakeSolenoid;
     private TalonSRX leftMotor, rightMotor;
 //for amperage checker
@@ -38,9 +38,8 @@ public class Pickup implements PickupSubsystem {
     private Pickup() { //getting solenoids and talons from constants and setting the right motor to be inverted
         armLongSolenoidIn = new Solenoid(Constants.armLongSolenoidIn);
         armLongSolenoidOut = new Solenoid(Constants.armLongSolenoidOut);
-        armShortSolenoidIn = new Solenoid(Constants.armShortSolenoidIn);
-        armShortSolenoidOut = new Solenoid(Constants.armShortSolenoidOut);
-        openIntakeSolenoid = new Solenoid(Constants.kRightRampOutId);
+        armShortSolenoidDown = new Solenoid(Constants.armShortSolenoidDown);
+        openIntakeSolenoid = new Solenoid(Constants.kActuateIntakeSolenoid);
         leftMotor = new TalonSRX(Constants.pickupLeftMotorId);
         rightMotor = new TalonSRX(Constants.pickupRightMotorId);
         leftMotor.setInverted(false);
@@ -112,16 +111,14 @@ public class Pickup implements PickupSubsystem {
     public void pickupPositionDown() { //Flat
         armLongSolenoidIn.set(true);
         armLongSolenoidOut.set(false);
-        armShortSolenoidIn.set(true);
-        armShortSolenoidOut.set(false);
+        armShortSolenoidDown.set(true);
         raisedPickup = false;
     }
 
     public void pickupPositionRaised() { //Angled
         armLongSolenoidIn.set(false);
         armLongSolenoidOut.set(true);
-        armShortSolenoidIn.set(false);
-        armShortSolenoidOut.set(false);
+        armShortSolenoidDown.set(false);
         raisedPickup = true;
     }
 
@@ -132,8 +129,7 @@ public class Pickup implements PickupSubsystem {
     public void pickupPositionStartingConfig() { //All the way up
         armLongSolenoidIn.set(false);
         armLongSolenoidOut.set(true);
-        armShortSolenoidIn.set(false);
-        armShortSolenoidOut.set(true);
+        armShortSolenoidDown.set(false);
         raisedPickup = false;
     }
 

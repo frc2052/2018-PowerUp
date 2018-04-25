@@ -17,16 +17,16 @@ public class Constants {
     public static int pickupRightMotorId =8;
     public static int pickupLeftMotorId =9;
 
-    public static int kRampLeftServoId = 0;
+    public static int kRampLeftServoId = 0; //releases the ramps
     public static int kRampRightServoId = 1;
 
-    public static int kColorSensorId = 0;
+    public static int kColorSensorId = 0; //checks if cube is in the inatake
 
     /////////// Solenoids ////////////
-    public static int armLongSolenoidOut = 3;
+    public static int armLongSolenoidOut = 3; //thse ar eused to go from 0 to 45 degrees
     public static int armLongSolenoidIn = 2;
-    public static int armShortSolenoidOut = 0;
-    public static int armShortSolenoidIn = 1;
+    public static int kActuateIntakeSolenoid = 0; //solenoid to open/close the intake
+    public static int armShortSolenoidDown = 1;//pushes the arm down.
 
     public static int kLeftRampInId = 7;
     public static int kLeftRampOutId = 5;
