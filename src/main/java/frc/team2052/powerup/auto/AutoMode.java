@@ -158,7 +158,7 @@ public abstract class AutoMode extends AutoModeBase {
                 new ParallelAction(Arrays.asList(
                         new SeriesAction(Arrays.asList(
                                 new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.ReverseRRSwitch), true), 8),
-                                new TurnInPlaceAction(TurnInPlaceAction.TurnMode.FIELDCENTRIC, -175)
+                                new TurnInPlaceAction(TurnInPlaceAction.TurnMode.FIELDCENTRIC, -170)
                         )),
                         new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("LowerElevator"),
                                 new ElevatorAction(Elevator.ElevatorPresetEnum.PICKUP))))),
@@ -306,7 +306,7 @@ public abstract class AutoMode extends AutoModeBase {
                 new ParallelAction(Arrays.asList(
                         new SeriesAction(Arrays.asList(
                             new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.ReverseLLSwitch), true), 8),
-                            new TurnInPlaceAction(TurnInPlaceAction.TurnMode.FIELDCENTRIC, 175)
+                            new TurnInPlaceAction(TurnInPlaceAction.TurnMode.FIELDCENTRIC, 170)
                         )),
                         new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("LowerElevator"),
                                 new ElevatorAction(Elevator.ElevatorPresetEnum.PICKUP)
@@ -406,6 +406,42 @@ public abstract class AutoMode extends AutoModeBase {
                 )),
             new ActuateArmAction(ActuateArmAction.ArmState.CLOSED),
             new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.ReverseLScale), true), 6)
+        );
+    }
+
+    protected List<Action> anotherCubeRightLeftScale(){
+        System.out.println("ANOTHER Left cube");
+        return Arrays.asList(
+                new ParallelAction(Arrays.asList(
+                        new SeriesAction(Arrays.asList(
+                                new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(AutoPaths.RLScale.get(AutoPaths.RLScale.size() - 1).position.getX() - 1, AutoPaths.RLScale.get(AutoPaths.RLScale.size() - 1).position.getY() - 1 )), 6),
+                                new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN)
+                        )),
+                        new ElevatorAction(Elevator.ElevatorPresetEnum.PICKUP)
+                )),
+                new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.CrossingLScaleToLSwitchCube), false), 10),
+                new ParallelAction(Arrays.asList(
+                        new PickupAction(PickupAction.PickupStateEnum.INTAKETILLCUBED),
+                        new VisionCubeAction())),
+                new PrintAction("Finished Vision")
+        );
+    }
+
+    protected List<Action> anotherCubeLeftRightScale(){
+        System.out.println("ANOTHER RIGHT CUBE");
+        return Arrays.asList(
+                new ParallelAction(Arrays.asList(
+                        new SeriesAction(Arrays.asList(
+                                new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(AutoPaths.LRScale.get(AutoPaths.LRScale.size() - 1).position.getX() - 1, AutoPaths.LRScale.get(AutoPaths.LRScale.size() - 1).position.getY() - 1 )), 6),
+                                new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN)
+                        )),
+                        new ElevatorAction(Elevator.ElevatorPresetEnum.PICKUP)
+                )),
+                new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.CrossingRScaleToRSwitchCube), false), 10),
+                new ParallelAction(Arrays.asList(
+                        new PickupAction(PickupAction.PickupStateEnum.INTAKETILLCUBED),
+                        new VisionCubeAction())),
+                new PrintAction("Finished Vision")
         );
     }
 }
