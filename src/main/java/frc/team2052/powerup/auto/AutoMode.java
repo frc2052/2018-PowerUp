@@ -218,12 +218,13 @@ public abstract class AutoMode extends AutoModeBase {
                                 )),
                         new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING)
                 )),
-                new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getX() - 0, AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getY() - 8 )), 6),
+                new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getX() - 15, AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getY() + 0)), 6),
+                new MoveArmAction(MoveArmAction.ArmPositionEnum.UP),
                 new ParallelAction(Arrays.asList(
-                        new ActuateArmAction(ActuateArmAction.ArmState.OPEN),
-                        new PickupAction(PickupAction.PickupStateEnum.TIMEDOUTTAKE)
+                        //new ActuateArmAction(ActuateArmAction.ArmState.OPEN),
+                        new PickupAction(PickupAction.PickupStateEnum.TIMEDOUTTAKE, 1.5)
                 )),
-                new ActuateArmAction(ActuateArmAction.ArmState.CLOSED),
+                //new ActuateArmAction(ActuateArmAction.ArmState.CLOSED),
                 new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.ReverseRScale), true), 6)
         );
     }
