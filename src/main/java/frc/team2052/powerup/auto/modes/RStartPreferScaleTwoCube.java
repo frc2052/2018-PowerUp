@@ -24,7 +24,8 @@ public class RStartPreferScaleTwoCube extends AutoMode {
             if(!FieldConfig.isMySwitchLeft()) {
 
                 actions.addAll(super.rightToRightScale());
-                actions.addAll(super.anotherCubeRightScaleToSwitch());
+//                actions.addAll(super.anotherCubeRightScaleToSwitch());
+                actions.addAll(super.anotherCubeRightScaleToScale());
                 actions.add(new MoveArmAction(MoveArmAction.ArmPositionEnum.START));
                 runAction(new SeriesAction(actions));
 

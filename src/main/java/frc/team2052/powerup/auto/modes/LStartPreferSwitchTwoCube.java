@@ -24,7 +24,8 @@ public class LStartPreferSwitchTwoCube extends AutoMode {
             if(FieldConfig.isMyScaleLeft()) {
 
                 actions.addAll(super.leftToLeftSwitch());
-                actions.addAll(super.anotherCubeLeftSwitchToScale());
+//                actions.addAll(super.anotherCubeLeftSwitchToScale());
+                actions.addAll(super.anotherCubeLeftSwitchToSwitch());
                 actions.add(new MoveArmAction(MoveArmAction.ArmPositionEnum.START));
                 runAction(new SeriesAction(actions));
 
