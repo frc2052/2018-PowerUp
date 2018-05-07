@@ -72,7 +72,6 @@ public class Constants {
     public static int kIntakeShootSpeed = 3;
     public static int kVisionTrackTeleop = 4;
 
-
     /////////// Elevator ////////////
     public static int kElevatorMaxHeight = 74; //50 for testing 74 for real
     public static int kElevatorMinHeight = 0;
