@@ -44,12 +44,17 @@ public class FakePickup implements PickupSubsystem {
     }
 
     @Override
+    public void spin() {
+
+    }
+
+    @Override
     public void outtake() {
         System.out.println("Fake Pickup: Outtake");
     }
 
     @Override
-    public void autoOuttake() {
+    public void mediumOuttake() {
 
     }
 

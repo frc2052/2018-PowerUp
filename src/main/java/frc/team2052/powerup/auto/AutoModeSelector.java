@@ -102,12 +102,14 @@ public class AutoModeSelector {
         LSTARTPREFERSWITCH("Start left, prefer to go to switch", LStartPreferSwitch.class),
         LEFTPREFERSCALETWOCUBE("Two Cube, Start left, prefer to go to scale", LStartPreferScaleTwoCube.class),
         LEFTPREFERSWITCHTWOCUBE("Two Cube, Start left, prefer to go to switch", LStartPreferSwitchTwoCube.class),
+        LEFTONLYSWITCHTWOCUBE("Two Cube, Start left, only switch", LStartOnlySwitchTwoCube.class),
         RSTARTONLYSCALE("Start right, go only to scale", RStartOnlyScale.class),
         RSTARTONLYSCALETWOCUBE("Two Cube, Start right, go only to scale", RStartOnlyScaleTwoCube.class),
         RSTARTPREFERSCALE("Start right, prefer to go to scale", RStartPreferScale.class),
         RSTARTPREFERSWITCH("Start right, prefer to go to switch", RStartPreferSwitch.class),
         RIGHTPREFERSCALETWOCUBE("Two Cube, Start right, prefer to go to scale", RStartPreferScaleTwoCube.class),
         RIGHTPREFERSWITCHTWOCUBE("Two Cube, Start right, prefer to go to switch", RStartPreferSwitchTwoCube.class),
+        RIGHTONLYSWITCHTWOCUBE("Two Cube, Start right, only switch", RStartOnlySwitchTwoCube.class),
         AUTOSYSTEMTEST("SYSTEM TEST", AutoTest.class),
 
         //THESE ARE ONLY FOR TESTING - remove for competition

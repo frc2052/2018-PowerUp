@@ -1,12 +1,14 @@
 package frc.team2052.powerup.auto.modes;
 
-import com.first.team2052.lib.path.Path;
-import com.first.team2052.lib.vec.Translation2d;
-import frc.team2052.powerup.auto.*;
-import frc.team2052.powerup.auto.actions.*;
+import frc.team2052.powerup.auto.AutoMode;
+import frc.team2052.powerup.auto.AutoModeEndedException;
+import frc.team2052.powerup.auto.AutoModeSelector;
+import frc.team2052.powerup.auto.FieldConfig;
+import frc.team2052.powerup.auto.actions.Action;
+import frc.team2052.powerup.auto.actions.MoveArmAction;
+import frc.team2052.powerup.auto.actions.SeriesAction;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class LStartPreferSwitchTwoCube extends AutoMode {
 
@@ -22,7 +24,8 @@ public class LStartPreferSwitchTwoCube extends AutoMode {
             if(FieldConfig.isMyScaleLeft()) {
 
                 actions.addAll(super.leftToLeftSwitch());
-                actions.addAll(super.anotherCubeLeftSwitchToScale());
+//                actions.addAll(super.anotherCubeLeftSwitchToScale());
+                actions.addAll(super.anotherCubeLeftSwitchToSwitch());
                 actions.add(new MoveArmAction(MoveArmAction.ArmPositionEnum.START));
                 runAction(new SeriesAction(actions));
 
@@ -43,11 +46,12 @@ public class LStartPreferSwitchTwoCube extends AutoMode {
         }else if(AutoModeSelector.getDisabledAuto() != AutoModeSelector.AutoDisableDefinition.RIGHTSCALE){
 
             actions.addAll(super.leftToRightScale());
-            actions.addAll(Arrays.asList(
-                    new MoveArmAction(MoveArmAction.ArmPositionEnum.START),
-                    new TimeoutAction(new FollowPathAction(new Path(AutoPaths.ReverseRScale), true), 2)
-            ));
-            actions.add(new MoveArmAction(MoveArmAction.ArmPositionEnum.START));
+            actions.addAll(super.anotherCubeLeftRightScale());
+//            actions.addAll(Arrays.asList(
+//                    new MoveArmAction(MoveArmAction.ArmPositionEnum.START),
+//                    new TimeoutAction(new FollowPathAction(new Path(AutoPaths.ReverseRScale), true), 2),
+//                    new MoveArmAction(MoveArmAction.ArmPositionEnum.START)
+//            ));
             runAction(new SeriesAction(actions));
 
         } else {

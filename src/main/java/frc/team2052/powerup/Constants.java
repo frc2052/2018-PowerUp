@@ -17,16 +17,16 @@ public class Constants {
     public static int pickupRightMotorId =8;
     public static int pickupLeftMotorId =9;
 
-    public static int kRampLeftServoId = 0;
+    public static int kRampLeftServoId = 0; //releases the ramps
     public static int kRampRightServoId = 1;
 
-    public static int kColorSensorId = 0;
+    public static int kColorSensorId = 0; //checks if cube is in the inatake
 
     /////////// Solenoids ////////////
-    public static int armLongSolenoidOut = 3;
+    public static int armLongSolenoidOut = 3; //thse ar eused to go from 0 to 45 degrees
     public static int armLongSolenoidIn = 2;
-    public static int armShortSolenoidOut = 0;
-    public static int armShortSolenoidIn = 1;
+    public static int kActuateIntakeSolenoid = 0; //solenoid to open/close the intake
+    public static int armShortSolenoidDown = 1;//pushes the arm down.
 
     public static int kLeftRampInId = 7;
     public static int kLeftRampOutId = 5;
@@ -34,11 +34,11 @@ public class Constants {
     public static int kRightRampOutId = 4;
 
     /////////// Intake ////////////
-    public static double intakeInSpeedLeft = .6; //.8
-    public static double intakeInSpeedRight = intakeInSpeedLeft * .8; //.65
+    public static double intakeInSpeedLeft = .8;
+    public static double intakeInSpeedRight = intakeInSpeedLeft * .65;
     public static double intakeOutSpeed = -.20;
     public static double intakeStopSpeed = .25;
-    public static double intakeFastOutSpeed = -.35;
+    public static double intakeFastOutSpeed = -.30;
     public static double intakeShootSpeed = -0.7;
     public static double intakeInSpeedOverride = 1;
 
@@ -122,6 +122,6 @@ public class Constants {
     //Hornet    public final static double kTrackEffectiveDiameter = (27.25 * 27.25 + 13 * 13) / 27.25;  //33.45
     public static double kDriveOpenLoopRampRate = .5; // this many seconds from 0 to full power
     public static double kDriveClosedLoopRampRate = 0.0;
-    public static double kVisionDrivePercent = 0.25;
+    public static double kVisionDrivePercent = 0.25; //slowed to pick up cubes better
     public static int kEncoderFailureTicks = 7000; //from 6 to 7
 }

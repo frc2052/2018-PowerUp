@@ -67,7 +67,7 @@ public class Controls {
     public boolean getStartConfig () {return secondaryJoystick.getRawButton(Constants.kJoystickIntakeStartConfig);}
     public boolean getIntakePrimary(){return turnPrimaryJoystick.getTrigger();}
     public boolean getVisionTrack () {return tankPrimaryJoystick.getRawButton(Constants.kVisionTrackTeleop);}
-    public boolean getOpenIntake () {
+    public boolean getAutotest () {
         if (secondaryJoystick.getX() < -.5){
             return true;
         }else {

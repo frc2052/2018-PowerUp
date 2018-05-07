@@ -6,9 +6,11 @@ package frc.team2052.powerup.subsystems.Interfaces;
 
         void intake();
 
+        void spin();
+
         void outtake();
 
-        void autoOuttake();
+        void mediumOuttake();
 
         void stopped();
 

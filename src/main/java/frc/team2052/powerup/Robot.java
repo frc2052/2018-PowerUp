@@ -155,6 +155,9 @@ public class Robot extends IterativeRobot {
     private Compressor compressor;
 
     private boolean firstIntakeButtonPressed;
+    private Timer spinnerTimer = new Timer();
+
+    private boolean firstSpinPress = true;
 
     @Override
     public void robotInit() {
@@ -402,15 +405,30 @@ public class Robot extends IterativeRobot {
         }
 
         if (intake != null) {
+            if (!controls.getAutotest()){
+                firstSpinPress = true;
+                spinnerTimer.stop();
+            }
 
-            if (controls.getIntake()) {
+            if (controls.getAutotest()){
+                if (firstSpinPress){
+                    firstSpinPress = false;
+                    spinnerTimer.reset();
+                    spinnerTimer.start();
+                }else if (spinnerTimer.get() < .1){
+                    intake.spin();
+                    System.out.println("SPINTUIMER" + spinnerTimer.get() + " " + (spinnerTimer.get() < .5));
+                }else{
+                    intake.stopped();
+                }
+            } else if (controls.getIntake()) {
                 intake.intake();
             } else if (controls.getOuttake()) {
                 if (controls.getShoot()){ //if the shoot button is pressed then outtake
                     intake.shoot();
                 }else{
                     if(intake.isPickupRaised()){ //if the pickup is raised then set speed to faster
-                        intake.autoOuttake();
+                        intake.mediumOuttake();
                     } else{ //otherwise set the speed to slower
                         intake.outtake();
                     }
