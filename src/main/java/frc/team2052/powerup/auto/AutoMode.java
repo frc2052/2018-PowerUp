@@ -158,7 +158,7 @@ public abstract class AutoMode extends AutoModeBase {
                 new ParallelAction(Arrays.asList(
                         new SeriesAction(Arrays.asList(
                                 new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.ReverseRRSwitch), true), 8),
-                                new TurnInPlaceAction(TurnInPlaceAction.TurnMode.FIELDCENTRIC, -172)
+                                new TurnInPlaceAction(TurnInPlaceAction.TurnMode.FIELDCENTRIC, -175) //todo check if this is need and the angle
                         )),
                         new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("LowerElevator"),
                                 new ElevatorAction(Elevator.ElevatorPresetEnum.PICKUP))))),
