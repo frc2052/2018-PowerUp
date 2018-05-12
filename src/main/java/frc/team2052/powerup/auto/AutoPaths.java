@@ -171,7 +171,7 @@ public class AutoPaths {
 
         RScaleToRSwitchCube.add(new Path.Waypoint(new Translation2d(258, -20), Constants.kPathFollowingMaxVel/2));
         RScaleToRSwitchCube.add(new Path.Waypoint(new Translation2d(255, -40), Constants.kPathFollowingMaxVel/2));
-        RScaleToRSwitchCube.add(new Path.Waypoint(new Translation2d(251, -41), Constants.kPathFollowingMaxVel/2));
+        RScaleToRSwitchCube.add(new Path.Waypoint(new Translation2d(253.5, -40.5), Constants.kPathFollowingMaxVel/2));
 
         ReverseRRSwitch.add(RRSwitch.get(AutoPaths.RRSwitch.size()-1));
         ReverseRRSwitch.add(new Path.Waypoint(new Translation2d(RRSwitch.get(AutoPaths.RRSwitch.size()-1).position.getX(), RRSwitch.get(AutoPaths.RRSwitch.size()-1).position.getY() + 20), Constants.kPathFollowingMaxVel, "LowerElevator"));

@@ -188,10 +188,13 @@ public abstract class AutoMode extends AutoModeBase {
                         new VisionCubeAction())),
                 new PrintAction("Finished Vision"),
                 new ParallelAction(Arrays.asList(
-                        new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getX() - 40, AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getY() + 15)), 6),
+                        new SeriesAction(Arrays.asList(
+                                new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getX() -25, AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getY() - 20)), 6),
+                                new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.RCube2RScale), true),6),
+                                new WaitAction(.5)
+                        )),
                         new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING)
                 )),
-                new WaitAction(.5),
                 new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getX() + 0, AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getY() + 0)), 6),
                 new PickupAction(PickupAction.PickupStateEnum.TIMEDOUTTAKE, 1.5),
                 new MoveArmAction(MoveArmAction.ArmPositionEnum.START),
@@ -205,6 +208,7 @@ public abstract class AutoMode extends AutoModeBase {
                 new MoveArmAction(MoveArmAction.ArmPositionEnum.START),
                 new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getX() - 1, AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getY() + 1 )), 6),
                 new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN),
+                new WaitAction(.5),
                 new ParallelAction(Arrays.asList(
                         new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.RScaleToRSwitchCube), false), 10),
                         new ElevatorAction(Elevator.ElevatorPresetEnum.PICKUP)
@@ -216,11 +220,11 @@ public abstract class AutoMode extends AutoModeBase {
                 new ParallelAction(Arrays.asList(
                         new SeriesAction(Arrays.asList(
                                 new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getX() -25, AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getY() - 20)), 6),
-                                new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.RCube2RScale), true),6)
-                                )),
+                                new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.RCube2RScale), true),6),
+                                new WaitAction(.5)
+                        )),
                         new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING)
                 )),
-                new WaitAction(.5),
                 new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getX() + 0, AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getY() + 0)), 6),
                 //new TurnInPlaceAction(TurnInPlaceAction.TurnMode.FIELDCENTRIC, -22.5????),
                 new PickupAction(PickupAction.PickupStateEnum.TIMEDOUTTAKE, 1.5),
@@ -235,6 +239,7 @@ public abstract class AutoMode extends AutoModeBase {
                 new MoveArmAction(MoveArmAction.ArmPositionEnum.START),
                 new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getX() - 1, AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getY() + 1 )), 6),
                 new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN),
+                new WaitAction(.5),
                 new ParallelAction(Arrays.asList(
                         new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.RScaleToRSwitchCube), false), 10),
                         new ElevatorAction(Elevator.ElevatorPresetEnum.PICKUP)
@@ -339,10 +344,13 @@ public abstract class AutoMode extends AutoModeBase {
                 )),
                 new PrintAction("Finished Vision"),
                 new ParallelAction(Arrays.asList(
-                        new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position.getX() - 40, AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position.getY() - 15)), 6),
+                        new SeriesAction(Arrays.asList(
+                                new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position.getX() -25, AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position.getY() + 20)), 6),
+                                new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.LCube2LScale), true),6),
+                                new WaitAction(.5)
+                        )),
                         new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING)
                 )),
-                new WaitAction(.5),
                 new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, false, new Translation2d(AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position.getX() - 0, AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position.getY() + 0)), 6),
                 //new ActuateArmAction(ActuateArmAction.ArmState.OPEN),
                 new PickupAction(PickupAction.PickupStateEnum.TIMEDOUTTAKE, 1.5),
@@ -357,11 +365,11 @@ public abstract class AutoMode extends AutoModeBase {
                 new MoveArmAction(MoveArmAction.ArmPositionEnum.START),
                 new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position.getX() - 1, AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position.getY() - 1 )), 6),
                 new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN),
+                new WaitAction(.5),
                 new ParallelAction(Arrays.asList(
                         new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.LScaleToLSwitchCube), false), 10),
                         new ElevatorAction(Elevator.ElevatorPresetEnum.PICKUP)
                 )),
-                new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.LScaleToLSwitchCube), false), 10),
                 new ParallelAction(Arrays.asList(
                         new PickupAction(PickupAction.PickupStateEnum.INTAKETILLCUBED),
                         new VisionCubeAction()
@@ -395,7 +403,7 @@ public abstract class AutoMode extends AutoModeBase {
                         new SeriesAction(Arrays.asList(
                                 new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position.getX() -25, AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position.getY() + 20)), 6),
                                 new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.LCube2LScale), true),6),
-                                new WaitAction(1)
+                                new WaitAction(.5)
                                 )),
                         new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING)
                 )),
