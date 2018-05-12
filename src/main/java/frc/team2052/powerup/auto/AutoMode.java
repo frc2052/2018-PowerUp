@@ -382,6 +382,7 @@ public abstract class AutoMode extends AutoModeBase {
                 new MoveArmAction(MoveArmAction.ArmPositionEnum.START),
                 new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position.getX() - 1, AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position.getY() - 1 )), 6),
                 new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN),
+                new WaitAction(.5),
                 new ParallelAction(Arrays.asList(
                         new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.LScaleToLSwitchCube), false), 10),
                         new ElevatorAction(Elevator.ElevatorPresetEnum.PICKUP)
@@ -393,7 +394,8 @@ public abstract class AutoMode extends AutoModeBase {
                 new ParallelAction(Arrays.asList(
                         new SeriesAction(Arrays.asList(
                                 new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position.getX() -25, AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position.getY() + 20)), 6),
-                                new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.LCube2LScale), true),6)
+                                new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.LCube2LScale), true),6),
+                                new WaitAction(1)
                                 )),
                         new ElevatorAction(Elevator.ElevatorPresetEnum.SCALE_HIGH_STACKING)
                 )),
