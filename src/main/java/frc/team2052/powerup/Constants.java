@@ -88,7 +88,7 @@ public class Constants {
     public static int kElevatorRampSeconds = 0;
     public static double kElevatorPeakUpPower = 1;
     public static double kElevatorPeakDownPower = -.6;
-    public static double kElevatorEmergencyUpPower = .55;
+    public static double kElevatorEmergencyUpPower = .65; //55
     public static double kElevatorEmergencyHoldPower = .2;
 
     /////////// Control Loops ////////////

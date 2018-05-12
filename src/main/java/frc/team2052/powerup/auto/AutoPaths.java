@@ -223,5 +223,7 @@ public class AutoPaths {
         CrossingRScaleToRSwitchCube.add(new Path.Waypoint(new Translation2d(LRScale.get(AutoPaths.LRScale.size()-1).position.getX() - 5, LRScale.get(AutoPaths.LRScale.size()-1).position.getY() - 21), Constants.kPathFollowingMaxVel/2));
         CrossingRScaleToRSwitchCube.add(new Path.Waypoint(new Translation2d(LRScale.get(AutoPaths.LRScale.size()-1).position.getX() - 9, LRScale.get(AutoPaths.LRScale.size()-1).position.getY() - 22), Constants.kPathFollowingMaxVel/2));
 
+        //184, 45
+        //215, 45
     }
 }
