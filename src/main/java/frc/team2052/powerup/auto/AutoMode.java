@@ -158,7 +158,7 @@ public abstract class AutoMode extends AutoModeBase {
                 new ParallelAction(Arrays.asList(
                         new SeriesAction(Arrays.asList(
                                 new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.ReverseRRSwitch), true), 8),
-                                new TurnInPlaceAction(TurnInPlaceAction.TurnMode.FIELDCENTRIC, -170)
+                                new TurnInPlaceAction(TurnInPlaceAction.TurnMode.FIELDCENTRIC, -172)
                         )),
                         new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("LowerElevator"),
                                 new ElevatorAction(Elevator.ElevatorPresetEnum.PICKUP))))),
@@ -180,6 +180,7 @@ public abstract class AutoMode extends AutoModeBase {
         return Arrays.asList(
                 new ParallelAction(Arrays.asList(
                         new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.ReverseRRSwitch), true), 8),
+                        new TurnInPlaceAction(TurnInPlaceAction.TurnMode.FIELDCENTRIC, -172),
                         new SeriesAction(Arrays.asList(
                                 new WaitForPathMarkerAction("LowerElevator"),
                                 new ElevatorAction(Elevator.ElevatorPresetEnum.PICKUP))))),
@@ -206,7 +207,7 @@ public abstract class AutoMode extends AutoModeBase {
         System.out.println("ANOTHER CUBE ON RIGHT SCALE");
         return Arrays.asList(
                 new MoveArmAction(MoveArmAction.ArmPositionEnum.START),
-                new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getX() - 1, AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getY() + 1 )), 6),
+                new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getX() - 2, AutoPaths.RRScale.get(AutoPaths.RRScale.size() - 1).position.getY() + 2 )), 6),
                 new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN),
                 new WaitAction(.5),
                 new ParallelAction(Arrays.asList(
@@ -309,7 +310,7 @@ public abstract class AutoMode extends AutoModeBase {
                 new ParallelAction(Arrays.asList(
                         new SeriesAction(Arrays.asList(
                             new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.ReverseLLSwitch), true), 8),
-                            new TurnInPlaceAction(TurnInPlaceAction.TurnMode.FIELDCENTRIC, 170)
+                            new TurnInPlaceAction(TurnInPlaceAction.TurnMode.FIELDCENTRIC, 172)
                         )),
                         new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("LowerElevator"),
                                 new ElevatorAction(Elevator.ElevatorPresetEnum.PICKUP)
@@ -335,6 +336,7 @@ public abstract class AutoMode extends AutoModeBase {
         return Arrays.asList(
                 new ParallelAction(Arrays.asList(
                         new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.ReverseLLSwitch), true), 8),
+                        new TurnInPlaceAction(TurnInPlaceAction.TurnMode.FIELDCENTRIC, 172),
                         new SeriesAction(Arrays.asList(
                                 new WaitForPathMarkerAction("LowerElevator"),
                                 new ElevatorAction(Elevator.ElevatorPresetEnum.PICKUP))))),
@@ -388,7 +390,7 @@ public abstract class AutoMode extends AutoModeBase {
         System.out.println("ANOTHER TO LEFT SCALE");
         return Arrays.asList(
                 new MoveArmAction(MoveArmAction.ArmPositionEnum.START),
-                new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position.getX() - 1, AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position.getY() - 1 )), 6),
+                new TimeOutOrHaltedDriveAction(new FollowDynamicPathAction(FollowDynamicPathAction.PathMode.RUNPATHTOTARGET, true, new Translation2d(AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position.getX() - 2, AutoPaths.LLScale.get(AutoPaths.LLScale.size() - 1).position.getY() - 2 )), 6),
                 new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN),
                 new WaitAction(.5),
                 new ParallelAction(Arrays.asList(

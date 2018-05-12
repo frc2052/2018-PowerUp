@@ -107,7 +107,7 @@ public class Constants {
     public static double kDriveVelocityRampRate = 0.0;
     public static int kDriveVelocityAllowableError = 0;
     public static double kPathFollowingLookahead = 24;
-    public static double kPathFollowingMinVel = 150;
+    public static double kPathFollowingMinVel = 125; //150
     public static double kPathFollowingMaxAccel = 300;
     public static double kPathFollowingMaxVel = 300;
     public static double kDriveHeadingVelocityKp = 5.0;
