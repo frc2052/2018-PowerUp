@@ -474,11 +474,13 @@ public class Robot extends IterativeRobot {
             elevator.setElevatorAdjustmentDown(controls.getElevatorAdjustmentDown());
 
             System.out.println("OVERRIDE: going up " + controls.getElevatorEmergencyUp());
-            if(controls.getElevatorEmergencyUp()){
-                elevator.setEmergencyUp(controls.getElevatorEmergencyUp());
 
+            if(controls.getElevatorEmergencyUp()){
+                elevator.setEmergencyUp(true);
+            }else if(!controls.getElevatorEmergencyDown()){
+                elevator.setEmergencyUp(false);
             }else{
-                elevator.setEmergencyDown(controls.getElevatorEmergencyDown());
+                elevator.setEmergencyDown(true);
             }
 
         }
