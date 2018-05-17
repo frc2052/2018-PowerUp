@@ -12,7 +12,7 @@ import frc.team2052.powerup.subsystems.Elevator;
 
     void setCurrentPosAsTarget();
 
-    void setEmergencyHold(boolean isPressed);
+    void setEmergencyDown(boolean isPressed);
 
     void setEmergencyUp(boolean isPressed);
 

@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Timer;
 import frc.team2052.powerup.Constants;
 import frc.team2052.powerup.DriveHelper;
+import frc.team2052.powerup.RobotState;
 import frc.team2052.powerup.subsystems.Interfaces.PickupSubsystem;
 import frc.team2052.powerup.subsystems.PixyCam;
 import frc.team2052.powerup.subsystems.SubsystemFactory;
@@ -75,6 +76,7 @@ public class VisionCubeAction implements Action {
             }
             try {
                 if (this.pickup.isCubePickedUp()) {
+                    System.out.println("THE POINT FOR THE CUBE LOCATION IS: X: " + RobotState.getInstance().getLatestFieldToVehicle().getValue().getTranslation().getX() + " Y: " + RobotState.getInstance().getLatestFieldToVehicle().getValue().getTranslation().getY());
                     System.out.println("CUBE WAS TOUCHED");
                     isDone = true;
                     drive.setOpenLoop(DriveSignal.NEUTRAL);

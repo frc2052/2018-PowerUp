@@ -35,7 +35,7 @@ public class FakeElevator implements Loopable, ElevatorSubsystem {
     }
 
     @Override
-    public void setEmergencyHold(boolean isPressed) {
+    public void setEmergencyDown(boolean isPressed) {
 
     }
 

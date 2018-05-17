@@ -91,6 +91,7 @@ public class Elevator implements Loopable,ElevatorSubsystem{
 
     public void setTarget(ElevatorPresetEnum posEnum) {
         //sets goal to the correct inches according to the preset
+        runningInOpenLoop = false;
         int calcTarget = getHeightInchesForPreset(posEnum);
         setAndVerifyGoalInches(calcTarget);
     }
@@ -122,14 +123,15 @@ public class Elevator implements Loopable,ElevatorSubsystem{
     }
     //Emergency manual control
     private boolean emergencyDownWasPressed = false; // variable makes it able to stop the motor only one time once it is let go
-    public void setEmergencyHold(boolean isPressed) {
+
+    public void setEmergencyDown(boolean isPressed) {
         if (isPressed == true) { // if true, it will go up and set the was pressed to true
             runningInOpenLoop = true;//switching to open loop
-            elevatorTalon.set(ControlMode.PercentOutput, Constants.kElevatorEmergencyHoldPower);
+            elevatorTalon.set(ControlMode.PercentOutput, 0);
             emergencyDownWasPressed = true;
         } else { //if false, it will stop once and set the was pressed to false
             if (emergencyDownWasPressed == true) {
-                elevatorTalon.set(ControlMode.PercentOutput, 0);
+                elevatorTalon.set(ControlMode.PercentOutput, Constants.kElevatorEmergencyHoldPower);
                 emergencyDownWasPressed = false; //Only stop the motor the moment it's let go.
             }
         }
@@ -143,7 +145,7 @@ public class Elevator implements Loopable,ElevatorSubsystem{
             emergencyUpWasPresesed = true;
         } else {
             if (emergencyUpWasPresesed == true) {
-                elevatorTalon.set(ControlMode.PercentOutput, 0);
+                elevatorTalon.set(ControlMode.PercentOutput, Constants.kElevatorEmergencyHoldPower);
                 emergencyUpWasPresesed = false; //Exactly the same as EmergencyDown, except for up.
             }
         }
