@@ -337,6 +337,10 @@ public class Robot extends IterativeRobot {
     }
     @Override
     public void autonomousPeriodic() {
+        //force ramps shut
+        ramp.dropRampPinLeft(false);
+        ramp.dropRampPinRight(false);
+
         if(TimeOutOrHaltedDriveAction.getEncoderFailureDetected()){
             System.out.println("CRITICAL AUTONOMOUS STOP");
             autoModeRunner.stop();
