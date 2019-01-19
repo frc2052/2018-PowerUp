@@ -375,6 +375,13 @@ public class Robot extends IterativeRobot {
         System.out.println("COMPLETED TELEOP INIT");
     }
 
+    private int toInt(boolean bool){
+        if(bool){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
     @Override
     public void teleopPeriodic() {
 
@@ -393,7 +400,7 @@ public class Robot extends IterativeRobot {
                     turn = turn - maxVal; //shift the voltage so that instead of 0 to 3.3 it is -1.65 to 1.65
                     turn = turn / maxVal; //get a value between -1 and 1 for turn velocity
 
-                    System.out.println("TURN: " + turn);
+                    System.out.println("TURN: " + turn + " voltage: " + pixyCam.getPositionVoltage());
 
                     driveTrain.setOpenLoop(driveHelper.drive(controls.getTank(), -turn / 2, false));
                 } else {
@@ -405,9 +412,12 @@ public class Robot extends IterativeRobot {
                 exc.printStackTrace();
             }
         }else {
-            driveTrain.setOpenLoop(driveHelper.drive(controls.getTank(), controls.getTurn(), controls.getQuickTurn()));
+            if (controls.getKidsMode()) {
+                driveTrain.setOpenLoop(driveHelper.drive(controls.getTank() * 0.25, controls.getTurn() * 0.35, controls.getQuickTurn()));
+            } else {
+                driveTrain.setOpenLoop(driveHelper.drive(controls.getTank(), controls.getTurn(), controls.getQuickTurn()));
+            }
         }
-
         if (intake != null) {
             if (!controls.getAutotest()){
                 firstSpinPress = true;

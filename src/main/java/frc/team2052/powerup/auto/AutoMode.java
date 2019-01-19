@@ -23,7 +23,8 @@ public abstract class AutoMode extends AutoModeBase {
                 new WaitAction(AutoModeSelector.getWaitTime()),
                 new ParallelAction(Arrays.asList(
                         new TimeOutOrHaltedDriveAction(new FollowPathAction(new Path(AutoPaths.CLSwitch), false), 6), //pathing to left switch
-                        new SeriesAction(Arrays.asList(new WaitForPathMarkerAction("RaiseElevator"),
+                        new SeriesAction(Arrays.asList(
+                                new WaitForPathMarkerAction("RaiseElevator"),
                                 new ElevatorAction(Elevator.ElevatorPresetEnum.SWITCH),
                                 new MoveArmAction(MoveArmAction.ArmPositionEnum.DOWN))))), //lowers pickup to position pointing out
                 new PickupAction(PickupAction.PickupStateEnum.TIMEDOUTTAKE)//pushes cube out

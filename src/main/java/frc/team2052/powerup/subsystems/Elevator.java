@@ -232,9 +232,9 @@ public class Elevator implements Loopable,ElevatorSubsystem{
             case SWITCH:
                 return Constants.kElevatorSwitchHeight;
             case SCALE_BALANCED:
-                return (int)(Constants.kElevatorMaxHeight * .6);
+                return (int)(Constants.kElevatorMaxHeight * .65);
             case SCALE_HIGH:
-                return (int)(Constants.kElevatorMaxHeight * .8);
+                return (int)(Constants.kElevatorMaxHeight * .83);
             case SCALE_HIGH_STACKING:
                 return Constants.kElevatorMaxHeight;
         }

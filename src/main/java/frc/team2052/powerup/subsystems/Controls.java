@@ -49,7 +49,8 @@ public class Controls {
         return turnPrimaryJoystick.getRawButton(3);
     }
 //Ramp classes
-    public boolean getDropLeftRamp() {return tankPrimaryJoystick.getRawButton(Constants.kJoystickDropLeftPin);}
+    public boolean getDropLeftRamp()
+    {return tankPrimaryJoystick.getRawButton(Constants.kJoystickDropLeftPin);}
     public boolean getRaiseLeftRamp() {return tankPrimaryJoystick.getRawButton(Constants.kJoystickRaiseLeftRamp);}
     public boolean getLowerLeftRamp() {return tankPrimaryJoystick.getRawButton(Constants.kJoystickLowerLeftRamp);}
 
@@ -69,6 +70,14 @@ public class Controls {
     public boolean getVisionTrack () {return tankPrimaryJoystick.getRawButton(Constants.kVisionTrackTeleop);}
     public boolean getAutotest () {
         if (secondaryJoystick.getX() < -.5){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    public boolean getKidsMode () {
+        if (secondaryJoystick.getY() > .5){
             return true;
         }else {
             return false;

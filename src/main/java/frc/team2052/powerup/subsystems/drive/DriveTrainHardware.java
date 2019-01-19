@@ -44,6 +44,10 @@ class DriveTrainHardware {
         rightMaster.configOpenloopRamp(Constants.kDriveOpenLoopRampRate, Constants.kCANBusConfigTimeoutMS);
         rightMaster.configClosedloopRamp(Constants.kDriveClosedLoopRampRate, Constants.kCANBusConfigTimeoutMS);
 
+        leftMaster.configNominalOutputReverse(0.0, Constants.kCANBusConfigTimeoutMS);
+        rightMaster.configNominalOutputReverse(0.0, Constants.kCANBusConfigTimeoutMS);
+        leftMaster.configNominalOutputForward(0.0, Constants.kCANBusConfigTimeoutMS);
+        rightMaster.configNominalOutputForward(0.0, Constants.kCANBusConfigTimeoutMS);
         //Fix sensor polarity
         rightMaster.setInverted(false);
         rightSlave.setInverted(false);

@@ -39,13 +39,13 @@ public class Constants {
     public static double intakeOutSpeed = -.20;
     public static double intakeStopSpeed = .25;
     public static double intakeFastOutSpeed = -.35;
-    public static double intakeShootSpeed = -0.7;
+    public static double intakeShootSpeed = -1;
     public static double intakeInSpeedOverride = 1;
 
     /////////// Ramp ////////////
     public static int kRampRightServoReleaseAngle = 115;
     public static int kRampRightServoClosedAngle = 0;
-    public static int kRampLeftServoReleaseAngle = 0;
+    public static int kRampLeftfServoReleaseAngle = 0;
     public static int kRampLeftServoClosedAngle = 115;
 
     /////////// Buttons ////////////
@@ -75,7 +75,7 @@ public class Constants {
     /////////// Elevator ////////////
     public static int kElevatorMaxHeight = 74; //50 for testing 74 for real
     public static int kElevatorMinHeight = 0;
-    public static double kElevatorInchesPerRotation = 74/8; // total travel distance for elevator is 74 inches in 8 revolutions
+    public static double kElevatorInchesPerRotation = 9.25; // total travel distance for elevator is 74 inches in 8 revolutions
     public static double kElevatorVelocityKp = 1;
     public static double kElevatorVelocityKi = 0;
     public static double kElevatorVelocityKd = 0;
